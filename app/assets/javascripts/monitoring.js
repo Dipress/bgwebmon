@@ -1,2 +1,8 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+$(function(){
+		$('li.show').on('click', function(){
+			if($(this).find('ul').attr('class')==='showed')
+			{$(this).find('ul').hide().removeAttr('class');}
+			else{$('ul.showed').removeAttr('class').hide();
+			$(this).find('ul').show().addClass('showed');}
+		});
+});

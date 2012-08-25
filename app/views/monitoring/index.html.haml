@@ -1,2 +1,11 @@
-%h1 Monitoring#index
-%p Find me in app/views/monitoring/index.html.haml
+%div{:id => "content"}
+	%ul
+		- @contract.each do |u|
+			%li{:class => "show"}
+				%div
+					- if u.online==true
+						%img{:src =>"/assets/online.png"}
+					- else
+						%img{:src => "/assets/offline.png"}
+				%div= u.title
+				%div{:class => "fio"}= u.comment
