@@ -6,7 +6,7 @@ require 'spec_helper'
 # связано с неудачным названием для поля таблицы, предупреждение можно
 # проигнорировать если нет нужды в записи или обновлении таблицы через модель
 
-describe Contract do
+describe Dialuplogin do
 	describe "Ассоциации" do
 		before(:each) do
 			@contract = Factory(:contract)

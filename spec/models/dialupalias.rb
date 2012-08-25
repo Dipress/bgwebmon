@@ -1,7 +1,7 @@
 # coding: utf-8
 require 'spec_helper'
 
-describe Contract do
+describe Dialupalias do
 	describe "Ассоциации" do
 		before(:each) do
 			@contract = Factory(:contract)

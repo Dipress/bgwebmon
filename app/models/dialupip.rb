@@ -24,4 +24,8 @@ class Dialupip < ActiveRecord::Base
   def self.find_aton(ipaddr="")
   	dialupip = Dialupip.find_by_ip(IPAddr.new(ipaddr).to_i)
   end
+
+  def self.ntoa(ipaddr)
+    ip = IPAddr.new(ipaddr, Socket::AF_INET).to_s
+  end
 end
