@@ -36,6 +36,11 @@ private
   def rxtxnotnil(rx,tx)
   	(!rx.nil? && !tx.nil?) ? true : false
   end
+  # Добавляем скорость RailsRRDtools
+  def insertspeed(contract,rx,tx)
+    upload = ((((rx.to_i - contract.rx)*8)/60)/1024)
+    download = ((((tx.to_i - contract.tx)*8)/60)/1024)
+  end
   # Eсли IP не найден
   def stop
   	return "нет такого ip"
