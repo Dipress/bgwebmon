@@ -5,9 +5,7 @@ describe MonitoringController do
   render_views
 
   before(:each) do
-    @bgmodule = Factory(:bgmodule)
     @contract = Factory(:contract)
-    @contract_module = Factory(:contract_module, :contract => @contract, :bgmodule => @bgmodule)
     @dialuplogin = Factory(:dialuplogin, :contract => @contract)
     @dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
     @dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)

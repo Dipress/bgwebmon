@@ -1,11 +1,11 @@
 %div{:id => "content"}
 	%ul
-		- @contract.each do |u|
+		- @dialupalias.each do |u|
 			%li{:class => "show"}
 				%div
-					- if u.online==true
+					- if u.contract.online==true
 						%img{:src =>"/assets/online.png"}
 					- else
 						%img{:src => "/assets/offline.png"}
-				%div= u.title
-				%div{:class => "fio"}= u.comment
+				%div= u.contract.title
+				%div{:class => "fio"}= u.login_alias

@@ -2,7 +2,7 @@
 
 class MonitoringController < ApplicationController
 def index
-  	@contract = Bgmodule.find_by_name('dialup').contracts
+  	@dialupalias = Dialupalias.all
   	@title = "Все графики"
   end
 
