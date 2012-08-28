@@ -42,19 +42,20 @@ describe Contract do
   		end
   	end
 
-	describe "Отношения" do
+	describe "Отношения @contract" do
 		before(:each) do
 			@bgmodule = Factory(:bgmodule)
 			@contract_module = Factory(:contract_module, :contract => @contract, :bgmodule => @bgmodule)
 			@dialuplogin = Factory(:dialuplogin, :contract => @contract)
+			@dialuperror = Factory(:dialuperror, :contract => @contract, :dialuplogin => @dialuplogins)
 			@dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
 			@dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
 		end
-		describe ".dialuplogin" do
+		describe ".dialuplogins" do
 			it "наличие отношения" do
 				@contract.should respond_to(:dialuplogins)
 			end
-			it ".dialuplogins[0] == @dialuplogin" do
+			it "[0] == @dialuplogin" do
 				@contract.dialuplogins[0].should == @dialuplogin
 			end
 		end
@@ -62,7 +63,7 @@ describe Contract do
 			it "наличие отношения" do
 				@contract.should respond_to(:contract_modules)
 			end
-			it ".contract_modules[0] == @contract_module" do
+			it "[0] == @contract_module" do
 				@contract.contract_modules[0].should == @contract_module
 			end
 		end
@@ -70,7 +71,7 @@ describe Contract do
 			it "наличие отношения" do
 				@contract.should respond_to(:bgmodules)
 			end
-			it ".bgmodules[0]== @bgmodule" do
+			it "[0]== @bgmodule" do
 				@contract.bgmodules[0].should == @bgmodule
 			end
 		end
@@ -78,15 +79,15 @@ describe Contract do
 			it "наличие отношения" do
 				@contract.should respond_to(:dialuplogins)
 			end
-			it ".dialuplogins[0] == @dialuplogin" do
+			it "[0] == @dialuplogin" do
 				@contract.dialuplogins[0].should == @dialuplogin
 			end
 		end
-		describe ".dialupalias" do
+		describe ".dialupaliases" do
 			it "наличие отношения" do
 				@contract.should respond_to(:dialupaliases)
 			end
-			it ".dialupaliases == @dialuplogin.dialupalias" do
+			it " == @dialuplogin.dialupalias" do
 				@contract.dialupaliases[0].should == @dialuplogin.dialupalias
 			end
 		end
@@ -94,8 +95,16 @@ describe Contract do
 			it "наличие отношения" do
 				@contract.should respond_to(:dialupips)
 			end
-			it ".dialupips[0]== @dialuplogin.dialupip" do
+			it "[0]== @dialuplogin.dialupip" do
 				@contract.dialupips[0].should == @dialuplogin.dialupip
+			end
+		end
+		describe ".dialuperrors" do
+			it "наличие отношения" do
+				@contract.should respond_to(:dialuperrors)
+			end
+			it "[0]== @dialuperror" do
+				@contract.dialuperrors[0].should == @dialuperror
 			end
 		end
 	end

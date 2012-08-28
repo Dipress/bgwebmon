@@ -8,12 +8,12 @@ describe Bgmodule do
 		@contract_module = Factory(:contract_module, :contract => @contract, :bgmodule => @bgmodule)
 	end
 
-	describe "Отношения" do
+	describe "Отношения @bgmodule" do
 		describe ".contract_module" do
 			it "наличие отношения" do
 				@bgmodule.should respond_to(:contract_modules)
 			end
-			it "@bgmodule.contract_module == @contract_module" do
+			it " == @contract_module" do
 				@bgmodule.contract_modules[0].should == @contract_module
 			end
 		end
@@ -21,7 +21,7 @@ describe Bgmodule do
 			it "наличие отношения" do
 				@bgmodule.should respond_to(:contracts)
 			end
-			it ".contracts[0] == @contract_module" do
+			it "[0] == @contract_module" do
 				@bgmodule.contracts[0].should == @contract
 			end
 		end

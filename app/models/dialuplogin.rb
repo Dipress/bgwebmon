@@ -16,6 +16,8 @@ class Dialuplogin < ActiveRecord::Base
   self.primary_key  = "id"
 
   belongs_to :contract, :class_name => 'Contract', :foreign_key => 'cid'
-  has_one :dialupip, :class_name => 'Dialupip', :foreign_key =>'id'
-  has_one :dialupalias, :class_name => 'Dialupalias', :foreign_key =>'login_id'
+  has_one :dialupip, :class_name => 'Dialupip', :foreign_key => 'id'
+  has_one :dialupalias, :class_name => 'Dialupalias', :foreign_key => 'login_id'
+
+  has_many :dialuperrors, :class_name => 'Dialuperror', :foreign_key => 'lid'
 end

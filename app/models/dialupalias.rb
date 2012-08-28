@@ -17,4 +17,6 @@ class Dialupalias < ActiveRecord::Base
 
   belongs_to :dialuplogin, :class_name => 'Dialuplogin', :foreign_key => 'login_id'
   has_one :contract, :through => :dialuplogin
+
+  has_many :dialuperrors, :class_name => 'Dialuperror', :foreign_key => 'lid'
 end

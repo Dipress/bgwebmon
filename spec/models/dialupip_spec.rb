@@ -2,18 +2,17 @@
 require 'spec_helper'
 
 describe Dialupip do
-	describe "Отношения" do
+	describe "Отношения @dialupip" do
 		before(:each) do
 			@contract = Factory(:contract)
 			@dialuplogin = Factory(:dialuplogin, :contract => @contract)
-			@dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
 			@dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
 		end
 		describe ".dialuplogin" do
 			it "наличие отношения" do
 				@dialupip.should respond_to(:dialuplogin)
 			end
-			it ".dialuplogin == @dialuplogin" do
+			it " == @dialuplogin" do
 				@dialupip.dialuplogin.should == @dialuplogin
 			end
 		end
@@ -21,7 +20,7 @@ describe Dialupip do
 			it "наличие отношения" do
 				@dialupip.should respond_to(:contract)
 			end
-			it ".contract == @contract" do
+			it " == @contract" do
 				@dialupip.contract.should == @contract
 			end
 		end
