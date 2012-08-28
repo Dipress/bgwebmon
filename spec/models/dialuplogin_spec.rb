@@ -7,34 +7,34 @@ require 'spec_helper'
 # проигнорировать если нет нужды в записи или обновлении таблицы через модель
 
 describe Dialuplogin do
-	describe "Ассоциации" do
+	describe "Отношения" do
 		before(:each) do
 			@contract = Factory(:contract)
 			@dialuplogin = Factory(:dialuplogin, :contract => @contract)
 			@dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
 			@dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
 		end
-		describe "@dialuplogin.dialupalias" do
-			it "наличие ассоциации" do
+		describe ".dialupalias" do
+			it "наличие отношения" do
 				@dialuplogin.should respond_to(:dialupalias)
 			end
-			it "@dialuplogin.dialupalias == @dialupalias" do
+			it ".dialupalias == @dialupalias" do
 				@dialuplogin.dialupalias.should == @dialupalias
 			end
 		end
-		describe "@dialuplogin.dialupip" do
-			it "наличие ассоциации" do
+		describe ".dialupip" do
+			it "наличие отношения" do
 				@dialuplogin.should respond_to(:dialupip)
 			end
-			it "@dialuplogin.dialupip == @dialupip" do
+			it ".dialupip == @dialupip" do
 				@dialuplogin.dialupip.should == @dialupip
 			end
 		end
-		describe "@dialuplogin.contract" do
-			it "наличие ассоциации" do
+		describe ".contract" do
+			it "наличие отношения" do
 				@dialuplogin.should respond_to(:contract)
 			end
-			it "@dialuplogin.contract == @contract" do
+			it ".contract == @contract" do
 				@dialuplogin.contract.should == @contract
 			end
 		end

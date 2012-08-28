@@ -2,13 +2,13 @@
 class Contract < ActiveRecord::Base
   self.table_name =  "contract"
   self.primary_key = "id"
+
+  has_many :dialuplogins, :class_name => 'Dialuplogin', :foreign_key =>'cid'
+  has_many :dialupips, :through => :dialuplogins
+  has_many :dialupaliases, :through => :dialuplogins
   
-  has_one :dialupip, :through => :dialuplogin
-  has_one :dialupalias, :through => :dialuplogin
-  has_one :dialuplogin, :class_name => 'Dialuplogin', :foreign_key =>'cid'
-  has_one :contract_module, :class_name => 'ContractModule', :foreign_key => 'cid'
-  
-  has_many :bgmodules, :through => :contract_module
+  has_many :contract_modules, :class_name => 'ContractModule', :foreign_key => 'cid'
+  has_many :bgmodules, :through => :contract_modules
 
   attr_accessible :rx, :tx, :online
 

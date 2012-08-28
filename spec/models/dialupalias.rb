@@ -5,22 +5,22 @@ describe Dialupalias do
 	describe "Ассоциации" do
 		before(:each) do
 			@contract = Factory(:contract)
-			@dialuplogin = Factory(:dialuplogin, :contract => @contract)
-			@dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
+			@dialupalias = Factory(:dialupalias)
+			@dialuplogin = Factory(:dialuplogin, :contract => @contract, :dialuplogin => @dialuplogin)
 		end
-		describe "@dialupalias.dialuplogin" do
-			it "наличие ассоциации" do
-				@dialupalias.should respond_to(:dialuplogin)
+		describe ".dialuplogin" do
+			it "наличие отношения" do
+				@dialupalias.should respond_to(:dialuplogins)
 			end
-			it "@dialupalias.dialuplogin == @dialuplogin" do
-				@dialupalias.dialuplogin.should == @dialuplogin
+			it ".dialuplogin == @dialuplogin" do
+				@dialupalias.dialuplogins[0].should == @dialuplogin
 			end
 		end
-		describe "@dialupalias.contract" do
-			it "наличие ассоциации" do
+		describe ".contract" do
+			it "наличие отношения" do
 				@dialupalias.should respond_to(:contract)
 			end
-			it "@dialupalias.contract == @contract" do
+			it ".contract == @contract" do
 				@dialupalias.contract.should == @contract
 			end
 		end

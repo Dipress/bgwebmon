@@ -42,7 +42,7 @@ describe Contract do
   		end
   	end
 
-	describe "Ассоциации" do
+	describe "Отношения" do
 		before(:each) do
 			@bgmodule = Factory(:bgmodule)
 			@contract_module = Factory(:contract_module, :contract => @contract, :bgmodule => @bgmodule)
@@ -50,52 +50,52 @@ describe Contract do
 			@dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
 			@dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
 		end
-		describe "@contract.dialuplogin" do
-			it "наличие ассоциации" do
-				@contract.should respond_to(:dialuplogin)
+		describe ".dialuplogin" do
+			it "наличие отношения" do
+				@contract.should respond_to(:dialuplogins)
 			end
-			it "@contract.dialuplogin == @dialuplogin" do
-				@contract.dialuplogin.should == @dialuplogin
-			end
-		end
-		describe "@contract.contract_module" do
-			it "наличие ассоциации" do
-				@contract.should respond_to(:contract_module)
-			end
-			it "@contract.contract_module == @contract_module" do
-				@contract.contract_module.should == @contract_module
+			it ".dialuplogins[0] == @dialuplogin" do
+				@contract.dialuplogins[0].should == @dialuplogin
 			end
 		end
-		describe "@contract.bgmodules" do
-			it "наличие ассоциации" do
+		describe ".contract_module" do
+			it "наличие отношения" do
+				@contract.should respond_to(:contract_modules)
+			end
+			it ".contract_modules[0] == @contract_module" do
+				@contract.contract_modules[0].should == @contract_module
+			end
+		end
+		describe ".bgmodules" do
+			it "наличие отношения" do
 				@contract.should respond_to(:bgmodules)
 			end
-			it "@contract.bgmodules == @bgmodule" do
+			it ".bgmodules[0]== @bgmodule" do
 				@contract.bgmodules[0].should == @bgmodule
 			end
 		end
-		describe "@contract.bgmodule" do
-			it "наличие ассоциации" do
-				@contract.should respond_to(:bgmodules)
+		describe ".bgmodule" do
+			it "наличие отношения" do
+				@contract.should respond_to(:dialuplogins)
 			end
-			it "@contract.bgmodules[0] == @bgmodule" do
-				@contract.bgmodules[0].should == @bgmodule
-			end
-		end
-		describe "@contract.dialupalias" do
-			it "наличие ассоциации" do
-				@contract.should respond_to(:dialupalias)
-			end
-			it "@contract.dialupalias == @dialuplogin.dialupalias" do
-				@contract.dialupalias.should == @dialuplogin.dialupalias
+			it ".dialuplogins[0] == @dialuplogin" do
+				@contract.dialuplogins[0].should == @dialuplogin
 			end
 		end
-		describe "@contract.dialupip" do
-			it "наличие ассоциации" do
-				@contract.should respond_to(:dialupip)
+		describe ".dialupalias" do
+			it "наличие отношения" do
+				@contract.should respond_to(:dialupaliases)
 			end
-			it "@contract.dialupip == @dialuplogin.dialupip" do
-				@contract.dialupip.should == @dialuplogin.dialupip
+			it ".dialupaliases == @dialuplogin.dialupalias" do
+				@contract.dialupaliases[0].should == @dialuplogin.dialupalias
+			end
+		end
+		describe ".dialupips" do
+			it "наличие отношения" do
+				@contract.should respond_to(:dialupips)
+			end
+			it ".dialupips[0]== @dialuplogin.dialupip" do
+				@contract.dialupips[0].should == @dialuplogin.dialupip
 			end
 		end
 	end
