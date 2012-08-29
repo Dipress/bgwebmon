@@ -52,4 +52,15 @@ describe MonitoringController do
     end     
   end
 
+  describe "GET 'errorlist'" do
+    it "запрос должен быть успешным" do
+      get :errorlist, :id => @dialupalias.id
+      response.should be_success
+    end
+    it "должен возвращать json" do
+      get :errorlist, :id => @dialupalias.id
+      response.header['Content-Type'].should include 'application/json'
+    end
+  end
+
 end

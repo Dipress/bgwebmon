@@ -1,17 +1,23 @@
 #content{
-	margin: 10px auto 0px auto;
-	position: relative;
-	width:auto;
-	max-width:95%;
-	ul{
-		list-style: none;
-		margin:0;
-		padding:0;
-		li{
-			div{
-				float: left;
-				padding:0px 0px 0px 5px;
-			}
+	position: absolute;
+}
+
+ul#logins{
+	list-style: none;
+	margin:0;
+	padding:0;
+	width:1000px;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	li{
+		z-index:100;
+		float: left;
+		-moz-user-select: none; 
+		user-select: none;
+		div{
+			padding:0px 0px 0px 5px;
 		}
 	}
 }
@@ -53,4 +59,41 @@
 	height: 16px;
 	float: left;
 	overflow: hidden;
+}
+
+.showed{
+	display:none;
+	width:252px;
+	z-index:101;
+	position:absolute;
+	margin:24px 0px 0px 0px;
+	background-color:#f3f3f3;
+	border:1px solid #d3d3d3;
+	-moz-user-select: text;
+	-khtml-user-select: text;
+	-webkit-user-select: text;
+	user-select: text;
+	font-size: 12px;
+	overflow:hidden;
+	div{
+		padding:0;margin:0;
+		z-index:103;
+		overflow:hidden;
+	}
+}
+
+#errorlist{
+	display:block;
+	position:relative;
+	padding:0px;
+	margin:0px;
+	width:100%;
+	height:auto;
+	border:none;
+	overflow:hidden;
+	.error{
+		float:none;
+		display:block;
+		font-size:11px;
+	}
 }

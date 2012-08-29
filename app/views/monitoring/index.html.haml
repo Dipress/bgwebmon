@@ -1,7 +1,8 @@
 %div{:id => "content"}
-	%ul
+	%ul{:id => 'logins'}
 		- @dialupalias.each do |u|
 			%li{:class => "show"}
+				%input{:type => 'hidden', :val => u.id}
 				%div
 					- if u.contract.online==true
 						%img{:src =>"/assets/online.png"}
@@ -9,3 +10,9 @@
 						%img{:src => "/assets/offline.png"}
 				%div= u.contract.title
 				%div{:class => "fio"}= u.login_alias
+				%div{:class => "showed"}
+					%div
+						%p
+							%a{:href => '#'} График
+						%h4 Ошибки:
+						%ul{:id => 'errorlist'}

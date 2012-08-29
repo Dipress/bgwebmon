@@ -11,6 +11,10 @@ def index
   	@title = "График #{@contract.id}"
   end
 
+  def errorlist
+    render :json => errors(params[:id])
+  end
+
   def dpupdate
     render :json => answer(params[:ip],
       					   params[:rx],
@@ -18,6 +22,11 @@ def index
   end
 
 private 
+# список ошибок
+  def errors(id)
+    Dialuplogin.find(id).dialuperrors.order('dt').limit(5)
+  end
+
 # Обработка параметров
   # Формирование ответа
   def answer(ip,rx,tx)
