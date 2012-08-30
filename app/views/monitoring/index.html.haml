@@ -1,18 +1,25 @@
-%div{:id => "content"}
-	%ul{:id => 'logins'}
-		- @dialupalias.each do |u|
-			%li{:class => "show"}
-				%input{:type => 'hidden', :val => u.id}
-				%div
-					- if u.contract.online==true
-						%img{:src =>"/assets/online.png"}
-					- else
-						%img{:src => "/assets/offline.png"}
-				%div= u.contract.title
-				%div{:class => "fio"}= u.login_alias
-				%div{:class => "showed"}
-					%div
-						%p
-							%a{:href => '#'} График
-						%h4 Ошибки:
-						%ul{:id => 'errorlist'}
+%div{:id => "popup"}
+	%div{:id => "popupbackground"}
+	%div{:id => "popupscreen"}
+		%div{:id => "popupclose"} X
+		%div{:id => "popupcontent"}
+%ul{:id => "content"}
+	- @dialupalias.each do |u|
+		%li{:class => "cli"}
+			%input{:type => 'hidden', :val => u.id}
+			%div{:class => "status"}
+			%ul
+				%li
+					%div="#{u.contract.title} - #{u.contract.comment}"
+				%li
+					%div=u.login_alias
+			%table{:class => "balance"}
+				%tr
+					%td баланс:
+					%td лимит:
+				%tr
+					%td 20.00
+					%td="#{u.contract.closesumma}0"
+			%div{:class => "clinks"}
+				%a{:href => "#"}Ошибки
+				%a{:href => "#"}Графики

@@ -1,28 +1,3 @@
-function Placer (contentblock,bodywidth, liwidth) {
-	this.contentblock = $(contentblock);
-	this.bodywidth = bodywidth;
-	this.liwidth = liwidth;
-
-	this.cwidth = 0
-}
-
-Placer.prototype.DWR = function(dividend, divider){
-	var remainder = dividend % divider,
-		newdividend = (dividend - remainder) / divider
-	return newdividend;
-}
-
-Placer.prototype.SetContentWidth = function(){
-	var liwidth = this.liwidth + 32;
-	this.cwidth = this.DWR(this.bodywidth,liwidth) * (liwidth);
-	this.contentblock.css({'width': this.cwidth});
-}
-
-Placer.prototype.SetMargin = function(){
-	var marg = (this.bodywidth - this.cwidth)/2;
-	this.contentblock.css({'margin-left':marg});
-}
-
 function ErrorsAjax(ul,lid){
 	this.ul = $(ul)
 	this.lid = lid
@@ -70,28 +45,91 @@ ErrorsAjax.prototype.PutErrors = function(data){
 	});
 }
 
+function Popup(popup,wheight,wwidth){
+	this.container = $(popup);
+	this.pbackground = $(this.container).children('div').eq(0);
+	this.pscreen = $(this.container).children('div').eq(1);
+	this.wheight = wheight;
+	this.wwidth = wwidth;
+}
+
+Popup.prototype.ToggleIt = function(){
+	$(this.container).toggle();
+	if($(this.container).css('display') === 'none'){
+		$('body').css({'height':'auto','overflow':'visible'});
+	}
+	else{
+		$('body').css({'height':this.wheight,'overflow':'hidden'});
+	}
+	console.log($(this.container).css('overflow'));
+}
+
+Popup.prototype.Resize = function(){
+	$(this.pbackground).css({'height':this.wheight});
+	this.Center();
+}
+
+Popup.prototype.Center = function(){
+	$(this.pscreen).css({'margin-left':this.GetMargW(),'margin-top':this.GetMargH()});
+}
+
+Popup.prototype.GetMargW = function(){
+	return (this.wwidth - this.pscreen.width()+32)/2
+}
+
+Popup.prototype.GetMargH = function(){
+	return (this.wheight - this.pscreen.height()+32)/2
+}
+
+function ContentPlacer (contentblock, bodywidth, liwidth) {
+	this.contentblock = $(contentblock);
+	this.bodywidth = bodywidth;
+	this.liwidth = liwidth;
+
+	this.cwidth = 0
+}
+
+ContentPlacer.prototype.DWR = function(dividend, divider){
+	var remainder = dividend % divider,
+		newdividend = (dividend - remainder) / divider
+	return newdividend;
+}
+
+ContentPlacer.prototype.SetContentWidth = function(){
+	var liwidth = this.liwidth+9;
+	this.cwidth = this.DWR(this.bodywidth,liwidth) * liwidth;
+	this.contentblock.css({'width': this.cwidth});
+}
+
+ContentPlacer.prototype.SetMargin = function(){
+	var marg = (this.bodywidth - this.cwidth)/2;
+	this.contentblock.css({'margin-left':marg+2});
+}
+
 $(function(){
-	var liwidth = $('ul#logins').children('li').eq(0).width(),
-		bodywidth = $('body').width();
-
-	placer = new Placer($('ul#logins'),bodywidth, liwidth);
-	placer.SetContentWidth();
-	placer.SetMargin();
-
-	$(window).resize(function(){
-		placer.bodywidth = $('body').width();
-		placer.SetContentWidth();
-		placer.SetMargin();
+	popup = new Popup($('div#popup'),$(window).height(),$(window).width());
+	popup.Resize();
+	$('a').on('click', function(){
+		popup.ToggleIt();
+	});
+	$('div#popupclose').on('click', function(){
+		popup.ToggleIt();
 	});
 
-	$('li.show').on('click', function(){
-		$('div.showed').hide();
-		$(this).find('div.showed').toggle(100,function(){
-			if($(this).css('display') === 'block'){
-				var inpval = $(this).siblings('input').attr('val');
-				errorsajax = new ErrorsAjax($(this).find('ul'),inpval);
-				errorsajax.Request();
-			}
-		});
+	var liwidth = $('ul#content').children('li').eq(0).width(),
+	bodywidth = $(window).width();
+
+	cplacer = new ContentPlacer($('ul#content'),bodywidth, liwidth);
+	cplacer.SetContentWidth();
+	cplacer.SetMargin();
+
+	$(window).resize(function(){
+		popup.wheight = $(window).height();
+		popup.wwidth = $(window).width();
+		popup.Resize();
+
+		cplacer.bodywidth = $(window).width();
+		cplacer.SetContentWidth();
+		cplacer.SetMargin();
 	});
 });
