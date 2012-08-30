@@ -11,6 +11,7 @@ ErrorsAjax.prototype.Request = function(){
 	}).done(function(data){
 		ea.PutErrors(data);
 	});
+	$(this.ul).html("");
 }
 
 ErrorsAjax.prototype.CodToString = function(code){
@@ -39,10 +40,12 @@ ErrorsAjax.prototype.NiceTime = function(time){
 ErrorsAjax.prototype.PutErrors = function(data){
 	var ul = this.ul,
 		ea = this;
-	$(ul).html("");
+	$(ul).prepend("</ul>");
 	$.each(data, function(index,val){
 		$(ul).prepend("<li class=\"error\">"+ea.NiceTime(val.dt)+" - "+ea.CodToString(val.error_code)+"</li>");
 	});
+	$(ul).prepend("<ul>");
+	console.log($(ul));
 }
 
 function Popup(popup,wheight,wwidth){
@@ -55,17 +58,17 @@ function Popup(popup,wheight,wwidth){
 
 Popup.prototype.ToggleIt = function(){
 	$(this.container).toggle();
-	if($(this.container).css('display') === 'none'){
-		$('body').css({'height':'auto','overflow':'visible'});
-	}
-	else{
-		$('body').css({'height':this.wheight,'overflow':'hidden'});
-	}
-	console.log($(this.container).css('overflow'));
+	this.SetOverflow();
+}
+
+Popup.prototype.SetOverflow = function(){
+	/*if($(this.container).css('display') === 'none'){
+		$('body').css({'height':'auto','overflow':'visible'});}
+	else{$('body').css({'height':this.wheight,'overflow':'hidden'});}	*/
 }
 
 Popup.prototype.Resize = function(){
-	$(this.pbackground).css({'height':this.wheight});
+	$(this.pbackground).css({'height':$('body').height()});
 	this.Center();
 }
 
@@ -78,10 +81,10 @@ Popup.prototype.GetMargW = function(){
 }
 
 Popup.prototype.GetMargH = function(){
-	return (this.wheight - this.pscreen.height()+32)/2
+	return (this.wheight - this.pscreen.height()+32)/2+$(window).scrollTop()
 }
 
-function ContentPlacer (contentblock, bodywidth, liwidth) {
+function ContentPlacer(contentblock, bodywidth, liwidth) {
 	this.contentblock = $(contentblock);
 	this.bodywidth = bodywidth;
 	this.liwidth = liwidth;
@@ -109,8 +112,11 @@ ContentPlacer.prototype.SetMargin = function(){
 $(function(){
 	popup = new Popup($('div#popup'),$(window).height(),$(window).width());
 	popup.Resize();
-	$('a').on('click', function(){
+	$('a').on('click', function(e){
+		e.preventDefault();
 		popup.ToggleIt();
+		ea = new ErrorsAjax($('div#popupcontent'), $(this).attr('lid'));
+		ea.Request();
 	});
 	$('div#popupclose').on('click', function(){
 		popup.ToggleIt();
@@ -131,5 +137,9 @@ $(function(){
 		cplacer.bodywidth = $(window).width();
 		cplacer.SetContentWidth();
 		cplacer.SetMargin();
+	});
+
+	$(window).scroll(function(){
+		popup.Resize();
 	});
 });

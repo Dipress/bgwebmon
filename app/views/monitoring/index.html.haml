@@ -6,7 +6,6 @@
 %ul{:id => "content"}
 	- @dialupalias.each do |u|
 		%li{:class => "cli"}
-			%input{:type => 'hidden', :val => u.id}
 			%div{:class => "status"}
 			%ul
 				%li
@@ -21,5 +20,5 @@
 					%td 20.00
 					%td="#{u.contract.closesumma}0"
 			%div{:class => "clinks"}
-				%a{:href => "#"}Ошибки
+				%a{:href => "#", :lid => u.id}Ошибки
 				%a{:href => "#"}Графики
