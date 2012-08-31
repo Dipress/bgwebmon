@@ -58,13 +58,6 @@ function Popup(popup,wheight,wwidth){
 
 Popup.prototype.ToggleIt = function(){
 	$(this.container).toggle();
-	this.SetOverflow();
-}
-
-Popup.prototype.SetOverflow = function(){
-	/*if($(this.container).css('display') === 'none'){
-		$('body').css({'height':'auto','overflow':'visible'});}
-	else{$('body').css({'height':this.wheight,'overflow':'hidden'});}	*/
 }
 
 Popup.prototype.Resize = function(){

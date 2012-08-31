@@ -6,7 +6,10 @@
 %ul{:id => "content"}
 	- @dialupalias.each do |u|
 		%li{:class => "cli"}
-			%div{:class => "status"}
+			- if u.contract.online
+				%div{:class => "status", :style => "background-color:#4dbe51"}
+			- else
+				%div{:class => "status", :style => "background-color:#e32e2e"}
 			%ul
 				%li
 					%div="#{u.contract.title} - #{u.contract.comment}"
@@ -22,3 +25,5 @@
 			%div{:class => "clinks"}
 				%a{:href => "#", :lid => u.id}Ошибки
 				%a{:href => "#"}Графики
+				%a{:href => "#"}Тест
+				%a{:href => "#"}Платежи
