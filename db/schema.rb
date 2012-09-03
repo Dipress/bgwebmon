@@ -569,6 +569,24 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   add_index "bgs_query_log_201208", ["mid_aid"], :name => "mid_aid"
   add_index "bgs_query_log_201208", ["uid"], :name => "uid"
 
+  create_table "bgs_query_log_201209", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201209", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201209", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201209", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201209", ["uid"], :name => "uid"
+
   create_table "bgs_user_action", :id => false, :force => true do |t|
     t.integer "uid",               :default => 0, :null => false
     t.string  "mid", :limit => 10,                :null => false
@@ -849,9 +867,6 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
     t.date     "status_date"
     t.datetime "last_tariff_change"
     t.integer  "crm_customer_id",                                                  :default => 0,     :null => false
-    t.boolean  "online",                                                           :default => false
-    t.integer  "rx",                 :limit => 8,                                  :default => 0
-    t.integer  "tx",                 :limit => 8,                                  :default => 0
   end
 
   add_index "contract", ["crm_customer_id"], :name => "crm_customer_id"
@@ -2432,6 +2447,17 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
     t.integer  "log_rec_id",               :null => false
   end
 
+  create_table "log_error_6_201209", :id => false, :force => true do |t|
+    t.datetime "dt"
+    t.integer  "cid"
+    t.integer  "lid"
+    t.string   "login",      :limit => 50
+    t.integer  "nas_id"
+    t.string   "nas_port",   :limit => 30
+    t.integer  "error_code",               :null => false
+    t.integer  "log_rec_id",               :null => false
+  end
+
   create_table "log_login_pswd", :id => false, :force => true do |t|
     t.datetime "dt",                 :null => false
     t.integer  "uid", :default => 0, :null => false
@@ -2534,6 +2560,10 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   end
 
   create_table "log_server_6_201208", :force => true do |t|
+    t.text "requests", :limit => 2147483647, :null => false
+  end
+
+  create_table "log_server_6_201209", :force => true do |t|
     t.text "requests", :limit => 2147483647, :null => false
   end
 
@@ -3233,6 +3263,35 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   add_index "log_session_6_201208", ["session_start"], :name => "session_start"
   add_index "log_session_6_201208", ["status"], :name => "status"
 
+  create_table "log_session_6_201209", :force => true do |t|
+    t.integer  "lid",                                         :null => false
+    t.integer  "nas_id",                                      :null => false
+    t.string   "nas_port",      :limit => 16,                 :null => false
+    t.string   "session_id",    :limit => 80,                 :null => false
+    t.datetime "session_start",                               :null => false
+    t.datetime "session_stop",                                :null => false
+    t.integer  "session_time",                                :null => false
+    t.float    "session_cost",  :limit => 15,                 :null => false
+    t.string   "from_number",   :limit => 30,                 :null => false
+    t.string   "to_number",     :limit => 30,                 :null => false
+    t.integer  "input_octets",  :limit => 8,   :default => 0, :null => false
+    t.integer  "output_octets", :limit => 8,   :default => 0, :null => false
+    t.integer  "status",                       :default => 0, :null => false
+    t.integer  "lr",                                          :null => false
+    t.integer  "ipaddr",        :limit => 8,                  :null => false
+    t.string   "login_name",    :limit => 100,                :null => false
+    t.integer  "sid_time",                                    :null => false
+    t.integer  "fake",          :limit => 1,                  :null => false
+  end
+
+  add_index "log_session_6_201209", ["from_number"], :name => "from_number"
+  add_index "log_session_6_201209", ["ipaddr"], :name => "ipaddr"
+  add_index "log_session_6_201209", ["lid"], :name => "lid"
+  add_index "log_session_6_201209", ["nas_id"], :name => "nas"
+  add_index "log_session_6_201209", ["session_start", "lid", "id"], :name => "start_lid_id"
+  add_index "log_session_6_201209", ["session_start"], :name => "session_start"
+  add_index "log_session_6_201209", ["status"], :name => "status"
+
   create_table "log_session_net_6_201009", :id => false, :force => true do |t|
     t.integer "session_id",              :null => false
     t.integer "net",        :limit => 8, :null => false
@@ -3424,6 +3483,14 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   end
 
   add_index "log_session_net_6_201208", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201209", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201209", ["session_id"], :name => "session_id"
 
   create_table "login_account_6_201009", :id => false, :force => true do |t|
     t.integer "dm",                  :null => false
@@ -3736,6 +3803,19 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   add_index "login_account_6_201208", ["dm"], :name => "dd"
   add_index "login_account_6_201208", ["hh"], :name => "hh"
   add_index "login_account_6_201208", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201209", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201209", ["dm"], :name => "dd"
+  add_index "login_account_6_201209", ["hh"], :name => "hh"
+  add_index "login_account_6_201209", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
 
   create_table "login_parameter_1", :id => false, :force => true do |t|
     t.string  "value", :null => false
@@ -5969,6 +6049,15 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
 
   add_index "session_account_6_201208", ["cid"], :name => "cid"
 
+  create_table "session_account_6_201209", :id => false, :force => true do |t|
+    t.integer "cid",                      :null => false
+    t.integer "session_id",               :null => false
+    t.integer "sid",                      :null => false
+    t.float   "summa",      :limit => 10, :null => false
+  end
+
+  add_index "session_account_6_201209", ["cid"], :name => "cid"
+
   create_table "session_detail_6_201009", :id => false, :force => true do |t|
     t.integer  "session_id",              :null => false
     t.integer  "sid",                     :null => false
@@ -6208,6 +6297,16 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   end
 
   add_index "session_detail_6_201208", ["cid"], :name => "cid"
+
+  create_table "session_detail_6_201209", :id => false, :force => true do |t|
+    t.integer  "session_id",              :null => false
+    t.integer  "sid",                     :null => false
+    t.integer  "cid",                     :null => false
+    t.datetime "dtime",                   :null => false
+    t.integer  "amount",     :limit => 8, :null => false
+  end
+
+  add_index "session_detail_6_201209", ["cid"], :name => "cid"
 
   create_table "setup", :force => true do |t|
     t.string "value", :default => "", :null => false
@@ -6472,17 +6571,20 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   add_index "user_group_member", ["user_id", "gr_code"], :name => "user_id"
 
   create_table "user_login_6", :force => true do |t|
-    t.integer "cid",                       :default => 0,  :null => false
-    t.integer "object_id",                 :default => 0,  :null => false
-    t.integer "login",                     :default => 0,  :null => false
-    t.string  "pswd",        :limit => 32, :default => "", :null => false
+    t.integer "cid",                       :default => 0,     :null => false
+    t.integer "object_id",                 :default => 0,     :null => false
+    t.integer "login",                     :default => 0,     :null => false
+    t.string  "pswd",        :limit => 32, :default => "",    :null => false
     t.date    "date1"
     t.date    "date2"
-    t.integer "status",      :limit => 1,  :default => 0,  :null => false
-    t.integer "session",     :limit => 2,  :default => 0,  :null => false
-    t.integer "rp_mode",     :limit => 1,  :default => 0,  :null => false
-    t.string  "realm_group", :limit => 20, :default => "", :null => false
-    t.string  "comment",                   :default => "", :null => false
+    t.integer "status",      :limit => 1,  :default => 0,     :null => false
+    t.integer "session",     :limit => 2,  :default => 0,     :null => false
+    t.integer "rp_mode",     :limit => 1,  :default => 0,     :null => false
+    t.string  "realm_group", :limit => 20, :default => "",    :null => false
+    t.string  "comment",                   :default => "",    :null => false
+    t.boolean "online",                    :default => false
+    t.integer "rx",          :limit => 8,  :default => 0
+    t.integer "tx",          :limit => 8,  :default => 0
   end
 
   add_index "user_login_6", ["cid"], :name => "cid"

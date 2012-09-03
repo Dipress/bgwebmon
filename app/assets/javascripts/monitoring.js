@@ -1,10 +1,10 @@
-function ErrorsAjax(ul,lid){
+function AjaxReq(ul,lid){
 	this.ul = $(ul)
 	this.lid = lid
 }
 
-ErrorsAjax.prototype.Request = function(){
-	ea = new ErrorsAjax(this.ul, this.lid);
+AjaxReq.prototype.ERequest = function(){
+	ea = new AjaxReq(this.ul, this.lid);
 	$.ajax({
 		url : '/errorlist/'+this.lid,
 		dataType: "json"
@@ -14,7 +14,19 @@ ErrorsAjax.prototype.Request = function(){
 	$(this.ul).html("");
 }
 
-ErrorsAjax.prototype.CodToString = function(code){
+AjaxReq.prototype.GRequest = function(){
+	ea = new AjaxReq(this.ul, this.lid);
+	$(this.ul).html("");
+	$.ajax({
+		url : '/graph/'+this.lid,
+		dataType : "text"
+	}).done(function(data){
+		console.log(data);
+		$(ea.ul).append("<img src=\"" + data + "\"/>");
+	});
+}
+
+AjaxReq.prototype.CodToString = function(code){
 	if(code == 2)
 		return "Ошибка пароля"
 	else if(code == 3)
@@ -31,13 +43,13 @@ ErrorsAjax.prototype.CodToString = function(code){
 		return "Договор закрыт"
 }
 
-ErrorsAjax.prototype.NiceTime = function(time){
+AjaxReq.prototype.NiceTime = function(time){
 	time = time.replace(new RegExp("T",'g')," ");
 	time = time.replace(new RegExp("Z",'g')," ");
 	return time;
 }
 
-ErrorsAjax.prototype.PutErrors = function(data){
+AjaxReq.prototype.PutErrors = function(data){
 	var ul = this.ul,
 		ea = this;
 	$(ul).prepend("</ul>");
@@ -105,11 +117,17 @@ ContentPlacer.prototype.SetMargin = function(){
 $(function(){
 	popup = new Popup($('div#popup'),$(window).height(),$(window).width());
 	popup.Resize();
-	$('a').on('click', function(e){
+	$('a.aerror').on('click', function(e){
 		e.preventDefault();
 		popup.ToggleIt();
-		ea = new ErrorsAjax($('div#popupcontent'), $(this).attr('lid'));
-		ea.Request();
+		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		ea.ERequest();
+	});
+	$('a.agraph').on('click', function(e){
+		e.preventDefault();
+		popup.ToggleIt();
+		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		ea.GRequest();
 	});
 	$('div#popupclose').on('click', function(){
 		popup.ToggleIt();

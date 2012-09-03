@@ -6,7 +6,7 @@
 %ul{:id => "content"}
 	- @dialupalias.each do |u|
 		%li{:class => "cli"}
-			- if u.contract.online
+			- if u.dialuplogin.online
 				%div{:class => "status", :style => "background-color:#4dbe51"}
 			- else
 				%div{:class => "status", :style => "background-color:#e32e2e"}
@@ -23,7 +23,7 @@
 					%td 20.00
 					%td="#{u.contract.closesumma}0"
 			%div{:class => "clinks"}
-				%a{:href => "#", :lid => u.id}Ошибки
-				%a{:href => "#"}Графики
+				%a{:class => "aerror", :href => "#", :lid => u.login_id}Ошибки
+				%a{:class => "agraph", :href => "#", :lid => u.login_id}Графики
 				%a{:href => "#"}Тест
 				%a{:href => "#"}Платежи

@@ -6,42 +6,6 @@ describe Contract do
 		@contract = Factory(:contract)
 	end
 
-	it "должен содержать поля миграции rxtxonline" do
-		@contract.should respond_to(:online)
-		@contract.should respond_to(:rx)
-		@contract.should respond_to(:rx)
-	end
-
-	it "поля созданные миграцией rxtxonline должны принимать default значения" do
-		@contract.online.should equal(false)
-		@contract.rx.should equal(0)
-		@contract.tx.should equal(0)
-	end
-
-	it "поле rx должно быть числом" do
-		[nil, "sss"].each do |w|
-			wong_format_rx = Factory(:contract)
-			wong_format_rx.rx = w
-			wong_format_rx.should_not be_valid
-		end
-	end
-
-	it "поле tx должно быть числом" do
-		[nil, "sss"].each do |w|
-			wong_format_tx = Factory(:contract)
-			wong_format_tx.tx = w
-			wong_format_tx.should_not be_valid
-		end
-	end
-
-	describe "поле online" do
-  		it "не может быть nil" do
-  			no_online_user = Factory(:contract)
-  			no_online_user.online = nil
-  			no_online_user.should_not be_valid
-  		end
-  	end
-
 	describe "Отношения @contract" do
 		before(:each) do
 			@bgmodule = Factory(:bgmodule)

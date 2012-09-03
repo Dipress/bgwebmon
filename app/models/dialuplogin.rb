@@ -20,4 +20,10 @@ class Dialuplogin < ActiveRecord::Base
   has_one :dialupalias, :class_name => 'Dialupalias', :foreign_key => 'login_id'
 
   has_many :dialuperrors, :class_name => 'Dialuperror', :foreign_key => 'lid'
+
+  attr_accessible :rx, :tx, :online
+
+  validates :rx, :presence => true, :numericality => { :only_integer => true }
+  validates :tx, :presence => true, :numericality => { :only_integer => true }
+  validates :online, :inclusion => {:in => [true, false]}
 end

@@ -11,10 +11,10 @@ describe Dialupalias do
 		end
 		describe ".dialuplogin" do
 			it "наличие отношения" do
-				@dialupalias.should respond_to(:dialuplogins)
+				@dialupalias.should respond_to(:dialuplogin)
 			end
 			it " == @dialuplogin" do
-				@dialupalias.dialuplogins[0].should == @dialuplogin
+				@dialupalias.dialuplogin.should == @dialuplogin
 			end
 		end
 		describe ".contract" do

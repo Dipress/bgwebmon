@@ -2,7 +2,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: bgbilling
+  database: billing
   pool: 5
   username: name
   password: pass
@@ -12,7 +12,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: bgbilling
+  database: billing
   pool: 5
   username: name
   password: pass
@@ -22,7 +22,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: bgbilling_test
+  database: billing_test
   pool: 5
   username: test
   password: test_pass

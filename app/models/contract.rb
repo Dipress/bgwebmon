@@ -11,10 +11,4 @@ class Contract < ActiveRecord::Base
   
   has_many :contract_modules, :class_name => 'ContractModule', :foreign_key => 'cid'
   has_many :bgmodules, :through => :contract_modules
-
-  attr_accessible :rx, :tx, :online
-
-  validates :rx, :presence => true, :numericality => { :only_integer => true }
-  validates :tx, :presence => true, :numericality => { :only_integer => true }
-  validates :online, :inclusion => {:in => [true, false]}
 end

@@ -15,6 +15,42 @@ describe Dialuplogin do
 			@dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
 			@dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
 		end
+		it "должен содержать поля миграции rxtxonline" do
+			@dialuplogin.should respond_to(:online)
+			@dialuplogin.should respond_to(:rx)
+			@dialuplogin.should respond_to(:rx)
+		end
+
+		it "поля созданные миграцией rxtxonline должны принимать default значения" do
+			@dialuplogin.online.should equal(false)
+			@dialuplogin.rx.should equal(0)
+			@dialuplogin.tx.should equal(0)
+		end
+
+		it "поле rx должно быть числом" do
+			[nil, "sss"].each do |w|
+				wong_format_rx = Factory(:dialuplogin)
+				wong_format_rx.rx = w
+				wong_format_rx.should_not be_valid
+			end
+		end
+
+		it "поле tx должно быть числом" do
+			[nil, "sss"].each do |w|
+				wong_format_tx = Factory(:dialuplogin)
+				wong_format_tx.tx = w
+				wong_format_tx.should_not be_valid
+			end
+		end
+
+		describe "поле online" do
+  			it "не может быть nil" do
+  				no_online_user = Factory(:dialuplogin)
+  				no_online_user.online = nil
+  				no_online_user.should_not be_valid
+  			end
+  		end
+  		
 		describe ".dialupalias" do
 			it "наличие отношения" do
 				@dialuplogin.should respond_to(:dialupalias)

@@ -4,23 +4,28 @@ require 'spec_helper'
 describe MonitoringController do
   render_views
 
-  before(:each) do
-    @contract = Factory(:contract)
-    @dialuplogin = Factory(:dialuplogin, :contract => @contract)
-    @dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
-    @dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
+    before(:each) do
+      @contract = Factory(:contract)
+      @dialuplogin = Factory(:dialuplogin, :contract => @contract)
+      @dialuperror = Factory(:dialuperror, :contract => @contract, :dialuplogin => @dialuplogin)
+      @dialupalias = Factory(:dialupalias, :dialuplogin => @dialuplogin)
+      @dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
+    end
+
+  before(:each) do 
+    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("crmifc:crmifc2012")
   end
 
   describe "GET 'index'" do
     it "returns http success" do
-      get 'index'
+      get :index
       response.should be_success
     end
   end
 
   describe "GET 'show'" do
     it "returns http success" do
-      get :show, :id => @contract.id
+      get :show, :id => @dialuplogin.id
       response.should be_success
     end
   end
