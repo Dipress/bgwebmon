@@ -11,3 +11,7 @@
 /.sass-cache
 
 /cronscripts
+
+/graphs
+
+/public/graphs
