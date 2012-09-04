@@ -12,6 +12,7 @@ AjaxReq.prototype.ERequest = function(){
 		ea.PutErrors(data);
 	});
 	$(this.ul).html("");
+	popup.Resize();
 }
 
 AjaxReq.prototype.GRequest = function(){
@@ -21,7 +22,6 @@ AjaxReq.prototype.GRequest = function(){
 		url : '/graph/'+this.lid,
 		dataType : "text"
 	}).done(function(data){
-		console.log(data);
 		$(ea.ul).append("<img src=\"" + data + "\"/>");
 	});
 }
@@ -57,7 +57,6 @@ AjaxReq.prototype.PutErrors = function(data){
 		$(ul).prepend("<li class=\"error\">"+ea.NiceTime(val.dt)+" - "+ea.CodToString(val.error_code)+"</li>");
 	});
 	$(ul).prepend("<ul>");
-	console.log($(ul));
 }
 
 function Popup(popup,wheight,wwidth){
@@ -121,12 +120,17 @@ $(function(){
 		e.preventDefault();
 		popup.ToggleIt();
 		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		$('div#popupscreen').css({'width':'400px','height':'400px'});
+		popup.Resize();
 		ea.ERequest();
 	});
 	$('a.agraph').on('click', function(e){
 		e.preventDefault();
 		popup.ToggleIt();
+			popup = new Popup($('div#popup'),$(window).height(),$(window).width());
 		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		$('div#popupscreen').css({'width':'957px','height':'273px'});
+		popup.Resize();
 		ea.GRequest();
 	});
 	$('div#popupclose').on('click', function(){
