@@ -15,11 +15,18 @@ AjaxReq.prototype.ERequest = function(){
 	popup.Resize();
 }
 
-AjaxReq.prototype.GRequest = function(){
+AjaxReq.prototype.GRequest = function(hour){
 	ea = new AjaxReq(this.ul, this.lid);
-	$(this.ul).html("");
+	var time = hour;
+	$(this.ul).html("<ul class=\"gtime\">"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"6\">6 часов</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"24\">1 день</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"72\">3 дня</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"168\">1 неделя</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"336\">2 недели</li>"+
+	"</ul>");
 	$.ajax({
-		url : '/graph/'+this.lid,
+		url : '/graph/'+this.lid+'/'+time,
 		dataType : "text"
 	}).done(function(data){
 		$(ea.ul).append("<img src=\"" + data + "\"/>");
@@ -53,9 +60,15 @@ AjaxReq.prototype.PutErrors = function(data){
 	var ul = this.ul,
 		ea = this;
 	$(ul).prepend("</ul>");
-	$.each(data, function(index,val){
-		$(ul).prepend("<li class=\"error\">"+ea.NiceTime(val.dt)+" - "+ea.CodToString(val.error_code)+"</li>");
-	});
+	if(data != ""){
+		$.each(data, function(index,val){
+			$(ul).prepend("<li class=\"error\">"+ea.NiceTime(val.dt)+" - "+ea.CodToString(val.error_code)+"</li>");
+		});
+	}
+	else{
+		$(ul).prepend("<li class=\"error\">Ошибок нет</li>");	
+	}
+
 	$(ul).prepend("<ul>");
 }
 
@@ -129,12 +142,17 @@ $(function(){
 		popup.ToggleIt();
 			popup = new Popup($('div#popup'),$(window).height(),$(window).width());
 		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
-		$('div#popupscreen').css({'width':'957px','height':'273px'});
+		$('div#popupscreen').css({'width':'957px','height':'323px'});
 		popup.Resize();
-		ea.GRequest();
+		ea.GRequest(6);
 	});
 	$('div#popupclose').on('click', function(){
 		popup.ToggleIt();
+	});
+
+	$('li.hourli').live('click', function(){
+		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		ea.GRequest($(this).attr('time'));
 	});
 
 	var liwidth = $('ul#content').children('li').eq(0).width(),

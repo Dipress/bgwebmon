@@ -131,14 +131,28 @@
 	font-size: 16px;
 	float: right;
 	font-family: 'Ubuntu Sans', sans-serif;
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
+	@include text_select(none);
 	cursor: default;
 	font-weight: bold;
 	text-shadow:1px 1px 0px #ffffff;
 }
 
 #popupcontent{
+}
+
+
+.gtime{
+	list-style: none;
+	padding:0;margin:0;
+	@include text_select(none);
+	font-family: 'Ubuntu Sans', sans-serif;
+	li{
+		cursor: default;
+		float:left;
+		padding: 10px;
+		color:#00bef6;
+		&:hover{
+			color:#555;
+		}
+	}
 }

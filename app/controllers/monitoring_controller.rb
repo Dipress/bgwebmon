@@ -9,7 +9,7 @@ def index
   end
 
   def show
-    render :json => create_graph(params[:id])
+    render :json => create_graph(params[:id],params[:hour].to_i)
   end
 
   def errorlist
@@ -24,10 +24,15 @@ def index
 
 private 
 # graph
-  def create_graph(lid)
-    d = Dialupalias.find(lid)
+  def create_graph(lid,hour)
+    d = Dialupalias.find(lid) 
+    time = Time.now.to_i - (60*60*hour)
+    ago = Time.now - hour.hours
+    c = d.contract
+    name = "График абонента #{c.title} - #{c.comment}, c #{ago.strftime('%d.%m.%Y %H:%M:%S')} по #{Time.now.strftime('%d.%m.%Y %H:%M:%S')}"
     image_name = "#{d.login_alias}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
-    RRD.graph('/var/www/bgwebmon/graphs/' + d.login_alias + '.rrd','/var/www/bgwebmon/public/graphs/' + image_name + '.png', {:ago => Time.now.to_i-(60*60*6),:width => 860, :height => 200, :image_type => "PNG", :title => "Graph",:defs => [ {:key => "download", :type => "AVERAGE", :rpn => "AREA", :color => "00CC00",:title => "Download" }, {:key => "upload", :type => "AVERAGE", :rpn => "LINE", :color => "0000FF",:title => "Upload" } ] , :base => 1024, :vlabel => "kbits per second", :lowerlimit => 0})
+    cmd = "rrdtool graph /var/www/bgwebmon/public/graphs/#{image_name}.png -s #{time} -w 860 -h 200 -a PNG -t '#{name}'  --base=1024  -v='скорость килобит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/bgwebmon/graphs/#{d.login_alias}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/bgwebmon/graphs/#{d.login_alias}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
+    system(cmd)
     return "/graphs/#{image_name}.png"
   end
 
