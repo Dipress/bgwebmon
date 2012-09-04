@@ -22,7 +22,22 @@ def index
       					   params[:tx])
   end
 
+  def payments
+    render :json => get_pays(params[:id])
+  end
+
 private 
+#payments
+  def get_pays(cid)
+    contract = Contract.find(cid)
+    pays = contract.payments.order('dt ASC').limit(5)
+    array = []
+    pays.each{|p| array << {:date => p.dt.strftime('%d.%m.%Y'),
+                            :comment => p.comment,
+                            :summa => "#{sprintf('%.02f',p.summa)}"}}
+    return array
+  end
+
 # graph
   def create_graph(lid,hour)
     d = Dialupalias.find(lid) 

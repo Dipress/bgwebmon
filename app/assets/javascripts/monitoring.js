@@ -15,6 +15,18 @@ AjaxReq.prototype.ERequest = function(){
 	popup.Resize();
 }
 
+AjaxReq.prototype.PRequest = function(){
+	ea = new AjaxReq(this.ul, this.lid);
+	$.ajax({
+		url : '/payments/'+this.lid,
+		dataType: "json"
+	}).done(function(data){
+		ea.PutPays(data);
+	});
+	$(this.ul).html("");
+	popup.Resize();
+}
+
 AjaxReq.prototype.GRequest = function(hour){
 	ea = new AjaxReq(this.ul, this.lid);
 	var time = hour;
@@ -67,6 +79,22 @@ AjaxReq.prototype.PutErrors = function(data){
 	}
 	else{
 		$(ul).prepend("<li class=\"error\">Ошибок нет</li>");	
+	}
+
+	$(ul).prepend("<ul>");
+}
+
+AjaxReq.prototype.PutPays = function(data){
+	var ul = this.ul,
+		ea = this;
+	$(ul).prepend("</ul>");
+	if(data != ""){
+		$.each(data, function(index,val){
+			$(ul).prepend("<li class=\"pay\">"+val.date+" - "+val.summa+"грн.   "+val.comment+"</li>");
+		});
+	}
+	else{
+		$(ul).prepend("<li class=\"pay\">Платежей нет</li>");	
 	}
 
 	$(ul).prepend("<ul>");
@@ -136,6 +164,14 @@ $(function(){
 		$('div#popupscreen').css({'width':'400px','height':'400px'});
 		popup.Resize();
 		ea.ERequest();
+	});
+	$('a.apays').on('click', function(e){
+		e.preventDefault();
+		popup.ToggleIt();
+		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		$('div#popupscreen').css({'width':'400px','height':'400px'});
+		popup.Resize();
+		ea.PRequest();
 	});
 	$('a.agraph').on('click', function(e){
 		e.preventDefault();
