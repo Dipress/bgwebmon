@@ -7,6 +7,8 @@ class Contract < ActiveRecord::Base
 
   has_many :payments, :class_name => 'Payment', :foreign_key => 'cid'
 
+  has_many :balances, :class_name => 'Balance', :foreign_key => 'cid'
+
   has_many :dialuplogins, :class_name => 'Dialuplogin', :foreign_key =>'cid'
   has_many :dialupips, :through => :dialuplogins
   has_many :dialupaliases, :through => :dialuplogins

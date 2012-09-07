@@ -30,7 +30,7 @@ private
 #payments
   def get_pays(cid)
     contract = Contract.find(cid)
-    pays = contract.payments.order('dt ASC').limit(5)
+    pays = contract.payments.order('dt ASC').limit(10)
     array = []
     pays.each{|p| array << {:date => p.dt.strftime('%d.%m.%Y'),
                             :comment => p.comment,
@@ -53,7 +53,7 @@ private
 
 # список ошибок
   def errors(id)
-    Dialuplogin.find(id).dialuperrors.order('dt').limit(5)
+    Dialuplogin.find(id).dialuperrors.order('dt').limit(10)
   end
 
 # Обработка параметров

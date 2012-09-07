@@ -16,6 +16,7 @@ describe Contract do
 			@dialupip = Factory(:dialupip, :dialuplogin => @dialuplogin)
 			@payment_type = Factory(:payment_type)
 			@payment = Factory(:payment, :contract => @contract, :payment_type => @payment_type)
+			@balance = Factory(:balance, :contract => @contract)
 		end
 		describe ".dialuplogins" do
 			it "наличие отношения" do
@@ -23,6 +24,11 @@ describe Contract do
 			end
 			it "[0] == @dialuplogin" do
 				@contract.dialuplogins[0].should == @dialuplogin
+			end
+		end
+		describe ".balances" do
+			it "наличие отношения" do
+				@contract.should respond_to(:balances)
 			end
 		end
 		describe ".contract_module" do

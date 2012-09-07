@@ -20,7 +20,7 @@
 					%td баланс:
 					%td лимит:
 				%tr
-					%td 20.00
+					%td=Balance.balance("#{u.contract.id}","#{Time.now.strftime("%m")}","#{Time.now.strftime("%Y")}")
 					%td="#{u.contract.closesumma}0"
 			%div{:class => "clinks"}
 				%a{:class => "aerror", :href => "#", :lid => u.login_id}Ошибки
