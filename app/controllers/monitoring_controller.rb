@@ -5,6 +5,7 @@ class MonitoringController < ApplicationController
   http_basic_authenticate_with :name => "crmifc", :password => "crmifc2012",  :except => :dpupdate
 def index
   	@dialupalias = Dialupalias.all
+    @time = Time.now
   	@title = "Все графики"
   end
 
