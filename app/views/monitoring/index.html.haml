@@ -6,24 +6,24 @@
 %ul{:id => "content"}
 	- @dialupalias.each do |u|
 		%li{:class => "cli"}
-			- if u.dialuplogin.online
+			- if u[:online]
 				%div{:class => "status", :style => "background-color:#4dbe51"}
 			- else
 				%div{:class => "status", :style => "background-color:#e32e2e"}
 			%ul
 				%li
-					%div="#{u.contract.title} - #{u.contract.comment}"
+					%div="#{u[:title]} - #{u[:comment]}"
 				%li
-					%div=u.login_alias
+					%div=u[:login_alias]
 			%table{:class => "balance"}
 				%tr
 					%td баланс:
 					%td лимит:
 				%tr
-					%td=Balance.balance("#{u.contract.id}","#{@time.strftime("%m")}","#{@time.strftime("%Y")}")
-					%td="#{u.contract.closesumma}0"
+					%td=u[:balance]
+					%td="#{u[:closesumma]}0"
 			%div{:class => "clinks"}
-				%a{:class => "aerror", :href => "#", :lid => u.login_id}Ошибки
-				%a{:class => "agraph", :href => "#", :lid => u.login_id}Графики
-				%a{:class => "apays", :href => "#", :lid => u.contract.id }Платежи
+				%a{:class => "aerror", :href => "#", :lid => u[:login_id]}Ошибки
+				%a{:class => "agraph", :href => "#", :lid => u[:login_id]}Графики
+				%a{:class => "apays", :href => "#", :lid => u[:id] }Платежи
 				/ %a{:href => "#"}Тест

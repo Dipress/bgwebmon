@@ -2,9 +2,9 @@
 require 'rrd' 
 
 class MonitoringController < ApplicationController
-  http_basic_authenticate_with :name => "crmifc", :password => "crmifc2012",  :except => :dpupdate
-def index
-  	@dialupalias = Dialupalias.all
+before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments]
+  def index
+  	@dialupalias = make_logins_array(search_title())
     @time = Time.now
   	@title = "Все графики"
   end
@@ -78,6 +78,27 @@ private
     else
         "нет такого ip"
     end
+  end
+
+  def make_logins_array(like)
+    larray = []
+    time = Time.now
+    Dialupalias.all.each {|s|
+      contract = s.contract
+      if contract.title =~ like
+        larray << {:online => s.dialuplogin.online, 
+                   :login_alias => s.login_alias, 
+                   :comment => contract.comment, 
+                   :title => contract.title,
+                   :closesumma => contract.closesumma,
+                   :balance => Balance.balance("#{contract.id}",
+                                               "#{time.strftime("%m")}",
+                                               "#{time.strftime("%Y")}"),
+                   :login_id => s.id,
+                   :id => contract.id}
+      end
+    }
+    return larray.sort_by {|l| l[:title]}
   end
 
 end

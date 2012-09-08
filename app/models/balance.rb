@@ -1,7 +1,6 @@
 # coding: utf-8
 class Balance < ActiveRecord::Base
   self.table_name =  "contract_balance"
-#  self.primary_key = "id"
 
   belongs_to :contract, :class_name => 'Contract', :foreign_key => 'cid'
 

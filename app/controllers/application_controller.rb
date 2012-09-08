@@ -1,25 +1,29 @@
+# coding: utf-8
 class ApplicationController < ActionController::Base
   protect_from_forgery
+#  force_ssl
 
-  protected
-  def confirm_logged_in
-  	unless session[:user_id]
-  		flash[:notice] = "Аутинтифицируйтесь"
-  		redirect_to(:controller => 'moderator', :action => 'login')
-  		return false
-  	else
-  		return true
-  	end
+  def login(user)
+    session[:user_id] = user.id
+  end
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+  def loged_in?
+    session[:user_id].nil? ? false : true
   end
 
-  protected
-  def mode
-    if session[:cid] != ""
-      flash[:notice] = "У вас нет прав"
-      redirect_to(:controller => 'moderator', :action => 'login')
-      return false
+  def checklogedin
+    loged_in? ? true : redirect_to(login_path)
+  end
+
+  def search_title
+    u = current_user
+    if u.contract_cid != 0
+      title = /^#{Contract.find(u.contract_cid).title.gsub(/000/, "")}/
     else
-      return true
+      title = //
     end
   end
+
 end

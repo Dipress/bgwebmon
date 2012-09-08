@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   #protected
   def self.authenticate(username="", password="")
-  		user = Auth.where("login='" + username + "'").first
+  		user = User.where("login='" + username + "'").first
   		if user && user.password_match?(password ,username)
   			return user
   		else
@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
 
   #protected
   def password_match?(password="", username="")
-  	    user = Auth.where("login='" + username + "'").first
+  	    user = User.where("login='" + username + "'").first
   		if user != nil
-  			if user.pswd == Auth.hash(password)
+  			if user.pswd == User.hash(password)
   				return true
   			else
   				return false
