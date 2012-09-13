@@ -46,8 +46,8 @@ private
     ago = Time.now - hour.hours
     c = d.contract
     name = "График абонента #{c.title} - #{c.comment}, c #{ago.strftime('%d.%m.%Y %H:%M:%S')} по #{Time.now.strftime('%d.%m.%Y %H:%M:%S')}"
-    image_name = "#{d.login_alias}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
-    cmd = "rrdtool graph /var/www/bgwebmon/public/graphs/#{image_name}.png -s #{time} -w 860 -h 200 -a PNG -t '#{name}'  --base=1024  -v='скорость килобит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/bgwebmon/graphs/#{d.login_alias}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/bgwebmon/graphs/#{d.login_alias}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
+    image_name = "#{d.login_alias.downcase}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
+    cmd = "rrdtool graph /var/www/bgwebmon/public/graphs/#{image_name}.png -s #{time} -w 860 -h 200 -a PNG -t '#{name}'  --base=1024  -v='скорость килобит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/bgwebmon/graphs/#{d.login_alias.downcase}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/bgwebmon/graphs/#{d.login_alias.downcase}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
     system(cmd)
     return "/graphs/#{image_name}.png"
   end
