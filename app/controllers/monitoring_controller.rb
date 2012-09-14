@@ -33,7 +33,7 @@ private
     contract = Contract.find(cid)
     pays = contract.payments.order('dt ASC').limit(10)
     array = []
-    pays.each{|p| array << {:date => p.dt.strftime('%d.%m.%Y'),
+    pays.each{|p| array << {:date => russiantime(p.dt),
                             :comment => p.comment,
                             :summa => "#{sprintf('%.02f',p.summa)}"}}
     return array
@@ -54,7 +54,12 @@ private
 
 # список ошибок
   def errors(id)
-    Dialuplogin.find(id).dialuperrors.order('dt').limit(10)
+    errors = Dialuplogin.find(id).dialuperrors.order('dt ASC').limit(10)
+    array = []
+    errors.each{|e| array << {:date => russiantime(e.dt),
+                              :error_code => e.error_code}}
+    return array
+
   end
 
 # Обработка параметров
@@ -63,8 +68,16 @@ private
     if dialupip = Dialupip.find_aton(ip)
       if(!rx.nil? && !tx.nil?)
         dialuplogin = dialupip.dialuplogin
-        upload = ((((rx.to_i - dialuplogin.rx)*8)/60)/1024)
-        download = ((((tx.to_i - dialuplogin.tx)*8)/60)/1024)
+        if rx.to_i < dialuplogin.rx
+          upload = 0
+        else
+          upload = ((((rx.to_i - dialuplogin.rx)*8)/60)/1024)
+        end
+        if tx.to_i < dialuplogin.tx
+          download = 0
+        else
+          download = ((((tx.to_i - dialuplogin.tx)*8)/60)/1024)
+        end
         if dialuplogin.update_attributes(:rx => rx, :tx => tx, :online => true)
           login = dialuplogin.dialupalias.login_alias
           RRD.update(Rails.root.join('graphs/' + login.to_s + '.rrd'), [upload,download])
@@ -100,5 +113,13 @@ private
     }
     return larray.sort_by {|l| l[:title]}
   end
+
+  def russiantime(date)
+    montharr = ["января", "февраля", "марта", "апреля",
+                "мая", "июня", "июля", "августа", 
+                "сентября", "октября", "ноября", "декабря"]
+    return "#{date.day} #{montharr[date.month-1]} #{date.year}"
+  end
+
 
 end

@@ -62,19 +62,13 @@ AjaxReq.prototype.CodToString = function(code){
 		return "Договор закрыт"
 }
 
-AjaxReq.prototype.NiceTime = function(time){
-	time = time.replace(new RegExp("T",'g')," ");
-	time = time.replace(new RegExp("Z",'g')," ");
-	return time;
-}
-
 AjaxReq.prototype.PutErrors = function(data){
 	var ul = this.ul,
 		ea = this;
 	$(ul).prepend("</ul>");
 	if(data != ""){
 		$.each(data, function(index,val){
-			$(ul).prepend("<li class=\"error\">"+ea.NiceTime(val.dt)+" - "+ea.CodToString(val.error_code)+"</li>");
+			$(ul).prepend("<li class=\"error\">"+val.date+" - "+ea.CodToString(val.error_code)+"</li>");
 		});
 	}
 	else{
