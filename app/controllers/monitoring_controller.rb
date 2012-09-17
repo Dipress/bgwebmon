@@ -80,7 +80,7 @@ private
         end
         if dialuplogin.update_attributes(:rx => rx, :tx => tx, :online => true)
           login = dialuplogin.dialupalias.login_alias
-          RRD.update(Rails.root.join('graphs/' + login.to_s + '.rrd'), [upload,download])
+          RRD.update(Rails.root.join('graphs/' + login + '.rrd'), [upload,download])
           return "обновленно"
         else
           "ошибка"
