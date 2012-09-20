@@ -1,7 +1,6 @@
 # coding: utf-8
 class ApplicationController < ActionController::Base
   protect_from_forgery
-#  force_ssl
 
   def login(user)
     session[:user_id] = user.id
@@ -14,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def checklogedin
-    loged_in? ? true : redirect_to(login_path)
+    loged_in? ? true : redirect_to(login_path(:protocol => 'https'))
   end
 
   def search_title

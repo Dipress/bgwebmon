@@ -28,4 +28,5 @@ class Dialupip < ActiveRecord::Base
   def self.ntoa(ipaddr)
     ip = IPAddr.new(ipaddr, Socket::AF_INET).to_s
   end
+
 end

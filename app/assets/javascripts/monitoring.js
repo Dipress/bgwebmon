@@ -65,33 +65,28 @@ AjaxReq.prototype.CodToString = function(code){
 AjaxReq.prototype.PutErrors = function(data){
 	var ul = this.ul,
 		ea = this;
-	$(ul).prepend("</ul>");
 	if(data != ""){
 		$.each(data, function(index,val){
-			$(ul).prepend("<li class=\"error\">"+val.date+" - "+ea.CodToString(val.error_code)+"</li>");
+			$(ul).prepend("<div class=\"error\">"+val.date+" - "+ea.CodToString(val.error_code)+"</div>");
 		});
 	}
 	else{
-		$(ul).prepend("<li class=\"error\">Ошибок нет</li>");	
+		$(ul).prepend("<div class=\"error\">Ошибок нет</div>");	
 	}
-
-	$(ul).prepend("<ul>");
 }
 
 AjaxReq.prototype.PutPays = function(data){
 	var ul = this.ul,
 		ea = this;
-	$(ul).prepend("</ul>");
 	if(data != ""){
 		$.each(data, function(index,val){
-			$(ul).prepend("<li class=\"pay\">"+val.date+" - "+val.summa+"грн.   "+val.comment+"</li>");
+			$(ul).prepend("<div class=\"pay\">"+val.date+" - "+val.summa+"грн.   "+val.comment+"</div>");
 		});
 	}
 	else{
-		$(ul).prepend("<li class=\"pay\">Платежей нет</li>");	
+		$(ul).prepend("<div class=\"pay\">Платежей нет</div>");	
 	}
 
-	$(ul).prepend("<ul>");
 }
 
 function Popup(popup,wheight,wwidth){

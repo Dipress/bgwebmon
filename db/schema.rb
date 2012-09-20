@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823114436) do
+ActiveRecord::Schema.define(:version => 0) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -6571,20 +6571,17 @@ ActiveRecord::Schema.define(:version => 20120823114436) do
   add_index "user_group_member", ["user_id", "gr_code"], :name => "user_id"
 
   create_table "user_login_6", :force => true do |t|
-    t.integer "cid",                       :default => 0,     :null => false
-    t.integer "object_id",                 :default => 0,     :null => false
-    t.integer "login",                     :default => 0,     :null => false
-    t.string  "pswd",        :limit => 32, :default => "",    :null => false
+    t.integer "cid",                       :default => 0,  :null => false
+    t.integer "object_id",                 :default => 0,  :null => false
+    t.integer "login",                     :default => 0,  :null => false
+    t.string  "pswd",        :limit => 32, :default => "", :null => false
     t.date    "date1"
     t.date    "date2"
-    t.integer "status",      :limit => 1,  :default => 0,     :null => false
-    t.integer "session",     :limit => 2,  :default => 0,     :null => false
-    t.integer "rp_mode",     :limit => 1,  :default => 0,     :null => false
-    t.string  "realm_group", :limit => 20, :default => "",    :null => false
-    t.string  "comment",                   :default => "",    :null => false
-    t.boolean "online",                    :default => false
-    t.integer "rx",          :limit => 8,  :default => 0
-    t.integer "tx",          :limit => 8,  :default => 0
+    t.integer "status",      :limit => 1,  :default => 0,  :null => false
+    t.integer "session",     :limit => 2,  :default => 0,  :null => false
+    t.integer "rp_mode",     :limit => 1,  :default => 0,  :null => false
+    t.string  "realm_group", :limit => 20, :default => "", :null => false
+    t.string  "comment",                   :default => "", :null => false
   end
 
   add_index "user_login_6", ["cid"], :name => "cid"

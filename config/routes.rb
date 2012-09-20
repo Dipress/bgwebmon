@@ -12,7 +12,7 @@ Bgwebmon::Application.routes.draw do
 
   match '/mon', :to => 'monitoring#index'
   match '/graph/:id(/:hour)', :to => 'monitoring#show'
-  match '/dpupd', :to => 'monitoring#dpupdate'
+#  match '/dpupd', :to => 'monitoring#dpupdate'
   match '/errorlist/:id', :to => 'monitoring#errorlist'
   match '/payments/:id', :to => 'monitoring#payments'
   match '/login', :to => 'sessions#new'
