@@ -15,4 +15,40 @@ class Contract < ActiveRecord::Base
   
   has_many :contract_modules, :class_name => 'ContractModule', :foreign_key => 'cid'
   has_many :bgmodules, :through => :contract_modules
+
+  has_many :ctariffs, :class_name => 'Ctariff', :foreign_key =>'cid'
+  has_many :contracttreelinks, :class_name => 'Contracttreelink', :foreign_key =>'cid'
+
+  def self.tariffs_array(id)
+    array = []
+    tarray = []
+    allsums = 0
+    fincost = 0
+    id = Contract.find(id)
+    id.ctariffs.where("date2 is NULL").each do |tp|
+      title = tp.tariffplan.title
+      tp.tariffplan.tarifftreelink.moduletarifftrees.each do |md|
+        mtreen = md.mtreenodes.where("type LIKE '%_cost'").find(:all, :select => "type as etype, data")[0]
+        if mtreen != nil
+          fincost = mtreen.data.gsub(/(.+)&/,"")
+          allsums += fincost.to_i
+        end
+      end
+      tarray << {:title => title , :cost => fincost }
+    end
+    pfincost = 0
+    id.contracttreelinks.where("date2 is NULL").each do |ptp|
+      title = ptp.title
+      ptp.moduletarifftrees.each do |pmd|
+        pmtreen = pmd.mtreenodes.where("type LIKE '%_cost'").find(:all, :select => "type as etype, data")[0]
+        if pmtreen != nil
+          pfincost = pmtreen.data.gsub(/(.+)&/,"")
+          allsums += pfincost.to_i
+        end
+      end
+      tarray << {:title => title , :cost => pfincost }
+    end
+    return array << {"tplans" => tarray, "allcost" => allsums}
+  end
+
 end

@@ -45,6 +45,20 @@ AjaxReq.prototype.GRequest = function(hour){
 	});
 }
 
+AjaxReq.prototype.TRequest = function(cid){
+	ea = new AjaxReq(this.ul, this.lid);
+	$(this.ul).html("");
+	$.ajax({
+		url : '/tp/' + this.lid,
+		dataType : "json"
+	}).done(function(data){
+		$.each(data[0].tplans, function(index, value){
+			$(ea.ul).append("<div>"+value.title+" - "+value.cost+"0грн.</div>");
+		});
+		$(ea.ul).append("<div>Общая стоимость: "+data[0].allcost+" грн.</div>");
+	});
+}
+
 AjaxReq.prototype.CodToString = function(code){
 	if(code == 2)
 		return "Ошибка пароля"
@@ -171,8 +185,19 @@ $(function(){
 		popup.Resize();
 		ea.GRequest(6);
 	});
+	
 	$('div#popupclose').on('click', function(){
 		popup.ToggleIt();
+	});
+
+	$('a.atariffs').on('click', function(e){
+		e.preventDefault();
+		popup.ToggleIt();
+			popup = new Popup($('div#popup'),$(window).height(),$(window).width());
+		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+		$('div#popupscreen').css({'width':'400px','height':'400px'});
+		popup.Resize();
+		ea.TRequest();
 	});
 
 	$('li.hourli').live('click', function(){

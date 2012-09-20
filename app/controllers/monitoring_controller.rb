@@ -1,7 +1,7 @@
 # coding: utf-8
 
 class MonitoringController < ApplicationController
-before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments]
+before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments, :tariffs]
   def index
   	@dialupalias = make_logins_array(search_title())
     @time = Time.now
@@ -21,6 +21,10 @@ before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments]
 #      					   params[:rx],
 #      					   params[:tx])
 #  end
+
+  def tariffs
+    render :json => Contract.tariffs_array(params[:id])
+  end
 
   def payments
     render :json => get_pays(params[:id])
@@ -64,40 +68,40 @@ private
 
 # Обработка параметров
   # Добавляем скорость RailsRRDtools
-  def insertspeed(ip,rx,tx)
-    sql = ActiveRecord::Base.connection
-    if dialuplogin = sql.execute("SELECT id FROM radius_pair_ip_6 WHERE ip=INET_ATON('#{ip}')").first[0] 
+#  def insertspeed(ip,rx,tx)
+#    sql = ActiveRecord::Base.connection
+#    if dialuplogin = sql.execute("SELECT id FROM radius_pair_ip_6 WHERE ip=INET_ATON('#{ip}')").first[0] 
    #if dialupip = Dialupip.find_aton(ip)
-      login = sql.execute("SELECT login_alias FROM user_alias_6 WHERE login_id=(#{dialuplogin})").first[0].downcase
-      if(!rx.nil? && !tx.nil?)
+#      login = sql.execute("SELECT login_alias FROM user_alias_6 WHERE login_id=(#{dialuplogin})").first[0].downcase
+#      if(!rx.nil? && !tx.nil?)
         #dialuplogin = dialupip.dialuplogin
-        lrxtx = sql.execute("SELECT rx,tx FROM user_login_6 WHERE id=#{dialuplogin}").first
-        lrx = lrxtx[0]
-        ltx = lrxtx[1]
+#        lrxtx = sql.execute("SELECT rx,tx FROM user_login_6 WHERE id=#{dialuplogin}").first
+#        lrx = lrxtx[0]
+#        ltx = lrxtx[1]
         #if rx.to_i < dialuplogin.rx || tx.to_i < dialuplogin.tx
-        if rx.to_i < lrx || tx.to_i < ltx
-          upload = 0
-          download = 0
-        else
+#        if rx.to_i < lrx || tx.to_i < ltx
+#          upload = 0
+#          download = 0
+#        else
           #upload = ((((rx.to_i - dialuplogin.rx)*8)/60)/1024)
           #download = ((((tx.to_i - dialuplogin.tx)*8)/60)/1024)
-          upload = ((((rx.to_i - lrx)*8)/60)/1024)
-          download = ((((tx.to_i - ltx)*8)/60)/1024)
-        end
+#          upload = ((((rx.to_i - lrx)*8)/60)/1024)
+#          download = ((((tx.to_i - ltx)*8)/60)/1024)
+#        end
         #dialuplogin.update_attributes(:rx => rx, :tx => tx, :online => true)
-        sql.execute("UPDATE user_login_6 SET rx=#{rx}, tx=#{tx}, online=#{1} WHERE id=#{dialuplogin}")
+#        sql.execute("UPDATE user_login_6 SET rx=#{rx}, tx=#{tx}, online=#{1} WHERE id=#{dialuplogin}")
         #login = dialuplogin.dialupalias.login_alias.downcase
         #RRD.update(Rails.root.join('graphs/' + login + '.rrd'), [upload,download])
-        cmd="rrdtool update #{Rails.root.join('graphs/' + login + '.rrd')} N:#{upload}:#{download}"
-        system(cmd)
-        return "обновленно"
-      else
-        "rx, tx обязательны"
-      end
-    else
-        "нет такого ip"
-    end
-  end
+#        cmd="rrdtool update #{Rails.root.join('graphs/' + login + '.rrd')} N:#{upload}:#{download}"
+#        system(cmd)
+#        return "обновленно"
+#      else
+#        "rx, tx обязательны"
+#      end
+#    else
+#        "нет такого ip"
+#    end
+#  end
 
   def make_logins_array(like)
     larray = []

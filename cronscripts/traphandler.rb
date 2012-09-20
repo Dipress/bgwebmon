@@ -22,7 +22,7 @@ if array[5].nil?
 else
   lrx=array[5].gsub(/\,/,"\.").to_f
   rx=array[1].to_f
-  (rx<lrx) ? upload=0 : upload=((((rx-lrx)*8)/60)/1024)*0.63
+  (rx<lrx) ? upload=0 : upload=((((rx-lrx)*8)/60)/1024)*0.61
 end
 if array[6].nil?
   download=0
@@ -30,7 +30,7 @@ if array[6].nil?
 else
   ltx=array[6].gsub(/\,/,"\.").gsub(/\ /,"").to_f
   tx=array[2].to_f
-  (tx<ltx) ? download=0 : download=((((tx-ltx)*8)/60)/1024)*0.63
+  (tx<ltx) ? download=0 : download=((((tx-ltx)*8)/60)/1024)*0.61
 end
 
 cmd = "rrdtool update /var/www/bgwebmon/graphs/#{ip}.rrd  N:#{upload.to_i}:#{download.to_i}:#{rx.to_i}:#{tx.to_i}"
