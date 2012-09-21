@@ -58,12 +58,11 @@ private
 
 # список ошибок
   def errors(id)
-    errors = Dialuplogin.find(id).dialuperrors.order('dt ASC').limit(15)
+    errors = Dialuplogin.find(id).dialuperrors.order('log_rec_id DESC').limit(15)
     array = []
     errors.each{|e| array << {:date => russiantime(e.dt),
                               :error_code => e.error_code}}
     return array
-
   end
 
 # Обработка параметров

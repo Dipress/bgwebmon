@@ -81,11 +81,11 @@ AjaxReq.prototype.PutErrors = function(data){
 		ea = this;
 	if(data != ""){
 		$.each(data, function(index,val){
-			$(ul).prepend("<div class=\"error\">"+val.date+" - "+ea.CodToString(val.error_code)+"</div>");
+			$(ul).append("<div class=\"error\">"+val.date+" - "+ea.CodToString(val.error_code)+"</div>");
 		});
 	}
 	else{
-		$(ul).prepend("<div class=\"error\">Ошибок нет</div>");	
+		$(ul).append("<div class=\"error\">Ошибок нет</div>");	
 	}
 }
 
@@ -181,7 +181,7 @@ $(function(){
 		popup.ToggleIt();
 			popup = new Popup($('div#popup'),$(window).height(),$(window).width());
 		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
-		$('div#popupscreen').css({'width':'957px','height':'323px'});
+		$('div#popupscreen').css({'width':'957px','height':'333px'});
 		popup.Resize();
 		ea.GRequest(6);
 	});
