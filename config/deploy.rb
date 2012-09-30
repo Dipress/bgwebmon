@@ -44,6 +44,9 @@ namespace :deploy do
   task :graphs do
   	run "ln -s /var/www/graphs /var/www/webmon/current/graphs && mkdir #{current_path}/public/graphs" 
   end
+  task :db
+  	run "ln -s /var/www/bgwebmon/database.yml #{current_path}/config/database.yml && ln -s /var/www/bgwebmon/secret_token.rb #{current_path}/config/initializers/secret_token.rb"
+  end
 end
 
-after "deploy", "deploy:cleanup", "deploy:graphs", "deploy:restart"
+after "deploy", "deploy:cleanup", "deploy:db", "deploy:graphs", "deploy:restart"
