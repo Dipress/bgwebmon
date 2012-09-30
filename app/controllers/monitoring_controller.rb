@@ -51,7 +51,7 @@ private
     c = d.contract
     name = "График абонента #{c.title} - #{c.comment}, c #{ago.strftime('%d.%m.%Y %H:%M:%S')} по #{Time.now.strftime('%d.%m.%Y %H:%M:%S')}"
     image_name = "#{ip}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
-    cmd = "rrdtool graph /var/www/bgwebmon/public/graphs/#{image_name}.png -s #{time} -w 860 -h 200 -a PNG -t '#{name}' -v='скорость килобит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/bgwebmon/graphs/#{ip}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/bgwebmon/graphs/#{ip}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
+    cmd = "rrdtool graph /var/www/webmon/current/public/graphs/#{image_name}.png -s #{time} -w 860 -h 200 -a PNG -t '#{name}' -v='скорость килобит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/graphs/#{ip}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/graphs/#{ip}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
     system(cmd)
     return "/graphs/#{image_name}.png"
   end
@@ -129,7 +129,7 @@ private
   end
 
   def check_online(ip)
-      cmd="rrdtool fetch /var/www/bgwebmon/graphs/#{ip.gsub(/\./,"")}.rrd AVERAGE -r 300 -s -120"
+      cmd="rrdtool fetch /var/www/graphs/#{ip.gsub(/\./,"")}.rrd AVERAGE -r 300 -s -120"
       rxtx=`#{cmd}`
       if rxtx != ""
         rxtx=rxtx.gsub(/[0-9].+\:.+/).first.gsub(/[0-9]+\:\ /, "")
