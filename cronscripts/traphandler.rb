@@ -9,7 +9,7 @@ end
 #basedir = File.dirname(__FILE__).gsub(/cronscripts/,"")
 
 ip=array[0].gsub(/\./,"")
-cmd="rrdtool fetch /var/www/bgwebmon/graphs/#{ip}.rrd AVERAGE -r 300 -s -120"
+cmd="rrdtool fetch /var/www/graphs/#{ip}.rrd AVERAGE -r 300 -s -120"
 #cmd="rrdtool fetch #{basedir}graphs/#{ip}.rrd AVERAGE -r 300 -s -120"
 rxtx=`#{cmd}`.gsub(/[0-9].+\:.+/).first.gsub(/[0-9]+\:/,"")
 #rxtx="-nan -nan -nan -nan"
@@ -33,7 +33,7 @@ else
   (tx<ltx) ? download=0 : download=((((tx-ltx)*8)/60)/1024)*0.605
 end
 
-cmd = "rrdtool update /var/www/bgwebmon/graphs/#{ip}.rrd  N:#{upload.to_i}:#{download.to_i}:#{rx.to_i}:#{tx.to_i}"
+cmd = "rrdtool update /var/www/graphs/#{ip}.rrd  N:#{upload.to_i}:#{download.to_i}:#{rx.to_i}:#{tx.to_i}"
 #cmd = "rrdtool update #{basedir}graphs/#{ip}.rrd  N:#{upload}:#{download}:#{rx}:#{tx}"
 system(cmd)
 
