@@ -42,7 +42,7 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt" 
   end
   task :graphs do
-  	run "ln -s /var/www/graphs /var/www/webmon/current/graphs" 
+  	run "ln -s /var/www/graphs /var/www/webmon/current/graphs && mkdir #{current_path}/public/graphs" 
   end
 end
 
