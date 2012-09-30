@@ -41,6 +41,9 @@ namespace :deploy do
   task :restart do
     run "touch #{current_path}/tmp/restart.txt" 
   end
+  task :graphs do
+  	run "ln -s /var/www/graphs /var/www/webmon/current/graphs" 
+  end
 end
 
-after "deploy", "deploy:cleanup", "deploy:restart"
+after "deploy", "deploy:cleanup", "deploy:graphs", "deploy:restart"
