@@ -42,7 +42,7 @@ namespace :deploy do
     run "touch #{current_path}/tmp/restart.txt" 
   end
   task :graphs do
-  	run "ln -s /var/www/graphs /var/www/webmon/current/graphs && mkdir #{current_path}/public/graphs" 
+  	run "ln -s /var/www/graphs /var/www/webmon/current/graphs && mkdir #{current_path}/public/graphs && chown nobody #{current_path}/public/graphs" 
   end
   task :db do
   	run "ln -s /var/www/bgwebmon/database.yml #{current_path}/config/database.yml && ln -s /var/www/bgwebmon/secret_token.rb #{current_path}/config/initializers/secret_token.rb"
