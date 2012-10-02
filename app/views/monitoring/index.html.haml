@@ -1,29 +1,4 @@
-%div{:id => "popup"}
-	%div{:id => "popupbackground"}
-	%div{:id => "popupscreen"}
-		%div{:id => "popupclose"} X
-		%div{:id => "popupcontent"}
-%ul{:id => "content"}
-	- @dialupalias.each do |u|
-		%li{:class => "cli"}
-			- if u[:online]
-				%div{:class => "status", :style => "background-color:#4dbe51"}
-			- else
-				%div{:class => "status", :style => "background-color:#e32e2e"}
-			%ul
-				%li
-					%div="#{u[:title]} - #{u[:comment]}"
-				%li
-					%div=u[:login_alias]
-			%table{:class => "balance"}
-				%tr
-					%td баланс:
-					%td лимит:
-				%tr
-					%td=u[:balance]
-					%td="#{u[:closesumma]}0"
-			%div{:class => "clinks"}
-				%a{:class => "aerror", :href => "#", :lid => u[:login_id]}Ошибки
-				%a{:class => "agraph", :href => "#", :lid => u[:login_id]}Графики
-				%a{:class => "apays", :href => "#", :lid => u[:id] }Платежи
-				%a{:class => "atariffs", :href => "#", :lid => u[:id]}Услуги
+%ul
+	%li=link_to "Все абоненты", "/mon/"
+	- @bs.each do |b|
+		%li=link_to "#{b.title}" , "/mon/#{b.id}"

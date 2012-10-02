@@ -18,6 +18,24 @@ describe Contract do
 			@payment = Factory(:payment, :contract => @contract, :payment_type => @payment_type)
 			@balance = Factory(:balance, :contract => @contract)
 			@contracttreelink = Factory(:contracttreelink, :contract => @contract)
+			@contract_parameter_type7_value = Factory(:contract_parameter_type7_value)
+			@contract_parameter_type7 = Factory(:contract_parameter_type7, :contract => @contract, :contract_parameter_type7_value => @contract_parameter_type7_value)
+		end
+		describe ".contract_parameter_type7" do
+			it "наличие отношения" do
+				@contract.should respond_to(:contract_parameter_type7)
+			end			
+			it "наличие отношения" do
+				@contract.contract_parameter_type7[0] == @contract_parameter_type7
+			end		
+		end
+		describe ".contract_parameter_type7_values" do
+			it "наличие отношения" do
+				@contract.should respond_to(:contract_parameter_type7_values)
+			end			
+			it "наличие отношения" do
+				@contract.contract_parameter_type7_values[0] == @contract_parameter_type7_values
+			end		
 		end
 		describe ".dialuplogins" do
 			it "наличие отношения" do

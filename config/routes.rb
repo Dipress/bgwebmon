@@ -8,9 +8,10 @@ Bgwebmon::Application.routes.draw do
     end
   end
 
-  root :to => "monitoring#index"
+  root :to => "menu#index"
 
-  match '/mon', :to => 'monitoring#index'
+  match '/mon(/:id)', :to => 'monitoring#mon'
+  match '/monbs', :to => 'monitoring#index'
   match '/graph/:id(/:hour)', :to => 'monitoring#show'
   match '/tp/:id', :to => 'monitoring#tariffs'
 #  match '/dpupd', :to => 'monitoring#dpupdate'

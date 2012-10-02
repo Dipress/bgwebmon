@@ -3,9 +3,21 @@
 class MonitoringController < ApplicationController
 before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments, :tariffs]
   def index
-  	@dialupalias = make_logins_array(search_title())
-    @time = Time.now
+    @title = "Список базовых станций"
+    @bs = ContractParameterType7Value.where(:pid => 54)
+  end
+
+  def mon
+    bsid = params[:id]
+    if bsid == nil
+  	  @dialupalias = make_logins_array(search_title())
+      @basestation = "Все абоненты"
+    else
+      @dialupalias = make_logins_array_bs(search_title(),bsid)
+      @basestation = ContractParameterType7Value.find(bsid).title;
+    end
   	@title = "Все графики"
+    @time = Time.now
   end
 
   def show
@@ -57,6 +69,35 @@ private
     errors.each{|e| array << {:date => russiantime(e.dt),
                               :error_code => e.error_code}}
     return array
+  end
+
+  def make_logins_array_bs(like,bsid)
+    larray = []
+    time = Time.now
+    ContractParameterType7Value.find(bsid).contracts.each {|c|
+      if c.title =~ like
+        if c.dialuplogins != []
+          c.dialupaliases.each {|s|
+            if s.dialuplogin.dialupip != nil
+              ip = Dialupip.ntoa(s.dialuplogin.dialupip.ip)
+            else
+              ip = "1"
+            end
+            larray << {:online => check_online(ip), 
+                       :login_alias => s.login_alias, 
+                       :comment => c.comment, 
+                       :title => c.title,
+                       :closesumma => c.closesumma,
+                       :balance => Balance.balance("#{c.id}",
+                                                   "#{time.strftime("%m")}",
+                                                   "#{time.strftime("%Y")}"),
+                       :login_id => s.id,
+                       :id => c.id}
+          }
+        end
+      end
+    }
+    return larray.sort_by {|l| l[:title]}
   end
 
   def make_logins_array(like)

@@ -17,8 +17,8 @@ describe MonitoringController do
       @user = Factory(:user)
     end
 
-  it "GET 'index'" do
-    get :index
+  it "GET 'mon'" do
+    get :mon
     response.should redirect_to(login_path)
   end
 
@@ -28,9 +28,9 @@ describe MonitoringController do
       test_sign_in(@user)
    end
 
-    describe "GET 'index'" do
+    describe "GET 'mon'" do
      it "returns http success" do
-        get :index
+        get :mon
         response.should be_success
       end
     end
