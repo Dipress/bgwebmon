@@ -1,5 +1,5 @@
-- if flash[:notice]
-	%div#notice=flash[:notice]
+- if flash.now[:notice]
+	%div#notice=flash.now[:notice]
 
 = form_for(:session, :url => sessions_path) do |f|
 	%div.field
