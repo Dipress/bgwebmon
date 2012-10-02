@@ -10,8 +10,7 @@ class SessionsController < ApplicationController
   		login(user)
   		redirect_to root_path
   	else
-      flash.now[:notice] = "Неправильный логин/пароль"
-  		redirect_to login_path
+  		redirect_to login_path, :notice => "Неправильный логин/пароль"
   	end
   end
 
