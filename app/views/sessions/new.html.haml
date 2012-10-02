@@ -1,4 +1,5 @@
-%div#notice=flash.now[:notice]
+- flash.each do |key, value|
+	%div#notice=value
 
 = form_for(:session, :url => sessions_path) do |f|
 	%div.field
