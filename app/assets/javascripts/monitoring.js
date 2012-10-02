@@ -116,7 +116,7 @@ Popup.prototype.ToggleIt = function(){
 }
 
 Popup.prototype.Resize = function(){
-	$(this.pbackground).css({'height':$('body').height()});
+	$(this.pbackground).css({'height':$('body').height(), 'margin-top':$(window).scrollTop()});
 	this.Center();
 }
 
