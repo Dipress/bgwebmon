@@ -30,12 +30,6 @@ role :db,  domain, :primary => true
 ssh_options[:forward_agent] = true
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
 
-namespace :rvm do
-  task :trust_rvmrc do
-    run "rvm rvmrc trust #{release_path}"
-  end
-end
-
 namespace :deploy do
   desc "cause Passenger to initiate a restart"
   task :restart do
