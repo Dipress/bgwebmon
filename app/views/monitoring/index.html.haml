@@ -1,4 +1,4 @@
 %ul
 	%li=link_to "Все абоненты", "/mon/"
-	- @bs.each do |b|
-		%li=link_to "#{b.title}" , "/mon/#{b.id}"
+	- @nodes.each do |n|
+		%li=link_to "#{n.title}" , "/mon/#{n.id}"

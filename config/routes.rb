@@ -1,5 +1,4 @@
 Bgwebmon::Application.routes.draw do
-
   resources :sessions do
     collection do 
       get :new
@@ -11,12 +10,15 @@ Bgwebmon::Application.routes.draw do
   root :to => "menu#index"
 
   match '/mon(/:id)', :to => 'monitoring#mon'
-  match '/monbs', :to => 'monitoring#index'
+  match '/monnodes', :to => 'monitoring#index'
   match '/graph/:id(/:hour)', :to => 'monitoring#show'
   match '/tp/:id', :to => 'monitoring#tariffs'
-#  match '/dpupd', :to => 'monitoring#dpupdate'
   match '/errorlist/:id', :to => 'monitoring#errorlist'
   match '/payments/:id', :to => 'monitoring#payments'
+
   match '/login', :to => 'sessions#new'
   match '/logout', :to =>  'sessions#destroy'
+
+  match '/statistic', :to => 'statistic#index'
+  match '/nodestatistic(/:id)', :to => 'statistic#show'
 end

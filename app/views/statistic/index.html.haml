@@ -1,0 +1,3 @@
+%ul
+	- @nodes.each do |n|
+		%li=link_to "#{n.title}" , "/nodestatistic/#{n.id}"

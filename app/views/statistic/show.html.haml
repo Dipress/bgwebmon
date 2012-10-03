@@ -1,0 +1,9 @@
+%h2=@nodename
+%ul
+	-@contracts.each do |c|
+		%li
+			%div="#{c[:title]} - #{c[:comment]}"
+			%ul
+				- c[:tariffs][0]["tplans"].each do |t|
+					%li= "#{t[:title]} - #{t[:cost]} грн."
+%h4= "Общий доход: #{@allcost} грн."

@@ -3,8 +3,8 @@
 class MonitoringController < ApplicationController
 before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments, :tariffs]
   def index
-    @title = "Список базовых станций"
-    @bs = ContractParameterType7Value.where(:pid => 54).order('title ASC')
+    @title = "Список точек подключения"
+    @nodes = ContractParameterType7Value.where(:pid => 54).order('title ASC')
   end
 
   def mon
