@@ -29,7 +29,7 @@ class Rrdcron
 private
 
   def self.dir_name
-    File.dirname(__FILE__).gsub(/cronscripts/,"")
+    File.dirname(__FILE__).gsub(/webmon\/current\/cronscripts/,"")
   end
 
   def self.add_graph(login)

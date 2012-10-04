@@ -1,7 +1,7 @@
 # coding: utf-8
-
 class MonitoringController < ApplicationController
-before_filter :checklogedin, :only => [:index, :show, :errorlist, :payments, :tariffs]
+before_filter :checklogedin
+before_filter :ip_check
   def index
     @title = "Список точек подключения"
     @nodes = ContractParameterType7Value.where(:pid => 54).order('title ASC')
@@ -75,7 +75,7 @@ private
     larray = []
     time = Time.now
     ContractParameterType7Value.find(bsid).contracts.each {|c|
-      if c.title =~ like
+      if member(c.id)
         if c.dialuplogins != []
           c.dialupaliases.each {|s|
             if s.dialuplogin.dialupip != nil

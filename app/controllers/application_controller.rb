@@ -5,9 +5,25 @@ class ApplicationController < ActionController::Base
   def login(user)
     session[:user_id] = user.id
   end
+
+  def ip_check
+    allowed_ip? ? true : redirect_to("http://crimeainfo.com")
+  end
+
+  def allowed_ip?
+    rtip = request.remote_ip
+    answer = false
+    ips = ["194.54.152.66", "194.54.152.67", "194.54.152.8", "127.0.0.1", "172.28.200.3", "172.28.200.17"]
+    ips.each{|ip|
+      answer=true if ip.eql?(rtip)
+    }
+    return answer
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
   def loged_in?
     session[:user_id].nil? ? false : true
   end
@@ -22,6 +38,20 @@ class ApplicationController < ActionController::Base
       title = /^#{Contract.find(u.contract_cid).title.gsub(/000/, "")}/
     else
       title = //
+    end
+  end
+
+  def member(cid)
+    current = current_user.contract_cid
+    if current != 0
+      cpt8 = ContractParameterType8.where(:cid => cid)
+      if cpt8[0].nil?
+        false
+      else
+        current.eql?(cpt8[0].val) ? true : false
+      end
+    else
+      true
     end
   end
 

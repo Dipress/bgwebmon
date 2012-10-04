@@ -12,6 +12,10 @@ describe StatisticController do
     before(:each) do 
       @user = Factory(:user)
       test_sign_in(@user)
+      @contract = Factory(:contract)
+      @contracttreelink = Factory(:contracttreelink, :contract => @contract)
+      @contract_parameter_type7_value = Factory(:contract_parameter_type7_value)
+      @contract_parameter_type7 = Factory(:contract_parameter_type7, :contract => @contract, :contract_parameter_type7_value => @contract_parameter_type7_value)
     end
 
     describe "GET 'index'" do
@@ -22,7 +26,7 @@ describe StatisticController do
     end
     describe "GET 'show'" do
       it "returns http success" do
-        get :show
+        get :show, :id => @contract_parameter_type7_value.id
         response.should be_success
       end
     end

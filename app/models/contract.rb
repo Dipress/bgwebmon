@@ -22,6 +22,8 @@ class Contract < ActiveRecord::Base
   has_many :contract_parameter_type7, :class_name => 'ContractParameterType7', :foreign_key => 'cid'
   has_many :contract_parameter_type7_values, :through => :contract_parameter_type7
 
+  has_many :contract_parameter_type8, :class_name => 'ContractParameterType8', :foreign_key => 'cid'
+
   def self.tariffs_array(id)
     array = []
     tarray = []

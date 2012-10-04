@@ -1,11 +1,12 @@
 # coding: utf-8
 class SessionsController < ApplicationController
+before_filter :ip_check
   def new
   end
 
   def create
   	user = User.authenticate(params[:session][:login],
-  							 params[:session][:password])
+  							             params[:session][:password])
   	if user
   		login(user)
   		redirect_to root_path

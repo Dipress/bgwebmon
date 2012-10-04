@@ -20,6 +20,15 @@ describe Contract do
 			@contracttreelink = Factory(:contracttreelink, :contract => @contract)
 			@contract_parameter_type7_value = Factory(:contract_parameter_type7_value)
 			@contract_parameter_type7 = Factory(:contract_parameter_type7, :contract => @contract, :contract_parameter_type7_value => @contract_parameter_type7_value)
+			@contract_parameter_type8 = Factory(:contract_parameter_type8, :contract => @contract)
+		end
+		describe ".contract_parameter_type8" do
+			it "наличие отношения" do
+				@contract.should respond_to(:contract_parameter_type8)
+			end			
+			it "наличие отношения" do
+				@contract.contract_parameter_type8[0] == @contract_parameter_type8
+			end		
 		end
 		describe ".contract_parameter_type7" do
 			it "наличие отношения" do
