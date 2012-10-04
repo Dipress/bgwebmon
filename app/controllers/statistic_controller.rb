@@ -12,9 +12,11 @@ before_filter :checklogedin, :only => [:index, :show]
   	@allcost = 0
   	cpt7v.contracts.each{|c|
   		if c.status.eql?(0)
-  			tfc = tarrifs_from_cid(c.id)
-  			@contracts << tfc
-  			@allcost += tfc[:tariffs][0]["allcost"]
+  			if c.title =~ like
+  				tfc = tarrifs_from_cid(c.id)
+  				@contracts << tfc
+  				@allcost += tfc[:tariffs][0]["allcost"]
+  			end
   		end
   	}
   end
