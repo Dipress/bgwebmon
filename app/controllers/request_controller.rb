@@ -13,8 +13,8 @@ class RequestController < ApplicationController
   def createfl
     @requestfl = Requestfl.new(params[:requestfl])
     if @requestfl.save
-      Requestmailer.requestfl_added(@rfl, "notify@crimeainfo.com").deliver
-      Requestmailer.requestfl_added(@rfl, @rfl.user.email).deliver
+      Requestmailer.requestfl_added(@requestfl, "notify@crimeainfo.com").deliver
+      Requestmailer.requestfl_added(@requestfl, @requestfl.user.email).deliver
       redirect_to "/requestfl/#{@requestfl.id}"
     else
       @user = current_user()
