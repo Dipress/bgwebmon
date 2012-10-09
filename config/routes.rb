@@ -1,4 +1,5 @@
 Bgwebmon::Application.routes.draw do
+
   resources :sessions do
     collection do 
       get :new
@@ -21,4 +22,12 @@ Bgwebmon::Application.routes.draw do
 
   match '/statistic', :to => 'statistic#index'
   match '/nodestatistic(/:id)', :to => 'statistic#show'
+
+  match "/request", :to => "request#index"
+  match "/newfl", :to => "request#newfl"
+  match "/createfl", :to => "request#createfl"
+  match "/requestfl/:id", :to => "request#requestfl"
+  match "/readystatusfl/:id", :to => "request#readystatusfl"
+  match "/connectedstatusfl/:id", :to => "request#connectedstatusfl"
+  match "/finishstatusfl/:id", :to => "request#finishstatusfl"
 end

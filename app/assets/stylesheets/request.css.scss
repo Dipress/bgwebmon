@@ -1,0 +1,52 @@
+// Place all the styles related to the request controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#requestmap{
+	width:800px;
+	height:400px;
+	font-family:Verdana;
+}
+
+#street{
+	width:663px;
+}
+
+.editor-field{
+	input{
+		width:350px;
+	}
+	select{
+		width:350px;
+	}
+}
+
+#readmap{
+	width: 800px;
+	height: 400px;
+}
+
+#notice{
+	width: 300px;
+	text-align:center;
+	margin: 0px auto 0px auto;
+	background-color: green;
+}
+
+#error{
+	width: 300px;
+	text-align:center;
+	margin: 0px auto 0px auto;
+	background-color: red;
+}
+
+#createrequestfl{
+	width: 800px;
+	margin: 50px auto 0px auto;
+	padding: 0px 0px 100px 0px;
+}
+
+#requestflcontent{
+	width: 800px;
+	margin: 50px auto 0px auto;
+	padding: 0px 0px 100px 0px;
+}

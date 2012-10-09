@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   		end
   end
 
+  def self.superadmin(id)
+    User.find(id).contract_cid.eql?(0) ? true : false
+  end
+
   #protected
   def self.hash(password="")
   		Digest::MD5.hexdigest(password).upcase

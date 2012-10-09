@@ -6,4 +6,5 @@ class ContractParameterType7Value < ActiveRecord::Base
 
   has_many :contract_parameter_type7, :class_name => 'ContractParameterType7', :foreign_key => 'val'
   has_many :contracts, :through => :contract_parameter_type7
+
 end

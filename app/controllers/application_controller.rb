@@ -13,9 +13,17 @@ class ApplicationController < ActionController::Base
   def allowed_ip?
     rtip = request.remote_ip
     answer = false
-    ips = ["194.54.152.66", "194.54.152.67", "194.54.152.8", "127.0.0.1", "172.28.200.3", "172.28.200.17"]
+    ips = ["194.54.154.141", 
+           "194.54.154.132", 
+           "194.54.154.133", 
+           "194.54.152.66", 
+           "194.54.152.67", 
+           "194.54.152.8", 
+           "127.0.0.1", 
+           "172.28.200.3", 
+           "172.28.200.17"]
     ips.each{|ip|
-      answer=true if ip.eql?(rtip)
+      answer = true if ip.eql?(rtip)
     }
     return answer
   end

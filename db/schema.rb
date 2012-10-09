@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20121008110114) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -5690,6 +5690,37 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "report_template", ["name"], :name => "name"
+
+  create_table "requestfls", :force => true do |t|
+    t.string   "description"
+    t.string   "fio",               :limit => 70,                 :null => false
+    t.string   "adress_post",       :limit => 150,                :null => false
+    t.string   "adress_connection", :limit => 150,                :null => false
+    t.string   "latlng_connection", :limit => 100,                :null => false
+    t.string   "email",             :limit => 40,                 :null => false
+    t.string   "telephone",         :limit => 13,                 :null => false
+    t.string   "in",                :limit => 30,                 :null => false
+    t.string   "pasport",           :limit => 20,                 :null => false
+    t.string   "pasport_authority", :limit => 60,                 :null => false
+    t.date     "pasport_date"
+    t.integer  "payment_form",                                    :null => false
+    t.string   "ip",                :limit => 15,                 :null => false
+    t.string   "login",             :limit => 15,                 :null => false
+    t.string   "password",          :limit => 15,                 :null => false
+    t.integer  "user_id",                                         :null => false
+    t.integer  "technology",                                      :null => false
+    t.integer  "node",                                            :null => false
+    t.integer  "requeststatus_id",                 :default => 1, :null => false
+    t.integer  "tariffplan_id",                                   :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+  end
+
+  create_table "requeststatuses", :force => true do |t|
+    t.string   "title",      :limit => 30, :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
 
   create_table "rscm_service_account_5_201007", :force => true do |t|
     t.integer "cid",                  :null => false
