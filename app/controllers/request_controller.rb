@@ -4,7 +4,11 @@ before_filter :checklogedin
 before_filter :ip_check
   def index
     @user = current_user()
-    @rfl = Requestfl.where("requeststatus_id != 4").order("id ASC")
+    if User.superadmin(@user.id)
+      @rfl = Requestfl.where("requeststatus_id != 4").order("id ASC")
+    else
+      @rfl = Requestfl.where("requeststatus_id != 4 and user_id='#{@user.id}'").order("id ASC")      
+    end
   end
 
   def newfl 
