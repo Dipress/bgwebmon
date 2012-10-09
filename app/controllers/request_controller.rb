@@ -31,8 +31,8 @@ class RequestController < ApplicationController
     @rfl = Requestfl.find(params[:id])
     if User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(1)
       @rfl.update_attribute(:requeststatus_id, 2)
-      Requestmailer.requestfl_connected(@rfl, "notify@crimeainfo.com").deliver
-      Requestmailer.requestfl_connected(@rfl, @rfl.user.email).deliver
+      Requestmailer.requestfl_connected(@rfl, "notify@crimeainfo.com", current_user()).deliver
+      Requestmailer.requestfl_connected(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
     else
       redirect_to "/requestfl/#{@rfl.id}", :error => "Действие невозможно, нарушена процедура"
@@ -43,8 +43,8 @@ class RequestController < ApplicationController
     @rfl = Requestfl.find(params[:id])
     if @rfl.user_id.eql?(current_user().id) && @rfl.requeststatus_id.eql?(2)
       @rfl.update_attribute(:requeststatus_id, 3)
-      Requestmailer.requestfl_ready(@rfl, "notify@crimeainfo.com").deliver
-      Requestmailer.requestfl_ready(@rfl, @rfl.user.email).deliver
+      Requestmailer.requestfl_ready(@rfl, "notify@crimeainfo.com", current_user()).deliver
+      Requestmailer.requestfl_ready(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
     else
       redirect_to "/requestfl/#{@rfl.id}", :error => "Действие невозможно, нарушена процедура"
@@ -55,8 +55,8 @@ class RequestController < ApplicationController
     @rfl = Requestfl.find(params[:id])
     if User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(3)
       @rfl.update_attribute(:requeststatus_id, 4)
-      Requestmailer.requestfl_finish(@rfl, "notify@crimeainfo.com").deliver
-      Requestmailer.requestfl_finish(@rfl, @rfl.user.email).deliver
+      Requestmailer.requestfl_finish(@rfl, "notify@crimeainfo.com", current_user()).deliver
+      Requestmailer.requestfl_finish(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
     else
       redirect_to "/requestfl/#{@rfl.id}", :error => "Действие невозможно, нарушена процедура"
