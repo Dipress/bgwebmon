@@ -3,7 +3,7 @@
 %script{:src => "http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"}
 %div#createrequestfl
 	- @requestfl.errors.each do |model, error|
-		%p= "#{model} - #{error}"
+		%p= "#{error}"
 	= form_for @requestfl , :url => { :action => "createfl" } do |r|
 		.editor-field
 			%label * ФИО:
