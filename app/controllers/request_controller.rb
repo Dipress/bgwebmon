@@ -1,5 +1,7 @@
 # coding: utf-8
 class RequestController < ApplicationController
+before_filter :checklogedin
+before_filter :ip_check
   def index
     @user = current_user()
     @rfl = Requestfl.where("requeststatus_id != 4").order("id ASC")
