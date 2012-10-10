@@ -14,6 +14,7 @@ class Requestfl < ActiveRecord::Base
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   telephone_regex = /\A\+[0-9]{12}\z/i
+  pd_regex = /\A[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}\z/i
 
   OB="обязательное поле"   
 
@@ -25,7 +26,7 @@ class Requestfl < ActiveRecord::Base
                        		   		 :message => 'Почтовый адресс - должен содержать до 150 символов'}
   validates :adress_connection, :presence => {:message => "Адресс - #{OB}"},
             	 			    :length =>{:maximum => 150,
-                       		   			   :message => 'Адресс - подключения должен содержать до 150 символов'}
+                       		   			   :message => 'Адресс - подключения должен содержать до 100 символов'}
   validates :latlng_connection, :presence => {:message => "Координаты - #{OB}"},
             	 			    :length =>{:maximum => 100,
                        		   			   :message => 'Координаты - должны содержать до 100 символов'}
@@ -43,7 +44,9 @@ class Requestfl < ActiveRecord::Base
   validates :pasport_authority, :presence => {:message => "Кем выдан паспорт - #{OB}"},
             	 				:length =>{:maximum => 60,
                        		   			   :message => 'Кем выдан паспорт - должно содержать до 60 символов'}
-  validates :pd, :presence => {:message => "Дата выдачи паспорта #{OB}"}
+  validates :pd, :presence => {:message => "Дата выдачи паспорта - #{OB}"},
+            :format => {:with => pd_regex, 
+                        :message => 'Дата выдачи паспорта - неверный формат поля (dd.mm.yyyy)'}
   validates :payment_form, :presence => {:message => "Форма оплаты - #{OB}"}, 
                       :numericality => { :only_integer => true, 
                       					 :message => "Форма оплаты - может быть только числом"}

@@ -1,16 +1,16 @@
 # Ignore bundler config
-/.bundle
+.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+log/*.log
+tmp
 *.log
-/config/database.yml
-/config/initializers/secret_token.rb
-/public/assets
-/.sass-cache
+config/database.yml
+config/initializers/secret_token.rb
+public/assets
+.sass-cache
 
-/graphs/
+graphs/
 
-/public/graphs/*.jpg
-/public/graphs/*.png
+public/graphs/*.jpg
+public/graphs/*.png

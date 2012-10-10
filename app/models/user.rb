@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   self.table_name = "user"
   self.primary_key = "id"
 
+  has_many :requestfl
+
   #protected
   def self.authenticate(username="", password="")
   		user = User.where("login='" + username + "'").first
