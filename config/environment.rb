@@ -8,10 +8,6 @@ ActionMailer::Base.smtp_settings = {
    :address => 'mail.crimeainfo.com',
    :port => 25,
    :domain => 'ruby.ci.ukrpack.net'
-#   :user_name => 'd3.supro@gmail.com',
-#   :password => 'afrnbxyj123',
-#   :authentication => 'plain',
-#   :enable_starttls_auto => true
 } 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.raise_delivery_errors = true
