@@ -8,4 +8,4 @@
 					%ul
 						- n[:nodes].each do |bs|
 							%li
-								= link_to bs[:title], "/mon/#{bs[:id]}"
+								= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/mon/#{bs[:id]}"
