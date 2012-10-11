@@ -7,5 +7,6 @@
 					=n[:region]
 					%ul
 						- n[:nodes].each do |bs|
-							%li= bs["title"]
+							%li
+								= bs["title"]
 								=link_to bs["title"], "/mon/#{bs["id"]}"
