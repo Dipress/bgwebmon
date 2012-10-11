@@ -1,3 +1,11 @@
 %ul
-	- @nodes.each do |n|
-		%li=link_to "#{n.title}" , "/nodestatistic/#{n.id}"
+	%li
+		=link_to "Все абоненты", "/mon/"
+		%ul
+			-@nodes.each do |n|
+				%li
+					=n[:region]
+					%ul
+						- n[:nodes].each do |bs|
+							%li
+								= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/nodestatistic/#{bs[:id]}"
