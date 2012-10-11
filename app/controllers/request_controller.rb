@@ -47,7 +47,7 @@ before_filter :ip_check
 
   def connectedstatusfl
     @rfl = Requestfl.find(params[:id])
-    if @rfl.user_id.eql?(current_user().id) && @rfl.requeststatus_id.eql?(2)
+    if (@rfl.user_id.eql?(current_user().id) && @rfl.requeststatus_id.eql?(2)) || (User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(2))
       @rfl.update_attribute(:requeststatus_id, 3)
       Requestmailer.requestfl_ready(@rfl, "notify@crimeainfo.com", current_user()).deliver
       Requestmailer.requestfl_ready(@rfl, @rfl.user.email, current_user()).deliver

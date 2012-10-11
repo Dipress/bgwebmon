@@ -10,7 +10,7 @@
 		%div
 			%label После заведения абонента в биллинг нажмите на следующую ссылку
 			= link_to("Готово к подключению", "/readystatusfl/#{@rfl.id}")
-	- if @rfl.user_id.eql?(@user.id) && @rfl.requeststatus_id.eql?(2)
+	- if (@rfl.user_id.eql?(current_user().id) && @rfl.requeststatus_id.eql?(2)) || (User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(2))
 		%div
 			%label После успешного подключения абонента нажмите на следующую ссылку
 			= link_to("Абонент успешно подключен", "/connectedstatusfl/#{@rfl.id}")
