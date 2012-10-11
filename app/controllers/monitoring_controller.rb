@@ -5,6 +5,9 @@ before_filter :ip_check
   def index
     @title = "Список точек подключения"
     @nodes = ContractParameterType7Value.where(:pid => 54).order('title ASC')
+    @regions = regions_array(@nodes)
+    @nodes = []
+    @regions.each{|r| @nodes << nodes_from_region(r)}
   end
 
   def mon
@@ -38,6 +41,20 @@ before_filter :ip_check
 
 private 
 #payments
+  def regions_array(nodes)
+    scan = /^([А-Я]|[а-я])+\ \-\ /
+    array = []
+    nodes.each{|z| array << z.title.match(scan).to_s.gsub(/\ \-\ /,"")}
+    return array.uniq
+  end
+
+  def nodes_from_region(region)
+    array = []
+    ContractParameterType7Value.where("pid='54' and title like '#{region} - %'").order('title ASC'){|n|
+      array << {:id => n.id, :title => n.title}}
+    return array = {:region => region, :nodes => array}
+  end
+
   def get_pays(cid)
     contract = Contract.find(cid)
     pays = contract.payments.order('dt ASC')
