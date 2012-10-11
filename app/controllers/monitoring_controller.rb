@@ -50,7 +50,7 @@ private
 
   def nodes_from_region(region)
     array = []
-    ContractParameterType7Value.where("pid='54' and title like '#{region} - %'").order('title ASC'){|n|
+    ContractParameterType7Value.where("pid='54' and title like '#{region}%'").order('title ASC').each{|n|
       array << {:id => n.id, :title => n.title}}
     return array = {:region => region, :nodes => array}
   end
