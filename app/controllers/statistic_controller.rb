@@ -8,6 +8,7 @@ before_filter :ip_check
     @regions = regions_array(@nodes)
     @nodes = []
     @regions.each{|r| @nodes << nodes_from_region(r)}
+    @user = current_user()
   end
 
   def show
@@ -27,6 +28,7 @@ before_filter :ip_check
   			end
   		end
   	}
+    @user = current_user()
   end
 
 private

@@ -8,4 +8,19 @@
 		= javascript_include_tag "application"
 		= csrf_meta_tags
 	%body
-		= yield
+		#topmenu
+			- if @user.nil?
+			- else
+				%ul#menuul
+					%li= link_to "Мониторинг", monnodes_path
+					%li= link_to "Доходы базовых станций", statistic_path
+					%li= link_to "Заявки на включение", request_path
+			#user
+				- if @user.nil?
+					#name Вы не вошли
+					#logout
+				-else
+					#name= @user.name
+					#logout= link_to "выйти", logout_path
+		#contentblock
+			= yield

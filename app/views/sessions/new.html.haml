@@ -1,14 +1,15 @@
-- flash.each do |key, value|
-	%div#notice=value
+#loginform
+	- flash.each do |key, value|
+		%div#notice=value
 
-= form_for(:session, :url => sessions_path) do |f|
-	%div.field
-		= f.label :login
-		%br
-		= f.text_field :login
-	%div.field
-		= f.label :password
-		%br
-		= f.password_field :password
-	%div.actions
-		= f.submit "Login!"	
+	= form_for(:session, :url => sessions_path) do |f|
+		%div.field
+			= f.label :login
+			%br
+			= f.text_field :login
+		%div.field
+			= f.label :password
+			%br
+			= f.password_field :password
+		%div.actions
+			= f.submit "Login!"	

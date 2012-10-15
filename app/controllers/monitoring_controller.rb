@@ -8,6 +8,7 @@ before_filter :ip_check
     @regions = regions_array(@nodes)
     @nodes = []
     @regions.each{|r| @nodes << nodes_from_region(r)}
+    @user = current_user()
   end
 
   def mon
@@ -21,10 +22,12 @@ before_filter :ip_check
     end
   	@title = "Все графики"
     @time = Time.now
+    @user = current_user()
   end
 
   def show
     render :json => create_graph(params[:id],params[:hour].to_i)
+    @user = current_user()
   end
 
   def errorlist
