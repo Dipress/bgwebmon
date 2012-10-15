@@ -6,7 +6,7 @@ class Requestfl < ActiveRecord::Base
   belongs_to :tariffplan
 
   attr_accessor :pd
-  attr_protected :requeststatus_id, :created_at, :updated_at
+#  attr_protected :requeststatus_id, :created_at, :updated_at
   attr_accessible :description, :fio, :adress_post, :adress_connection, 
   				  :adress_connection, :latlng_connection, :email, :telephone, :in, 
             :pasport, :pasport_authority, :pasport_date, :payment_form, :ip, 

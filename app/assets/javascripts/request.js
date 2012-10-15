@@ -23,12 +23,12 @@
 	                    });
 	                    	//Вставляем данные в инпуты
 	                    	//
-	                    	$('input#requestfl_adress_connection').val(names.reverse().join(', '));
+	                    	$('input#requestfl_adress_connection').val(names.join(', '));
 	                    	$('input#requestfl_latlng_connection').val(coords);
 	                    	//
 	                    	myMap.balloon.close();
 		                    myMap.balloon.open(coords, {
-		                        contentHeader: names.reverse().join(', '),
+		                        contentHeader: names.join(', '),
 		                        contentBody: [coords[0].toPrecision(6),
 		                                	  coords[1].toPrecision(6)].join(', ')
 		                    });
@@ -46,12 +46,12 @@
                     });
                     	//Вставляем данные в инпуты
                     	//
-	                    $('input#requestfl_adress_connection').val(names.reverse().join(', '));
+	                    $('input#requestfl_adress_connection').val(names.join(', '));
 	                    $('input#requestfl_latlng_connection').val(coords);
                     	//
                     	myMap.balloon.close();
 	                    myMap.balloon.open(coords, {
-	                        contentHeader: names.reverse().join(', '),
+	                        contentHeader: names.join(', '),
 	                        contentBody: [coords[0].toPrecision(6),
 	                                	  coords[1].toPrecision(6)].join(', ')
 	                    });

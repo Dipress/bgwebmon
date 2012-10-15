@@ -77,3 +77,32 @@ before_filter :ip_check
 end
 #INSERT INTO contract (gr,title,pswd,date1,mode,closesumma,pgid,fc,comment,sub_list,status) VALUES (16,"99-555","sdfs",NOW(),1,-10.00,1,0,"Тест","",5);
 #INSERT INTO contract_module (cid,mid) VALUES (923,2),(923,3),(923,4),(923,6);
+#INSERT INTO contract_parameter_type_2 (cid, pid, hid, room, pod, floor, comment, format_key) VALUES (199,5,0,"",0,0,"Киевская","Комментарий","")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,7,"Фамилия")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,11,"Фамилия")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,13,"Фамилия")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,29,"Фамилия")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,24,"Серия паспорта")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,25,"Кем выдан")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,30,"Скорость")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,32,"Протокол")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,34,"IP")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,35,"Шлюз")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,36,"Стоимоть инсталляции")
+#INSERT INTO contract_parameter_type_2 (cid, pid, val) VALUES (199,55,"Идентификационный код")
+#INSERT INTO contract_parameter_type_phone (pid, cid, value) VALUES (199,9, "00503443515")
+#INSERT INTO contract_parameter_type_phone (pid, cid, value) VALUES (199,12, "00503443515")
+#INSERT INTO contract_parameter_type_phone (pid, cid, value) VALUES (199,14, "00503443515")
+#INSERT INTO contract_parameter_type_5 (cid, pid, val) VALUES (199,46, 1)
+#INSERT INTO contract_parameter_type_5 (cid, pid, val) VALUES (199,47, 1)
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,27, NOW()) Паспорт 
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,28, NOW()) Составления
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,41, NOW()) Включения
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,45, 1) VPN-сервер
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,52, 1) Форма оплаты
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,53, 1) Технология передачи данных
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,54, 1) Точка подключения
+#INSERT INTO contract_parameter_type_6 (cid, pid, val) VALUES (199,43, 199) Контрагент
+
+
+

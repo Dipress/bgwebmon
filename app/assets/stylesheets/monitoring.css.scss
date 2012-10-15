@@ -159,3 +159,41 @@
 		}
 	}
 }
+
+
+#nodesul{
+	list-style:none;
+}
+.nodesli{}
+#regionul{
+	list-style:none;
+}
+.noderegion{
+	h3{
+		color:#555;
+		font-size: 28px;
+		font-family: "Ubuntu Condensed", sans-serif;
+	}
+}
+.nodeul{
+	list-style:none;
+}
+.nodetext{
+	a{
+		color:#00BEF6;
+		text-decoration:none;
+		&:hover{
+			color:#555
+		}
+	}
+}
+
+.all{
+	a{
+		color:#00BEF6;
+		text-decoration:none;
+		&:hover{
+			color:#555
+		}
+	}	
+}
