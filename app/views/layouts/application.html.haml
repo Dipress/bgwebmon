@@ -9,8 +9,7 @@
 		= csrf_meta_tags
 	%body
 		#topmenu
-			- if @user.nil?
-			- else
+			- if !@user.nil?
 				%ul#menuul
 					%li= link_to "Мониторинг", monnodes_path
 					%li= link_to "Доходы базовых станций", statistic_path

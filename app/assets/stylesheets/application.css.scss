@@ -18,6 +18,7 @@ html,body{
 	height: 50px;
 	position: fixed;
 	top: 0px;
+	z-index: 100002;
 }
 
 #user{
@@ -29,8 +30,8 @@ html,body{
 
 
 #contentblock{
-	padding: 20px 0px 0px 0px;
-	margin: 60px 0px 0px 0px;
+	padding: 30px 0px 0px 0px;
+	margin: 50px 0px 0px 0px;
 	width:100%;
 }
 
