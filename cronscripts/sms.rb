@@ -49,41 +49,43 @@ class Gnokii
 end
 
 Flag.where("pid=46").each do |f|
-  contract = f.contract
-  b = contract.balances.where("yy=#{yy} and mm=#{mm}")[0]
-  if b != nil
-    balance = b.summa1 + b.summa2 - b.summa3 - b.summa4
-    #Стоимость одного дня
-    one_day = (b.summa3 / day)
-    #Стоимость пяти дней
-    five_days = 5 * one_day
-    #Текст сообщения
-    sms = ""
-    #Если осталось на Х дней
-    if balance < one_day && balance > 0
-      #Осталось средств на Х дней
-      days_left = balance / one_day
-      dd = days_left.to_i
-      dd = 1 if dd == 0
-      s = contract.smses.where(["smstype_id=? and time>=?", 1, (timenow - 2.day).strftime("%Y-%m-%d %H:%M")])[0]
-      if s.nil?
-	    sms = "На счете осталось на #{dd.to_s} #{Smssender.dayformat(dd)} работы в сети Интернет. Крыминфоком."
-	    text = text + Smssender.send(contract, sms, 1)
-  	  end
-    #Если баланс 0, но меньше лимити
-    elsif balance < 0 && balance > contract.closesumma.to_f
-      s = contract.smses.where(["smstype_id=? and time>=?", 2, (timenow - 5.day).strftime("%Y-%m-%d %H:%M")])[0]
-      if s.nil?
-	    sms = "Аванс исчерпан, пополните счет в течение 5 дней. Крыминфоком."
-	    text = text + Smssender.send(contract, sms, 2)
-  	  end
-#    Если баланс меньше лимита
-#    elsif balance + one_day < limit && contract.status == 3
-#      sms = "Услуга приостановлена, для активации пополните счет. Крыминфоком."
-#      s = contract.smses.where(["smstype_id=? and date<=", 3])[0]
-#      Smssender.send(contract,sms)
-#      Sms.create!(:date => Time.now.strftime("%Y-%m-%d %H:%M"),:cid => contract.id,:smstype_id => 3)
-    end
+  if f.val == 1
+	  contract = f.contract
+	  b = contract.balances.where("yy=#{yy} and mm=#{mm}")[0]
+	  if b != nil && contract.status == 0
+	    balance = b.summa1 + b.summa2 - b.summa3 - b.summa4
+	    #Стоимость одного дня
+	    one_day = (b.summa3 / day)
+	    #Стоимость пяти дней
+	    five_days = 5 * one_day
+	    #Текст сообщения
+	    sms = ""
+	    #Если осталось на Х дней
+	    if balance < five_days && balance > 0
+	      #Осталось средств на Х дней
+	      days_left = balance / one_day
+	      dd = days_left.ceil
+	      dd = 1 if dd == 0
+	      s = contract.smses.where(["smstype_id=? and time>=?", 1, (timenow - 3.day).strftime("%Y-%m-%d %H:%M")])[0]
+	      if s.nil?
+		    sms = "На счете осталось на #{dd.to_s} #{Smssender.dayformat(dd)} работы в сети Интернет. Крыминфоком."
+		    text = text + Smssender.send(contract, sms, 1)
+	  	  end
+	    #Если баланс 0, но меньше лимити
+	    elsif balance < 0 && balance - one_day > contract.closesumma.to_f
+	      s = contract.smses.where(["smstype_id=? and time>=?", 2, (timenow - 5.day).strftime("%Y-%m-%d %H:%M")])[0]
+	      if s.nil?
+		    sms = "Аванс исчерпан, пополните счет в течение 5 дней. Крыминфоком."
+		    text = text + Smssender.send(contract, sms, 2)
+	  	  end
+	#    Если баланс меньше лимита
+	#    elsif balance + one_day < limit && contract.status == 3
+	#      sms = "Услуга приостановлена, для активации пополните счет. Крыминфоком."
+	#      s = contract.smses.where(["smstype_id=? and date<=", 3])[0]
+	#      Smssender.send(contract,sms)
+	#      Sms.create!(:date => Time.now.strftime("%Y-%m-%d %H:%M"),:cid => contract.id,:smstype_id => 3)
+	    end
+	  end
   end
 
 end
