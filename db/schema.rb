@@ -2012,6 +2012,21 @@ ActiveRecord::Schema.define(:version => 20121016054648) do
     t.string "title", :limit => 150, :null => false
   end
 
+  create_table "installed_modules", :force => true do |t|
+    t.string  "name",        :limit => 100,        :default => "0"
+    t.string  "title",       :limit => 200,        :default => "0"
+    t.string  "version",     :limit => 20,         :default => "0"
+    t.string  "pack_server", :limit => 200,        :default => "0"
+    t.string  "pack_client", :limit => 200,        :default => "0"
+    t.string  "type",        :limit => 20,         :default => "0",   :null => false
+    t.binary  "client_zip",  :limit => 2147483647,                    :null => false
+    t.text    "init",        :limit => 2147483647,                    :null => false
+    t.boolean "enabled",                           :default => false, :null => false
+    t.text    "uninstall",   :limit => 2147483647
+  end
+
+  add_index "installed_modules", ["name"], :name => "name"
+
   create_table "inv_device_group_14", :force => true do |t|
     t.integer "parentId", :null => false
     t.string  "title",    :null => false
