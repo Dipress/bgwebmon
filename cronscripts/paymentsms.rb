@@ -28,7 +28,7 @@ end
 
 class Gnokii
   def self.send(sms, phone)
-    x = `echo "#{sms}" | gnokii --config /etc/gnokiirc --sendsms #{phone}`
+    x = `echo "#{sms}" | gnokii --config /etc/gnokiirc --sendsms "#{phone}"`
     STDOUT.print(x)
   end
 end
