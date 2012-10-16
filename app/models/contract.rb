@@ -3,6 +3,10 @@ class Contract < ActiveRecord::Base
   self.table_name =  "contract"
   self.primary_key = "id"
 
+  has_many :phones, :class_name => "Phone", :foreign_key => "cid"
+
+  has_many :smses, :class_name => "Sms", :foreign_key => "cid"
+
   has_many :dialuperrors, :class_name => 'Dialuperror', :foreign_key => 'cid'
 
   has_many :payments, :class_name => 'Payment', :foreign_key => 'cid'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008110114) do
+ActiveRecord::Schema.define(:version => 20121016054648) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -2011,21 +2011,6 @@ ActiveRecord::Schema.define(:version => 20121008110114) do
   create_table "inet_zone_14", :force => true do |t|
     t.string "title", :limit => 150, :null => false
   end
-
-  create_table "installed_modules", :force => true do |t|
-    t.string  "name",        :limit => 100,        :default => "0"
-    t.string  "title",       :limit => 200,        :default => "0"
-    t.string  "version",     :limit => 20,         :default => "0"
-    t.string  "pack_server", :limit => 200,        :default => "0"
-    t.string  "pack_client", :limit => 200,        :default => "0"
-    t.string  "type",        :limit => 20,         :default => "0",   :null => false
-    t.binary  "client_zip",  :limit => 2147483647,                    :null => false
-    t.text    "init",        :limit => 2147483647,                    :null => false
-    t.boolean "enabled",                           :default => false, :null => false
-    t.text    "uninstall",   :limit => 2147483647
-  end
-
-  add_index "installed_modules", ["name"], :name => "name"
 
   create_table "inv_device_group_14", :force => true do |t|
     t.integer "parentId", :null => false
@@ -4594,6 +4579,14 @@ ActiveRecord::Schema.define(:version => 20121008110114) do
 
   add_index "npay_add_cost_detail_3_201210", ["cid"], :name => "cid"
 
+  create_table "npay_add_cost_detail_3_201211", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201211", ["cid"], :name => "cid"
+
   create_table "npay_detail_3_200706", :id => false, :force => true do |t|
     t.integer "cid",                  :null => false
     t.integer "mid",                  :null => false
@@ -5554,6 +5547,21 @@ ActiveRecord::Schema.define(:version => 20121008110114) do
   add_index "npay_detail_3_201210", ["sid"], :name => "sid"
   add_index "npay_detail_3_201210", ["treeId"], :name => "treeId"
 
+  create_table "npay_detail_3_201211", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201211", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201211", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201211", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201211", ["treeId"], :name => "treeId"
+
   create_table "npay_service_object_3", :force => true do |t|
     t.integer "cid",                    :null => false
     t.integer "sid",                    :null => false
@@ -6484,9 +6492,13 @@ ActiveRecord::Schema.define(:version => 20121008110114) do
   end
 
   create_table "sms", :force => true do |t|
-    t.integer  "sms_type",   :limit => 1, :null => false
-    t.integer  "cid",                     :null => false
-    t.datetime "date_added",              :null => false
+    t.date    "date",       :null => false
+    t.integer "cid",        :null => false
+    t.integer "smstype_id", :null => false
+  end
+
+  create_table "smstypes", :force => true do |t|
+    t.string "title", :limit => 64, :null => false
   end
 
   create_table "source", :force => true do |t|
@@ -6742,20 +6754,17 @@ ActiveRecord::Schema.define(:version => 20121008110114) do
   add_index "user_group_member", ["user_id", "gr_code"], :name => "user_id"
 
   create_table "user_login_6", :force => true do |t|
-    t.integer "cid",                       :default => 0,     :null => false
-    t.integer "object_id",                 :default => 0,     :null => false
-    t.integer "login",                     :default => 0,     :null => false
-    t.string  "pswd",        :limit => 32, :default => "",    :null => false
+    t.integer "cid",                       :default => 0,  :null => false
+    t.integer "object_id",                 :default => 0,  :null => false
+    t.integer "login",                     :default => 0,  :null => false
+    t.string  "pswd",        :limit => 32, :default => "", :null => false
     t.date    "date1"
     t.date    "date2"
-    t.integer "status",      :limit => 1,  :default => 0,     :null => false
-    t.integer "session",     :limit => 2,  :default => 0,     :null => false
-    t.integer "rp_mode",     :limit => 1,  :default => 0,     :null => false
-    t.string  "realm_group", :limit => 20, :default => "",    :null => false
-    t.string  "comment",                   :default => "",    :null => false
-    t.boolean "online",                    :default => false
-    t.integer "rx",          :limit => 8,  :default => 0
-    t.integer "tx",          :limit => 8,  :default => 0
+    t.integer "status",      :limit => 1,  :default => 0,  :null => false
+    t.integer "session",     :limit => 2,  :default => 0,  :null => false
+    t.integer "rp_mode",     :limit => 1,  :default => 0,  :null => false
+    t.string  "realm_group", :limit => 20, :default => "", :null => false
+    t.string  "comment",                   :default => "", :null => false
   end
 
   add_index "user_login_6", ["cid"], :name => "cid"
