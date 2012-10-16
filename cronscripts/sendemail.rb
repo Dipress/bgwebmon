@@ -8,9 +8,11 @@ def sendmail(text, to, from, subject)
 message = <<MESSAGE_END
 From: Биллинговая система <#{from}>
 To: Сотрудникам ООО 'Крыминфоком' <#{to}>
-MIME-Version: 1.0
-Content-type: text/html
+MIME-Version: 3.3.1
+Content-type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 Subject: #{subject}
+Date: #{Time.now.strftime("%a, %d %b %Y %H:%M:%S %z")}
 
 #{text}
 
