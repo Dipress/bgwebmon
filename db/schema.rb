@@ -6507,9 +6507,9 @@ ActiveRecord::Schema.define(:version => 20121016054648) do
   end
 
   create_table "sms", :force => true do |t|
-    t.date    "date",       :null => false
-    t.integer "cid",        :null => false
-    t.integer "smstype_id", :null => false
+    t.datetime "time",       :null => false
+    t.integer  "cid",        :null => false
+    t.integer  "smstype_id", :null => false
   end
 
   create_table "smstypes", :force => true do |t|
