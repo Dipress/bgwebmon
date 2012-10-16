@@ -19,7 +19,7 @@ class Smssender
 	  else
 	    phone = phone.value.gsub(/;(.+)$/, "").gsub(/ /, "").gsub(/^0/, "+38")
 	    if Gnokii.checkmobile(phone)
-	      #Gnokii.send(sms, phone)
+	      Gnokii.send(sms, phone)
 	      message = "<p>#{sms} - #{contract.title} - отправленно на телефон #{phone}</p>"
 	      Sms.create!(:time => Time.now.strftime("%Y-%m-%d %H:%M"),:cid => contract.id,:smstype_id => type)
 	    else
@@ -92,7 +92,7 @@ end
 
 #Отправка письма
 if text != "<h3>Отправлены следующие СМС сообщения:</h3>"
-  to="roma@crimeainfo.com"
+  to="notify@crimeainfo.com"
   from="ruby.ci.ukrpack.net@crimeainfo.com"
   subject="Отправлены следующие СМС #{timenow.strftime("%d.%m.%Y %H:%M")}"
   sendmail(text, to, from, subject)
