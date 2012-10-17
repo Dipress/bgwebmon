@@ -15,15 +15,15 @@ class Smssender
 	  message = ""
 	  phone = contract.phones.where(["pid=?", 9])[0]
 	  if phone.nil?
-	     message = "<p>Сообщение не отправлено у абонента #{contract.title} нет телефона по фин. вопросам</p>"
+	     message = "<p>Сообщение не отправлено у абонента #{contract.title}-#{contract.comment} нет телефона по фин. вопросам</p>"
 	  else
 	    phone = phone.value.gsub(/;(.+)$/, "").gsub(/ /, "").gsub(/^0/, "+38")
 	    if Gnokii.checkmobile(phone)
 	      Gnokii.send(sms, phone)
-	      message = "<p>#{sms} - #{contract.title} - отправленно на телефон #{phone}</p>"
+	      message = "<p>#{sms} - #{contract.title}-#{contract.comment} отправленно на телефон #{phone}</p>"
 	      Sms.create!(:time => Time.now.strftime("%Y-%m-%d %H:%M"),:cid => contract.id,:smstype_id => type)
 	    else
-	      message = "<p>Сообщение не отправлено у абонента #{contract.title} указан городской телефон #{phone}</p>"
+	      message = "<p>Сообщение не отправлено у абонента #{contract.title}-#{contract.comment} указан городской телефон #{phone}</p>"
 	    end
 	    return message
 	  end
