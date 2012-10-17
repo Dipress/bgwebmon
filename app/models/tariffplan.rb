@@ -3,6 +3,7 @@ class Tariffplan < ActiveRecord::Base
   self.table_name = "tariff_plan"
   self.primary_key = "id"
   belongs_to :ctariff, :class_name => 'Ctariff'
+  has_many :moduletarifftrees, :class_name => 'Moduletarifftree', :foreign_key =>'tree_id'
   has_one :tarifftreelink, :class_name => 'Tarifftreelink', :foreign_key =>'tpid'
   def self.array_of
   	array = []

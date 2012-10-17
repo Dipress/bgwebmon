@@ -38,7 +38,7 @@ class Contract < ActiveRecord::Base
     id = Contract.find(id)
     id.ctariffs.where("date2 is NULL").each do |tp|
       title = tp.tariffplan.title
-      tp.tariffplan.tarifftreelink.moduletarifftrees.each do |md|
+      tp.tariffplan.moduletarifftrees.each do |md|
         mtreen = md.mtreenodes.where("type LIKE '%_cost'").find(:all, :select => "type as etype, data")[0]
         if mtreen != nil
           fincost = mtreen.data.gsub(/(.+)&/,"")
