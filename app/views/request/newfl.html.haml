@@ -70,7 +70,7 @@
 		.editor-field
 			%label * Тарифный план:
 			%br	
-			= r.collection_select :tariffplan_id, Tariffplan.all, :id, :title, {:prompt => 'Выберите тарифный план'}
+			= r.collection_select :tariffplan_id, Tariffplan.all, :tree_id, :title, {:prompt => 'Выберите тарифный план'}
 		.editor-field
 			%label Дополнительная информация:
 			%br	
