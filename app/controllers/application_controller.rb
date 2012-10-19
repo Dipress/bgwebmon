@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
            "127.0.0.1", 
            "172.28.200.3", 
            "172.28.200.17",
-           "0.0.0.0"]
+           "0.0.0.0",
+           "195.20.28.252"]
     ips.each{|ip|
       answer = true if ip.eql?(rtip)
     }
