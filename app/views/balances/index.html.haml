@@ -1,0 +1,96 @@
+%link{:rel=>"stylesheet", :href=>"http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css"}
+%script{:src=>"http://code.jquery.com/ui/1.9.0/jquery-ui.js"}
+%div{:id=>"center"}
+%table
+	%tr
+		%th Дата:
+		%th Номера договоров:
+		%th Юр. лицо
+		%th Физ. лицо
+		%th ЧП
+	%tr
+		%th
+			%input{:class=>"inputDate",:id=>"inputDate",:value=>"07/13/2012"}
+		%th
+			%input{:id=>"inputNumb", :value=>"12-"}
+		%th
+			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='2'"}
+		%th
+			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='1'"}
+		%th
+			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='3'"}
+	%tr
+		%th{:colspan=>"2"}
+			%button{:id=>"getlist"} Получить список
+%p
+%div{:id=>"container"}
+	%table
+		%tr
+			%th №
+			%th Дoговор
+			%th Название
+			%th Входящий остаток
+			%th Приход
+			%th Наработка
+			%th Расход
+			%th Исходящий остаток
+		- @ids.each do |id|
+			- if id.status == 3
+				%tr{:style=>"background-color:#F75D59;"} 
+			- else
+				%tr
+					- summa = id.balances.where(@wherestring)[0]
+					- if summa != nil
+						%td= @index
+						%td= id.title
+						%td= id.comment
+						%td= summa.summa1
+						%td= summa.summa2
+						%td= summa.summa3
+						%td= summa.summa4
+						%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+						- @index=@index+1
+:javascript
+	$(function(){
+		$('input#inputDate').datepicker({
+			dateFormat: 'mm/dd/yy',
+			onSelect: function (formated, dates) {
+				$('input#inputDate').val(formated);
+				if ($('#closeOnSelect input').attr('checked')) {
+					$('input#inputDate').DatePickerHide();
+				}
+			}
+		});
+
+		$('button#getlist').on('click', function () {
+			var date = $('#inputDate').val(),
+				pgid = new Array(),
+				mm = date.match('^[0-9]+').toString(),
+				yy = date.match('[0-9]+$').toString(),
+				numb = $('#inputNumb').val(),
+				pgidstring = "";
+			$.each($('input.option:checked'), function (numb, val) {
+				pgid.push($(val).val());
+			});
+			if (pgid.length == 1)
+				pgidstring = pgid[0].toString();
+			else if(pgid.length == 2)
+				pgidstring = pgid[0].toString() + " OR " + pgid[1].toString();
+			else if (pgid.length == 3)
+				pgidstring = pgid[0].toString() + " OR " + pgid[1].toString() + " OR " + pgid[2].toString();
+			Send(mm, yy, numb, pgidstring);
+		});
+	//url: '/bg_billing/index?mm=' + mm + '&yy=' + yy + '&number=' + numb + '&query=' + pgidstring,
+		function Send(mm, yy, numb, pgidstring) {
+			//$('div#loading').fadeIn(400).fadeOut(400).fadeIn(400).fadeOut(400);
+			$.ajax({
+				type: 'GET',
+				url: '/getsumms?mm=' + mm + '&yy=' + yy + '&number=' + numb + '&query=' + pgidstring,
+				dataType: 'html',
+				success: function (result) {
+					$('div#container').html(result);
+				}
+			});
+
+		}
+	});

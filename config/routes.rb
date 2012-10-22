@@ -30,4 +30,7 @@ Bgwebmon::Application.routes.draw do
   match "/readystatusfl/:id", :to => "request#readystatusfl"
   match "/connectedstatusfl/:id", :to => "request#connectedstatusfl"
   match "/finishstatusfl/:id", :to => "request#finishstatusfl"
+
+  match "/getsumms", :to => 'balances#getsumms'
+  match "/balances", :to => "balances#index"
 end

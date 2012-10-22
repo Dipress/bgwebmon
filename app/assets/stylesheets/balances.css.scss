@@ -1,0 +1,29 @@
+// Place all the styles related to the balances controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+table
+{
+    border: solid 1px #dadada;
+    border-collapse: collapse;
+    font-family: 'Open Sans';
+    font-size:14px;
+}
+
+table td
+{
+    padding: 5px;
+    border: solid 1px #dadada;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #dadada;
+    border: solid 1px #eeeeee;
+}
+
+#center{
+	margin:0px auto 0px auto;
+	width: 850px;
+}

@@ -1,0 +1,39 @@
+%table
+    %tr
+        %th №
+        %th Дoговор
+        %th Название
+        %th Входящий остаток
+        %th Приход
+        %th Наработка
+        %th Расход
+        %th Исходящий остаток
+    - @ids.each do |id|
+        - if id.status == 3
+            %tr{:style=>"background-color:#F75D59;"}
+                - summa = id.balances.where(@wherestring)[0]
+                - if summa != nil
+                    %td= @index
+                    %td= id.title
+                    %td= id.comment
+                    %td= summa.summa1
+                    %td= summa.summa2
+                    %td= summa.summa3
+                    %td= summa.summa4
+                    %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    - @index=@index+1
+        - else
+            %tr
+                - summa = id.balances.where(@wherestring)[0]
+                - if summa != nil
+                    %td= @index
+                    %td= id.title
+                    %td= id.comment
+                    %td= summa.summa1
+                    %td= summa.summa2
+                    %td= summa.summa3
+                    %td= summa.summa4
+                    %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    - @index=@index+1
+%p
+%p
