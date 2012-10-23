@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     loged_in? ? true : redirect_to(login_path(:protocol => 'https'))
   end
 
+  def sadmin
+    User.superadmin(current_user) ? true : root_path  
+  end
+
   def search_title
     u = current_user
     if u.contract_cid != 0

@@ -3,6 +3,7 @@ class BalancesController < ApplicationController
   layout false, :except => [:index]
   before_filter :checklogedin
   before_filter :ip_check
+  before_filter :sadmin
   def index
   	@user = current_user()
   	@index = 1
