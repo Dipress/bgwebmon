@@ -116,12 +116,12 @@ Popup.prototype.ToggleIt = function(){
 }
 
 Popup.prototype.Resize = function(){
-	$(this.pbackground).css({'height':$('body').height(), 'margin-top':$(window).scrollTop()-25});
+	$(this.pbackground).css({'height':$('body').height(), 'margin-top':$(window).scrollTop()-28});
 	this.Center();
 }
 
 Popup.prototype.Center = function(){
-	$(this.pscreen).css({'margin-left':this.GetMargW(),'margin-top':this.GetMargH()-25});
+	$(this.pscreen).css({'margin-left':this.GetMargW(),'margin-top':this.GetMargH()-28});
 }
 
 Popup.prototype.GetMargW = function(){
