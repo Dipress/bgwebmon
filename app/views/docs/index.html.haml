@@ -1,0 +1,15 @@
+%table
+	%thead
+		%tr
+			%th Договор
+			%th Комментарий
+			%th Наличие подписаного договора
+	%tbody
+		- @contracts.each do |c|
+		%tr
+			%td= c.title
+			%td= c.comment
+			- if c.flags.where(["pid=?", 56]).first.eql? true
+				%td Есть
+			- else 
+				%td Нет

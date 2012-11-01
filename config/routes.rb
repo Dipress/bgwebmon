@@ -1,5 +1,7 @@
 Bgwebmon::Application.routes.draw do
 
+  get "docs/index"
+
   resources :sessions do
     collection do 
       get :new

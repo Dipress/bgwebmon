@@ -6,4 +6,5 @@ class Flag < ActiveRecord::Base
   #pid 46 = SMS
   #pid 47 = Email рассылка
   #pid 48 = Изменение статуса
+  #pid 56 = Наличие подписаного договора
 end
