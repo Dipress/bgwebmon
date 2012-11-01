@@ -6,5 +6,6 @@ class DocsController < ApplicationController
   def index
     @contracts = Contract.where(["pgid=? or pgid=? and status=?",1,2,0]).order("title ASC")
     @title= "Статусы наличия подписаных договоров"
+  	@user = current_user()
   end
 end
