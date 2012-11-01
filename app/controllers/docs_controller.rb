@@ -4,7 +4,7 @@ class DocsController < ApplicationController
   before_filter :ip_check
   before_filter :sadmin
   def index
-    @contracts = Contract.order("title ASC")
+    @contracts = Contract.where(["pgid=? or pgid=? and status=?",1,2,0]).order("title ASC")
     @title= "Статусы наличия подписаных договоров"
   end
 end
