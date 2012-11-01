@@ -4,7 +4,7 @@ class DocsController < ApplicationController
   before_filter :ip_check
   before_filter :sadmin
   def index
-    @contracts = Contract.all.order("title ASC")
+    @contracts = Contract.order("title ASC")
     @title= "Статусы наличия подписаных договоров"
   end
 end
