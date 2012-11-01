@@ -1,7 +1,5 @@
 Bgwebmon::Application.routes.draw do
 
-  get "docs/index"
-
   resources :sessions do
     collection do 
       get :new
@@ -11,6 +9,8 @@ Bgwebmon::Application.routes.draw do
   end
 
   root :to => "menu#index"
+
+  match '/docs', :to => 'docs#index'
 
   match '/mon(/:id)', :to => 'monitoring#mon'
   match '/monnodes', :to => 'monitoring#index'
