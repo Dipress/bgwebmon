@@ -9,7 +9,10 @@
 			%tr
 				%td= c.title
 				%td= c.comment
-				- if !c.flags.where(["pid=?", 56]).first.nil? && c.flags.where(["pid=?", 56]).first.val.eql? 1
-					%td Есть
+				- if !c.flags.where(["pid=?", 56]).first.nil?
+					- if c.flags.where(["pid=?", 56]).first.val.eql? 1
+						%td Есть
+					- else
+						%td Нет
 				- else 
 					%td Нет
