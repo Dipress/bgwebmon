@@ -23,7 +23,7 @@
 	                    });
 	                    	//Вставляем данные в инпуты
 	                    	//
-	                    	$('input#requestfl_adress_connection').val(names.join(', '));
+	                    	//$('input#requestfl_adress_connection').val(names.join(', '));
 	                    	$('input#requestfl_latlng_connection').val(coords);
 	                    	//
 	                    	myMap.balloon.close();
@@ -46,7 +46,7 @@
                     });
                     	//Вставляем данные в инпуты
                     	//
-	                    $('input#requestfl_adress_connection').val(names.join(', '));
+	                    //$('input#requestfl_adress_connection').val(names.join(', '));
 	                    $('input#requestfl_latlng_connection').val(coords);
                     	//
                     	myMap.balloon.close();

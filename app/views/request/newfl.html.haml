@@ -13,8 +13,12 @@
 			%label * Адресс почтовый:
 			%br	
 			= r.text_field :adress_post
+		.editor_field
+			%label * Адресс подключения:
+			%br	
+			= r.text_field :adress_connection
 		.editor-field
-			%label * Адресс подключения (введите адресс и нажмите "Показать на карте" или кликните по карте):
+			%label * Координаты подключения (введите адресс и нажмите "Показать на карте" или кликните по карте):
 			%br	
 			%input#street{:type => "text", :name => "mapsearch", :value => @requestfl[:adress_connection]}
 			%button#searchplace Показать на карте
@@ -78,7 +82,6 @@
 		.editor-field
 			= r.hidden_field :user_id, :value => @user.id
 			= r.hidden_field :latlng_connection
-			= r.hidden_field :adress_connection
 		.editor-field
 			= r.submit "Отправить заявку"
 :javascript
