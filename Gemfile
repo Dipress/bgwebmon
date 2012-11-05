@@ -5,6 +5,7 @@ gem 'mysql2'
 gem 'haml'
 gem 'RailsRRDTool'
 gem 'rvm-capistrano'
+gem 'will_paginate'
 
 
 group :assets do

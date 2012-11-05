@@ -4,8 +4,12 @@ class DocsController < ApplicationController
   before_filter :ip_check
   before_filter :sadmin
   def index
-    @contracts = Contract.where(["pgid=? or pgid=? and status=?",1,2,0]).order("title ASC")
-    @title= "Статусы наличия подписаных договоров"
+  	page = params[:page]
+    params[:page].nil? ? page = 1 : page = params[:page] 
+    @contracts = Contract.paginate(:page => page, 
+                             	   :per_page => 20,
+                             	   :order => "title ASC").where(["pgid=? or pgid=? and status=?",1,2,0])
+    @title= "Данные по договорам"
   	@user = current_user()
   end
 end
