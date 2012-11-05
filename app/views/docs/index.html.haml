@@ -4,6 +4,7 @@
 			%th Договор
 			%th Комментарий
 			%th Наличие подписанного договора
+			%th Незаполненные поля
 	%tbody
 		- @contracts.each do |c|
 			%tr
@@ -16,3 +17,83 @@
 						%td Нет
 				- else 
 					%td Нет
+				%td
+					- finphone = c.phones.where( [ "pid=?", 9 ] )[0]
+					- if !finphone.nil?
+						- if finphone.value.eql? ""
+							%span Телефон по финансовым вопросам;
+					- else
+						%span Телефон по финансовым вопросам;
+					- contactphone = c.phones.where( [ "pid=?", 14 ] )[0]
+					- if !contactphone.nil?
+						- if contactphone.value.eql? ""
+							%span Телефон;
+					- sostdate = c.contract_parameter_type6.where( [ "pid=?", 28 ] )[0]
+					- if !sostdate.nil?
+						- if sostdate.val.eql? ""
+							%span Дата составления договора;
+					- else
+						%span Дата составления договора;
+					- condate = c.contract_parameter_type6.where( [ "pid=?", 41 ] )[0]
+					- if !condate.nil?
+						- if condate.val.eql? ""
+							%span Дата фактического включения;
+					- else
+						%span Дата фактического включения;
+					- payform = c.contract_parameter_type7.where( [ "pid=?", 52 ] )[0]
+					- if !payform.nil?
+						%span Форма оплаты;	
+
+					- if c.pgid.eql? 1
+						- fio = c.contract_parameter_type1.where( [ "pid=?", 29 ] )[0]
+						- if !fio.nil?
+							- if fio.val.eql? ""
+								%span ФИО;
+						- else
+							%span ФИО;
+						- inn = c.contract_parameter_type1.where( [ "pid=?", 55 ] )[0]
+						- if !inn.nil?
+							- if inn.val.eql? ""
+								%span Идентификационный номер;
+						- else
+							%span Идентификационный номер;	
+						- pass = c.contract_parameter_type1.where( [ "pid=?", 24 ] )[0]
+						- if !pass.nil?
+							- if pass.val.eql? ""
+								%span Паспорт серия и номер;
+						- else
+							%span Паспорт серия и номер;
+						- kempass = c.contract_parameter_type1.where( [ "pid=?", 25 ] )[0]
+						- if !kempass.nil?
+							- if kempass.val.eql? ""
+								%span Кем выдан паспорт;
+						- else
+							%span Кем выдан паспорт;
+						- passdate = c.contract_parameter_type6.where( [ "pid=?", 27 ] )[0]
+						- if !passdate.nil?
+							- if passdate.val.eql? ""
+								%span Дата выдачи паспорта;
+						- else
+							%span Дата выдачи паспорта;
+					- else
+						- nalogschema = c.contract_parameter_type7.where( [ "pid=?", 51 ] )[0]
+						- if !nalogschema.nil?
+							%span Схема налогооблажения;
+						- bankname = c.contract_parameter_type1.where( [ "pid=?", 15 ] )[0]
+						- if !bankname.nil?
+							- if bankname.val.eql? ""
+								%span Наименование банка;
+						- else
+							%span Наименование банка;
+						- mfo = c.contract_parameter_type1.where( [ "pid=?", 16 ] )[0]
+						- if !mfo.nil?
+							- if mfo.val.eql? ""
+								%span МФО банка;
+						- else
+							%span МФО банка;
+						- rasc = c.contract_parameter_type1.where( [ "pid=?", 17 ] )[0]
+						- if !rasc.nil?
+							- if rasc.val.eql? ""
+								%span Рассчетный счет;
+						- else
+							%span Рассчетный счет;

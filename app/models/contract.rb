@@ -25,6 +25,10 @@ class Contract < ActiveRecord::Base
   has_many :ctariffs, :class_name => 'Ctariff', :foreign_key =>'cid'
   has_many :contracttreelinks, :class_name => 'Contracttreelink', :foreign_key =>'cid'
 
+  has_many :contract_parameter_type1, :class_name => 'ContractParameterType1', :foreign_key => 'cid'
+
+  has_many :contract_parameter_type6, :class_name => 'ContractParameterType6', :foreign_key => 'cid'
+
   has_many :contract_parameter_type7, :class_name => 'ContractParameterType7', :foreign_key => 'cid'
   has_many :contract_parameter_type7_values, :through => :contract_parameter_type7
 
