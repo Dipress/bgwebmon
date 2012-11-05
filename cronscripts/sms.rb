@@ -13,9 +13,9 @@ text = "<h3>Отправлены следующие СМС сообщения:</
 class Smssender
 	def self.send(contract,sms,type)
 	  message = ""
-	  phone = contract.phones.where(["pid=?", 9])[0]
+	  phone = contract.phones.where(["pid=?", 14])[0]
 	  if phone.nil?
-	     message = "<p>Сообщение не отправлено у абонента #{contract.title}-#{contract.comment} нет телефона по фин. вопросам</p>"
+	     message = "<p>Сообщение не отправлено у абонента #{contract.title}-#{contract.comment} нет телефона</p>"
 	  else
 	    phone = phone.value.gsub(/;(.+)$/, "").gsub(/ /, "").gsub(/^0/, "+38")
 	    if Gnokii.checkmobile(phone)

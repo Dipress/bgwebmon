@@ -18,12 +18,6 @@
 				- else 
 					%td Нет
 				%td
-					- finphone = c.phones.where( [ "pid=?", 9 ] )[0]
-					- if !finphone.nil?
-						- if finphone.value.eql? ""
-							%span Телефон по финансовым вопросам;
-					- else
-						%span Телефон по финансовым вопросам;
 					- contactphone = c.phones.where( [ "pid=?", 14 ] )[0]
 					- if !contactphone.nil?
 						- if contactphone.value.eql? ""
