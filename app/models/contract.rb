@@ -27,6 +27,8 @@ class Contract < ActiveRecord::Base
 
   has_many :contract_parameter_type1, :class_name => 'ContractParameterType1', :foreign_key => 'cid'
 
+  has_many :contract_parameter_type2, :class_name => 'ContractParameterType2', :foreign_key => 'cid'
+
   has_many :contract_parameter_type6, :class_name => 'ContractParameterType6', :foreign_key => 'cid'
 
   has_many :contract_parameter_type7, :class_name => 'ContractParameterType7', :foreign_key => 'cid'
