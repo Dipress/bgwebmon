@@ -20,13 +20,13 @@
 				%td
 					- padress = c.contract_parameter_type2.where( [ "pid=?", 5 ] )[0]
 					- if !padress.nil?
-						- if padress.value.eql? ""
+						- if padress.address.eql? ""
 							%span Почтовый адресс;
 					- else
 						%span Почтовый адресс;
 					- сadress = c.contract_parameter_type2.where( [ "pid=?", 42 ] )[0]
 					- if !сadress.nil?
-						- if сadress.value.eql? ""
+						- if сadress.address.eql? ""
 							%span Адресс подключения;
 					- else
 						%span Адресс подключения;
