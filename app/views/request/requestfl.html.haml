@@ -6,6 +6,11 @@
 		%div#error="#{value}"
 #requestflcontent
 	%h4= "Cтатус заявки: #{@rfl.requeststatus.title}"
+	- if User.superadmin(@user.id) && @rfl.requeststatus_id < 2
+		%div
+			%label Вы можете 
+			= link_to "отклонить ", "/discardflform/#{@rfl.id}"
+			%label заявку
 	- if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(1)
 		%div
 			%label После заведения абонента в биллинг нажмите на следующую ссылку

@@ -23,6 +23,7 @@ class Contract < ActiveRecord::Base
   has_many :bgmodules, :through => :contract_modules
 
   has_many :ctariffs, :class_name => 'Ctariff', :foreign_key =>'cid'
+  has_many :tariffplans, :through => :ctariffs
   has_many :contracttreelinks, :class_name => 'Contracttreelink', :foreign_key =>'cid'
 
   has_many :contract_parameter_type1, :class_name => 'ContractParameterType1', :foreign_key => 'cid'

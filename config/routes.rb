@@ -11,6 +11,10 @@ Bgwebmon::Application.routes.draw do
   root :to => "menu#index"
 
   match '/docs', :to => 'docs#index'
+  match '/doc/:title(/:query)', :to => 'docs#show'
+
+  match '/discardfl', :to => "request#discardfl"
+  match '/discardflform/:id', :to => "request#discardflform"
 
   match '/mon(/:id)', :to => 'monitoring#mon'
   match '/monnodes', :to => 'monitoring#index'
@@ -35,4 +39,5 @@ Bgwebmon::Application.routes.draw do
 
   match "/getsumms", :to => 'balances#getsumms'
   match "/balances", :to => "balances#index"
+
 end

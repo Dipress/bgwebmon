@@ -5,9 +5,9 @@ before_filter :ip_check
   def index
     @user = current_user()
     if User.superadmin(@user.id)
-      @rfl = Requestfl.where("requeststatus_id != 4").order("id ASC")
+      @rfl = Requestfl.where("requeststatus_id = 1 or requeststatus_id = 2 or requeststatus_id = 3").order("id ASC")
     else
-      @rfl = Requestfl.where("requeststatus_id != 4 and user_id='#{@user.id}'").order("id ASC")      
+      @rfl = Requestfl.where("(requeststatus_id = 1 or requeststatus_id = 2 or requeststatus_id = 3) and user_id='#{@user.id}'").order("id ASC")      
     end
   end
 
@@ -40,6 +40,23 @@ before_filter :ip_check
       Requestmailer.requestfl_connected(@rfl, "notify@crimeainfo.com", current_user()).deliver
       Requestmailer.requestfl_connected(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
+    else
+      redirect_to "/requestfl/#{@rfl.id}", :error => "Действие невозможно, нарушена процедура"
+    end
+  end
+
+  def discardflform
+    @user = current_user()
+  end
+
+  def discardfl
+    @rfl = Requestfl.find params[:discard][:id]
+    if User.superadmin current_user.id
+      @rfl.update_attribute(:requeststatus_id, 5)
+      @rfl.update_attribute(:discard, params[:discard][:discard])
+      Requestmailer.requestfl_discard(@rfl, "notify@crimeainfo.com", current_user).deliver
+      Requestmailer.requestfl_discard(@rfl, @rfl.user.email, current_user).deliver
+      redirect_to "/requestfl/#{@rfl.id}", :notice => "Заявка отклонена"
     else
       redirect_to "/requestfl/#{@rfl.id}", :error => "Действие невозможно, нарушена процедура"
     end

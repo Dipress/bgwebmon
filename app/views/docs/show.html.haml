@@ -1,8 +1,8 @@
 %ul{:style => "list-style:none;"}
-	%li= link_to "Все", "/docs"
-	%li= link_to "04", "/doc/04-"
+	%li= link_to "Все договора", "/docs"
+	%li= link_to "04 договора", "/doc/04-"
 	- @most.each do |a|
-		%li= link_to "#{a.title.gsub(/\-000$/, "")}", "/doc/#{a.title.gsub(/000$/, "")}"
+		%li= link_to "#{a.title.gsub(/\-000$/, "")} договора", "/doc/#{a.title.gsub(/000$/, "")}"
 %table#bal
 	%thead
 		%tr

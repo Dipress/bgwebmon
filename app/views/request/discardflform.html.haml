@@ -1,0 +1,9 @@
+%div#createrequestfl
+	= form_for "discard" , :url => { :action => "discardfl" } do |r|
+		.editor-field
+			%label * Причина:
+			%br	
+			= r.text_area :discard
+			= r.hidden_field :id, :value => params[:id]
+		.editor-field
+			= r.submit "Отклонить заявку"

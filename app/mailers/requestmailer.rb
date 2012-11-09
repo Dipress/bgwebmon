@@ -19,4 +19,11 @@ class Requestmailer < ActionMailer::Base
     @urlfor = "http://ruby.ci.ukrpack.net/requestfl/#{requestfl.id}"
     mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Заявка на заведение абонента #{requestfl.fio}")
   end 
+
+  def requestfl_discard(requestfl,to_email,user)
+    @why = requestfl.discard
+    @user = user
+    @urlfor = "http://ruby.ci.ukrpack.net/requestfl/#{requestfl.id}"
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Заявка на заведение абонента #{requestfl.fio} отклонена")
+  end 
 end
