@@ -8,7 +8,15 @@ Bgwebmon::Application.routes.draw do
     end
   end
 
+  resources :tasks
+
   root :to => "menu#index"
+
+  match '/taskcommentnew', :to => 'tasks#commentcreate'
+  match '/taketask/:id', :to => 'tasks#take'
+  match '/deletetcomment/:id', :to => "tasks#deletetcomment"
+  match '/tstatuschange/:id' => "tasks#tstatuschange"
+  match '/tstatuschangeopen/:id' => "tasks#tstatuschangeopen"
 
   match '/docs', :to => 'docs#index'
   match '/doc/:title(/:query)', :to => 'docs#show'

@@ -26,4 +26,35 @@ class Requestmailer < ActionMailer::Base
     @urlfor = "http://ruby.ci.ukrpack.net/requestfl/#{requestfl.id}"
     mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Заявка на заведение абонента #{requestfl.fio} отклонена")
   end 
+
+  def task_created(task,user,to_email)
+    @user = user
+    @urlfor = "http://ruby.ci.ukrpack.net/tasks/#{task.id}"
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Новая задача: #{task.title}")
+  end 
+
+  def task_comment(task,user,to_email)
+    @user = user
+    @urlfor = "http://ruby.ci.ukrpack.net/tasks/#{task.id}"
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Новый комментарий к заявке: #{task.title}")
+  end
+
+  def task_taken(task,user,to_email)
+    @user = user
+    @urlfor = "http://ruby.ci.ukrpack.net/tasks/#{task.id}"
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Заявку приняли:  #{task.title}")
+  end
+
+  def task_end(task,user,to_email)
+    @user = user
+    @urlfor = "http://ruby.ci.ukrpack.net/tasks/#{task.id}"
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Заявка выполнена: #{task.title}")
+  end
+
+  def task_restored(task,user,to_email)
+    @user = user
+    @urlfor = "http://ruby.ci.ukrpack.net/tasks/#{task.id}"
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Заявка восстановлена: #{task.title}")
+  end
+
 end

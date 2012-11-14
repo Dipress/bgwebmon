@@ -1,0 +1,15 @@
+.row
+	.span8.offset1
+		= form_for @task, :url => { :action => "update" }, :html => { :method => 'put' } do |f|
+			%legend 
+				Редактирование задачи
+				= @task.title
+			- @task.errors.each do  |i, m|
+				.alert.alert-error= m
+			= f.label "Заголовок"
+			= f.text_field :title, :style => "width:600px;"
+			%br
+			= f.label "Текст"
+			= f.text_area :text, :style => "width:600px;", :rows => 10
+			%br
+			= f.submit "Обновить заявку", :class => "btn"

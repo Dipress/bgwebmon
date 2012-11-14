@@ -1,0 +1,58 @@
+.content-fluid
+	.row
+		.span10.offset1
+			- flash.each do |key, value|
+				- if key.to_s.eql? "notice"
+					.alert.alert-success
+						%button{ :type => "button", :class => "close", "data-dismiss" => "alert"}×
+						= value
+				- else
+					.alert.alert-error
+						%button{ :type => "button", :class => "close", "data-dismiss" => "alert"}×
+						= value
+			.page-header
+				%h1
+					%i.icon-wrench
+					= @task.title
+					%small
+						%i.icon-user
+						= @task.user.name
+			.btn-group.pull-right
+				- if @task.user.id == @user.id
+					= link_to "Редактировать", edit_task_path(@task), :class => "btn btn-info"
+					= link_to "Удалить", task_path(@task), :action => :destroy, :method => :delete, :confirm => "Вы уверены, что хотите удалить задачу?", :class => "btn btn-danger"
+				- if @task.take_id == @user.id && @task.tstatus_id != 3
+					= link_to "Заявка выполнена", "/tstatuschange/#{@task.id}", :class => "btn btn-success", :confirm => "Вы уверены, что задача выполнена?"
+				- if @task.user.id == @user.id && @task.tstatus_id == 3
+					= link_to "Восстановить заявку", "/tstatuschangeopen/#{@task.id}", :class => "btn btn-warning", :confirm => "Вы уверены, что хотите восстановить задачу?"
+			.hero-unit
+				%p= @task.text
+				- if @task.take_id.nil?
+					= link_to "Принять заявку", "/taketask/#{@task.id}", :class => "btn btn-primary btn-large"
+				- else
+					%h5
+						Заявку принял 
+						%i.icon-user
+						= User.find(@task.take_id).name
+			= form_for @tcomment, :url => "/taskcommentnew" do |f|
+				%legend Добавление комментария
+				- @task.errors.each do  |i, m|
+					.alert.alert-error= m
+				= f.label "Текст комментария"
+				= f.text_area :text, :style => "width:600px;", :rows => 5
+				= f.hidden_field :task_id, :value => @task.id
+				%br
+				= f.submit "Добавить комментарий", :class => "btn"
+			- @tcomments.each do |c|
+				.span8
+					.well.well-small
+						%i.icon-user
+							= c.user.name
+						- if @user.id = c.user.id
+							.pull-right
+								%i.icon-time
+								= c.created_at.strftime("%Y.%m.%d %H:%M:%S")
+								= link_to "Удалить", "/deletetcomment/#{c.id}", :class => "btn btn-danger btn-mini", :action => :destroy, :method => :delete, :confirm => "Вы уверены, что хотите удалить комментарий?"
+						%br
+						%i.icon-comment
+							= c.text

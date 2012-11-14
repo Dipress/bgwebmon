@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   self.primary_key = "id"
 
   has_many :requestfl
+  has_many :tasks
+  has_many :tcomments
 
   #protected
   def self.authenticate(username="", password="")

@@ -6,12 +6,16 @@ gem 'haml'
 gem 'RailsRRDTool'
 gem 'rvm-capistrano'
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 
 group :assets do
   gem 'sass-rails'
   gem 'uglifier'
   gem 'jquery-rails', '>= 2.0.2'
+  gem 'twitter-bootstrap-rails'
+  gem 'less-rails'
+  gem 'therubyracer', :platforms => :ruby
 end
 
 group :test do
