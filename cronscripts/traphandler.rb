@@ -14,7 +14,7 @@ cmd="rrdtool fetch /var/www/graphs/#{ip}.rrd AVERAGE -r 300 -s -120"
 rxtx=`#{cmd}`.gsub(/[0-9].+\:.+/).first.gsub(/[0-9]+\:/,"")
 #rxtx="-nan -nan -nan -nan"
 
-rxtx.scan(/[0-9]+?\,[0-9]+e\+[0-9][0-9]/).each{|s| array << s}
+#rxtx.scan(/[0-9]+?\,[0-9]+e\+[0-9][0-9]/).each{|s| array << s}
 
 x = rxtx.split("\ ")
 
