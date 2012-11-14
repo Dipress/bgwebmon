@@ -15,8 +15,9 @@ Bgwebmon::Application.routes.draw do
   match '/taskcommentnew', :to => 'tasks#commentcreate'
   match '/taketask/:id', :to => 'tasks#take'
   match '/deletetcomment/:id', :to => "tasks#deletetcomment"
-  match '/tstatuschange/:id' => "tasks#tstatuschange"
-  match '/tstatuschangeopen/:id' => "tasks#tstatuschangeopen"
+  match '/tstatuschange/:id', :to => "tasks#tstatuschange"
+  match '/tstatuschangeopen/:id', :to => "tasks#tstatuschangeopen"
+  match '/deletetask/:id', :to => "tasks#destroy"
 
   match '/docs', :to => 'docs#index'
   match '/doc/:title(/:query)', :to => 'docs#show'
