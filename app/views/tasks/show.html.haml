@@ -52,7 +52,8 @@
 							.pull-right
 								%i.icon-time
 								= c.created_at.strftime("%Y.%m.%d %H:%M:%S")
-								= link_to "Удалить", "/deletetcomment/#{c.id}", :class => "btn btn-danger btn-mini", :action => :destroy, :method => :delete, :confirm => "Вы уверены, что хотите удалить комментарий?"
+								- if @user.id == c.user.id
+									= link_to "Удалить", "/deletetcomment/#{c.id}", :class => "btn btn-danger btn-mini", :action => :destroy, :method => :delete, :confirm => "Вы уверены, что хотите удалить комментарий?"
 						%br
 						%i.icon-comment
 							= c.text
