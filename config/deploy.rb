@@ -42,7 +42,7 @@ namespace :deploy do
   	run "ln -s /var/www/bgwebmon/database.yml #{current_path}/config/database.yml && ln -s /var/www/bgwebmon/secret_token.rb #{current_path}/config/initializers/secret_token.rb"
   end
   task :files do
-    run "ln -s /var/www/wemonfiles/files #{current_path}/public/files && chown nobody #{current_path}/public/files"
+    run "ln -s /var/www/wemonfiles/files #{current_path}/public/ && chown nobody #{current_path}/public/files"
   end
 end
 
