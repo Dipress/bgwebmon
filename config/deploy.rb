@@ -41,6 +41,9 @@ namespace :deploy do
   task :db do
   	run "ln -s /var/www/bgwebmon/database.yml #{current_path}/config/database.yml && ln -s /var/www/bgwebmon/secret_token.rb #{current_path}/config/initializers/secret_token.rb"
   end
+  task :files do
+    run "ln -s /var/www/wemonfiles/files #{current_path}/public/files && chown nobody #{current_path}/public/files"
+  end
 end
 
-after "deploy", "deploy:cleanup", "deploy:db", "deploy:graphs", "deploy:restart"
+after "deploy", "deploy:cleanup", "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
