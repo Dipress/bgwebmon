@@ -11,7 +11,8 @@ class TasksController < ApplicationController
   	@user = current_user
   	@task = Task.find params[ :id ]
   	@tcomment = Tcomment.new
-  	@tcomments =@task.tcomments
+  	@tcomments = @task.tcomments
+    @tfile = Tfile.new
   end
 
   def new
@@ -37,6 +38,15 @@ class TasksController < ApplicationController
    		Requestmailer.task_end(@task, @user, "bah@crimeainfo.com").deliver
   	  redirect_to task_path(@task), :flash => { :notice =>  "Заявка закрыта" }
   	end
+  end
+
+  def addfile
+    @tfile = Tfile.new params[ :tfile ]
+    if @tfile.save
+      redirect_to task_path(@tfile.task), :flash => { :notice =>  "Файл добавлен" }
+    else
+      redirect_to task_path(@tfile.task), :flash => { :error =>  "Файл не добавлне, максимальный размер текста 120 символов" }
+    end
   end
 
   def tstatuschangeopen

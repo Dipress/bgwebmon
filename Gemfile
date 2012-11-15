@@ -7,7 +7,7 @@ gem 'RailsRRDTool'
 gem 'rvm-capistrano'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-
+gem 'paperclip'
 
 group :assets do
   gem 'sass-rails'

@@ -1,6 +1,18 @@
 .content-fluid
 	.row
-		.span10.offset1
+		.span3.offset1
+			= form_for @tfile, :url => "/addfile/#{@task.id}", :html => { :multipart => true } do |f|
+				%legend Добавление файла
+				= f.label "Заголовок"
+				%br
+				= f.text_field :title
+				%br
+				= f.label "Файл"
+				= f.file_field :file
+				= f.hidden_field :task_id, :value => @task.id
+				%br
+				= f.submit "Добавить", :class => "btn"
+		.span10
 			- flash.each do |key, value|
 				- if key.to_s.eql? "notice"
 					.alert.alert-success
@@ -34,10 +46,20 @@
 						Заявку принял 
 						%i.icon-user
 						= User.find(@task.take_id).name
+			.btn-group
+				%a.btn.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"} 
+					Файлы
+					%span.caret
+				%ul.dropdown-menu
+					- files = @task.tfiles
+					- if files.count.eql? 0
+						%li
+							%a{ :tabindex => "-1", :href => "#" } Файлов нет
+					- files.each do |f|
+						%li
+							%a{ :tabindex => "-1", :href =>"#{f.file.url}", :target => "blank"}= f.title
 			= form_for @tcomment, :url => "/taskcommentnew" do |f|
 				%legend Добавление комментария
-				- @task.errors.each do  |i, m|
-					.alert.alert-error= m
 				= f.label "Текст комментария"
 				= f.text_area :text, :style => "width:600px;", :rows => 5
 				= f.hidden_field :task_id, :value => @task.id

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114081928) do
+ActiveRecord::Schema.define(:version => 20121115070728) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -6690,6 +6690,16 @@ ActiveRecord::Schema.define(:version => 20121114081928) do
     t.integer  "task_id",                   :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+  end
+
+  create_table "tfiles", :force => true do |t|
+    t.string   "title",             :limit => 120, :null => false
+    t.string   "file_file_name",                   :null => false
+    t.string   "file_content_type",                :null => false
+    t.string   "file_file_size",                   :null => false
+    t.integer  "task_id",                          :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "time_type", :force => true do |t|

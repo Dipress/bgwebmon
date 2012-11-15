@@ -18,6 +18,7 @@ Bgwebmon::Application.routes.draw do
   match '/tstatuschange/:id', :to => "tasks#tstatuschange"
   match '/tstatuschangeopen/:id', :to => "tasks#tstatuschangeopen"
   match '/deletetask/:id', :to => "tasks#destroy"
+  match '/addfile/:id', :to => 'tasks#addfile', :via => :post
 
   match '/docs', :to => 'docs#index'
   match '/doc/:title(/:query)', :to => 'docs#show'
