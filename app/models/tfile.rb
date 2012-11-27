@@ -4,7 +4,7 @@ class Tfile < ActiveRecord::Base
   attr_accessible :file, :title, :task_id
 
   belongs_to :task
-  has_attached_file :file, :path => "/home/roma/rails/bgwebmon/public/:attachment/:id.:extension", 
+  has_attached_file :file, :path => "/var/www/wemonfiles/:attachment/:id.:extension", 
   						   :url => "/:attachment/:id.:extension"
 
 #  has_attached_file :file, :path => "/var/www/wemonfiles/:attachment/:id.:extension", 
