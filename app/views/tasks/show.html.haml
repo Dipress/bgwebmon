@@ -43,7 +43,7 @@
 					= link_to "Принять заявку", "/taketask/#{@task.id}", :class => "btn btn-primary btn-large"
 				- else
 					%h5
-						Заявку принял 
+						Исполнитель:
 						%i.icon-user
 						= User.find(@task.take_id).name
 			.btn-group

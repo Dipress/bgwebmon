@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115070728) do
+ActiveRecord::Schema.define(:version => 20121127085703) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -6674,14 +6674,16 @@ ActiveRecord::Schema.define(:version => 20121115070728) do
   add_index "task_proccess", ["start_process_time"], :name => "spt"
 
   create_table "tasks", :force => true do |t|
-    t.string   "title",      :limit => 120,  :null => false
-    t.string   "text",       :limit => 1000, :null => false
-    t.integer  "user_id",                    :null => false
-    t.integer  "tstatus_id",                 :null => false
+    t.string   "title",        :limit => 120,  :null => false
+    t.string   "text",         :limit => 1000, :null => false
+    t.integer  "user_id",                      :null => false
+    t.integer  "tstatus_id",                   :null => false
     t.integer  "take_id"
     t.time     "end_at"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.string   "observers",                    :null => false
+    t.integer  "contract_cid"
   end
 
   create_table "tcomments", :force => true do |t|

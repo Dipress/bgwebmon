@@ -4,7 +4,7 @@ class Tfile < ActiveRecord::Base
   attr_accessible :file, :title, :task_id
 
   belongs_to :task
-  has_attached_file :file, :path => "/var/www/wemonfiles/:attachment/:id.:extension", 
+  has_attached_file :file, :path => "/home/roma/rails/bgwebmon/public/:attachment/:id.:extension", 
   						   :url => "/:attachment/:id.:extension"
 
 #  has_attached_file :file, :path => "/var/www/wemonfiles/:attachment/:id.:extension", 
@@ -12,10 +12,9 @@ class Tfile < ActiveRecord::Base
 
   validates :file, :attachment_presence => {:message => "Файл не добавлен" }
 
-  validates :title, :length =>{ :maximum => 120, 
-  					            :message => "Размер заголовка не может привышать 120 символов" }, 
-  		            :allow_blank => true, 
-  		            :allow_nil => true
+  validates :title, :presence => {:message => "Загловок обязателен" }, 
+  					:length =>{ :maximum => 120, 
+  					            :message => "Размер заголовка не может привышать 120 символов" }
 
 #  validates :text, :length =>{ :maximum => 360, 
 #  				               :message => "Размер заголовка не может привышать 360 символов" }, 
