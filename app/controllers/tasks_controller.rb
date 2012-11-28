@@ -40,9 +40,6 @@ class TasksController < ApplicationController
 
   def addfile
     @tfile = Tfile.new params[ :tfile ]
-    p params[ :tfile ]
-    p "____________________"
-    p @tfile
     if @tfile.save
       redirect_to task_path(@tfile.task), :flash => { :notice =>  "Файл добавлен" }
     else
