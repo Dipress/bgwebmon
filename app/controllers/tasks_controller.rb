@@ -43,7 +43,7 @@ class TasksController < ApplicationController
     if @tfile.save
       redirect_to task_path(@tfile.task), :flash => { :notice =>  "Файл добавлен" }
     else
-      redirect_to task_path(@tfile.task), :flash => { :error =>  "Файл не добавлне, максимальный размер текста 120 символов" }
+      redirect_to task_path(@tfile.task), :flash => { :error =>  "Файл не добавлен, максимальный размер текста 120 символов" }
     end
   end
 
