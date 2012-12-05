@@ -10,7 +10,7 @@
 		%th ЧП
 	%tr
 		%th
-			%input{:class=>"inputDate",:id=>"inputDate",:value=>"#{Time.now.strftime("%d/%m/%Y")}"}
+			%input{:class=>"inputDate",:id=>"inputDate",:value=>"#{Time.now.strftime("%m/%d/%Y")}"}
 		%th
 			%input{:id=>"inputNumb", :value=>"12-"}
 		%th
@@ -21,35 +21,83 @@
 			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='3'"}
 	%tr
 		%th{:colspan=>"2"}
-			%button{:id=>"getlist"} Получить список
+			%button.btn{:id=>"getlist"} Получить список
 %p
-%div{:id=>"container"}
-	%table#bal
-		%tr
-			%th №
-			%th Дoговор
-			%th Название
-			%th Входящий остаток
-			%th Приход
-			%th Наработка
-			%th Расход
-			%th Исходящий остаток
-		- @ids.each do |id|
-			- if id.status == 3
-				%tr{:style=>"background-color:#F75D59;"} 
-			- else
-				%tr
-					- summa = id.balances.where(@wherestring)[0]
-					- if summa != nil
-						%td= @index
-						%td= id.title
-						%td= id.comment
-						%td= summa.summa1
-						%td= summa.summa2
-						%td= summa.summa3
-						%td= summa.summa4
-						%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-						- @index=@index+1
+.row
+	.span2
+		%h4 Статусы:
+		%label Активен
+		%span.label{:style => "background-color:#DFF0D8;width: 100px; height:20px;"}
+		%label Закрыт
+		%span.label{:style => "background-color:#F2DEDE;width: 100px; height:20px;"}
+		%label Отключен
+		%span.label{:style => "background-color:#FCF8E3;width: 100px; height:20px;"}
+		%label Приостановлен
+		%span.label{:style => "background-color:#D9EDF7;width: 100px; height:20px;"}
+	#container.span10
+		%table#bal.table
+			%tr
+				%th №
+				%th Дoговор
+				%th Название
+				%th Входящий остаток
+				%th Приход
+				%th Наработка
+				%th Расход
+				%th Исходящий остаток
+			- @ids.each do |id|
+				- if id.status == 3
+					%tr.error
+						- summa = id.balances.where( @wherestring )[0]
+						- if summa != nil
+							%td= @index
+							%td= id.title
+							%td= id.comment
+							%td= summa.summa1
+							%td= summa.summa2
+							%td= summa.summa3
+							%td= summa.summa4
+							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+							- @index=@index+1
+				- if id.status == 2
+					%tr.warning
+						- summa = id.balances.where( @wherestring )[0]
+						- if summa != nil
+							%td= @index
+							%td= id.title
+							%td= id.comment
+							%td= summa.summa1
+							%td= summa.summa2
+							%td= summa.summa3
+							%td= summa.summa4
+							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+							- @index=@index+1
+				- if id.status == 4
+					%tr.info
+						- summa = id.balances.where( @wherestring )[0]
+						- if summa != nil
+							%td= @index
+							%td= id.title
+							%td= id.comment
+							%td= summa.summa1
+							%td= summa.summa2
+							%td= summa.summa3
+							%td= summa.summa4
+							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+							- @index=@index+1
+				- if id.status == 0
+					%tr.success
+						- summa = id.balances.where( @wherestring )[0]
+						- if summa != nil
+							%td= @index
+							%td= id.title
+							%td= id.comment
+							%td= summa.summa1
+							%td= summa.summa2
+							%td= summa.summa3
+							%td= summa.summa4
+							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+							- @index=@index+1
 :javascript
 	$(function(){
 		$('input#inputDate').datepicker({

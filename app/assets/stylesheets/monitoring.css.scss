@@ -21,7 +21,6 @@
 	list-style: none;
 	margin:0;
 	padding:0px 0px 0px 0px;
-	font-family: 'Ubuntu Sans', sans-serif;
 	display:block;
 	width:1000px;
 	overflow:hidden;
@@ -103,6 +102,7 @@
 
 #popup{
 	position: absolute;
+	margin: -50px 0px 0px -20px;
 	width: 100%;
 	display: none;
 }
@@ -132,7 +132,6 @@
 	color: #000;
 	font-size: 16px;
 	float: right;
-	font-family: 'Ubuntu Sans', sans-serif;
 	@include text_select(none);
 	cursor: default;
 	font-weight: bold;
@@ -148,7 +147,6 @@
 	list-style: none;
 	padding:0;margin:0;
 	@include text_select(none);
-	font-family: 'Ubuntu Sans', sans-serif;
 	li{
 		cursor: default;
 		float:left;
@@ -172,7 +170,6 @@
 	h3{
 		color:#555;
 		font-size: 28px;
-		font-family: "Ubuntu Condensed", sans-serif;
 	}
 }
 .nodeul{

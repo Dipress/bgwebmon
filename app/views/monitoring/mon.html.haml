@@ -1,10 +1,10 @@
-%div{:id => "popup"}
-	%div{:id => "popupbackground"}
-	%div{:id => "popupscreen"}
-		%div{:id => "popupclose"} X
-		%div{:id => "popupcontent"}
-%h2{:style => "height:50px;margin:0;padding:0;text-align:center;"}=@basestation
-%ul{:id => "content"}
+#popup
+	#popupbackground
+	#popupscreen
+		#popupclose X
+		#popupcontent
+%h2{:style => "text-align:center;"}=@basestation
+%ul#content
 	- @dialupalias.each do |u|
 		%li{:class => "cli"}
 			- if u[:online]
