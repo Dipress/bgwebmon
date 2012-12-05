@@ -2,9 +2,10 @@
 	%li.nodesli
 		%ul#regionul
 			-@nodes.each do |n|
-				%li.noderegion
-					%h3= n[:region]
-					%ul.nodeul
-						- n[:nodes].each do |bs|
-							%li.nodetext
-								= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/nodestatistic/#{bs[:id]}"
+				- if n != ""
+					%li.noderegion
+						%h3= n[:region]
+						%ul.nodeul
+							- n[:nodes].each do |bs|
+								%li.nodetext
+									= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/nodestatistic/#{bs[:id]}"
