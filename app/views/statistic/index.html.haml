@@ -1,11 +1,10 @@
 %ul#nodesul.span11.offset1
 	%li.nodesli
-		%ul#regionul
+		.thumbnails
 			-@nodes.each do |n|
 				- if n[:region] != "" && n[:region] != nil
-					%li.noderegion
+					%li.thumbnail.well.well-small.span4{:style=>"padding:10px;"}
 						%h3= n[:region]
-						%ul.nodeul
-							- n[:nodes].each do |bs|
-								%li.nodetext
-									= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/nodestatistic/#{bs[:id]}"
+						- n[:nodes].each do |bs|
+							= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/mon/#{bs[:id]}"
+							%br
