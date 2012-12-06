@@ -116,7 +116,7 @@ class TasksController < ApplicationController
     params[ :task ][ :observers ] ||= []
   	@user = current_user
   	@task = Task.find params[ :id ]
-    @task.observers = params[ :task ][ :observers ].join( "," )
+    params[ :task ][ :observers ] = params[ :task ][ :observers ].join( "," )
   	if @task.update_attributes params[ :task ]
   		 redirect_to task_path( @task ), :flash => { :notice =>  "Изменения внесены" }
   	else
