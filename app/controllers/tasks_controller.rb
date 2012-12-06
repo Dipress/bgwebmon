@@ -133,7 +133,7 @@ private
 
   def send_each( task )
     Requestmailer.task_created( task, task.user, task.user.email ).deliver
-    Requestmailer.task_created( task, task.user, User.find(task.take_id).email ).deliver if task.take_id != nil && task.take_id != current_user.id
+    Requestmailer.task_created( task, task.user, User.find( task.take_id ).email ).deliver if task.take_id != nil && task.take_id != current_user.id
     task.observers.split( "," ).each{ |o|
       if User.find( o.to_i ).email != nil
         if task.user.id != o.to_i && task.take_id != o.to_i
