@@ -1,7 +1,7 @@
 %ul#nodesul.span11.offset1
 	%li.nodesli
 		%div.well.well-small.span4=link_to "Все абоненты", "/mon/"
-		.thumbnails
+		%ul.thumbnails
 			-@nodes.each do |n|
 				- if n[:region] != "" && n[:region] != nil
 					%li.thumbnail.well.well-small.span4{:style=>"padding:10px;"}

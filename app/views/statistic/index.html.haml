@@ -1,6 +1,6 @@
 %ul#nodesul.span11.offset1
 	%li.nodesli
-		.thumbnails
+		%ul.thumbnails
 			-@nodes.each do |n|
 				- if n[:region] != "" && n[:region] != nil
 					%li.thumbnail.well.well-small.span4{:style=>"padding:10px;"}
