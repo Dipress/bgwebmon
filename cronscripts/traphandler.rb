@@ -17,30 +17,31 @@ rxtx=`#{cmd}`.gsub(/[0-9].+\:.+/).first.gsub(/[0-9]+\:/,"")
 #rxtx.scan(/[0-9]+?\,[0-9]+e\+[0-9][0-9]/).each{|s| array << s}
 
 x = rxtx.split("\ ")
+lrx=x[2].gsub(/\ /,"").to_f
+ltx=x[3].gsub(/\ /,"").to_f
 
-if x[2].to_f.eql? 0.0
+if lrx.eql? 0.0
   upload=0
   rx=array[1].to_f
 else
-  lrx=x[2].gsub(/\ /,"").to_f
   rx=array[1].to_f
   (rx<lrx) ? upload=0 : upload=(((rx-lrx)*8)/60)*0.605
 end
-if x[3].to_f.eql? 0.0
+if ltx.eql? 0.0
   download=0
   tx=array[2].to_f
 else
-  ltx=x[3].gsub(/\ /,"").to_f
   tx=array[2].to_f
   (tx<ltx) ? download=0 : download=(((tx-ltx)*8)/60)*0.605
 end
+
 
 cmd = "rrdtool update /var/www/graphs/#{ip}.rrd  N:#{upload.to_i}:#{download.to_i}:#{rx.to_i}:#{tx.to_i}"
 #cmd = "rrdtool update #{basedir}graphs/#{ip}.rrd  N:#{upload}:#{download}:#{rx}:#{tx}"
 system(cmd)
 
 #File.open('/var/www/trap.log', 'a') do |f|
-#  f.puts "graphs/#{ip}.rrd #{Time.now} - N:#{upload.to_i}:#{download.to_i}:#{rx.to_i}:#{tx.to_i}"
-#  f.puts "#{rx} - #{lrx} = #{download.to_i}"
-#  f.puts "#{tx} - #{ltx} = #{upload.to_i}"
+#  f.puts "rrdtool update /var/www/graphs/#{ip}.rrd  N:#{upload.to_i}:#{download.to_i}:#{rx.to_i}:#{tx.to_i}"
+#  f.puts "#{rx} - #{lrx} = #{(((rx-lrx)*8)/60)*0.605}"
+#  f.puts "#{tx} - #{ltx} = #{(((rx-lrx)*8)/60)*0.605}"
 #end
