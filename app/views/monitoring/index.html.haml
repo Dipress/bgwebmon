@@ -1,5 +1,7 @@
 .row{:style=>"margin-left:10px;"}
 	%ul.thumbnails
+		.thumbnail.well.well-small.span4{:style=>"padding:10px;"}
+			= link_to "Все абоненты", "/mon"
 		-@nodes.each do |n|
 			- if n[:region] != "" && n[:region] != nil
 				%li.thumbnail.well.well-small.span4{:style=>"padding:10px;"}
