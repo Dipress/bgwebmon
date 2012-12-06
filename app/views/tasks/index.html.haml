@@ -1,60 +1,62 @@
 .content-fluid
 	.row
 		- if @tasks.count > 0
-			%table.table.table-striped.span11.offset1
-				%thead 
-					%tr
-						%th №
-						%th Заголовок
-						%th Дата создания
-						%th Создал
-						%th Принял/Назначен
-						%th Комментарии
-						%th Действия
-				%tbody
-					- @tasks.each do |t|
-						- if t.tstatus_id.eql? 1
-							%tr.warning
-								%td= t.id
-								%td= t.title
-								%td= t.created_at.strftime("%Y.%m.%d %H:%M:%S")
-								%td= t.user.name
-								%td
-									- if t.take_id.nil?
-										Заяку еще не приняли 
-									- else
-										= User.find(t.take_id).name
-								%td= t.tcomments.count
-								%td
-									= link_to "Подробнее", task_path(t), :class => "btn"
-						- elsif t.tstatus_id.eql? 2
-							%tr.info
-								%td= t.id
-								%td= t.title
-								%td= t.created_at.strftime("%Y.%m.%d %H:%M:%S")
-								%td= t.user.name
-								%td
-									- if t.take_id.nil?
-										Заяку еще не приняли 
-									- else
-										= User.find(t.take_id).name
-								%td= t.tcomments.count
-								%td
-									= link_to "Подробнее", task_path(t), :class => "btn"
-						- elsif t.tstatus_id.eql? 3
-							%tr.success
-								%td= t.id
-								%td= t.title
-								%td= t.created_at.strftime("%Y.%m.%d %H:%M:%S")
-								%td= t.user.name
-								%td
-									- if t.take_id.nil?
-										Заяку еще не приняли 
-									- else
-										= User.find(t.take_id).name
-								%td= t.tcomments.count
-								%td
-									= link_to "Подробнее", task_path(t), :class => "btn"
+			.span11.offset1
+				%table.table.table-striped
+					%thead 
+						%tr
+							%th №
+							%th Заголовок
+							%th Дата создания
+							%th Создал
+							%th Принял/Назначен
+							%th Комментарии
+							%th Действия
+					%tbody
+						- @tasks.each do |t|
+							- if t.tstatus_id.eql? 1
+								%tr.warning
+									%td= t.id
+									%td= t.title
+									%td= t.created_at.strftime("%Y.%m.%d %H:%M:%S")
+									%td= t.user.name
+									%td
+										- if t.take_id.nil?
+											Заяку еще не приняли 
+										- else
+											= User.find(t.take_id).name
+									%td= t.tcomments.count
+									%td
+										= link_to "Подробнее", task_path(t), :class => "btn"
+							- elsif t.tstatus_id.eql? 2
+								%tr.info
+									%td= t.id
+									%td= t.title
+									%td= t.created_at.strftime("%Y.%m.%d %H:%M:%S")
+									%td= t.user.name
+									%td
+										- if t.take_id.nil?
+											Заяку еще не приняли 
+										- else
+											= User.find(t.take_id).name
+									%td= t.tcomments.count
+									%td
+										= link_to "Подробнее", task_path(t), :class => "btn"
+							- elsif t.tstatus_id.eql? 3
+								%tr.success
+									%td= t.id
+									%td= t.title
+									%td= t.created_at.strftime("%Y.%m.%d %H:%M:%S")
+									%td= t.user.name
+									%td
+										- if t.take_id.nil?
+											Заяку еще не приняли 
+										- else
+											= User.find(t.take_id).name
+									%td= t.tcomments.count
+									%td
+										= link_to "Подробнее", task_path(t), :class => "btn"
+				= will_paginate @tasks, :renderer => BootstrapPagination::Rails
 			.span1.offset1
 				.span2
 					= link_to "Добавить задачу", new_task_path, :class => "btn btn-primary btn-large"

@@ -65,7 +65,7 @@
 				= f.hidden_field :task_id, :value => @task.id
 				%br
 				= f.submit "Добавить комментарий", :class => "btn"
-			- @tcomments.each do |c|
+			- @task.tcomments.each do |c|
 				.span8
 					.well.well-small
 						%i.icon-user

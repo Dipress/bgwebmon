@@ -4,14 +4,21 @@ class TasksController < ApplicationController
   before_filter :ip_check
   def index
   	@user = current_user
-  	@user.contract_cid.eql?( 0 ) ? @tasks = Task.order( "created_at DESC" ) : @tasks = Task.where( [ "contract_cid=?", @user.contract_cid ] ).order( "created_at DESC" )
+  	if @user.contract_cid.eql?( 0 )
+      @tasks = Task.paginate(:page => params[ :page ], 
+                             :per_page => 15,
+                             :order => "created_at DESC" )
+    else
+      @tasks = Task.paginate(:page => params[ :page ], 
+                             :per_page => 15,
+                             :order => "created_at DESC" ).where( [ "contract_cid=?", @user.contract_cid ] )
+    end
   end
 
   def show
   	@user = current_user
   	@task = Task.find params[ :id ]
   	@tcomment = Tcomment.new
-  	@tcomments = @task.tcomments
     @tfile = Tfile.new
   end
 
