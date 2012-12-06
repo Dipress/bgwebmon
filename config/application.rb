@@ -19,6 +19,7 @@ module Bgwebmon
   class Application < Rails::Application
      config.encoding = "utf-8"
     config.filter_parameters += [:password]
+    config.time_zone = 'Kyiv' 
     config.active_support.escape_html_entities_in_json = true
     config.generators do |g|
       g.template_engine :haml
