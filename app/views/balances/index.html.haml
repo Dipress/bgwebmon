@@ -7,33 +7,30 @@
 		%th Номера договоров:
 		%th Юр. лицо
 		%th Физ. лицо
-		%th ЧП
 	%tr
 		%th
-			%input{:class=>"inputDate",:id=>"inputDate",:value=>"#{Time.now.strftime("%m/%Y")}"}
+			%input{ :class=>"inputDate", :id=>"inputDate", :value=>"#{Time.now.strftime("%m/%Y")}" }
 		%th
-			%input{:id=>"inputNumb", :value=>"12-"}
+			%input{ :id=>"inputNumb", :value=>"12-" }
 		%th
-			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='2'"}
+			%input{ :type=>"checkbox", :class=>"option", :value=>"pgid='2'" }
 		%th
-			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='1'"}
-		%th
-			%input{:type=>"checkbox",:class=>"option",:value=>"pgid='3'"}
+			%input{ :type=>"checkbox", :class=>"option", :value=>"pgid='1'" }
 	%tr
-		%th{:colspan=>"2"}
-			%button.btn{:id=>"getlist"} Получить список
+		%th{ :colspan=>"2" }
+			%button.btn{ :id=>"getlist" } Получить список
 %p
 .row
 	.span2
 		%h4 Статусы:
 		%label Активен
-		%span.label{:style => "background-color:#DFF0D8;width: 100px; height:20px;"}
+		%span.label{ :style => "background-color:#DFF0D8;width: 100px; height:20px;" }
 		%label Закрыт
-		%span.label{:style => "background-color:#F2DEDE;width: 100px; height:20px;"}
+		%span.label{ :style => "background-color:#F2DEDE;width: 100px; height:20px;" }
 		%label Отключен
-		%span.label{:style => "background-color:#FCF8E3;width: 100px; height:20px;"}
+		%span.label{ :style => "background-color:#FCF8E3;width: 100px; height:20px;" }
 		%label Приостановлен
-		%span.label{:style => "background-color:#D9EDF7;width: 100px; height:20px;"}
+		%span.label{ :style => "background-color:#D9EDF7;width: 100px; height:20px;" }
 	#container.span10
 		%table#bal.table
 			%tr
@@ -156,8 +153,8 @@
 				pgidstring = pgid[0].toString();
 			else if(pgid.length == 2)
 				pgidstring = pgid[0].toString() + " OR " + pgid[1].toString();
-			else if (pgid.length == 3)
-				pgidstring = pgid[0].toString() + " OR " + pgid[1].toString() + " OR " + pgid[2].toString();
+			//else if (pgid.length == 3)
+			//	pgidstring = pgid[0].toString() + " OR " + pgid[1].toString() + " OR " + pgid[2].toString();
 			Send(mm, yy, numb, pgidstring);
 		});
 	//url: '/bg_billing/index?mm=' + mm + '&yy=' + yy + '&number=' + numb + '&query=' + pgidstring,
