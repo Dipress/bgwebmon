@@ -25,14 +25,14 @@ if lrx.eql? 0.0
   rx=array[1].to_f
 else
   rx=array[1].to_f
-  (rx<lrx) ? upload=0 : upload=(((rx-lrx)*8)/60)*0.405
+  (rx<lrx) ? upload=0 : upload=(((rx-lrx)*8)/60)*0.705
 end
 if ltx.eql? 0.0
   download=0
   tx=array[2].to_f
 else
   tx=array[2].to_f
-  (tx<ltx) ? download=0 : download=(((tx-ltx)*8)/60)*0.405
+  (tx<ltx) ? download=0 : download=(((tx-ltx)*8)/60)*0.705
 end
 
 
