@@ -4,19 +4,19 @@ before_filter :checklogedin
 before_filter :ip_check
   def index
     @title = "Список точек подключения"
-    @nodes = ContractParameterType7Value.where(:pid => 54).order('title ASC')
-    @regions = regions_array(@nodes)
+    @nodes = ContractParameterType7Value.where( :pid => 54 ).order( 'title ASC' )
+    @regions = regions_array @nodes
     @nodes = []
-    @regions.each{|r| @nodes << nodes_from_region(r)}
-    @user = current_user()
+    @regions.each{|r| @nodes << nodes_from_region( r )}
+    @user = current_user
   end
 
   def show
     @title = "Доходы базовой станции"
   	nodeid = params[:id]
-   	cpt7v = ContractParameterType7Value.find(nodeid)
+   	cpt7v = ContractParameterType7Value.find nodeid
   	@nodename = cpt7v.title
-  	like = search_title()
+  	like = search_title
   	@contracts = []
   	@allcost = 0
   	cpt7v.contracts.each{|c|

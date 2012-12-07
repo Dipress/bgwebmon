@@ -1,6 +1,6 @@
-%link{:rel=>"stylesheet", :href=>"http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css"}
-%script{:src=>"http://code.jquery.com/ui/1.9.0/jquery-ui.js"}
-%div{:id=>"center"}
+%link{ :rel => "stylesheet", :href => "http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" }
+%script{ :src => "http://code.jquery.com/ui/1.9.0/jquery-ui.js" }
+%div{ :id => "center" }
 %table#bal
 	%tr
 		%th Дата:
@@ -9,16 +9,16 @@
 		%th Физ. лицо
 	%tr
 		%th
-			%input{ :class=>"inputDate", :id=>"inputDate", :value=>"#{Time.now.strftime("%m/%Y")}" }
+			%input{ :class => "inputDate", :id => "inputDate", :value => "#{Time.now.strftime( "%m/%Y" )}" }
 		%th
-			%input{ :id=>"inputNumb", :value=>"12-" }
+			%input{ :id => "inputNumb", :value => "12-" }
 		%th
-			%input{ :type=>"checkbox", :class=>"option", :value=>"pgid='2'" }
+			%input{ :type => "checkbox", :class => "option", :value => "pgid='2'" }
 		%th
-			%input{ :type=>"checkbox", :class=>"option", :value=>"pgid='1'" }
+			%input{ :type => "checkbox", :class => "option", :value => "pgid='1'" }
 	%tr
-		%th{ :colspan=>"2" }
-			%button.btn{ :id=>"getlist" } Получить список
+		%th{ :colspan => "2" }
+			%button.btn{ :id => "getlist" } Получить список
 %p
 .row
 	.span2
@@ -45,7 +45,7 @@
 			- @ids.each do |id|
 				- if id.status == 3
 					%tr.error
-						- summa = id.balances.where( @wherestring )[0]
+						- summa = id.balances.where( @wherestring )[ 0 ]
 						- if summa != nil
 							%td= @index
 							%td= id.title
@@ -55,10 +55,10 @@
 							%td= summa.summa3
 							%td= summa.summa4
 							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							- @index=@index+1
+							- @index = @index + 1
 				- if id.status == 2
 					%tr.warning
-						- summa = id.balances.where( @wherestring )[0]
+						- summa = id.balances.where( @wherestring )[ 0 ]
 						- if summa != nil
 							%td= @index
 							%td= id.title
@@ -68,10 +68,10 @@
 							%td= summa.summa3
 							%td= summa.summa4
 							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							- @index=@index+1
+							- @index = @index + 1
 				- if id.status == 4
 					%tr.info
-						- summa = id.balances.where( @wherestring )[0]
+						- summa = id.balances.where( @wherestring )[ 0 ]
 						- if summa != nil
 							%td= @index
 							%td= id.title
@@ -81,10 +81,10 @@
 							%td= summa.summa3
 							%td= summa.summa4
 							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							- @index=@index+1
+							- @index = @index + 1
 				- if id.status == 0
 					%tr.success
-						- summa = id.balances.where( @wherestring )[0]
+						- summa = id.balances.where( @wherestring )[ 0 ]
 						- if summa != nil
 							%td= @index
 							%td= id.title
@@ -94,7 +94,7 @@
 							%td= summa.summa3
 							%td= summa.summa4
 							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							- @index=@index+1
+							- @index = @index + 1
 :css
 	.ui-datepicker-calendar {
 		display: none;

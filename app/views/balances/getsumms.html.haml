@@ -11,7 +11,7 @@
     - @ids.each do |id|
         - if id.status == 3
             %tr.error
-                - summa = id.balances.where( @wherestring )[0]
+                - summa = id.balances.where( @wherestring )[ 0 ]
                 - if summa != nil
                     %td= @index
                     %td= id.title
@@ -21,10 +21,10 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-                    - @index=@index+1
+                    - @index = @index + 1
         - if id.status == 2
             %tr.warning
-                - summa = id.balances.where( @wherestring )[0]
+                - summa = id.balances.where( @wherestring )[ 0 ]
                 - if summa != nil
                     %td= @index
                     %td= id.title
@@ -34,10 +34,10 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-                    - @index=@index+1
+                    - @index = @index + 1
         - if id.status == 4
             %tr.info
-                - summa = id.balances.where( @wherestring )[0]
+                - summa = id.balances.where( @wherestring )[ 0 ]
                 - if summa != nil
                     %td= @index
                     %td= id.title
@@ -47,10 +47,10 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-                    - @index=@index+1
+                    - @index = @index + 1
         - if id.status == 0
             %tr.success
-                - summa = id.balances.where( @wherestring )[0]
+                - summa = id.balances.where( @wherestring )[ 0 ]
                 - if summa != nil
                     %td= @index
                     %td= id.title
@@ -60,6 +60,6 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-                    - @index=@index+1
+                    - @index = @index + 1
 %p
 %p

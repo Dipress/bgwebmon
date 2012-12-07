@@ -11,7 +11,7 @@ day = timenow.day
 text = "<h3>Отправлены следующие СМС сообщения:</h3>"
 
 class Smssender
-	def self.send(contract,sms,type)
+	def self.send(contract, sms, type)
 	  message = ""
 	  phone = contract.phones.where(["pid=?", 14])[0]
 	  if phone.nil?
@@ -21,7 +21,7 @@ class Smssender
 	    if Gnokii.checkmobile(phone)
 	      Gnokii.send(sms, phone)
 	      message = "<p>#{sms} - #{contract.title}-#{contract.comment} отправленно на телефон #{phone}</p>"
-	      Sms.create!(:time => Time.now.strftime("%Y-%m-%d %H:%M"),:cid => contract.id,:smstype_id => type)
+	      Sms.create!( :time => Time.now.strftime("%Y-%m-%d %H:%M"), :cid => contract.id, :smstype_id => type )
 	    else
 	      message = "<p>Сообщение не отправлено у абонента #{contract.title}-#{contract.comment} указан городской телефон #{phone}</p>"
 	    end
