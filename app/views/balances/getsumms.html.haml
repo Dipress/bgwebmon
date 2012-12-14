@@ -2,12 +2,13 @@
     %tr
         %th №
         %th Дoговор
-        %th Название
+        %th Абонент
         %th Входящий остаток
         %th Приход
         %th Наработка
         %th Расход
         %th Исходящий остаток
+        %th Текущий лимит
     - @ids.each do |id|
         - if id.status == 3
             %tr.error
@@ -21,6 +22,7 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    %td= id.closesumma
                     - @index = @index + 1
         - if id.status == 2
             %tr.warning
@@ -34,6 +36,7 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    %td= id.closesumma
                     - @index = @index + 1
         - if id.status == 4
             %tr.info
@@ -47,6 +50,7 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    %td= id.closesumma
                     - @index = @index + 1
         - if id.status == 0
             %tr.success
@@ -60,6 +64,7 @@
                     %td= summa.summa3
                     %td= summa.summa4
                     %td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    %td= id.closesumma
                     - @index = @index + 1
 %p
 %p
