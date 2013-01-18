@@ -44,7 +44,7 @@ class BalancesController < ApplicationController
 		@ids = Contract.where( params[ :query ].to_s ).order( 'title ASC' )	
 		end
 	else
-		@ids = Contract.where( "pgid='1' AND title LIKE '04-%'" ).order( 'title ASC' )
+		@ids = Contract.where( "fc='0' AND title LIKE '04-%'" ).order( 'title ASC' )
 	end
 	@wherestring = "yy='" + @year + "' AND mm='" + @month + "'"
   end
