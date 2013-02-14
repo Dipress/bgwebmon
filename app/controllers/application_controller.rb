@@ -24,7 +24,8 @@ class ApplicationController < ActionController::Base
            "195.20.28.252",
            "194.187.148.225",
            "195.20.29.130",
-           "195.20.29.131"]
+           "195.20.29.131",
+           "194.187.148.7"]
     return ips.include? request.remote_ip
   end
 
