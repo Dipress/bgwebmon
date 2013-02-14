@@ -37,7 +37,7 @@ before_filter :ip_check
     @rfl = Requestfl.find(params[:id])
     if User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(1)
       @rfl.update_attribute(:requeststatus_id, 2)
-      Requestmailer.requestfl_connected(@rfl, "notify@crimeainfo.com", current_user()).deliver
+      Requestmailer.requestfl_connected(@rfl, "bgbilling@crimeainfo.com@crimeainfo.com", current_user()).deliver
       Requestmailer.requestfl_connected(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
     else
@@ -54,7 +54,7 @@ before_filter :ip_check
     if User.superadmin current_user.id
       @rfl.update_attribute(:requeststatus_id, 5)
       @rfl.update_attribute(:discard, params[:discard][:discard])
-      Requestmailer.requestfl_discard(@rfl, "notify@crimeainfo.com", current_user).deliver
+      Requestmailer.requestfl_discard(@rfl, "bgbilling@crimeainfo.com@crimeainfo.com", current_user).deliver
       Requestmailer.requestfl_discard(@rfl, @rfl.user.email, current_user).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Заявка отклонена"
     else
@@ -66,7 +66,7 @@ before_filter :ip_check
     @rfl = Requestfl.find(params[:id])
     if (@rfl.user_id.eql?(current_user().id) && @rfl.requeststatus_id.eql?(2)) || (User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(2))
       @rfl.update_attribute(:requeststatus_id, 3)
-      Requestmailer.requestfl_ready(@rfl, "notify@crimeainfo.com", current_user()).deliver
+      Requestmailer.requestfl_ready(@rfl, "bgbilling@crimeainfo.com@crimeainfo.com", current_user()).deliver
       Requestmailer.requestfl_ready(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
     else
@@ -78,7 +78,7 @@ before_filter :ip_check
     @rfl = Requestfl.find(params[:id])
     if User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(3)
       @rfl.update_attribute(:requeststatus_id, 4)
-      Requestmailer.requestfl_finish(@rfl, "notify@crimeainfo.com", current_user()).deliver
+      Requestmailer.requestfl_finish(@rfl, "bgbilling@crimeainfo.com@crimeainfo.com", current_user()).deliver
       Requestmailer.requestfl_finish(@rfl, @rfl.user.email, current_user()).deliver
       redirect_to "/requestfl/#{@rfl.id}", :notice => "Статус успешно обновлен"
     else
