@@ -36,8 +36,8 @@ before_filter :ip_check
   def updatefl
     @requestfl = Requestfl.find(params[:id])
     if @requestfl.update_attributes params[:requestfl]
-      Requestmailer.requestfl_added(@requestfl, "bgbilling@crimeainfo.com").deliver
-      Requestmailer.requestfl_added(@requestfl, @requestfl.user.email).deliver
+      #Requestmailer.requestfl_added(@requestfl, "bgbilling@crimeainfo.com").deliver
+      #Requestmailer.requestfl_added(@requestfl, @requestfl.user.email).deliver
       redirect_to "/requestfl/#{@requestfl.id}"
     else
       @user = current_user()
