@@ -28,6 +28,23 @@ before_filter :ip_check
     end
   end
 
+  def editfl 
+    @user = current_user()
+    @requestfl = Requestfl.find(params[:id])
+  end
+
+  def updatefl
+    @requestfl = Requestfl.find(params[:id])
+    if @requestfl.update_attributes params[:requestfl]
+      Requestmailer.requestfl_added(@requestfl, "bgbilling@crimeainfo.com").deliver
+      Requestmailer.requestfl_added(@requestfl, @requestfl.user.email).deliver
+      redirect_to "/requestfl/#{@requestfl.id}"
+    else
+      @user = current_user()
+      render 'editfl'
+    end
+  end
+
   def requestfl
     @user = current_user()
     @rfl = Requestfl.find(params[:id])

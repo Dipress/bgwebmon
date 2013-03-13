@@ -42,6 +42,8 @@ Bgwebmon::Application.routes.draw do
   match "/request", :to => "request#index"
   match "/newfl", :to => "request#newfl"
   match "/createfl", :to => "request#createfl"
+  match "/editfl/:id", :to => "request#editfl"
+  match "/updatefl/:id", :to => "request#updatefl"
   match "/requestfl/:id", :to => "request#requestfl"
   match "/readystatusfl/:id", :to => "request#readystatusfl"
   match "/connectedstatusfl/:id", :to => "request#connectedstatusfl"

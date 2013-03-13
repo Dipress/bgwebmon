@@ -27,4 +27,5 @@ end
 group :development do
 	gem 'rspec-rails'
 	gem 'haml-rails'
+  gem 'thin'
 end

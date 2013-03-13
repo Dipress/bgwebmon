@@ -50,9 +50,9 @@ class Requestfl < ActiveRecord::Base
   validates :payment_form, :presence => {:message => "Форма оплаты - #{OB}"}, 
                       :numericality => { :only_integer => true, 
                       					 :message => "Форма оплаты - может быть только числом"}
-  validates :ip, :presence => {:message => "IP - #{OB}"},
-            	 :length =>{:within => 9..15,
-                       		:message => 'IP - должен содержать от 9 до 15 символов'}
+  validates :ip, :length =>{:within => 7..15,
+                       		:message => 'IP - должен содержать от 7 до 15 символов'},
+                 allow_blank: true
   validates :login, :presence => {:message => "Логин - #{OB}"},
                :length =>{:within => 3..15,
                           :message => 'Логин - должен содержать от 3 до 15 символов'}

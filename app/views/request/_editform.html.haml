@@ -1,0 +1,84 @@
+%script{:src => "http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"}
+= form_for @requestfl , :url => { :action => "updatefl" } do |r|
+	.editor-field
+		%label * ФИО:
+		= r.text_field :fio
+	.editor-field
+		%label * Адресс почтовый:
+		= r.text_field :adress_post
+	.editor_field
+		%label * Адресс подключения:
+		= r.text_field :adress_connection
+	.editor-field
+		%label * Координаты подключения (введите адресс и нажмите "Показать на карте" или кликните по карте):
+		%input#street{:type => "text", :name => "mapsearch", :value => @requestfl[:adress_connection]}
+		%button#searchplace.btn Показать на карте
+		%br
+		%br
+		%div#requestmap
+	.editor-field
+		%label Email:
+		= r.text_field :email
+	.editor-field
+		%label * Телефон:
+		= r.text_field :telephone
+	.editor-field
+		%label * Идентификационный код:
+		= r.text_field :in
+	.editor-field
+		%label * Паспорт серия\номер:	
+		= r.text_field :pasport
+	.editor-field
+		%label * Паспорт кем выдан:
+		= r.text_field :pasport_authority
+	.editor-field
+		%label * Паспорт дата выдачи:
+		= r.text_field :pd, value: @requestfl.pasport_date.strftime("%d.%m.%Y")
+	.editor-field
+		%label * Форма оплаты:
+		= r.collection_select :payment_form, ContractParameterType7Value.where(:pid => 52), :id, :title, {:prompt => 'Выберите тип оплаты'}
+	.editor-field
+		%label IP адресс:
+		= r.text_field :ip
+	.editor-field
+		%label Логин:
+		= r.text_field :login
+	.editor-field
+		%label Пароль:
+		= r.text_field :password
+	.editor-field
+		%label * Технология подключения:
+		= r.collection_select :technology, ContractParameterType7Value.where(:pid => 53), :id, :title, {:prompt => 'Выберите технологию подключения'}
+	.editor-field
+		%label * Точка подключения:
+		= r.collection_select :node, ContractParameterType7Value.where(:pid => 54), :id, :title, {:prompt => 'Выберите точку подключения'}
+	.editor-field
+		%label * Тарифный план:
+		= r.collection_select :tariffplan_id, Tariffplan.all, :tree_id, :title, {:prompt => 'Выберите тарифный план'}
+	.editor-field
+		%label Дополнительная информация:
+		= r.text_area :description, cols: 100, rows: 6, style: "width: 400px;"
+	.editor-field
+		= r.hidden_field :user_id, :value => @user.id
+		= r.hidden_field :latlng_connection
+	.editor-field
+		= r.submit "Отправить заявку", :class => "btn"
+:javascript
+	$(function(){
+	var m = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+		sm = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+		d = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+		sd = ["Вс", "Пд", "Вт", "Ср", "Чт", "Пт", "Сб"];
+			$("input#requestfl_pd").datepicker({
+			dateFormat: "dd.mm.yy",
+			monthNames: m,
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '-50:-0',
+			monthNamesShort: sm,
+			dayNames: d,
+			dayNamesMin: sd});
+
+	ymaps.ready(create);
+
+	});
