@@ -2,6 +2,8 @@
 class Balance < ActiveRecord::Base
   self.table_name =  "contract_balance"
 
+  attr_accessible :yy, :mm, :cid, :summa1, :summa2, :summa3, :summa4
+
   belongs_to :contract, :class_name => 'Contract', :foreign_key => 'cid'
 
   def self.balance(cid,mm,yy)

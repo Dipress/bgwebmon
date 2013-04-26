@@ -6,9 +6,9 @@ ru:
         value: 'Сумма'
         text: 'Комментарий'
     hints:
-      user:
-        contract: 'Password'
+      agent_payment:
         text: 'Например: Платеж за май 2013'
+        value: 'Только целые числа, например 150'
     placeholders:
       user:
         value: ''

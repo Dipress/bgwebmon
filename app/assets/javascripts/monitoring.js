@@ -37,6 +37,14 @@ AjaxReq.prototype.GRequest = function(hour){
 	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"168\">1 неделя</li>"+
 	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"336\">2 недели</li>"+
 	"</ul>");
+
+	$.each($('li.hourli'), function(i,v){
+		$(v).click(function(){
+			ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+			ea.GRequest($(this).attr('time'));
+		});
+	});
+
 	$.ajax({
 		url : '/graph/'+this.lid+'/'+time,
 		dataType : "text"
@@ -198,11 +206,6 @@ $(function(){
 		$('div#popupscreen').css({'width':'400px','height':'400px'});
 		popup.Resize();
 		ea.TRequest();
-	});
-
-	$('li.hourli').live('click', function(){
-		ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
-		ea.GRequest($(this).attr('time'));
 	});
 
 	var liwidth = $('ul#content').children('li').eq(0).width(),

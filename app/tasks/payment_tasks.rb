@@ -2,12 +2,20 @@
 class PaymentTasks
 
   def charge_added payment
-    Gnokii.send "Плтаеж на сумму #{payment.value}грн. обрабатывается, Крыминфоком", "+380507339877"
+    phone = payment.contract.phones.where(["pid=?", 14])[0]
+    unless phone.nil?
+      phone = "+380" + phone.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
+      Gnokii.send "Плтаеж на сумму #{payment.value}грн. обрабатывается, Крыминфоком", phone
+    end
     Gnokii.send "Поступил платеж от представителя.", "+380507339877"
   end
 
   def payment_processed payment
-    Gnokii.send "Плтаеж на сумму #{payment.value}грн. занесен, Крыминфоком", "+380507339877"
+    phone = payment.contract.phones.where(["pid=?", 14])[0]
+    unless phone.nil?
+      phone = "+380" + phone.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
+      Gnokii.send "Плтаеж на сумму #{payment.value}грн. занесен, Крыминфоком", phone
+    end
   end
 
   handle_asynchronously :charge_added, priority: 2

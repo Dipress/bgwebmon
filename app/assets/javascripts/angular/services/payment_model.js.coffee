@@ -6,7 +6,9 @@ window.app.service 'paymentsModel', ($http)->
 
   this.processPayment = ($scope, index, value)->
     $http( method: "PUT", url: "/agent_payments/#{value}/?format=json").success (data)->
-      $scope.body[index] = data
+      $.each $scope.body, (i, v)->
+        if v.id == value
+          $scope.body[i] = data
 
   this.selectedCls = ($scope, column)->
     column == $scope.sort.column && 'sort-' + $scope.sort.descending;

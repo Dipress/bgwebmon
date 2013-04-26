@@ -7,38 +7,13 @@
         %abbr{ title: "required" } *
         Поиск абонента
       %div.controls
-        %input#agent_payment_search.string.required{ name: "", size: "50", type:"text"}
-    = f.input :contract, as: :hidden
+        %input#agent_payment_search.string.required{ name: "", size: "50", type:"text", autocomplete: "off", placeholder: "Введите например Иванов" }
+        = f.error :contract_id, id: 'user_name_error', style: "color: #B94A48;"
+        = f.hint 'Выберать еще можно стрелками и клавишей Enter'
+    = f.input :contract_id, as: :hidden
     /= f.select :contract, Contract.all.map { |c| ["#{c.title} - #{c.comment}", c.id, { class: c.id }] }
     = f.input :value
     = f.input :text, as: :text, input_html: { cols: 30, rows: 4 }
 
   .form-actions
     = f.button :submit, t('agent_payments.view.create.submit')
-
-
-:javascript
-  $('#agent_payment_search').typeahead({
-    source: function (typeahead, query) {
-      return $.ajax({
-        url: '/api/get_contracts', 
-        data: { search: query },
-        success: function (data) {
-          console.log(data);
-          var labels = [];
-          var ids = [];
-          $.each(data, function(i,v){
-            labes.push(v.name);
-            ids[v.name] = v.id;
-          });
-          window.searchIds = ids;
-          return typeahead.process(labels);
-        });
-    });
-    },
-    minLength: 3
-  });
-
-  $('#new_agent_payment').submit(function(){
-    $('#agent_payment_contract').val($('#agent_payment_search').val());
-  });

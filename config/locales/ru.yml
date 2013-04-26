@@ -257,15 +257,6 @@ ru:
       <<: *errors
 
 
-
-
-
-
-
-
-
-
-
   agent_payments:
     view:
       create: 
@@ -276,7 +267,7 @@ ru:
         id: "№"
         contract_id: "Абонент"
         user_id: "Добавил"
-        manager_id: "Обработал менеждер"
+        manager_id: "Обработал менеджер"
         value: "Сумма"
         text: "Комментарий"
         managed_at: "Обработано в"

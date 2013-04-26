@@ -1,9 +1,10 @@
 - model_class = AgentPayment
 .page-header
   %h1=t 'agent_payments.view.index.title', :default => model_class.model_name.human.pluralize
-
+= link_to t('.new', :default => t("helpers.links.new")), new_agent_payment_path, :class => 'btn btn-primary', style: "color: #fff;"
+%br
+%br
 %input{ type: "text", placeholder: "Фильтр", "ng-model" => "searchFilter" }
-
 %table.table.table-striped{ "ng-controller" => "agentPayments" }
   %thead
     %tr
@@ -30,8 +31,6 @@
         - if User.superadmin(@user.id)
           %span{ "ng-hide" => "p.status" }
             = link_to "Провести платеж", "#", :class => 'btn btn-mini btn-danger', "ng-click" => "processPayment($index, p.id)"
-
-= link_to t('.new', :default => t("helpers.links.new")), new_agent_payment_path, :class => 'btn btn-primary', style: "color: #fff;"
 
 :javascript
   window.head = {

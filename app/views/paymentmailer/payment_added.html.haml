@@ -1,1 +1,3 @@
-Payment added
+%h1= "Поступил платеж на сумму #{@payment.value}грн"
+%h2= "Платеж добавил(а) #{@payment.user.name}, клиенту #{@payment.contract.title} - #{@payment.contract.comment}"
+%p Пожалуйста обработайте запрос поскорее!

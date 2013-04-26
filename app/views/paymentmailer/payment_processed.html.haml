@@ -1,1 +1,6 @@
-Payment processed
+%h1= "Платеж обработан!"
+%h2= "Платеж обработал(а) #{@payment.manager.name}, клиент #{@payment.contract.title} - #{@payment.contract.comment}"
+- if (@payment.updated_at - @payment.created_at) > 2400
+  %p="Процесс обработки занял #{time_ago_in_words(@payment.created_at)}, как жаль а ведь это всего 2 клика"
+- else
+  %p="Процесс обработки занял #{time_ago_in_words(@payment.created_at)}"
