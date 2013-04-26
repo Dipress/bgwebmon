@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127085703) do
+ActiveRecord::Schema.define(:version => 20130426065922) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -74,6 +74,21 @@ ActiveRecord::Schema.define(:version => 20121127085703) do
     t.string  "p_index", :limit => 6,   :default => "",  :null => false
     t.integer "cityid",                 :default => -1,  :null => false
   end
+
+  create_table "agent_payments", :force => true do |t|
+    t.integer  "contract_id"
+    t.integer  "user_id"
+    t.integer  "manager_id"
+    t.decimal  "value",       :precision => 10, :scale => 0
+    t.string   "text"
+    t.datetime "managed_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "agent_payments", ["contract_id"], :name => "index_agent_payments_on_contract_id"
+  add_index "agent_payments", ["manager_id"], :name => "index_agent_payments_on_manager_id"
+  add_index "agent_payments", ["user_id"], :name => "index_agent_payments_on_user_id"
 
   create_table "bgs_group", :force => true do |t|
     t.string  "title",    :limit => 250, :default => "", :null => false
@@ -1532,6 +1547,22 @@ ActiveRecord::Schema.define(:version => 20121127085703) do
   end
 
   add_index "contract_tree_link", ["cid"], :name => "cid"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "entity", :force => true do |t|
     t.integer "entitySpecId", :null => false

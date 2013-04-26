@@ -1,0 +1,44 @@
+= simple_form_for(@agent_payment) do |f|
+  = f.error_notification
+
+  .form-inputs
+    %div.control-group.string.required.agent_payment_text
+      %label.string.required.control-label
+        %abbr{ title: "required" } *
+        Поиск абонента
+      %div.controls
+        %input#agent_payment_search.string.required{ name: "", size: "50", type:"text"}
+    = f.input :contract, as: :hidden
+    /= f.select :contract, Contract.all.map { |c| ["#{c.title} - #{c.comment}", c.id, { class: c.id }] }
+    = f.input :value
+    = f.input :text, as: :text, input_html: { cols: 30, rows: 4 }
+
+  .form-actions
+    = f.button :submit, t('agent_payments.view.create.submit')
+
+
+:javascript
+  $('#agent_payment_search').typeahead({
+    source: function (typeahead, query) {
+      return $.ajax({
+        url: '/api/get_contracts', 
+        data: { search: query },
+        success: function (data) {
+          console.log(data);
+          var labels = [];
+          var ids = [];
+          $.each(data, function(i,v){
+            labes.push(v.name);
+            ids[v.name] = v.id;
+          });
+          window.searchIds = ids;
+          return typeahead.process(labels);
+        });
+    });
+    },
+    minLength: 3
+  });
+
+  $('#new_agent_payment').submit(function(){
+    $('#agent_payment_contract').val($('#agent_payment_search').val());
+  });

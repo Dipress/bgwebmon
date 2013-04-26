@@ -7,7 +7,7 @@ class DocsController < ApplicationController
     @contracts = Contract.where( [ "(pgid=? or pgid=?) and status!=3", 3, 0, 2 ] ).order "title ASC"
     @most = Contract.where( [ "title LIKE ?", "%-000" ] ).order "title ASC"
     @title= "Статусы наличия подписаных договоров"
-  	@user = current_user
+    @user = current_user
   end
 
   def show

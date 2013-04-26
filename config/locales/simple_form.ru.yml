@@ -1,0 +1,15 @@
+ru:
+  simple_form:
+    labels:
+      agent_payment:
+        contract: 'Абонент'
+        value: 'Сумма'
+        text: 'Комментарий'
+    hints:
+      user:
+        contract: 'Password'
+        text: 'Например: Платеж за май 2013'
+    placeholders:
+      user:
+        value: ''
+        text: ''

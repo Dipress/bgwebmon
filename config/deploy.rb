@@ -1,6 +1,7 @@
 set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
 require "rvm/capistrano"  
 require "bundler/capistrano"
+require "delayed/recipes"  
 load "deploy/assets"
 set :rvm_type, :system
 
@@ -46,4 +47,4 @@ namespace :deploy do
   end
 end
 
-after "deploy", "deploy:cleanup", "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
+after "deploy", "deploy:cleanup", "delayed_job:restart",, "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"

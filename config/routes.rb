@@ -1,5 +1,8 @@
 Bgwebmon::Application.routes.draw do
 
+  resources :agent_payments, only: [:new, :create, :update, :index]
+
+
   resources :sessions do
     collection do 
       get :new
@@ -11,6 +14,10 @@ Bgwebmon::Application.routes.draw do
   resources :tasks
 
   root :to => "menu#index"
+
+  scope 'api' do
+    match '/get_contracts', to: 'ajax#get_contracts'
+  end
 
   match '/taskcommentnew', :to => 'tasks#commentcreate'
   match '/taketask/:id', :to => 'tasks#take'

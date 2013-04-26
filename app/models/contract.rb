@@ -5,6 +5,8 @@ class Contract < ActiveRecord::Base
 
   has_many :phones, :class_name => "Phone", :foreign_key => "cid"
 
+  has_many :agent_payments
+
   has_many :smses, :class_name => "Sms", :foreign_key => "cid"
 
   has_many :flags, :class_name => "Flag", :foreign_key => "cid"

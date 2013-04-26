@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ "ng-app" => "bgwebmon" }
 	%head
 		%title= title_helper
 		= stylesheet_link_tag    "application", :media => "all"
@@ -14,6 +14,7 @@
 				= li_menu("docs", link_to("Договора", "/doc/04-"))
 				= li_menu("request", link_to("Заявки на включение", request_path))
 				= li_menu("tasks", link_to("Задачи", tasks_path))
+				= li_menu("agent_payments", link_to("Платежи", agent_payments_path))
 			.pull-right{ :style => "margin-right: 20px;" }
 				- if @user.nil?
 					Вы не вошли

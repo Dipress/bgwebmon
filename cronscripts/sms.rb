@@ -17,7 +17,7 @@ class Smssender
 	  if phone.nil?
 	     message = "<p>Сообщение не отправлено у абонента #{contract.title}-#{contract.comment} нет телефона</p>"
 	  else
-	    phone = phone.value.gsub(/;(.+)$/, "").gsub(/ /, "").gsub(/^0/, "+38")
+	    phone = "+380" + phone.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
 	    if Gnokii.checkmobile(phone)
 	      Gnokii.send(sms, phone)
 	      message = "<p>#{sms} - #{contract.title}-#{contract.comment} отправленно на телефон #{phone}</p>"
@@ -37,14 +37,15 @@ end
 
 class Gnokii
   def self.send(sms, phone)
-    x = `echo "#{sms}" | gnokii --config /etc/gnokiirc --sendsms "#{phone}"`
-    STDOUT.print(x)
+    `echo "#{sms}" | /etc/sms_creator.sh -e "#{phone}"`
+    #`echo "#{sms}" | gnokii --config /etc/gnokiirc --sendsms "#{phone}"`
+    #STDOUT.print(x
   end
   def self.checkmobile(phone)
-  	array = %w[\+38050 \+38066 \+38095 \+38099 \+38067 \+38096 \+38097 \+38098 \+38063 \+38093 \+38068 \+38091 \+38092]
-  	mobilecheck = false
-  	array.each{|m| mobilecheck = true if phone =~ /^#{m}/}
-  	return mobilecheck
+    array = %w[\+38050 \+38066 \+38095 \+38099 \+38067 \+38096 \+38097 \+38098 \+38063 \+38093 \+38068 \+38091 \+38092]
+    mobilecheck = false
+    array.each{|m| mobilecheck = true if phone =~ /^#{m}/}
+    return mobilecheck
   end
 end
 

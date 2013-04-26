@@ -17,7 +17,10 @@ end
 
 module Bgwebmon
   class Application < Rails::Application
-     config.encoding = "utf-8"
+    config.active_record.observers = :agent_payment_observer, :payment_observer
+    config.autoload_paths += %W(#{config.root}/app/models/concerns)
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.encoding = "utf-8"
     config.filter_parameters += [:password]
     config.time_zone = 'Kyiv' 
     config.active_support.escape_html_entities_in_json = true
@@ -27,5 +30,10 @@ module Bgwebmon
     config.active_record.whitelist_attributes = true
     config.assets.enabled = true
     config.assets.version = '1.0'
+    config.before_configuration do
+      I18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+      I18n.locale = 'ru'
+      I18n.reload!
+    end
   end
 end
