@@ -4,8 +4,8 @@
 = link_to t('.new', :default => t("helpers.links.new")), new_agent_payment_path, :class => 'btn btn-primary', style: "color: #fff;"
 %br
 %br
-%input{ type: "text", placeholder: "Фильтр", "ng-model" => "searchFilter" }
 %div{ "ng-app" => "bgwebmon" }
+  %input{ type: "text", placeholder: "Фильтр", "ng-model" => "searchFilter" }
   %table.table.table-striped{ "ng-controller" => "agentPayments" }
     %thead
       %tr

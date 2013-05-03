@@ -1,6 +1,5 @@
 //= require jquery
 //= require angular.min
-// require angle-up
-//= require_tree ./angular
+//= require angular-resource.min
 //= require_tree .
 //= require twitter/bootstrap
