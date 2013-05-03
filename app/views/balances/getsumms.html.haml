@@ -19,11 +19,15 @@
         - else 
             - class_tr = 'success'
         %tr{ class: "#{class_tr}" }
-            - summa = id.balances.where( @wherestring )[0]
+            - summa = id.balances.where( @wherestring )[ 0 ]
             - if summa.nil?
                 - summa = id.balances.order("yy DESC")[0]
-            - if summa.nil?
-                - summa = Balance.new summa1: 0, summa2: 0, summa3: 0, summa4: 0
+                - if summa.nil?
+                    - summa = Balance.new summa1: 0, summa2: 0, summa3: 0, summa4: 0
+                - else
+                    - summa1 = summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+                    - summa2 = 0
+                    - summa3 = 0
             %td= @index
             %td= id.title
             %td= id.comment
