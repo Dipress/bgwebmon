@@ -43,61 +43,29 @@
 				%th Текущий лимит
 			- @ids.each do |id|
 				- if id.status == 3
-					%tr.error
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
-				- if id.status == 2
-					%tr.warning
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
-				- if id.status == 4
-					%tr.info
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
-				- if id.status == 0
-					%tr.success
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
+					- class_tr = 'error'
+				- elsif id.status == 2
+					- class_tr = 'warning'
+				- elsif id.status == 4
+					- class_tr = 'info'
+				- else 
+					- class_tr = 'success'
+				%tr{ class: "#{class_tr}" }
+					- summa = id.balances.where( @wherestring )[ 0 ]
+					- if summa.nil?
+						- summa = id.balances.order("yy DESC")[0]
+					- if summa.nil?
+						- summa = Balance.new summa1: 0, summa2: 0, summa3: 0, summa4: 0
+					%td= @index
+					%td= id.title
+					%td= id.comment
+					%td= summa.summa1
+					%td= summa.summa2
+					%td= summa.summa3
+					%td= summa.summa4
+					%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+					%td= id.closesumma
+					- @index = @index + 1
 :css
 	.ui-datepicker-calendar {
 		display: none;
