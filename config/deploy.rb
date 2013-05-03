@@ -3,7 +3,8 @@ require "rvm/capistrano"
 require "bundler/capistrano"
 require "delayed/recipes"  
 load "deploy/assets"
-set :rvm_type, :user
+set :rvm_type, :system
+set :rvm_path, "/usr/local/rvm"
 
 default_run_options[:pty] = true
 set :application, "webmon"
