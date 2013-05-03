@@ -48,6 +48,6 @@ namespace :deploy do
   end
 end
 
-before "deploy:assets:precompile", "deploy:db"
+#before "deploy:assets:precompile", "deploy:db"
 
-after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:files", "deploy:graphs", "deploy:restart"
+after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
