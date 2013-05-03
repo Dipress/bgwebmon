@@ -26,11 +26,10 @@
                     - summa = Balance.new summa1: 0, summa2: 0, summa3: 0, summa4: 0
                     - result = 0
                 - else
-                    - summa.summa1 = summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
                     - summa.summa2 = 0
                     - summa.summa3 = 0
                     - summa.summa4 = 0
-                    - result = summa.summa1
+                    - result = summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
             - else
                 - result = summa.summa1
             %td= @index
