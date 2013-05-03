@@ -14,7 +14,7 @@ class PaymentTasks
     phone = payment.contract.phones.where(["pid=?", 14])[0]
     unless phone.nil?
       phone = "+380" + phone.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
-      Gnokii.send "Плтаеж на сумму #{payment.value}грн. занесен, Крыминфоком", phone
+      Gnokii.send "Платеж на сумму #{payment.value}.00 грн. занесен, Крыминфоком", phone
     end
   end
 
