@@ -65,7 +65,7 @@ protect_from_forgery except: :update
   # PUT /agent_payments/1.json
   def update
     @agent_payment = AgentPayment.find(params[:id])
-    Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 1, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
+    Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
     
     respond_to do |format|
       if @agent_payment.update_attributes(manager_id: current_user.id, managed_at: Time.now)
