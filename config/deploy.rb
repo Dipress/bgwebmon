@@ -47,4 +47,4 @@ namespace :deploy do
   end
 end
 
-after "deploy", "deploy:cleanup", "delayed_job:restart",, "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
+after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
