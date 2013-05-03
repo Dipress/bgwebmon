@@ -4,7 +4,7 @@ class PaymentObserver < ActiveRecord::Observer
   def after_create record
     balance = record.contract.balances.where(["yy=? and mm=?", record.dt.year, record.dt.month])
     if balance.length > 0
-      balance[0].update_attribute summa2: balance[0].summa2+record.summa
+      balance[0].update_attribute :summa2, balance[0].summa2+record.summa
     else
       count = record.contract.balances
       if count > 0
