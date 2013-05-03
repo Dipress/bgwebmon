@@ -27,7 +27,7 @@ set :normalize_asset_timestamps, false
 
 role :web, domain                         
 role :app, domain                         
-role :db,  domain, :primary => true
+role :db,  domain, primary: true
 
 ssh_options[:forward_agent] = true
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
@@ -48,4 +48,6 @@ namespace :deploy do
   end
 end
 
-after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
+before "deploy:assets:precompile", "deploy:db"
+
+after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:files", "deploy:graphs", "deploy:restart"
