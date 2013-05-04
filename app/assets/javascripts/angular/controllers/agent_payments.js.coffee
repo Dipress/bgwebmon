@@ -1,5 +1,5 @@
 #class @AgentPaymentsController
-window.app.controller 'agentPayments', ($scope, $http, paymentsModel)->
+window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($scope, $http, paymentsModel)->
   #$scope.searchArg = "Fight"
   $scope.head = window.head
 
@@ -18,3 +18,4 @@ window.app.controller 'agentPayments', ($scope, $http, paymentsModel)->
     
   $scope.changeSorting = (column)->
     paymentsModel.changeSorting($scope, column)
+]

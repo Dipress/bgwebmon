@@ -1,4 +1,4 @@
-window.app.service 'paymentsModel', ($http)->
+window.app.service 'paymentsModel', ['$http', ($http)->
 
   this.getPayments = ($scope)->
     $http( method: "GET", url: '/agent_payments.json').success (data)->
@@ -21,3 +21,4 @@ window.app.service 'paymentsModel', ($http)->
     else
       sort.column = column;
       sort.descending = false;
+]

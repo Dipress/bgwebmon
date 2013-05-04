@@ -1,5 +1,3 @@
-%link{ :rel => "stylesheet", :href => "http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" }
-%script{ :src => "http://code.jquery.com/ui/1.9.0/jquery-ui.js" }
 %div{ :id => "center" }
 %table#bal
 	%tr
@@ -32,74 +30,7 @@
 		%label Приостановлен
 		%span.label{ :style => "background-color:#D9EDF7;width: 100px; height:20px;" }
 	#container.span10
-		%table#bal.table
-			%tr
-				%th №
-				%th Дoговор
-				%th Абонент
-				%th Входящий остаток
-				%th Приход
-				%th Наработка
-				%th Расход
-				%th Исходящий остаток
-				%th Текущий лимит
-			- @ids.each do |id|
-				- if id.status == 3
-					%tr.error
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
-				- if id.status == 2
-					%tr.warning
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
-				- if id.status == 4
-					%tr.info
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
-				- if id.status == 0
-					%tr.success
-						- summa = id.balances.where( @wherestring )[ 0 ]
-						- if summa != nil
-							%td= @index
-							%td= id.title
-							%td= id.comment
-							%td= summa.summa1
-							%td= summa.summa2
-							%td= summa.summa3
-							%td= summa.summa4
-							%td= summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-							%td= id.closesumma
-							- @index = @index + 1
+		= render partial: 'balances', locals: { ids: @ids, index: 0 }
 :css
 	.ui-datepicker-calendar {
 		display: none;

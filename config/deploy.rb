@@ -4,6 +4,7 @@ require "bundler/capistrano"
 require "delayed/recipes"  
 load "deploy/assets"
 set :rvm_type, :system
+set :rvm_path, "/usr/local/rvm"
 
 default_run_options[:pty] = true
 set :application, "webmon"
@@ -26,7 +27,7 @@ set :normalize_asset_timestamps, false
 
 role :web, domain                         
 role :app, domain                         
-role :db,  domain, :primary => true
+role :db,  domain, primary: true
 
 ssh_options[:forward_agent] = true
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
@@ -40,11 +41,13 @@ namespace :deploy do
   	run "ln -s /var/www/graphs /var/www/webmon/current/graphs && mkdir #{current_path}/public/graphs && chown nobody #{current_path}/public/graphs" 
   end
   task :db do
-  	run "ln -s /var/www/bgwebmon/database.yml #{current_path}/config/database.yml && ln -s /var/www/bgwebmon/secret_token.rb #{current_path}/config/initializers/secret_token.rb"
+  	run "ln -s /var/www/bgwebmon/database.yml #{current_release}/config/database.yml && ln -s /var/www/bgwebmon/secret_token.rb #{current_release}/config/initializers/secret_token.rb"
   end
   task :files do
     run "ln -s /var/www/wemonfiles/files #{current_path}/public/ && chown nobody #{current_path}/public/files"
   end
 end
 
-after "deploy", "deploy:cleanup", "delayed_job:restart",, "deploy:db", "deploy:files", "deploy:graphs", "deploy:restart"
+before "deploy:assets:precompile", "deploy:db"
+
+after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:files", "deploy:graphs", "deploy:restart"
