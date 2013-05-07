@@ -22,7 +22,7 @@
             - summa = id.balances.where(@wherestring)[0]
             - if summa.nil?
                 - summa = id.balances.order("yy DESC")[0]
-                - if summa.nil?
+                - if summa.nil? || summa.mm.to_i > @wherestring.match(/([0-9]+)\'$/)[0].gsub(/'/,'').to_i
                     - summa = Balance.new summa1: 0, summa2: 0, summa3: 0, summa4: 0
                     - result = 0
                     - ishod = 0
