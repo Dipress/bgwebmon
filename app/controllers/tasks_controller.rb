@@ -74,7 +74,7 @@ class TasksController < ApplicationController
   	@tcomment = Tcomment.new params[ :tcomment ]
   	@tcomment.user_id = current_user.id
   	if @tcomment.save
-      send_each( @task )
+      send_each( @tcomment.task )
   		redirect_to task_path(@tcomment.task_id), :flash => { :notice =>  "Комментарий добавлен" }
   	else
   		redirect_to task_path(@tcomment.task_id), :flash => { :error => "Комментарий не добавлен, размер поля не может быть больше 120 символов" }
