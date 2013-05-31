@@ -264,14 +264,18 @@ ru:
         title: 'Добавление нового платежа'
       index: 
         title: 'Список платежей'
-        id: "№"
+        id: "№ платежа"
         contract_id: "Абонент"
-        user_id: "Добавил"
-        manager_id: "Обработал менеджер"
+        user_node:
+          title: 'Прием платежа'
+          user_id: "Представитель"
+          created_at: "Дата"
+        manager_node:
+          title: 'Обработка платежа'
+          manager_id: "Сотрудник"
+          managed_at: "Дата"
         value: "Сумма"
         text: "Комментарий"
-        managed_at: "Обработано в"
-        created_at: "Создано в"
   helpers:
     links:
       new: "Добавить"

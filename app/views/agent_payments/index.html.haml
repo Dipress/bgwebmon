@@ -4,43 +4,46 @@
 = link_to t('.new', :default => t("helpers.links.new")), new_agent_payment_path, :class => 'btn btn-primary', style: "color: #fff;"
 %br
 %br
-%div{ "ng-app" => "bgwebmon" }
-  %input{ type: "text", placeholder: "Фильтр", "ng-model" => "searchFilter" }
-  %table.table.table-striped{ "ng-controller" => "agentPayments" }
-    %thead
-      %tr
-        %th{"ng-class" => "selectedCls('id')", "ng-click" => "changeSorting('id')"}=t 'agent_payments.view.index.id'
-        %th{"ng-class" => "selectedCls('contract')", "ng-click" => "changeSorting('contract')"}=t 'agent_payments.view.index.contract_id'
-        %th{"ng-class" => "selectedCls('user')", "ng-click" => "changeSorting('user')"}=t 'agent_payments.view.index.user_id'
-        %th{"ng-class" => "selectedCls('manager')", "ng-click" => "changeSorting('manager')"}=t 'agent_payments.view.index.manager_id'
-        %th{"ng-class" => "selectedCls('value')", "ng-click" => "changeSorting('value')"}=t 'agent_payments.view.index.value'
-        %th{"ng-class" => "selectedCls('text')", "ng-click" => "changeSorting('text')"}=t 'agent_payments.view.index.text'
-        %th{"ng-class" => "selectedCls('managed_at')", "ng-click" => "changeSorting('managed_at')"}=t 'agent_payments.view.index.managed_at'
-        %th{"ng-class" => "selectedCls('created_at')", "ng-click" => "changeSorting('created_at')"}=t 'agent_payments.view.index.created_at'
-        %th=t '.actions', :default => t("helpers.actions")
-    %tbody
-      %tr{ "ng-repeat" => "p in body | orderBy:sort.column:sort.descending | filter: searchFilter ", class: "{{p.class_name}}" }
-        %td {{p.id}}
-        %td {{p.contract}}
-        %td {{p.user}}
-        %td {{p.manager}}
-        %td {{p.value}}
-        %td {{p.text}}
-        %td {{p.managed_at}}
-        %td {{p.created_at}}
+%input{ type: "text", placeholder: "Фильтр", "ng-model" => "searchFilter" }
+%table.table.table-bordered{ "ng-controller" => "agentPayments" }
+  %thead
+    %tr
+      %th{"ng-class" => "selectedCls('id')", "ng-click" => "changeSorting('id')", rowspan: '2' }=t 'agent_payments.view.index.id'
+      %th{"ng-class" => "selectedCls('contract')", "ng-click" => "changeSorting('contract')", rowspan: '2' }=t 'agent_payments.view.index.contract_id'
+      %th{"ng-class" => "selectedCls('value')", "ng-click" => "changeSorting('value')", rowspan: '2' }=t 'agent_payments.view.index.value'
+      %th{ colspan: '2' }=t 'agent_payments.view.index.user_node.title'
+      %th{ colspan: '2' }=t 'agent_payments.view.index.manager_node.title'
+      %th{"ng-class" => "selectedCls('text')", "ng-click" => "changeSorting('text')", rowspan: '2' }=t 'agent_payments.view.index.text'
+      - if User.superadmin(@user.id)
+        %th{ rowspan: '2' }=t '.actions', :default => t("helpers.actions")
+    %tr
+      %th{"ng-class" => "selectedCls('user')", "ng-click" => "changeSorting('user')"}=t 'agent_payments.view.index.user_node.user_id'
+      %th{"ng-class" => "selectedCls('created_at')", "ng-click" => "changeSorting('created_at')"}=t 'agent_payments.view.index.user_node.created_at'
+      %th{"ng-class" => "selectedCls('manager')", "ng-click" => "changeSorting('manager')"}=t 'agent_payments.view.index.manager_node.manager_id'
+      %th{"ng-class" => "selectedCls('managed_at')", "ng-click" => "changeSorting('managed_at')"}=t 'agent_payments.view.index.manager_node.managed_at'
+  %tbody
+    %tr{ "ng-repeat" => "p in body | orderBy:sort.column:sort.descending | filter: searchFilter ", class: "{{p.class_name}}" }
+      %td {{p.id}}
+      %td {{p.contract}}
+      %td {{p.value}}
+      %td {{p.user}}
+      %td {{p.created_at}}
+      %td {{p.manager}}
+      %td {{p.managed_at}}
+      %td {{p.text}}
+      - if User.superadmin(@user.id)
         %td
-          - if User.superadmin(@user.id)
-            %span{ "ng-hide" => "p.status" }
-              = link_to "Провести платеж", "#", :class => 'btn btn-mini btn-danger', "ng-click" => "processPayment($index, p.id)"
+          %span{ "ng-hide" => "p.status" }
+            = link_to "Провести платеж", "#", :class => 'btn btn-mini btn-danger', "ng-click" => "processPayment($index, p.id)"
 
 :javascript
   window.head = {
     id: "#{I18n.t "agent_payments.view.index.id"}",
     contract: "#{I18n.t 'agent_payments.view.index.contract_id'}",
-    user: "#{I18n.t 'agent_payments.view.index.user_id'}",
-    manager: "#{I18n.t 'agent_payments.view.index.manager_id'}",
+    user: "#{I18n.t 'agent_payments.view.index.user_node.user_id'}",
+    manager: "#{I18n.t 'agent_payments.view.index.manager_node.manager_id'}",
     value: "#{I18n.t 'agent_payments.view.index.value'}",
     text: "#{I18n.t 'agent_payments.view.index.text'}",
-    managed_at: "#{I18n.t 'agent_payments.view.index.managed_at'}",
-    created_at: "#{I18n.t 'agent_payments.view.index.created_at'}"
+    managed_at: "#{I18n.t 'agent_payments.view.index.manager_node.managed_at'}",
+    created_at: "#{I18n.t 'agent_payments.view.index.user_node.created_at'}"
   }
