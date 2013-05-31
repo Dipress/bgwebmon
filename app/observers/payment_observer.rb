@@ -7,7 +7,7 @@ class PaymentObserver < ActiveRecord::Observer
       #balance[0].update_attribute :summa2, balance[0].summa2+record.summa
       ActiveRecord::Base.connection.execute("UPDATE contract_balance SET summa2=#{balance[0].summa2+record.summa} WHERE cid=#{record.contract.id} AND mm=#{record.dt.month} AND yy=#{record.dt.year};");
     else
-      count = record.contract.balances
+      count = record.contract.balances.count
       if count > 0
         last = record.contract.balances[count-1]
         summa1 = last.summa1 + last.summa2 - last.summa3 - last.summa4

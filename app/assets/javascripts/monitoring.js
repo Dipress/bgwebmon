@@ -9,7 +9,7 @@ AjaxReq.prototype.ERequest = function(){
 		url : '/errorlist/'+this.lid,
 		dataType: "json"
 	}).done(function(data){
-		ea.PutErrors(data);
+		ea.PutErrors(data.monitoring);
 	});
 	$(this.ul).html("");
 	popup.Resize();
@@ -21,7 +21,7 @@ AjaxReq.prototype.PRequest = function(){
 		url : '/payments/'+this.lid,
 		dataType: "json"
 	}).done(function(data){
-		ea.PutPays(data);
+		ea.PutPays(data.monitoring);
 	});
 	$(this.ul).html("");
 	popup.Resize();
@@ -60,6 +60,7 @@ AjaxReq.prototype.TRequest = function(cid){
 		url : '/tp/' + this.lid,
 		dataType : "json"
 	}).done(function(data){
+		data = data.monitoring
 		$.each(data[0].tplans, function(index, value){
 			$(ea.ul).append("<div>"+value.title+" - "+value.cost+"0грн.</div>");
 		});
