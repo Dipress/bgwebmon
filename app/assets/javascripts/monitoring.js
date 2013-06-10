@@ -100,8 +100,10 @@ AjaxReq.prototype.PutErrors = function(data){
 AjaxReq.prototype.PutPays = function(data){
 	var ul = this.ul,
 		ea = this;
+    console.log(data);
+    console.log(ul)
 	if(data != ""){
-		$.each(data, function(index,val){
+		$.each(data.monitoring, function(index,val){
 			$(ul).prepend("<div class=\"pay\">"+val.date+" - "+val.summa+"грн.   "+val.comment+"</div>");
 		});
 	}
