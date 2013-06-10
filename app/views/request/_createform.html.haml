@@ -48,13 +48,13 @@
 		= r.text_field :password
 	.editor-field
 		%label * Технология подключения:
-		= r.collection_select :technology, ContractParameterType7Value.where(:pid => 53), :id, :title, {:prompt => 'Выберите технологию подключения'}
+		= r.collection_select :technology, ContractParameterType7Value.where(:pid => 53).order('title ASC'), :id, :title, {:prompt => 'Выберите технологию подключения'}
 	.editor-field
 		%label * Точка подключения:
-		= r.collection_select :node, ContractParameterType7Value.where(:pid => 54), :id, :title, {:prompt => 'Выберите точку подключения'}
+		= r.collection_select :node, ContractParameterType7Value.where(:pid => 54).order('title ASC'), :id, :title, {:prompt => 'Выберите точку подключения'}
 	.editor-field
 		%label * Тарифный план:
-		= r.collection_select :tariffplan_id, Tariffplan.all, :tree_id, :title, {:prompt => 'Выберите тарифный план'}
+		= r.collection_select :tariffplan_id, Tariffplan.order('title ASC'), :tree_id, :title, {:prompt => 'Выберите тарифный план'}
 	.editor-field
 		%label Дополнительная информация:
 		= r.text_area :description, cols: 100, rows: 6, style: "width: 400px;"

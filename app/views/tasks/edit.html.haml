@@ -13,14 +13,14 @@
 			= f.text_area :text, :style => "width:600px;", :rows => 10
 			%br
 			= f.label "Назначить (необязательно):"
-			= f.collection_select :take_id, User.where( [ "status=?", 0 ] ), :id, :name, {:prompt => 'Сотрудник не выбран'}
+			= f.collection_select :take_id, User.where( [ "status=?", 0 ] ).order('name ASC'), :id, :name, {:prompt => 'Сотрудник не выбран'}
 			- if @task.observers.nil?
 				- array = []
 			- else
 				- array = @task.observers.split(",")
 			%br
 			= f.label "Выберите наблюдателей:"
-			- for user in User.where( [ "status=?", 0 ] )
+			- for user in User.where( [ "status=?", 0 ] ).order('name ASC')
 				%div{ :style => "display:inline-block; width: 250px; height: 50px;" }
 					= check_box_tag "task[observers][]", user.id, array.include?(user.id.to_s)
 					= f.label user.name
