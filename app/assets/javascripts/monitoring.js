@@ -9,7 +9,7 @@ AjaxReq.prototype.ERequest = function(){
 		url : '/errorlist/'+this.lid,
 		dataType: "json"
 	}).done(function(data){
-		ea.PutErrors(data);
+		ea.PutErrors(data.monitoring);
 	});
 	$(this.ul).html("");
 	popup.Resize();
@@ -21,7 +21,7 @@ AjaxReq.prototype.PRequest = function(){
 		url : '/payments/'+this.lid,
 		dataType: "json"
 	}).done(function(data){
-		ea.PutPays(data);
+		ea.PutPays(data.monitoring);
 	});
 	$(this.ul).html("");
 	popup.Resize();
@@ -60,6 +60,7 @@ AjaxReq.prototype.TRequest = function(cid){
 		url : '/tp/' + this.lid,
 		dataType : "json"
 	}).done(function(data){
+		data = data.monitoring
 		$.each(data[0].tplans, function(index, value){
 			$(ea.ul).append("<div>"+value.title+" - "+value.cost+"0грн.</div>");
 		});
@@ -100,8 +101,6 @@ AjaxReq.prototype.PutErrors = function(data){
 AjaxReq.prototype.PutPays = function(data){
 	var ul = this.ul,
 		ea = this;
-    console.log(data);
-    console.log(ul)
 	if(data != ""){
 		$.each(data.monitoring, function(index,val){
 			$(ul).prepend("<div class=\"pay\">"+val.date+" - "+val.summa+"грн.   "+val.comment+"</div>");
