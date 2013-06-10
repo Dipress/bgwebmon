@@ -21,9 +21,9 @@ class Requestfl < ActiveRecord::Base
   validates :fio, :presence => {:message => "ФИО - #{OB}"},
             :length =>{:within => 1..70,
                        :message => 'ФИО - поле должно содержать от 1 до 70 символов'}
-  validates :adress_post, :presence => {:message => "Почтовый адресс - #{OB}"},
+  validates :adress_post, :presence => {:message => "Почтовый адрес - #{OB}"},
             	 		  :length =>{:maximum => 150,
-                       		   		 :message => 'Почтовый адресс - должен содержать до 150 символов'}
+                       		   		 :message => 'Почтовый адрес - должен содержать до 150 символов'}
   validates :adress_connection, :presence => {:message => "Адресс - #{OB}"},
             	 			    :length =>{:maximum => 150,
                        		   			   :message => 'Адресс - подключения должен содержать до 100 символов'}

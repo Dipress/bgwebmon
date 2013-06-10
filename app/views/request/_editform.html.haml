@@ -10,7 +10,7 @@
 		%label * Адресс подключения:
 		= r.text_field :adress_connection
 	.editor-field
-		%label * Координаты подключения (введите адресс и нажмите "Показать на карте" или кликните по карте):
+		%label * Координаты подключения (введите адрес и нажмите "Показать на карте" или кликните по карте):
 		%input#street{:type => "text", :name => "mapsearch", :value => @requestfl[:adress_connection]}
 		%button#searchplace.btn Показать на карте
 		%br
@@ -38,7 +38,7 @@
 		%label * Форма оплаты:
 		= r.collection_select :payment_form, ContractParameterType7Value.where(:pid => 52), :id, :title, {:prompt => 'Выберите тип оплаты'}
 	.editor-field
-		%label IP адресс:
+		%label IP адрес:
 		= r.text_field :ip
 	.editor-field
 		%label Логин:

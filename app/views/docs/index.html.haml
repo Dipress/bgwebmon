@@ -26,9 +26,9 @@
 					- padress = c.contract_parameter_type2.where( [ "pid=?", 5 ] )[0]
 					- if !padress.nil?
 						- if padress.address.eql? ""
-							%span Почтовый адресс;
+							%span Почтовый адрес;
 					- else
-						%span Почтовый адресс;
+						%span Почтовый адрес;
 					- сadress = c.contract_parameter_type2.where( [ "pid=?", 42 ] )[0]
 					- if !сadress.nil?
 						- if сadress.address.eql? ""
