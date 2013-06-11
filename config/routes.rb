@@ -1,5 +1,7 @@
 Bgwebmon::Application.routes.draw do
 
+  get "api/monitoring"
+
   resources :agent_payments, only: [:new, :create, :update, :index]
 
 
@@ -18,6 +20,8 @@ Bgwebmon::Application.routes.draw do
   scope 'api' do
     match '/get_contracts', to: 'ajax#get_contracts'
   end
+
+  match '/members', to: 'api#monitoring'
 
   match '/taskcommentnew', :to => 'tasks#commentcreate'
   match '/taketask/:id', :to => 'tasks#take'

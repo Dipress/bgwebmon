@@ -1,7 +1,6 @@
 # coding: utf-8
 class MonitoringController < ApplicationController
 before_filter :checklogedin
-before_filter :ip_check
   def index
     @title = "Список точек подключения"
     @nodes = ContractParameterType7Value.where(:pid => 54).order('title ASC')

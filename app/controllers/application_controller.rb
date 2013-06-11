@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def member(cid)
+  def member(cid, current_user=current_user)
     current = current_user.contract_cid
     if current != 0
       cpt8 = ContractParameterType8.where(:cid => cid)
