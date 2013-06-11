@@ -102,7 +102,7 @@ AjaxReq.prototype.PutPays = function(data){
 	var ul = this.ul,
 		ea = this;
 	if(data != ""){
-		$.each(data.monitoring, function(index,val){
+		$.each(data, function(index,val){
 			$(ul).prepend("<div class=\"pay\">"+val.date+" - "+val.summa+"грн.   "+val.comment+"</div>");
 		});
 	}
@@ -230,3 +230,18 @@ $(function(){
 		popup.Resize();
 	});
 });
+
+
+
+AjaxReq.prototype.PRequest = function(){
+        ea = new AjaxReq(this.ul, this.lid);
+        $.ajax({
+                url : '/payments/'+this.lid,
+                dataType: "json"
+        }).done(function(data){
+                console.log(data);
+                ea.PutPays(data.monitoring);
+        });
+        $(this.ul).html("");
+        popup.Resize();
+}

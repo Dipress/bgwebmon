@@ -11,10 +11,12 @@ before_filter :ip_check
         else
           ip = "1"
         end
+          last_payment = contract.payments.order('dt ASC').last
             larray << {account_id: contract.title,
+                       account_name: contract.comment,
                        status: check_online(ip),
-                       last_payment_date: contract.payments.order('dt ASC').last.dt ||= nil,
-                       last_payment_value: contract.payments.order('dt ASC').last.summa ||= nil,
+                       last_payment_date: last_payment.nil? ? nil : last_payment.dt,
+                       last_payment_value: last_payment.nil? ? nil : last_payment.summa,
                        balance: Balance.balance("#{contract.id}",
                                                 "#{time.strftime("%m")}",
                                                 "#{time.strftime("%Y")}"),
@@ -41,3 +43,4 @@ protected
       end
   end
 end
+
