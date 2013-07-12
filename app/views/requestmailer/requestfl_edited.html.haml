@@ -1,18 +1,19 @@
-%h4="Заявка добавлена, ожидайте."
+%h4="Заявка изменена"
 = link_to "Ссылка на тему", @urlfor
-- @request.attributes.each do |r|
+- @request.changes.each do |r|
   - if !["created_at", "updated_at", "discard", "requeststatus_id", "user_id", "id"].include?(r[0])
     %p
       %span
         %b="#{I18n.t("activerecord.attributes.requestfl.#{r[0]}")}: "
       - if r[0].eql?("payment_form") || r[0].eql?("technology") || r[0].eql?("node")
-        %span= ContractParameterType7Value.find(r[1]).title
+        %span= "#{ContractParameterType7Value.find(r[1][0]).title} <b>на</b> #{ContractParameterType7Value.find(r[1][1]).title}".html_safe
       - elsif r[0].eql?("tariffplan_id")
-        %span= Tariffplan.find(r[1]).title
+        %span= "#{Tariffplan.find(r[1][0]).title} <b>на</b> #{Tariffplan.find(r[1][1]).title}".html_safe
       - elsif r[0].eql?("pasport_date")
-        %span= r[1].strftime("%Y.%m.%d")
+        %span= "#{r[1][0].strftime("%Y.%m.%d")} <b>на</b> #{r[1][0].strftime("%Y.%m.%d")}".html_safe
       - else
-        %span= r[1]
+        %span= "#{r[1][0]} <b>на</b> #{r[1][1]}".html_safe
+
 %br
 %br
 %p Сообщение сгенерировано Bgwebmon

@@ -8,7 +8,9 @@ require 'yaml'
 basedir = File.dirname(__FILE__).gsub(/cronscripts/,"")
 yaml = YAML.load_file("#{basedir}config/database.yml")['production']
 Dir["#{basedir}app/models/*.rb"].each {|file| 
-  require file if !file.eql? "/var/www/webmon/current/app/models/tfile.rb"
+  if !file.eql?("/var/www/webmon/current/app/models/tfile.rb") && !file.eql?('/var/www/webmon/current/app/models/agent_payment.rb')
+    require file
+  end
 }
 
 ActiveRecord::Base.establish_connection(
