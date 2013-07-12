@@ -72,6 +72,7 @@ class Requestfl < ActiveRecord::Base
                       :numericality => { :only_integer => true, 
                       					 :message => "Тарифный план - может быть только числом"}
   before_save :pasportdate
+  before_update :pasportdate
 
   def pasportdate
     self.pasport_date = Date.parse(pd) if new_record?

@@ -284,3 +284,28 @@ ru:
       edit: "Редактировать запись"
       back: "Назад"
     actions: "Действия"
+
+  activerecord:
+    models:
+      requestfl: Заявка на заведение абонента
+    attributes:
+      requestfl:
+        description: "Комментарий"
+        fio: "ФИО"
+        adress_post: "Почтовый адресс"
+        adress_connection: "Адресс подключения"
+        latlng_connection: "Координаты"
+        email: "Электронная почта"
+        telephone: "Телефон"
+        in: "ИНН"
+        pasport: "Серия паспорта"
+        pasport_authority: "Кем выдан паспорт"
+        pasport_date: "Дата выдачи паспорта"
+        payment_form: "Тип оплаты"
+        ip: "IP"
+        login: "Логин"
+        password: "Пароль"
+        technology: "Технология"
+        node: "Точка подключения"
+        tariffplan_id: "Тарифный план"
+      # will translate User attribute "login" as "Handle"

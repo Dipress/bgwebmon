@@ -17,7 +17,7 @@ end
 
 module Bgwebmon
   class Application < Rails::Application
-    config.active_record.observers = :agent_payment_observer, :payment_observer
+    config.active_record.observers = :agent_payment_observer, :payment_observer, :requestfl_observer
     config.autoload_paths += %W(#{config.root}/app/models/concerns)
     config.autoload_paths += %W(#{config.root}/lib)
     config.encoding = "utf-8"

@@ -71,4 +71,15 @@ class Contract < ActiveRecord::Base
     return array << {"tplans" => tarray, "allcost" => allsums}
   end
 
+  def self.tariffs_all
+    File.open(Rails.root.join('public/kirill.txt'), 'a') do |file|
+      ContractParameterType7Value.where(id:[100,109,110,73,74,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92]).order("title ASC").each do |r|
+        file.puts "       #{r.title}"
+        r.contracts.each do |c|
+          file.puts "#{c.comment} - #{Contract.tariffs_array(c.id)[0]["allcost"]}"
+        end
+      end
+    end
+  end
+
 end

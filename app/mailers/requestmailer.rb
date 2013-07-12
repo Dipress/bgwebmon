@@ -1,7 +1,13 @@
 # coding: utf-8
 class Requestmailer < ActionMailer::Base
   def requestfl_added(requestfl,to_email)
-  	@urlfor = "http://ruby.ci.ukrpack.net/requestfl/#{requestfl.id}"
+    @urlfor = "http://ruby.ci.ukrpack.net/requestfl/#{requestfl.id}"
+    @request = requestfl
+    mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Добавлена заявка на заведение абонента в биллинг - #{requestfl.fio}")
+  end 
+  def requestfl_edited(requestfl,to_email)
+    @urlfor = "http://ruby.ci.ukrpack.net/requestfl/#{requestfl.id}"
+    @request = requestfl
     mail(:from => "ruby.ci.ukrpack.net@crimeainfo.com", :to => to_email, :subject => "Добавлена заявка на заведение абонента в биллинг - #{requestfl.fio}")
   end 
   def requestfl_ready(requestfl,to_email,user)
