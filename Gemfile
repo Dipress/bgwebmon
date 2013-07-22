@@ -1,11 +1,18 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+
 gem 'mysql2'
+gem 'mongoid'
+gem 'redis-rails'
+
 gem 'haml'
 gem 'RailsRRDTool'
 gem 'rvm-capistrano'
+gem 'daemons'
 gem 'paperclip'
+gem 'whenever'
+gem 'nokogiri'
 
 gem "active_model_serializers"
 
@@ -13,9 +20,11 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'simple_form'
 
-gem 'delayed_job_active_record'
-gem 'daemons'
+#gem 'delayed_job_active_record'
+gem 'delayed_job_mongoid'
 gem 'figaro'
+
+gem 'mongoid_slug'
 
 group :assets do
   gem 'sass-rails'
@@ -29,15 +38,15 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 end
 
-group :test do
-	gem 'rspec-rails'
-	gem 'webrat'
-	gem 'factory_girl_rails', '1.0'
+group :development, :test do
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem 'mongoid-rspec'
 end
 
 group :development do
-	gem 'rspec-rails'
-	gem 'haml-rails'
+  gem 'rspec-rails'
+  gem 'haml-rails'
   gem 'thin'
   gem 'quiet_assets'
 end

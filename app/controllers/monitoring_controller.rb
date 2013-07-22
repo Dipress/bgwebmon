@@ -1,5 +1,6 @@
 # coding: utf-8
 class MonitoringController < ApplicationController
+respond_to :html, :json
 before_filter :checklogedin
   def index
     @title = "Список точек подключения"
@@ -39,6 +40,15 @@ before_filter :checklogedin
 
   def payments
     render :json => get_pays(params[:id])
+  end
+
+
+  def new_mon
+    @user = current_user()
+    respond_with do |format|
+      format.json { render json: Contract.cached_users(current_user.contract_cid), root: false }
+      format.html { render 'new_mon' }
+    end 
   end
 
 private 

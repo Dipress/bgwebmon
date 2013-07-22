@@ -1,0 +1,15 @@
+%table.table{ "ng-controller" => "monitoringCtrl" }
+  %thead
+    %tr
+      %th Договор
+      %th Комментарий
+      %th БС
+      %th Лимит
+      %th Баланс
+  %tbody
+    %tr{ "ng-repeat" => "c in contracts" }
+      %th {{c.title}}
+      %th {{c.comment}}
+      %th {{c.bs}}
+      %th {{c.closesumma}}
+      %th {{c.balance}}
