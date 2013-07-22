@@ -6,6 +6,8 @@ log/*.log
 tmp
 *.log
 config/database.yml
+config/application.yml
+dump.rdb
 config/initializers/secret_token.rb
 .sass-cache
 

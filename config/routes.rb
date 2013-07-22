@@ -38,6 +38,7 @@ Bgwebmon::Application.routes.draw do
   match '/discardflform/:id', :to => "request#discardflform"
 
   match '/mon(/:id)', :to => 'monitoring#mon'
+  match '/new_mon', :to => 'monitoring#new_mon'
   match '/monnodes', :to => 'monitoring#index'
   match '/graph/:id(/:hour)', :to => 'monitoring#show'
   match '/tp/:id', :to => 'monitoring#tariffs'

@@ -1,5 +1,6 @@
 # coding: utf-8
 class Contract < ActiveRecord::Base
+  include ActiveModel::SerializerSupport
   self.table_name =  "contract"
   self.primary_key = "id"
 
@@ -77,6 +78,35 @@ class Contract < ActiveRecord::Base
         file.puts "       #{r.title}"
         r.contracts.each do |c|
           file.puts "#{c.comment} - #{Contract.tariffs_array(c.id)[0]["allcost"]}"
+        end
+      end
+    end
+  end
+
+  def mobile_phone
+    allowed = %w[\+38050 \+38066 \+38095 \+38099 \+38067 \+38096 \+38097 \+38098 \+38063 \+38093 \+38068 \+38091 \+38092]
+    phone = "+380" + self.phones.where(pid: 14).first.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
+    if allowed.include? phone[0..5]
+      phone
+    else
+      nil
+    end
+  end
+
+  def current_balance
+    Balance.by_cmy self.id, Time.now.month, Time.now.year
+  end
+
+  def self.cached_users id=0
+    Rails.cache.fetch("cached_users_for#{id}", expires_in: 30.minutes) do
+      contracts = Contract.joins(:contract_parameter_type7).where('contract_parameter_type_7.pid=54')
+      if id.eql?(0)
+        contracts.map do |c|
+          ContractSerializer.new(c, root: false).serializable_hash
+        end
+      else
+        contracts.joins(:contract_parameter_type8).where("contract_parameter_type_8.val=#{id}").map do |c|
+          ContractSerializer.new(c, root: false).serializable_hash
         end
       end
     end

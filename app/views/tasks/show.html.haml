@@ -38,7 +38,7 @@
 				- if @task.user.id == @user.id && @task.tstatus_id == 3
 					= link_to "Восстановить заявку", "/tstatuschangeopen/#{@task.id}", :class => "btn btn-warning", :confirm => "Вы уверены, что хотите восстановить задачу?"
 			.hero-unit
-				%p= @task.text
+				%p= @task.text.gsub(/\n/, "<br/>").html_safe
 				- if @task.take_id.nil?
 					= link_to "Принять заявку", "/taketask/#{@task.id}", :class => "btn btn-primary btn-large"
 				- else
