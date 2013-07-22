@@ -5,6 +5,7 @@ class Smstype
   has_many :smses 
   
   field :title
-
+  
+  auto_increment :sequence, seed: 0
   validates :title, presence: true
 end

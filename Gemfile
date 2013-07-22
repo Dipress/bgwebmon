@@ -25,6 +25,7 @@ gem 'delayed_job_mongoid'
 gem 'figaro'
 
 gem 'mongoid_slug'
+gem 'mongoid_auto_inc'
 
 group :assets do
   gem 'sass-rails'

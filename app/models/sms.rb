@@ -34,7 +34,7 @@ class Sms
           s = Smses.where(["smstype_id=? AND created_at>=? AND contract_id=?", 1, (timenow - 4.day).strftime("%Y-%m-%d %H:%M"), contract.id]).first
           phone = contract.mobile_phone
           if s.nil? && phone
-            Sms.create! contract_id: contract.id, title: contract.title, comment: contract.comment, text: I18n.t('ru.sms.few_days', days: I18n.t(:days, count: dd)), smstype_id: 2, phone: phone
+            Sms.create! contract_id: contract.id, title: contract.title, comment: contract.comment, text: I18n.t('ru.sms.few_days', days: I18n.t(:days, count: dd)), smstype_id: 1, phone: phone
           end
         #Если баланс 0, но меньше лимита
         elsif balance < 0 && balance - one_day > contract.closesumma.to_f

@@ -114,6 +114,9 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.9)
+    mongoid_auto_inc (0.1.0)
+      activesupport (>= 3.0.0)
+      mongoid (>= 2.0.0.rc.6)
     mongoid_slug (3.1.2)
       mongoid (> 3.0)
       stringex (~> 1.4)
@@ -259,6 +262,7 @@ DEPENDENCIES
   less-rails
   mongoid
   mongoid-rspec
+  mongoid_auto_inc
   mongoid_slug
   mysql2
   nokogiri

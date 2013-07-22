@@ -49,10 +49,10 @@ namespace :deploy do
     run "ln -s /var/www/wemonfiles/files #{current_path}/public/ && chown nobody #{current_path}/public/files"
   end
   task :delayed_indexes do 
-    run "script/rails runner 'Delayed::Backend::Mongoid::Job.create_indexes'"
+    run "cd #{current_path} && script/rails runner 'Delayed::Backend::Mongoid::Job.create_indexes'"
   end
 end
 
 before "deploy:assets:precompile", "deploy:db"
-
-after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:delayed_indexes", "deploy:files", "deploy:graphs", "whenever_command", "deploy:restart"
+#, "deploy:delayed_indexes"
+after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:files", "deploy:graphs", "whenever_command", "deploy:restart"
