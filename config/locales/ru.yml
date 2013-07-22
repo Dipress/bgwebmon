@@ -308,4 +308,11 @@ ru:
         technology: "Технология"
         node: "Точка подключения"
         tariffplan_id: "Тарифный план"
-      # will translate User attribute "login" as "Handle"
+  days: 
+    one: "%{count} день"
+    few: "%{count} дня"
+    other: "%{count} дней"
+  sms: 
+    few_days: "На счете осталось на %{days} работы в сети Интернет."
+    exhausted: "Аванс исчерпан, пополните счет в течение 5 дней."
+    exhausted_limit: "Аванс исчерпан, для возобновления услуг пополните счет."

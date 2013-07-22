@@ -1,9 +1,10 @@
 # coding: utf-8
-class Smstype < ActiveRecord::Base
+class Smstype
+  include Mongoid::Document
+  include Mongoid::Timestamps
   has_many :smses 
-  attr_accessible :title
+  
+  field :title
 
-  validates :title, :presence => {:message => "Заголовок обязателен"},
-  				    :length => {:maximum => 64,
-  				    		    :message => "Заголовок не может быть больше 64 символов"}
+  validates :title, presence: true
 end
