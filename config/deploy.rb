@@ -25,6 +25,8 @@ set :domain, "194.54.152.23"
 set :scm_command, "/usr/bin/git"
 set :scm_verbose, true
 set :normalize_asset_timestamps, false
+set :whenever_identifier, "reminder"
+set :whenever_command, "bundle exec whenever"
 
 role :web, domain                         
 role :app, domain                         
