@@ -6,7 +6,7 @@
 		%div#error="#{value}"
 #requestflcontent
 	%h4= "Cтатус заявки: #{@rfl.requeststatus.title}"
-	- if User.superadmin(@user.id)
+	- if User.superadmin(@user.id) || @rfl.user_id.eql?(@user.id)
 		= link_to "Редактировать", "/editfl/#{@rfl.id}", class: "btn"
 	- if User.superadmin(@user.id) && @rfl.requeststatus_id < 2
 		%div
@@ -25,6 +25,10 @@
 		%div
 			%label Абонент успешно подключен нажмите на следующую ссылку
 			= link_to("Закрыть заявку", "/finishstatusfl/#{@rfl.id}")
+	- if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(5)
+		%div
+			%label Заявка была отклонена, после исправления ошибок нажмите на следующую ссылку
+			= link_to("Готово к подключению", "/readystatusfl/#{@rfl.id}")
 	%h3= "Заявка на включение абонента #{@rfl.fio} - Заявку оформил #{@rfl.user.name}"
 	%div 
 		%b= "Точка подключения:"

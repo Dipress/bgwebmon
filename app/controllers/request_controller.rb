@@ -5,9 +5,9 @@ before_filter :ip_check
   def index
     @user = current_user()
     if User.superadmin(@user.id)
-      @rfl = Requestfl.where("requeststatus_id = 1 or requeststatus_id = 2 or requeststatus_id = 3").order("id ASC")
+      @rfl = Requestfl.where("requeststatus_id = 1 or requeststatus_id = 2 or requeststatus_id = 3 or requeststatus_id=5").order("id ASC")
     else
-      @rfl = Requestfl.where("(requeststatus_id = 1 or requeststatus_id = 2 or requeststatus_id = 3) and user_id='#{@user.id}'").order("id ASC")      
+      @rfl = Requestfl.where("(requeststatus_id = 1 or requeststatus_id = 2 or requeststatus_id = 3 or requeststatus_id=5) and user_id='#{@user.id}'").order("id ASC")      
     end
   end
 
@@ -52,7 +52,7 @@ before_filter :ip_check
 
   def readystatusfl
     @rfl = Requestfl.find(params[:id])
-    if User.superadmin(current_user().id) && @rfl.requeststatus_id.eql?(1)
+    if User.superadmin(current_user().id) && (@rfl.requeststatus_id.eql?(1) || @rfl.requeststatus_id.eql?(5))
       @rfl.update_attribute(:requeststatus_id, 2)
       Requestmailer.requestfl_connected(@rfl, "bgbilling@crimeainfo.com", current_user()).deliver
       Requestmailer.requestfl_connected(@rfl, @rfl.user.email, current_user()).deliver

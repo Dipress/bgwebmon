@@ -84,12 +84,18 @@ class Contract < ActiveRecord::Base
   end
 
   def mobile_phone
-    allowed = %w[\+38050 \+38066 \+38095 \+38099 \+38067 \+38096 \+38097 \+38098 \+38063 \+38093 \+38068 \+38091 \+38092]
-    phone = "+380" + self.phones.where(pid: 14).first.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
-    if allowed.include? phone[0..5]
-      phone
-    else
+    allowed = %w[+38050 +38066 +38095 +38099 +38067 +38096 +38097 +38098 +38063 +38093 +38068 +38091 +38092]
+    phone = self.phones.where(pid: 14).first
+    if phone.nil?
       nil
+    else
+      phone = "+380" + phone.value.gsub(/\W/,"").match(/[0-9]{9}$/).to_s
+      p phone
+      if allowed.include? phone[0..5]
+        phone
+      else
+        nil
+      end
     end
   end
 

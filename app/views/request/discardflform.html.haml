@@ -3,7 +3,7 @@
 		.editor-field
 			%label * Причина:
 			%br	
-			= r.text_area :discard
+			= r.text_area :discard, style: "width: 500px;"
 			= r.hidden_field :id, :value => params[:id]
 		.editor-field
 			= r.submit "Отклонить заявку"

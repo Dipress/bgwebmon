@@ -1,12 +1,18 @@
 %ul#requestmenu
 	%li= link_to "Оформить заявку для физического лица", newfl_path
-%ul#requsetfl
+%table.table.table-bordered
+	%thead
+		%tr
+			%th №
+			%th Абонент
+			%th Статус
+			%th Заявку подал
+			%th Точка подключения
+	%tbody
 	- @rfl.each do |r|
-		%li
-			.rfltitle= link_to r.fio, "/requestfl/#{r.id}"
-			.statuses=r.requeststatus.title
-	- if @rfl.count.eql?(0) && User.superadmin(@user.id)
-		%li Жаль, но заявок от представителей нет
-	- elsif @rfl.count.eql?(0) && !User.superadmin(@user.id)
-		%li
-			%div= "Безумно жаль #{@user.name}, но от Вас нет активных заявок, возможно Вам нужна ссылка расположенная выше"
+		%tr
+			%td= r.id
+			%td= link_to r.fio, "/requestfl/#{r.id}"
+			%td= r.requeststatus.title
+			%td= r.user.name
+			%td= ContractParameterType7Value.find(r.node).title

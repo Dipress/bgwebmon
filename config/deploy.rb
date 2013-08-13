@@ -54,5 +54,4 @@ namespace :deploy do
 end
 
 before "deploy:assets:precompile", "deploy:db"
-#, "deploy:delayed_indexes"
-after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:files", "deploy:graphs", "whenever_command", "deploy:restart"
+after "deploy", "deploy:cleanup", "delayed_job:restart", "deploy:delayed_indexes", "deploy:files", "deploy:graphs", "whenever_command", "deploy:restart"
