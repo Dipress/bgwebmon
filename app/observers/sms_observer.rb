@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'open-uri'
+require 'net/http'
 class SmsObserver < ActiveRecord::Observer
   observe :sms
 

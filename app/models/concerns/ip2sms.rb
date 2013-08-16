@@ -1,4 +1,6 @@
 require 'nokogiri'
+require 'open-uri'
+require 'net/http'
 class Ip2sms
   attr_accessor :phone, :text
 
