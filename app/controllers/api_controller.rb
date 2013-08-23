@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
 before_filter :ip_check
   def monitoring
-    larray = []
+=begin    larray = []
     time = Time.now
     Dialupalias.all.each {|s|
       contract = s.contract
@@ -24,6 +24,8 @@ before_filter :ip_check
       end
     }
     render json: {members: larray.sort_by {|l| l[:title]}, total: larray.length}
+=end
+    redner json: "Заблокировано связи с нарушением законодательства о защите персональных данных"
   end
 protected
 

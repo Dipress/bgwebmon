@@ -40,7 +40,7 @@ class Sms
           end
         #Если баланс 0, но меньше лимита
         elsif balance < 0 && balance - one_day > contract.closesumma.to_f
-          limit_days = contract.closesumma.to_f / one_day
+          limit_days = ((contract.closesumma.to_f / one_day)*(-1)).to_i
           if (4..5).include? limit_days
             s = Sms.where(smstype_id: 2, :created_at.gte => (time - 5.day), contract_id: contract.id).first
             phone = contract.mobile_phone

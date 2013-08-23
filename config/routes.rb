@@ -17,9 +17,9 @@ Bgwebmon::Application.routes.draw do
 
   root :to => "menu#index"
 
-  #scope 'api' do
-  #  match '/get_contracts', to: 'ajax#get_contracts'
-  #end
+  scope 'api' do
+    match '/get_contracts', to: 'ajax#get_contracts'
+  end
 
   match '/members', to: 'api#monitoring'
 
