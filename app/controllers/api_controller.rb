@@ -1,3 +1,4 @@
+# coding: utf-8
 class ApiController < ApplicationController
 before_filter :ip_check
   def monitoring
