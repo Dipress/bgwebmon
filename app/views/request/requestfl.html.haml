@@ -58,11 +58,11 @@
 		%b= "Серия/номер паспорта:"
 		%label= "#{@rfl.pasport}"
 	%div
-		%b= "Кем выдан паспорт:"
-		%label= "#{@rfl.pasport_authority}"
-	%div
 		%b= "Дата выдачи паспорта:"
 		%label= "#{@rfl.pasport_date.strftime("%d.%m.%Y")}"
+	%div
+		%b= "Кем выдан паспорт:"
+		%label= "#{@rfl.pasport_authority}"
 	%div
 		%b= "Форма оплаты:"
 		%label= "#{ContractParameterType7Value.find(@rfl.payment_form).title}"
