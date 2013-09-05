@@ -1,0 +1,58 @@
+%link{href: "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css", rel: "stylesheet", type: "text/css"}/
+.container_fluid
+  .row_fluid
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      - if @statuses.length > 0
+        %h4 Изменения статуса:
+        %table.table
+          %thead
+            %tr.active
+              %td Изменил
+              %td Кому
+              %td Изменение
+              %td Комментарий
+              %td Дата
+          %tbody
+            - @statuses.each do |r|
+              %tr
+                %td= r[:changer]
+                %td= r[:changed]
+                %td= r[:change]
+                %td= r[:comment]
+                %td= r[:updated_at]
+      - if @limits.length > 0
+        %h4 Изменения лимита:
+        %table.table
+          %thead
+            %tr.active
+              %td Изменил
+              %td Кому
+              %td Лимит
+              %td Комментарий
+              %td Дата
+          %tbody
+            - @limits.each do |r|
+              %tr
+                %td= r[:changer]
+                %td= r[:changed]
+                %td= r[:change]
+                %td= r[:comment]
+                %td= r[:updated_at]
+      - if @payments.length > 0
+        %h4 Изменения и приходы платежей:
+        %table.table
+          %thead
+            %tr.active
+              %td Изменил
+              %td Кому
+              %td Сумма
+              %td Комментарий
+              %td Дата
+          %tbody
+            - @payments.each do |r|
+              %tr
+                %td= r[:changer]
+                %td= r[:changed]
+                %td= r[:change]
+                %td= r[:comment]
+                %td= r[:updated_at]
