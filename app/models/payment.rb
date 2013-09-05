@@ -7,4 +7,5 @@ class Payment < ActiveRecord::Base
 
   belongs_to :contract, :class_name => 'Contract', :foreign_key => 'cid'
   belongs_to :payment_type, :class_name => 'PaymentType', :foreign_key =>'pt'
+  belongs_to :user, :class_name => 'User', :foreign_key => 'uid'
 end
