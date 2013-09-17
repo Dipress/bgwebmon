@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
            "195.20.29.131",
            "194.187.148.7",
            "195.20.29.194"]
-    return true#ips.include? request.remote_ip
+    return ips.include? request.remote_ip
   end
 
   def current_user
