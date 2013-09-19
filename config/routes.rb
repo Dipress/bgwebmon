@@ -19,6 +19,7 @@ Bgwebmon::Application.routes.draw do
 
   scope 'api' do
     match '/get_contracts', to: 'ajax#get_contracts'
+    match '/asterisk', to: 'api#asterisk'
   end
 
   match '/members', to: 'api#monitoring'

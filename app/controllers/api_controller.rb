@@ -1,6 +1,21 @@
 # coding: utf-8
 class ApiController < ApplicationController
 before_filter :ip_check
+  def asterisk
+    p params[:password]
+    p Base64.encode64(ENV['ASTERISK_KEY']).gsub(/\n/, '')
+    if params[:password] == Base64.encode64(ENV['ASTERISK_KEY']).gsub(/\n/, '')
+      phone = Phone.where(["value LIKE ?", "%#{params[:phone]}"]).limit(1)
+      if phone.length == 0 
+        render json: '', status: :not_found
+      else
+        render json: phone.first.contract, serializer: AsteriskContractSerializer
+      end
+    else
+      render json: '', status: :unauthorized
+    end
+  end
+
   def monitoring
     if request.remote_ip == '194.54.152.39'
       larray = []
