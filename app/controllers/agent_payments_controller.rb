@@ -1,3 +1,4 @@
+# coding: utf-8
 class AgentPaymentsController < ApplicationController
 before_filter :checklogedin
 before_filter :ip_check
