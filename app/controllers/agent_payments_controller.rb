@@ -65,7 +65,15 @@ protect_from_forgery except: :update
   # PUT /agent_payments/1.json
   def update
     @agent_payment = AgentPayment.find(params[:id])
-    Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
+    #Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
+
+    contract = @agent_payment.contract.id
+    last_balance = @agent_payment.contract.last_balance
+    payment =  Payment.create! dt: Time.new, cid: contract, pt: 6, uid: @agent_payment.manager.id, summa: @agent_payment.value, lm: Time.now, comment: @agent_payment.text
+    Balance.update_all "summa2=#{(@agent_payment.value + last_balance.summa2)} where yy=#{last_balance.yy} and mm=#{last_balance.mm} and cid=#{last_balance.cid} limit 1"
+    if ![0,4].include?(contract.status) && contract.balance_summa > contract.closesumma
+      contract.contract_statuses.build(status: 0, comment: 'Разблокировано системой', uid: 0, date1: Time.now).save
+      contract.update_attributes status: 0
     
     respond_to do |format|
       if @agent_payment.update_attributes(manager_id: current_user.id, managed_at: Time.now)

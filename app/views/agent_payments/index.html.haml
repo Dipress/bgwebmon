@@ -36,6 +36,7 @@
           %span{ "ng-hide" => "p.status" }
             = link_to "Провести платеж", "#", :class => 'btn btn-mini btn-danger', "ng-click" => "processPayment($index, p.id)"
 
+
 :javascript
   window.head = {
     id: "#{I18n.t "agent_payments.view.index.id"}",

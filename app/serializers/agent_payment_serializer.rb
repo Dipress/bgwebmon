@@ -21,7 +21,7 @@ class AgentPaymentSerializer < ActiveModel::Serializer
   end
 
   def class_name
-  	object.manager_id ? 'success' : 'info'
+  	object.manager_id ? 'success' : 'white'
   end
 
   def user
