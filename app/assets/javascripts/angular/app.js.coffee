@@ -1,1 +1,1 @@
-window.app = angular.module('bgwebmon', []);
+window.app = angular.module('bgwebmon', ['ng-rails-csrf']);

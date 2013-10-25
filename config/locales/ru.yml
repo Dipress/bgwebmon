@@ -32,7 +32,7 @@ ru:
     - суббота
     formats:
       default: ! '%d.%m.%Y'
-      long: ! '%d %B %Y'
+      long: ! '%d %m %Y'
       short: ! '%d %b'
     month_names:
     - 
@@ -245,7 +245,7 @@ ru:
     am: утра
     formats:
       default: ! '%a, %d %b %Y, %H:%M:%S'
-      long: ! '%d %B %Y, %H:%M'
+      long: ! '%d.%m.%Y, %H:%M'
       short: ! '%d %b, %H:%M'
     pm: вечера
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
@@ -258,6 +258,9 @@ ru:
 
 
   agent_payments:
+    button:
+      billing: "Внести в биллинг"
+      money: "Деньги получены"
     view:
       create: 
         submit: 'Добавить платеж'

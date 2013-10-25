@@ -67,8 +67,8 @@ protect_from_forgery except: :update
   def update
     @agent_payment = AgentPayment.find(params[:id])
     contract = @agent_payment.contract
-    last_balance = contract.balances.last
-    Payment.create! dt: Time.new, cid: contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
+    last_balance = contract.last_balance
+    Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
     Balance.update_all "summa2=#{(@agent_payment.value + last_balance.summa2)} where yy=#{last_balance.yy} and mm=#{last_balance.mm} and cid=#{last_balance.cid} limit 1"
     if ![0,4].include?(contract.status) && contract.balance_summa > contract.closesumma
       contract.status.build(status: 0, comment: 'Разблокировано системой', uid: 0, date1: Time.now).save
@@ -77,6 +77,19 @@ protect_from_forgery except: :update
     
     respond_to do |format|
       if @agent_payment.update_attributes(manager_id: current_user.id, managed_at: Time.now)
+        format.html { redirect_to @agent_payment, notice: 'Agent payment was successfully updated.' }
+        format.json { render json: @agent_payment, root: false }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @agent_payment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def confirmation
+    @agent_payment = AgentPayment.find(params[:id])
+    respond_to do |format|
+      if @agent_payment.update_attributes(confirmation_id: current_user.id, confirmation_at: Time.now)
         format.html { redirect_to @agent_payment, notice: 'Agent payment was successfully updated.' }
         format.json { render json: @agent_payment, root: false }
       else

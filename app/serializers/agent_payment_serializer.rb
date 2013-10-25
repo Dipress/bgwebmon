@@ -1,6 +1,6 @@
 class AgentPaymentSerializer < ActiveModel::Serializer
   #extend ActiveModel::Translation
-  attributes :id, :value, :created_at, :managed_at, :user, :manager, :contract, :class_name, :status
+  attributes :id, :value, :created_at, :managed_at, :user, :manager, :contract, :class_name, :status, :confirmation, :confirmation_at, :confirmed_by
 
   attribute :text#, key: :comment
 
@@ -9,19 +9,40 @@ class AgentPaymentSerializer < ActiveModel::Serializer
   #has_one :contract
 
   def created_at
-    I18n.l object.created_at
+    I18n.l object.created_at, format: :long
   end
 
   def status
-  	object.manager_id ? true : false
+    object.manager_id ? true : false
+  end
+
+  def confirmation
+    if object.manager_id.nil?# && object.confirmation_id.nil?
+      true
+    elsif object.confirmation_id.nil?
+      false
+    else
+      true
+    end
   end
 
   def managed_at
-    object.managed_at ? I18n.l(object.managed_at) : ""
+    object.managed_at ? I18n.l(object.managed_at, format: :long) : ""
+  end
+
+  def confirmation_at
+    object.confirmation_at ? I18n.l(object.confirmation_at, format: :long) : ""
   end
 
   def class_name
-  	object.manager_id ? 'success' : 'white'
+  	#object.manager_id ? 'success' : 'white'
+    if object.manager_id.nil?
+      'white'
+    elsif object.confirmation_id.nil?
+      'success'
+    else
+      'info'
+    end
   end
 
   def user
@@ -32,6 +53,11 @@ class AgentPaymentSerializer < ActiveModel::Serializer
   def manager
     manager = object.manager
     manager ? manager.name : ""
+  end 
+
+  def confirmed_by
+    confirmation = object.confirmation
+    confirmation ? confirmation.name : ""
   end 
 
   def contract

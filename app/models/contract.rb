@@ -118,4 +118,23 @@ class Contract < ActiveRecord::Base
     end
   end
 
+  def last_balance
+    @last_balance ||= get_last_balance
+  end
+
+  def get_last_balance
+    summa = balances.order("yy DESC").first
+    if summa.nil?
+      summa = Balance.create! summa1: 0, summa2: 0, summa3: 0, summa4: 0, yy: Time.now.year, mm: Time.now.month, cid: self.id
+    elsif summa.mm < Time.now.month || summa.yy < Time.now.year
+      summa = Balance.create! summa1: (summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4), summa2: 0, summa3: 0, summa4: 0, yy: Time.now.year, mm: Time.now.month, cid: self.id
+    end
+    summa
+  end
+
+  def balance_summa
+    summa = last_balance
+    summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
+  end
+
 end
