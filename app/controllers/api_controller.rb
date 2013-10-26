@@ -20,9 +20,9 @@ before_filter :ip_check
     if request.remote_ip == '194.54.152.39'
       larray = []
       time = Time.now
-      Dialupalias.all.each {|s|
+      Dialupalias.all.each do |s|
         contract = s.contract
-        if contract.title =~ /^13-/
+        if contract && contract.title =~ /^13-/
           if s.dialuplogin.dialupip != nil
             ip = Dialupip.ntoa(s.dialuplogin.dialupip.ip)
           else
@@ -39,10 +39,10 @@ before_filter :ip_check
                                                   "#{time.strftime("%Y")}"),
                          balance_limit: contract.closesumma}
         end
-      }
+      end
       render json: {members: larray.sort_by {|l| l[:title]}, total: larray.length}
     else
-      redner json: "Заблокировано связи с нарушением законодательства о защите персональных данных"
+      render json: "Заблокировано"
     end
   end
 protected
