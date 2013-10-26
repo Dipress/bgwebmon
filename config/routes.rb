@@ -2,7 +2,9 @@ Bgwebmon::Application.routes.draw do
 
   get "api/monitoring"
 
-  resources :agent_payments, only: [:new, :create, :update, :index]
+  resources :agent_payments, only: [:new, :create, :update, :index] do
+    put :confirmation, on: :member
+  end
 
 
   resources :sessions do

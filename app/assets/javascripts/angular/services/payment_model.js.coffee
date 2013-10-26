@@ -10,6 +10,12 @@ window.app.service 'paymentsModel', ['$http', ($http)->
         if v.id == value
           $scope.body[i] = data
 
+  this.confirmationPayment = ($scope, index, value)->
+    $http( method: "PUT", url: "/agent_payments/#{value}/confirmation").success (data)->
+      $.each $scope.body, (i, v)->
+        if v.id == value
+          $scope.body[i] = data
+
   this.selectedCls = ($scope, column)->
     column == $scope.sort.column && 'sort-' + $scope.sort.descending;
 

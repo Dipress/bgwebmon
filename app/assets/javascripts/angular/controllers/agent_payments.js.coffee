@@ -10,8 +10,13 @@ window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($sc
     descending: true
   $scope.nameFilter = ''
   
-  $scope.processPayment = (index, value)->
+  $scope.processPayment = (event, index, value)->
+    event.preventDefault()
     paymentsModel.processPayment($scope, index, value)
+
+  $scope.confirmationPayment = (event, index, value)->
+    event.preventDefault()
+    paymentsModel.confirmationPayment($scope, index, value)
 
   $scope.selectedCls = (column)->
     paymentsModel.selectedCls($scope, column)
