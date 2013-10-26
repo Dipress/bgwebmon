@@ -1,10 +1,7 @@
-#!/usr/bin/env ruby
 # coding: utf-8
-require "#{File.dirname(__FILE__)}/database.rb"
 require "rrd"
-
-class Rrdcron
-
+class RrdcronTasks
+  
   def self.datacreator
   		files_array = files_array()
   		Dialupalias.all.each { |a| 

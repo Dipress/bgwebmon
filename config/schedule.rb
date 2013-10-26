@@ -21,6 +21,12 @@ every 1.day, at: '2:30 pm' do
   runner "Sms.send_debt_messages"
 end
 
+every 5.minutes do
+	runner "RrdcronTask.datacreator"
+end
+
+
+
 every "2 * * * *" do
   runner "ChangesTasks.new.send_changes"
 end
