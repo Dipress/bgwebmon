@@ -17,7 +17,7 @@ class AgentPaymentSerializer < ActiveModel::Serializer
   end
 
   def confirmation
-    if object.manager_id.nil?# && object.confirmation_id.nil?
+    if object.manager_id.nil?
       true
     elsif object.confirmation_id.nil?
       false
@@ -35,13 +35,12 @@ class AgentPaymentSerializer < ActiveModel::Serializer
   end
 
   def class_name
-  	#object.manager_id ? 'success' : 'white'
     if object.manager_id.nil?
       'white'
     elsif object.confirmation_id.nil?
-      'success'
+      'green'
     else
-      'info'
+      'blue'
     end
   end
 
