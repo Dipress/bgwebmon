@@ -2,46 +2,51 @@
 .page-header
   %h1=t 'agent_payments.view.index.title', :default => model_class.model_name.human.pluralize
 = link_to t('.new', :default => t("helpers.links.new")), new_agent_payment_path, :class => 'btn btn-primary', style: "color: #fff;"
-%br
+%br{ "ng-init" => "pagination={page: #{params[:page]||=1}, per_page: #{params[:per_page]||=WillPaginate.per_page}};" }
 %br
 %input{ type: "text", placeholder: "Фильтр", "ng-model" => "searchFilter" }
-%table.table.table-bordered{ "ng-controller" => "agentPayments" }
-  %thead
-    %tr
-      %th{"ng-class" => "selectedCls('id')", "ng-click" => "changeSorting('id')", rowspan: '2' }=t 'agent_payments.view.index.id'
-      %th{"ng-class" => "selectedCls('contract')", "ng-click" => "changeSorting('contract')", rowspan: '2' }=t 'agent_payments.view.index.contract_id'
-      %th{"ng-class" => "selectedCls('value')", "ng-click" => "changeSorting('value')", rowspan: '2' }=t 'agent_payments.view.index.value'
-      %th{ colspan: '2' }=t 'agent_payments.view.index.user_node.title'
-      %th{ colspan: '2' }=t 'agent_payments.view.index.manager_node.title'
-      %th{ colspan: '2' }=t 'agent_payments.view.index.confirmation.title'
-      %th{"ng-class" => "selectedCls('text')", "ng-click" => "changeSorting('text')", rowspan: '2' }=t 'agent_payments.view.index.text'
-      - if User.superadmin(@user.id)
-        %th{ rowspan: '2' }=t '.actions', :default => t("helpers.actions")
-    %tr
-      %th{"ng-class" => "selectedCls('user')", "ng-click" => "changeSorting('user')"}=t 'agent_payments.view.index.user_node.user_id'
-      %th{"ng-class" => "selectedCls('created_at')", "ng-click" => "changeSorting('created_at')"}=t 'agent_payments.view.index.user_node.created_at'
-      %th{"ng-class" => "selectedCls('manager')", "ng-click" => "changeSorting('manager')"}=t 'agent_payments.view.index.manager_node.manager_id'
-      %th{"ng-class" => "selectedCls('managed_at')", "ng-click" => "changeSorting('managed_at')"}=t 'agent_payments.view.index.manager_node.managed_at'
-      %th{"ng-class" => "selectedCls('confirmed_by')", "ng-click" => "changeSorting('confirmed_by')"}=t 'agent_payments.view.index.confirmation.confirmed_by'
-      %th{"ng-class" => "selectedCls('confirmation_at')", "ng-click" => "changeSorting('confirmation_at')"}=t 'agent_payments.view.index.confirmation.confirmation_at'
-  %tbody
-    %tr{ "ng-repeat" => "p in body | orderBy:sort.column:sort.descending | filter: searchFilter ", "ng-class" => "p.class_name" }
-      %td {{p.id}}
-      %td {{p.contract}}
-      %td {{p.value}}
-      %td {{p.user}}
-      %td {{p.created_at}}
-      %td {{p.manager}}
-      %td {{p.managed_at}}
-      %td {{p.confirmed_by}}
-      %td {{p.confirmation_at}}
-      %td {{p.text}}
-      - if User.superadmin(@user.id)
-        %td
-          %span{ "ng-hide" => "p.status" }
-            = link_to t("agent_payments.button.billing"), "#", :class => 'btn btn-mini btn-success', "ng-click" => "processPayment($event, $index, p.id)"
-          %span{ "ng-hide" => "p.confirmation" }
-            = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-info', "ng-click" => "confirmationPayment($event, $index, p.id)"
+%div{ "ng-controller" => "agentPayments" }
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{"ng-class" => "selectedCls('id')", "ng-click" => "changeSorting('id')", rowspan: '2' }=t 'agent_payments.view.index.id'
+        %th{"ng-class" => "selectedCls('contract')", "ng-click" => "changeSorting('contract')", rowspan: '2' }=t 'agent_payments.view.index.contract_id'
+        %th{"ng-class" => "selectedCls('value')", "ng-click" => "changeSorting('value')", rowspan: '2' }=t 'agent_payments.view.index.value'
+        %th{ colspan: '2' }=t 'agent_payments.view.index.user_node.title'
+        %th{ colspan: '2' }=t 'agent_payments.view.index.manager_node.title'
+        %th{ colspan: '2' }=t 'agent_payments.view.index.confirmation.title'
+        %th{"ng-class" => "selectedCls('text')", "ng-click" => "changeSorting('text')", rowspan: '2' }=t 'agent_payments.view.index.text'
+        - if User.superadmin(@user.id)
+          %th{ rowspan: '2' }=t '.actions', :default => t("helpers.actions")
+      %tr
+        %th{"ng-class" => "selectedCls('user')", "ng-click" => "changeSorting('user')"}=t 'agent_payments.view.index.user_node.user_id'
+        %th{"ng-class" => "selectedCls('created_at')", "ng-click" => "changeSorting('created_at')"}=t 'agent_payments.view.index.user_node.created_at'
+        %th{"ng-class" => "selectedCls('manager')", "ng-click" => "changeSorting('manager')"}=t 'agent_payments.view.index.manager_node.manager_id'
+        %th{"ng-class" => "selectedCls('managed_at')", "ng-click" => "changeSorting('managed_at')"}=t 'agent_payments.view.index.manager_node.managed_at'
+        %th{"ng-class" => "selectedCls('confirmed_by')", "ng-click" => "changeSorting('confirmed_by')"}=t 'agent_payments.view.index.confirmation.confirmed_by'
+        %th{"ng-class" => "selectedCls('confirmation_at')", "ng-click" => "changeSorting('confirmation_at')"}=t 'agent_payments.view.index.confirmation.confirmation_at'
+    %tbody
+      %tr{ "ng-repeat" => "p in body | orderBy:sort.column:sort.descending | filter: searchFilter ", "ng-class" => "p.class_name" }
+        %td {{p.id}}
+        %td {{p.contract}}
+        %td {{p.value}}
+        %td {{p.user}}
+        %td {{p.created_at}}
+        %td {{p.manager}}
+        %td {{p.managed_at}}
+        %td {{p.confirmed_by}}
+        %td {{p.confirmation_at}}
+        %td {{p.text}}
+        - if User.superadmin(@user.id)
+          %td
+            %span{ "ng-hide" => "p.status" }
+              = link_to t("agent_payments.button.billing"), "#", :class => 'btn btn-mini btn-success', "ng-click" => "processPayment($event, $index, p.id)"
+            %span{ "ng-hide" => "p.confirmation" }
+              = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-info', "ng-click" => "confirmationPayment($event, $index, p.id)"
+  .pagination
+    %ul
+      %li{ "ng-repeat" => "page in pagination.total_pages", "ng-class" => "{active: page==pagination.page}" , "ng-click" => "paginatePayments($event, page)"}
+        %span{ style: "cursor: pointer;"} {{ page }}
 
 :javascript
   window.head = {

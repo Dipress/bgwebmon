@@ -1,8 +1,14 @@
 window.app.service 'paymentsModel', ['$http', ($http)->
 
-  this.getPayments = ($scope)->
-    $http( method: "GET", url: '/agent_payments.json').success (data)->
-      $scope.body = data
+  this.getPayments = ($scope, page)->
+    $http(method: "GET", url: "/agent_payments.json?page=#{page}&per_page=#{$scope.pagination.per_page}").success (data)->
+      $scope.body = data.agent_payments
+      $scope.pagination = data.pagination
+      step = (step == undefined) ? 1 : step
+      input = []
+      for i in [1 .. $scope.pagination.total_pages]
+        input.push(i)
+      $scope.pagination.total_pages =  input;
 
   this.processPayment = ($scope, index, value)->
     $http( method: "PUT", url: "/agent_payments/#{value}/?format=json").success (data)->

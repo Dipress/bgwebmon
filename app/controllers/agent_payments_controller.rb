@@ -7,12 +7,20 @@ protect_from_forgery except: :update
   # GET /agent_payments
   # GET /agent_payments.json
   def index
-    @agent_payments = AgentPayment.all
     @user = current_user
-
+    agent_payments = AgentPayment.paginate(:page => params[:page],  :per_page => params[:per_page]).order('created_at DESC')
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @agent_payments, root: false }
+      format.json { 
+                    render json: agent_payments,
+                    meta: 
+                    {
+                      page: agent_payments.current_page,
+                      per_page: (params[:per_page] ||  WillPaginate.per_page).to_i,
+                      total_pages: agent_payments.total_pages
+                    },
+                   meta_key: "pagination"
+                  }
     end
   end
 
