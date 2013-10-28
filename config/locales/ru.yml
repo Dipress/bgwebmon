@@ -259,15 +259,15 @@ ru:
 
   agent_payments:
     button:
-      billing: "Внести в биллинг"
-      money: "Деньги получены"
+      billing: "Внести"
+      money: "Получено"
     view:
       create: 
         submit: 'Добавить платеж'
         title: 'Добавление нового платежа'
       index: 
         title: 'Список платежей'
-        id: "№ платежа"
+        id: "№"
         contract_id: "Абонент"
         user_node:
           title: 'Прием платежа'
@@ -277,6 +277,10 @@ ru:
           title: 'Обработка платежа'
           manager_id: "Сотрудник"
           managed_at: "Дата"
+        confirmation:
+          title: "Подтверждение получения"
+          confirmed_by: "Сотрудник"
+          confirmation_at: "Дата"
         value: "Сумма"
         text: "Комментарий"
   helpers:

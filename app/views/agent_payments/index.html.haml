@@ -13,7 +13,7 @@
       %th{"ng-class" => "selectedCls('value')", "ng-click" => "changeSorting('value')", rowspan: '2' }=t 'agent_payments.view.index.value'
       %th{ colspan: '2' }=t 'agent_payments.view.index.user_node.title'
       %th{ colspan: '2' }=t 'agent_payments.view.index.manager_node.title'
-      %th{ colspan: '2'} Деньги получил
+      %th{ colspan: '2' }=t 'agent_payments.view.index.confirmation.title'
       %th{"ng-class" => "selectedCls('text')", "ng-click" => "changeSorting('text')", rowspan: '2' }=t 'agent_payments.view.index.text'
       - if User.superadmin(@user.id)
         %th{ rowspan: '2' }=t '.actions', :default => t("helpers.actions")
@@ -22,8 +22,8 @@
       %th{"ng-class" => "selectedCls('created_at')", "ng-click" => "changeSorting('created_at')"}=t 'agent_payments.view.index.user_node.created_at'
       %th{"ng-class" => "selectedCls('manager')", "ng-click" => "changeSorting('manager')"}=t 'agent_payments.view.index.manager_node.manager_id'
       %th{"ng-class" => "selectedCls('managed_at')", "ng-click" => "changeSorting('managed_at')"}=t 'agent_payments.view.index.manager_node.managed_at'
-      %th Сотрудник
-      %th Дата
+      %th{"ng-class" => "selectedCls('confirmed_by')", "ng-click" => "changeSorting('confirmed_by')"}=t 'agent_payments.view.index.confirmation.confirmed_by'
+      %th{"ng-class" => "selectedCls('confirmation_at')", "ng-click" => "changeSorting('confirmation_at')"}=t 'agent_payments.view.index.confirmation.confirmation_at'
   %tbody
     %tr{ "ng-repeat" => "p in body | orderBy:sort.column:sort.descending | filter: searchFilter ", "ng-class" => "p.class_name" }
       %td {{p.id}}
@@ -39,7 +39,7 @@
       - if User.superadmin(@user.id)
         %td
           %span{ "ng-hide" => "p.status" }
-            = link_to t("agent_payments.button.billing"), "#", :class => 'btn btn-mini btn-danger', "ng-click" => "processPayment($event, $index, p.id)"
+            = link_to t("agent_payments.button.billing"), "#", :class => 'btn btn-mini btn-success', "ng-click" => "processPayment($event, $index, p.id)"
           %span{ "ng-hide" => "p.confirmation" }
             = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-info', "ng-click" => "confirmationPayment($event, $index, p.id)"
 
@@ -49,6 +49,8 @@
     contract: "#{I18n.t 'agent_payments.view.index.contract_id'}",
     user: "#{I18n.t 'agent_payments.view.index.user_node.user_id'}",
     manager: "#{I18n.t 'agent_payments.view.index.manager_node.manager_id'}",
+    confirmed_by: "#{I18n.t 'agent_payments.view.index.confirmation.confirmed_by'}",
+    confirmation_at: "#{I18n.t 'agent_payments.view.index.confirmation.confirmation_at'}",
     value: "#{I18n.t 'agent_payments.view.index.value'}",
     text: "#{I18n.t 'agent_payments.view.index.text'}",
     managed_at: "#{I18n.t 'agent_payments.view.index.manager_node.managed_at'}",
