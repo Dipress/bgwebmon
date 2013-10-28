@@ -3,16 +3,20 @@ window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($sc
   #$scope.searchArg = "Fight"
   $scope.head = window.head
 
-  paymentsModel.getPayments($scope)
+  paymentsModel.getPayments($scope, $scope.pagination.page)
 
   $scope.sort =
     column: 'id'
     descending: true
   $scope.nameFilter = ''
-  
+
   $scope.processPayment = (event, index, value)->
     event.preventDefault()
     paymentsModel.processPayment($scope, index, value)
+
+  $scope.paginatePayments = (event, page)->
+    event.preventDefault()
+    paymentsModel.getPayments($scope, page)
 
   $scope.confirmationPayment = (event, index, value)->
     event.preventDefault()
