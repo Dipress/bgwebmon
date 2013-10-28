@@ -6,7 +6,7 @@ window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($sc
   paymentsModel.getPayments($scope)
 
   $scope.sort =
-    column: 'created_at'
+    column: 'id'
     descending: true
   $scope.nameFilter = ''
   
