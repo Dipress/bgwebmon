@@ -9,10 +9,12 @@ window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($sc
     column: 'id'
     descending: true
   $scope.nameFilter = ''
-
+  
+  ###
   $scope.processPayment = (event, index, value)->
     event.preventDefault()
     paymentsModel.processPayment($scope, index, value)
+  ###
 
   $scope.paginatePayments = (event, page)->
     event.preventDefault()
@@ -21,6 +23,10 @@ window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($sc
   $scope.confirmationPayment = (event, index, value)->
     event.preventDefault()
     paymentsModel.confirmationPayment($scope, index, value)
+
+  $scope.processingPayment = (event, index, value)->
+    event.preventDefault()
+    paymentsModel.processingPayment($scope, index, value)
 
   $scope.selectedCls = (column)->
     paymentsModel.selectedCls($scope, column)

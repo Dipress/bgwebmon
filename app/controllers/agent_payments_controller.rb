@@ -2,8 +2,7 @@
 class AgentPaymentsController < ApplicationController
 before_filter :checklogedin
 before_filter :ip_check
-before_filter :sadmin, only: :update
-protect_from_forgery except: :update 
+before_filter :sadmin, only: [:update, :processing, :confirmation ]
   # GET /agent_payments
   # GET /agent_payments.json
   def index
@@ -49,9 +48,9 @@ protect_from_forgery except: :update
   end
 
   # GET /agent_payments/1/edit
-  #def edit
-  #  @agent_payment = AgentPayment.find(params[:id])
-  #end
+  def edit
+    @agent_payment = AgentPayment.find(params[:id])
+  end
 
   # POST /agent_payments
   # POST /agent_payments.json
@@ -70,9 +69,23 @@ protect_from_forgery except: :update
     end
   end
 
+  def update
+    @agent_payment = AgentPayment.find(params[:id])
+    respond_to do |format|
+      if @agent_payment.update_attributes(params[:agent_payment])
+        format.html { redirect_to agent_payments_path, notice: 'Agent payment was successfully updated.' }
+        format.json { render json: @agent_payment, root: false }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @agent_payment.errors, status: :unprocessable_entity, root: false }
+      end
+    end
+    
+  end
+
   # PUT /agent_payments/1
   # PUT /agent_payments/1.json
-  def update
+  def processing
     @agent_payment = AgentPayment.find(params[:id])
     contract = @agent_payment.contract
     last_balance = contract.last_balance

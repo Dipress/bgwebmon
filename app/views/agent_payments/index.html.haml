@@ -28,7 +28,8 @@
     %tbody
       %tr{ "ng-repeat" => "p in body | orderBy:sort.column:sort.descending | filter: searchFilter ", "ng-class" => "p.class_name" }
         %td {{p.id}}
-        %td {{p.contract}}
+        %td 
+          %a.test{ href: "/agent_payments/{{p.id}}"} {{p.contract}}
         %td {{p.value}}
         %td {{p.user}}
         %td {{p.created_at}}
@@ -40,9 +41,9 @@
         - if User.superadmin(@user.id)
           %td
             %span{ "ng-hide" => "p.status" }
-              = link_to t("agent_payments.button.billing"), "#", :class => 'btn btn-mini btn-success', "ng-click" => "processPayment($event, $index, p.id)"
+              = link_to t("agent_payments.button.billing"), "#", :class => 'btn btn-mini btn-success', "ng-click" => "processingPayment($event, $index, p.id)"
             %span{ "ng-hide" => "p.confirmation" }
-              = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-info', "ng-click" => "confirmationPayment($event, $index, p.id)"
+              = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-primary', "ng-click" => "confirmationPayment($event, $index, p.id)"
   .pagination
     %ul
       %li{ "ng-repeat" => "page in pagination.total_pages", "ng-class" => "{active: page==pagination.page}" , "ng-click" => "paginatePayments($event, page)"}
