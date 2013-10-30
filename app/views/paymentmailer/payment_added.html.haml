@@ -1,3 +1,22 @@
-%h1= "Поступил платеж на сумму #{@payment.value}грн"
-%h2= "Платеж добавил(а) #{@payment.user.name}, клиенту #{@payment.contract.title} - #{@payment.contract.comment}"
-%p Пожалуйста обработайте запрос поскорее!
+%link{href: "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css", rel: "stylesheet", type: "text/css"}/
+%h4
+  Поступила новая заявка на оплату.
+%p
+  = link_to "Ссылка на тему", "https://ruby.ci.ukrpack.net/agent_payments"
+%table.table.table-bordered
+  %thead
+    %tr
+      %th
+        Платеж добавил(а)
+      %th
+        Договор
+      %th
+        Сумма
+  %tbody
+    %tr
+      %td= @payment.user.name
+      %td= @payment.contract.title + " - " + @payment.contract.comment
+      %td= @payment.value.to_s + " грн"
+%br
+%br
+%p Сообщение сгенерировано Bgwebmon
