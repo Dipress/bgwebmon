@@ -13,5 +13,5 @@
     = f.input :value, input_html: { "ng-model" => "summaModel" }
     = f.input :text, as: :text, input_html: { cols: 30, rows: 4, input_html: { "ng-model" => "commentModel" } }
   .form-actions
-    = f.button :submit, t('agent_payments.view.create.submit')
+    = f.button :submit, t('agent_payments.view.create.submit'), disabled: true
 
