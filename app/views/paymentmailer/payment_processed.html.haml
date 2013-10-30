@@ -1,6 +1,20 @@
-%h1= "Платеж обработан!"
-%h2= "Платеж обработал(а) #{@payment.manager.name}, клиент #{@payment.contract.title} - #{@payment.contract.comment}"
-- if (@payment.updated_at - @payment.created_at) > 2400
-  %p="Процесс обработки занял #{time_ago_in_words(@payment.created_at)}, как жаль а ведь это всего 2 клика"
-- else
-  %p="Процесс обработки занял #{time_ago_in_words(@payment.created_at)}"
+%link{href: "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css", rel: "stylesheet", type: "text/css"}/
+%h4
+  Платеж обработан.
+%p
+  = link_to "Ссылка на тему", "https://ruby.ci.ukrpack.net/agent_payments"
+%table.table.table-bordered
+  %thead
+    %tr
+      %th
+        Платеж обработал(а)
+      %th
+        Договор
+  %tbody
+    %tr
+      %td= @payment.manager.name
+      %td= @payment.contract.title + " - " + @payment.contract.comment
+%p="Процесс обработки занял #{time_ago_in_words(@payment.created_at)}"
+%br
+%br
+%p Сообщение сгенерировано Bgwebmon
