@@ -9,15 +9,22 @@ window.app.service 'paymentsModel', ['$http', ($http)->
       for i in [1 .. $scope.pagination.total_pages]
         input.push(i)
       $scope.pagination.total_pages =  input;
-
+  ###
   this.processPayment = ($scope, index, value)->
     $http( method: "PUT", url: "/agent_payments/#{value}/?format=json").success (data)->
       $.each $scope.body, (i, v)->
         if v.id == value
           $scope.body[i] = data
+  ###
 
   this.confirmationPayment = ($scope, index, value)->
     $http( method: "PUT", url: "/agent_payments/#{value}/confirmation").success (data)->
+      $.each $scope.body, (i, v)->
+        if v.id == value
+          $scope.body[i] = data
+
+  this.processingPayment = ($scope, index, value)->
+    $http( method: "PUT", url: "/agent_payments/#{value}/processing").success (data)->
       $.each $scope.body, (i, v)->
         if v.id == value
           $scope.body[i] = data
