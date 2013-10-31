@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :tcomments
   has_many :agent_payments
   has_many :agent_payments, as: :manager
+  has_many :agent_payments, as: :confirmation
 
   #protected
   def self.authenticate(username="", password="")
