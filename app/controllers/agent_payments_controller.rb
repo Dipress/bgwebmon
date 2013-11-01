@@ -6,25 +6,12 @@ before_filter :sadmin, only: [:update, :processing, :confirmation ]
   # GET /agent_payments
   # GET /agent_payments.json
   def index
+    @user = current_user
     if User.superadmin(current_user)
-      @user = current_user
       agent_payments = AgentPayment.paginate(:page => params[:page],  :per_page => params[:per_page]).order('created_at DESC')
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { 
-                      render json: agent_payments,
-                      meta: 
-                      {
-                        page: agent_payments.current_page,
-                        per_page: (params[:per_page] ||  WillPaginate.per_page).to_i,
-                        total_pages: agent_payments.total_pages
-                      },
-                     meta_key: "pagination"
-                    }
-      end
     else
-      @user = current_user
       agent_payments = AgentPayment.where(user_id: current_user.id).paginate(:page => params[:page],  :per_page => params[:per_page]).order('created_at DESC')
+    end
       respond_to do |format|
         format.html # index.html.erb
         format.json { 
@@ -38,7 +25,6 @@ before_filter :sadmin, only: [:update, :processing, :confirmation ]
                      meta_key: "pagination"
                     }
       end
-    end
   end
 
   # GET /agent_payments/1
