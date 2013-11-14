@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :agent_payments, as: :manager
   has_many :agent_payments, as: :confirmation
 
+  has_many :bgsusergroups, class_name: "Bgsusergroup", foreign_key: "uid"
+  has_many :bgsgroups, through: :bgsusergroups
+
   #protected
   def self.authenticate(username="", password="")
   		user = User.where("login='" + username + "'").first
