@@ -2,7 +2,7 @@
 class AgentPaymentsController < ApplicationController
 before_filter :checklogedin
 before_filter :ip_check
-before_filter :sadmin, only: [:update, :processing, :confirmation ]
+before_filter :sadmin, only: [:update, :processing, :confirmation, :destroy ]
   # GET /agent_payments
   # GET /agent_payments.json
   def index
@@ -129,10 +129,6 @@ before_filter :sadmin, only: [:update, :processing, :confirmation ]
   def destroy
     @agent_payment = AgentPayment.find(params[:id])
     @agent_payment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to agent_payments_url }
-      format.json { head :no_content }
-    end
+    redirect_to agent_payments_path
   end
 end

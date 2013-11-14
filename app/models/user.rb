@@ -26,6 +26,15 @@ class User < ActiveRecord::Base
     User.find(id).contract_cid.eql?(0) ? true : false
   end
 
+  #def self.director(id)
+
+    #group = User.find(id).bgsusergroups.all.map do |g|
+      #g.gid
+    #end
+    #group == 3 ? true : false
+
+  #end
+
   #protected
   def self.hash(password="")
   		Digest::MD5.hexdigest(password).upcase
