@@ -5,6 +5,7 @@ class AgentPaymentObserver < ActiveRecord::Observer
     #Paymentmailer.delay.payment_added record, "pays@crimeainfo.com"
     #PaymentTasks.new.delay.charge_added record
     Paymentmailer.payment_added(record, "pays@crimeainfo.com").deliver
+  end
 
   def after_update record
     #Paymentmailer.delay.payment_processed record, "pays@crimeainfo.com"
