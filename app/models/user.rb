@@ -22,18 +22,24 @@ class User < ActiveRecord::Base
   		end
   end
 
-  def self.superadmin(id)
+  def self.superadmin id 
     User.find(id).contract_cid.eql?(0) ? true : false
   end
 
-  #def self.director(id)
+  def self.acceptor_payments id 
+    group = User.find(id).bgsusergroups.all.map do |g|
+      g.gid
+    end
+    group.include?(6) ? true : false
+  end
 
-    #group = User.find(id).bgsusergroups.all.map do |g|
-      #g.gid
-    #end
-    #group == 3 ? true : false
-
-  #end
+  def self.member id 
+    group = User.find(id).bgsusergroups.all.map do |g|
+      g.gid
+    end
+    group.include?(7) ? true : false
+    
+  end
 
   #protected
   def self.hash(password="")

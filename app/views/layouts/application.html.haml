@@ -7,22 +7,7 @@
 		= csrf_meta_tags
 	%body
 		%ul.nav.nav-pills{ :style => "margin-left: 20px;margin-top: 20px;" }
-			- if !@user.nil?
-				= li_menu("monitoring", link_to("Мониторинг", monnodes_path))
-				= li_menu("statistic", link_to("Доходы базовых станций", statistic_path))
-				= li_menu("balances", link_to("Балансы", balances_path))
-				= li_menu("docs", link_to("Договора", "/doc/04-"))
-				= li_menu("request", link_to("Заявки на включение", request_path))
-				= li_menu("tasks", link_to("Задачи", tasks_path))
-				= li_menu("agent_payments", link_to("Платежи", agent_payments_path))
-			.pull-right{ :style => "margin-right: 20px;" }
-				- if @user.nil?
-					Вы не вошли
-					= link_to "Войти", new_session_path
-				- else
-					%i.icon-user
-					= @user.name
-					= link_to "Выйти", logout_path
-				%div{:style => "width:20px;"}
+			= render 'layouts/navbar'
+		%hr
 		.container-fluid{ "ng-app" => 'bgwebmon' }
 			= yield
