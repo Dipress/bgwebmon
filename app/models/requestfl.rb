@@ -13,7 +13,8 @@ class Requestfl < ActiveRecord::Base
             :user_id, :technology, :node, :tariffplan_id, :pd, :login, :password
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  telephone_regex = /\A\+[0-9]{12}\z/i
+  #telephone_regex = /\A\+[0-9]{12}\z/i
+  telephone_regex = /\A\d{10}\z/i
   pd_regex = /\A[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}\z/i
 
   OB="обязательное поле"   
@@ -34,7 +35,7 @@ class Requestfl < ActiveRecord::Base
 #                              :message => 'Email - неверный формат поля (mail@example.com)'}
   validates :telephone, :presence => {:message => "Телефон - #{OB}"},
             :format => {:with => telephone_regex, 
-                        :message => 'Телефон - неверный формат поля (+380507339877)'}
+                        :message => 'Телефон - неверный формат поля (0507339877)'}
   validates :in, :presence => {:message => "Идентификационный код - #{OB}"},
             	 	:length =>{:maximum => 30,
                        		   :message => 'Идентификационный код - должен содержать до 30 символов'}

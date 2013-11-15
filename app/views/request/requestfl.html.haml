@@ -38,52 +38,52 @@
 	#readmap
 	%div
 		%b= "ФИО:"
-		%label= "#{@rfl.fio}"
+		%p= "#{@rfl.fio}"
 	%div
 		%b= "Адресс почтовый:"
-		%label= "#{@rfl.adress_post}"
+		%p= "#{@rfl.adress_post}"
 	%div
 		%b= "Адресс подключения:"
-		%label= "#{@rfl.adress_connection}"
+		%p= "#{@rfl.adress_connection}"
 	%div
 		%b= "Электронная почта:"
-		%label= "#{@rfl.email}"
+		%p= "#{@rfl.email}"
 	%div
 		%b= "Телефон:"
-		%label= "#{@rfl.telephone}"
+		%p= "#{@rfl.telephone}"
 	%div
 		%b= "Идентификационный код:"
-		%label= "#{@rfl.in}"
+		%p= "#{@rfl.in}"
 	%div
 		%b= "Серия/номер паспорта:"
-		%label= "#{@rfl.pasport}"
+		%p= "#{@rfl.pasport}"
 	%div
 		%b= "Дата выдачи паспорта:"
-		%label= "#{@rfl.pasport_date.strftime("%d.%m.%Y")}"
+		%p= "#{@rfl.pasport_date.strftime("%d.%m.%Y")}"
 	%div
 		%b= "Кем выдан паспорт:"
-		%label= "#{@rfl.pasport_authority}"
+		%p= "#{@rfl.pasport_authority}"
 	%div
 		%b= "Форма оплаты:"
-		%label= "#{ContractParameterType7Value.find(@rfl.payment_form).title}"
+		%p= "#{ContractParameterType7Value.find(@rfl.payment_form).title}"
 	%div
 		%b= "IP адрес:"
-		%label= "#{@rfl.ip}"
+		%p= "#{@rfl.ip}"
 	%div
 		%b= "Логин:"
-		%label= "#{@rfl.login}"
+		%p= "#{@rfl.login}"
 	%div
 		%b= "Пароль:"
-		%label= "#{@rfl.password}"
+		%p= "#{@rfl.password}"
 	%div
 		%b= "Технология подключения:"
-		%label= "#{ContractParameterType7Value.find(@rfl.technology).title}"
+		%p= "#{ContractParameterType7Value.find(@rfl.technology).title}"
 	%div
 		%b= "Точка подключения:"
-		%label= "#{ContractParameterType7Value.find(@rfl.node).title}"
+		%p= "#{ContractParameterType7Value.find(@rfl.node).title}"
 	%div
 		%b= "Тарифный план:"
-		%label= "#{@rfl.tariffplan.title}"
+		%p= "#{@rfl.tariffplan.title}"
 	%div
 		%b= "Дополнительная информация:"
 		%div= @rfl.description
