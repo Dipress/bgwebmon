@@ -1,20 +1,21 @@
-- if User.superadmin(@user.id)
-	%li= link_to "Мониторинг", monnodes_path, class: current_page?(monnodes_path) && 'active'
-	%li= link_to "Доходы базовых станций", statistic_path, class: current_page?(statistic_path) && 'active'
-	%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
-	%li= link_to "Договора", "/doc/04-", class: current_page?("/doc/04-") && 'active'
-	%li= link_to "Заявки на включение", request_path, class: current_page?(request_path) && 'active'
-	%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
-	%li= link_to "Платежи", agent_payments_path, class: current_page?(agent_payments_path) && 'active'
-- if User.member(@user.id) 
-	%li= link_to "Мониторинг", monnodes_path, class: current_page?(monnodes_path) && 'active'
-	%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
-	%li= link_to "Заявки на включение", request_path, class: current_page?(request_path) && 'active'
-	%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
-- if User.acceptor_payments(@user.id)
-	%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
-	%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
-	%li= link_to "Платежи", agent_payments_path, class: current_page?(agent_payments_path) && 'active'
+- if !@user.nil?
+	- if User.superadmin(@user.id)
+		%li= link_to "Мониторинг", monnodes_path, class: current_page?(monnodes_path) && 'active'
+		%li= link_to "Доходы базовых станций", statistic_path, class: current_page?(statistic_path) && 'active'
+		%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
+		%li= link_to "Договора", "/doc/04-", class: current_page?("/doc/04-") && 'active'
+		%li= link_to "Заявки на включение", request_path, class: current_page?(request_path) && 'active'
+		%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
+		%li= link_to "Платежи", agent_payments_path, class: current_page?(agent_payments_path) && 'active'
+	- if User.member(@user.id)
+		%li= link_to "Мониторинг", monnodes_path, class: current_page?(monnodes_path) && 'active'
+		%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
+		%li= link_to "Заявки на включение", request_path, class: current_page?(request_path) && 'active'
+		%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
+	- if User.acceptor_payments(@user.id)
+		%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
+		%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
+		%li= link_to "Платежи", agent_payments_path, class: current_page?(agent_payments_path) && 'active'
 .pull-right{ :style => "margin-right: 20px;" }
 	- if @user.nil?
 		Вы не вошли
