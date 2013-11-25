@@ -2,13 +2,20 @@
 class StatisticController < ApplicationController
 before_filter :checklogedin
 before_filter :ip_check
+
   def index
     @title = "Список точек подключения"
     @nodes = ContractParameterType7Value.where( :pid => 54 ).order( 'title ASC' )
-    @regions = regions_array @nodes
-    @nodes = []
-    @regions.each{|r| @nodes << nodes_from_region( r )}
+    #@regions = regions_array @nodes
+    #@nodes = []
+    #@regions.each{|r| @nodes << nodes_from_region( r )}
     @user = current_user
+    #@nodes_contracts = ContractParameterType7Value.where( :pid => 54 ).order( 'title ASC' )
+
+    respond_to do |format|
+      format.html #index.html.haml
+      format.json { render json: @nodes, root: false }
+    end
   end
 
   def show
@@ -28,6 +35,7 @@ before_filter :ip_check
   			end
   		end
   	}
+    @count = @contracts.count
     @user = current_user()
   end
 

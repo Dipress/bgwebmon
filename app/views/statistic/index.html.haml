@@ -1,9 +1,14 @@
-.row{:style=>"margin-left:10px;"}
-	%ul.thumbnails
-		-@nodes.each do |n|
-			- if n[:region] != "" && n[:region] != nil
-				%li.thumbnail.well.well-small.span4{:style=>"padding:10px;"}
-					%h3= n[:region]
-					- n[:nodes].each do |bs|
-						= link_to bs[:title].gsub(/^([А-Я]|[а-я])+\ \-\ /,""), "/nodestatistic/#{bs[:id]}"
-						%br
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Базовая станция
+      %th Всего договоров
+      %th Активные договора
+  %tbody
+  - @nodes.each do |c|
+    %tr
+      %td{:style => "text-align: left"}= link_to c.title, "/nodestatistic/#{c.id}"
+      %td
+        %span{ class: "#{c.contracts.count > 0 ? 'badge badge-info' : 'badge'}" }= c.contracts.count
+      %td
+        %span{ class: "#{c.contracts.count > 0 ? 'badge badge-success' : 'badge'}"}= c.contracts.where("status = '0'").count

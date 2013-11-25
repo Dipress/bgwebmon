@@ -1,6 +1,9 @@
 # coding: utf-8
 class SessionsController < ApplicationController
-before_filter :ip_check
+  layout "authenticate"
+
+  before_filter :ip_check
+  
   def new
   end
 

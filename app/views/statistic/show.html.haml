@@ -1,9 +1,16 @@
 %h2=@nodename
-%ul
-	-@contracts.each do |c|
-		%li
-			%div="#{c[:title]} - #{c[:comment]}"
-			%ul
-				- c[:tariffs][0]["tplans"].each do |t|
-					%li= "#{t[:title]} - #{t[:cost]} грн."
+%table.table.table-bordered
+	%thead
+		%tr
+			%th Договор
+			%th Тариф
+			%th Абонплата
+	%tbody
+	- @contracts.each do |c|
+		- c[:tariffs][0]["tplans"].each do |t|
+			%tr
+				%td= "#{c[:title]} - #{c[:comment]}"
+				%td= "#{t[:title]}"
+				%td= "#{t[:cost]} грн."
+%h4= "Всего абонентов: #{@count}"
 %h4= "Общий доход: #{@allcost} грн."
