@@ -1,10 +1,10 @@
-.span6.offset6.well{:style => "width:220px;"}
-	- flash.each do |key, value|
-		.alert.alert-error=value
-	= form_for(:session, :url => sessions_path) do |f|
-		= f.label "Логин"
-		= f.text_field :login
-		= f.label "Пароль"
-		= f.password_field :password
-		%div.actions
-			= f.submit "Войти!", :class => "btn btn-primary"
+#loginform
+  - flash.each do |key, value|
+    .alert.alert-error=value
+  = form_for(:session, :url => sessions_path) do |f|
+    = f.label "Логин"
+    = f.text_field :login
+    = f.label "Пароль"
+    = f.password_field :password
+    %div.actions
+      = f.submit "Войти!", :class => "btn btn-primary"
