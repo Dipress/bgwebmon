@@ -5,17 +5,16 @@ before_filter :ip_check
 
   def index
     @title = "Список точек подключения"
-    @nodes = ContractParameterType7Value.where( :pid => 54 ).order( 'title ASC' )
+    #if params[:query].present?
+    @nodes = ContractParameterType7Value.search(params)
+    #else
+      #@nodes = ContractParameterType7Value.where(pid:54).order("title ASC")
+    #end  
     #@regions = regions_array @nodes
     #@nodes = []
     #@regions.each{|r| @nodes << nodes_from_region( r )}
     @user = current_user
     #@nodes_contracts = ContractParameterType7Value.where( :pid => 54 ).order( 'title ASC' )
-
-    respond_to do |format|
-      format.html #index.html.haml
-      format.json { render json: @nodes, root: false }
-    end
   end
 
   def show

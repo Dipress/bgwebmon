@@ -28,6 +28,9 @@ gem 'mongoid_slug'
 gem 'mongoid_auto_inc'
 gem 'ng-rails-csrf'
 
+#Search
+gem 'tire'
+
 group :assets do
   gem 'sass-rails'
   gem 'uglifier'
