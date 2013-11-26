@@ -1,3 +1,9 @@
+.row
+  .search_block{style: "margin: 0px 0px 0px 30px;"}
+    = form_tag statistic_path, method: :get, class: "form-search" do
+      .input-append
+        = text_field_tag :query, params[:query], class: "span4 search-query"
+        = submit_tag "Фильтр", name: nil, class: "btn"
 %table.table.table-bordered
   %thead
     %tr
