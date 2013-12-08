@@ -14,14 +14,17 @@ class Ip2sms
 
   def request
     req = Net::HTTP::Post.new uri.path
+    req.content_type = "text/xml"
     req.body = @body
     req.basic_auth ENV['IP2SMS_LOGIN'], ENV['IP2SMS_PASSWORD']
     req
   end
 
   def send
-    res = Net::HTTP.new(uri.host, uri.port).request request
-    res.body
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    response = http.request request
+    response.body
   end
 
   def xml phone, text
