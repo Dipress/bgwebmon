@@ -10,6 +10,6 @@ class Changemailer < ActionMailer::Base
     @limits = limits
     @payments = payments
     @statuses = statuses
-    mail(from: "ruby.ci.ukrpack.net@crimeainfo.com", to: to_email, subject: "Изменения в бллинга за час: #{I18n.localize(time+1.hours)}")
+    mail(from: "ruby.ci.ukrpack.net@crimeainfo.com", to: to_email, subject: "Изменения в биллинге за час: #{I18n.localize(time+1.hours)}")
   end
 end
