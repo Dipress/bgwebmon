@@ -16,6 +16,11 @@ before_filter :ip_check
     end
   end
 
+  def test_java_curl
+    p "GOT CURL REQUEST FROM BILLING!!!!!!!!!!!!!!!!!"
+    render json: 'ok'
+  end
+
   def monitoring
     if request.remote_ip == '194.54.152.39'
       larray = []
