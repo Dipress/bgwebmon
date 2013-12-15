@@ -18,17 +18,15 @@
 # end
 
 every 1.day, at: '2:30 pm' do
-  runner "Sms.send_debt_messages"
+	runner "Sms.send_debt_messages"
 end
 
 every 5.minutes do
-	runner "RrdcronTask.datacreator"
+	runner "RrdcronTasks.datacreator"
 end
 
-
-
 every "2 * * * *" do
-  runner "ChangesTasks.new.send_changes"
+	runner "ChangesTasks.new.send_changes"
 end
 
 # Learn more: http://github.com/javan/whenever

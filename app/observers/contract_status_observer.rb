@@ -3,7 +3,7 @@ class ContractStatusObserver < ActiveRecord::Observer
 
   def after_create record
     contract = record.contract
-    contract.contract_status_logs.create date1: record.date1,
+    contract.contract_status_log.create date1: record.date1,
                                          date2: record.date2,
                                          comment: record.comment,
                                          uid: 0,

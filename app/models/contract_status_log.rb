@@ -2,7 +2,7 @@
 class ContractStatusLog < ActiveRecord::Base
   self.table_name =  "contract_status_log"
 
-  attr_accessible :status, :date1, :date2, :comment, :date, :uid
+  attr_accessible :status, :date1, :date2, :comment, :date, :uid, :cid
 
   belongs_to :contract, :class_name => 'Contract', :foreign_key => 'cid'
 

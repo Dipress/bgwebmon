@@ -96,8 +96,9 @@ before_filter :sadmin, only: [:update, :processing, :confirmation, :destroy ]
     Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
     Balance.update_all "summa2=#{(@agent_payment.value + last_balance.summa2)} where yy=#{last_balance.yy} and mm=#{last_balance.mm} and cid=#{last_balance.cid} limit 1"
     if ![0,4].include?(contract.status) && contract.balance_summa > contract.closesumma
-      contract.contract_statuses.build(status: 0, comment: 'Разблокировано системой', uid: 0, date1: Time.now).save
-      contract.update_attributes status: 0
+      contract.contract_status.build(status: 0, comment: 'Разблокировано системой', uid: 0, date1: Time.now).save
+      #contract.update_attributes status: 0
+      contract.update_attribute(:status, 0)
     end
     
     respond_to do |format|
