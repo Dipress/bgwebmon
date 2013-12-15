@@ -4,6 +4,8 @@ class Contract < ActiveRecord::Base
   self.table_name =  "contract"
   self.primary_key = "id"
 
+  attr_accessible :status
+
   has_many :phones, :class_name => "Phone", :foreign_key => "cid"
 
   has_many :agent_payments
@@ -39,8 +41,8 @@ class Contract < ActiveRecord::Base
   has_many :contract_parameter_type7_values, :through => :contract_parameter_type7
 
   has_many :contract_parameter_type8, :class_name => 'ContractParameterType8', :foreign_key => 'cid'
-  has_many :contract_status, :class_name => 'ContractStatus', :foreign_key => 'cid'
-  has_many :contract_status_log, :class_name => 'ContractStatusLog', :foreign_key => 'cid'
+  has_many :contract_statuses, :class_name => 'ContractStatus', :foreign_key => 'cid'
+  has_many :contract_status_logs, :class_name => 'ContractStatusLog', :foreign_key => 'cid'
 
   def self.tariffs_array(id)
     array = []
