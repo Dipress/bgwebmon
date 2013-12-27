@@ -14,7 +14,6 @@ class Sms
 
   validates :smstype_id, :contract_id, :phone, :title, :comment, :text, presence: true
 
-
   def self.send_debt_messages
     time = Time.now
     Flag.where(pid: 46, val: 1).each do |f|
@@ -58,5 +57,4 @@ class Sms
       end
     end
   end
-
 end

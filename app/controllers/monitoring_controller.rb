@@ -105,7 +105,7 @@ private
     time = Time.now
     ContractParameterType7Value.find(bsid).contracts.each {|c|
       if member(c.id)
-        if c.dialuplogins != []
+        if c.dialuplogins.any?
           c.dialupaliases.each {|s|
             if s.dialuplogin.dialupip != nil
               ip = Dialupip.ntoa(s.dialuplogin.dialupip.ip)
@@ -123,6 +123,22 @@ private
                        :login_id => s.id,
                        :id => c.id}
           }
+        else
+          c.inet_services.each do |inet|
+            inet.inet_resource_subscriptions.each do |s|
+              ip = s.addressFrom.bytes.to_a.join('.')
+              larray << {:online => check_online(ip), 
+                         :login_alias => inet.login, 
+                         :comment => c.comment, 
+                         :title => c.title,
+                         :closesumma => c.closesumma,
+                         :balance => Balance.balance("#{c.id}",
+                                                     "#{time.strftime("%m")}",
+                                                     "#{time.strftime("%Y")}"),
+                         :login_id => s.id,
+                         :id => c.id}
+            end
+          end
         end
       end
     }
@@ -152,13 +168,28 @@ private
                    :id => contract.id}
       end
     }
+    InetServices.all.each do |inet|
+      inet.inet_resource_subscriptions.each do |s|
+        ip = s.addressFrom.bytes.to_a.join('.')
+        larray << {:online => check_online(ip), 
+                    :login_alias => inet.login, 
+                    :comment => c.comment, 
+                    :title => c.title,
+                    :closesumma => c.closesumma,
+                    :balance => Balance.balance("#{c.id}",
+                                               "#{time.strftime("%m")}",
+                                               "#{time.strftime("%Y")}"),
+                    :login_id => s.id,
+                    :id => c.id}
+      end
+    end
     return larray.sort_by {|l| l[:title]}
   end
 
   def check_online(ip)
       cmd="rrdtool fetch /var/www/graphs/#{ip.gsub(/\./,"")}.rrd AVERAGE -r 300 -s -120"
       rxtx=`#{cmd}`
-      if rxtx != ""
+      if rxtx != "" && !rxtx.nil?
         rxtx=rxtx.gsub(/[0-9].+\:.+/).first.gsub(/[0-9]+\:\ /, "")
         if rxtx =~ /-nan/
           return false
