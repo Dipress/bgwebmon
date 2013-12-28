@@ -43,6 +43,7 @@ class Contract < ActiveRecord::Base
   has_many :contract_parameter_type8, :class_name => 'ContractParameterType8', :foreign_key => 'cid'
   has_many :contract_statuses, :class_name => 'ContractStatus', :foreign_key => 'cid'
   has_many :contract_status_logs, :class_name => 'ContractStatusLog', :foreign_key => 'cid'
+  has_many :inet_services, class_name: 'InetService', foreign_key: 'contractId'
 
   def self.tariffs_array(id)
     array = []

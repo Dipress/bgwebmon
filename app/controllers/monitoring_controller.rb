@@ -79,8 +79,14 @@ private
 
 # graph
   def create_graph(lid,hour)
-    d = Dialupip.find(lid) 
-    ip = Dialupip.ntoa(d.ip).gsub(/\./,"")
+    d = Dialupip.where(id: lid)
+    if d.empty?
+      irs = InetResourceSubscriptions.find(lid)
+      ip = irs.addressFrom.bytes.to_a.join('.')
+      d = irs.inet_service.contract
+    else
+      ip = Dialupip.ntoa(d.first.ip).gsub(/\./,"")
+    end
     time = Time.now.to_i - (60*60*hour)
     ago = Time.now - hour.hours
     c = d.contract

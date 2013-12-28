@@ -9,7 +9,14 @@ class RrdcronTasks
         RrdcronTasks.add_graph(dlip.gsub(/\./,""))
       end
     end
-      #system('chmod -R 777 #{Rrdcron.dir_name}graphs/*.rrd')
+    InetServices.all.each do |inet|
+      inet.inet_resource_subscriptions.each do |s|
+        ip = s.addressFrom.bytes.to_a.join('.')
+        if files_array.find{ |f| f.eql?("#{dlip.gsub(/\./,"")}.rrd") } == nil
+          RrdcronTasks.add_graph(ip.gsub(/\./,""))
+        end
+      end
+    end
   end
 
   def self.test
