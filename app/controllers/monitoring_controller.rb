@@ -174,20 +174,18 @@ private
                    :id => contract.id}
       end
     }
-    InetServices.all.each do |inet|
-      inet.inet_resource_subscriptions.each do |s|
-        ip = s.addressFrom.bytes.to_a.join('.')
-        larray << {:online => check_online(ip), 
-                    :login_alias => inet.login, 
-                    :comment => c.comment, 
-                    :title => c.title,
-                    :closesumma => c.closesumma,
-                    :balance => Balance.balance("#{c.id}",
-                                               "#{time.strftime("%m")}",
-                                               "#{time.strftime("%Y")}"),
-                    :login_id => s.id,
-                    :id => c.id}
-      end
+    InetService.all.each do |inet|
+      ip = inet.addressFrom.bytes.to_a.join('.')
+      larray << {
+        online: check_online(ip),
+        login_alias: inet.login,
+        comment: inet.contract.comment,
+        title: inet.contract.title,
+        closesumma: inet.contract.closesumma,
+        balance: Balance.balance("#{inet.contract.id}", "#{time.strftime("%m")}", "#{time.strftime("%Y")}"),
+        login_id: inet.id,
+        id: inet.id
+      }
     end
     return larray.sort_by {|l| l[:title]}
   end

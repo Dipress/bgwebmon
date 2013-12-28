@@ -93,6 +93,13 @@ before_filter :sadmin, only: [:update, :processing, :confirmation, :destroy ]
     @agent_payment = AgentPayment.find(params[:id])
     contract = @agent_payment.contract
     last_balance = contract.last_balance
+    last_status = contract.contract_statuses.last
+    if ![0,4].include?(contract.status) && last_status.date1.eql?(DateTime.now.to_date)
+      last_status.delete
+    end
+    if ![0,4].include?(contract.status) && last_status.date2.eql?(nil)
+      last_status.update_attributes(date2: Time.now-1.day)
+    end
     Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
     Balance.update_all "summa2=#{(@agent_payment.value + last_balance.summa2)} where yy=#{last_balance.yy} and mm=#{last_balance.mm} and cid=#{last_balance.cid} limit 1"
     if ![0,4].include?(contract.status) && contract.balance_summa > contract.closesumma

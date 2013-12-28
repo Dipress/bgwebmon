@@ -9,11 +9,11 @@ class RrdcronTasks
         RrdcronTasks.add_graph(dlip.gsub(/\./,""))
       end
     end
-    InetServices.all.each do |inet|
+    InetService.all.each do |inet|
       inet.inet_resource_subscriptions.each do |s|
-        ip = s.addressFrom.bytes.to_a.join('.')
+        dlip = s.addressFrom.bytes.to_a.join('.')
         if files_array.find{ |f| f.eql?("#{dlip.gsub(/\./,"")}.rrd") } == nil
-          RrdcronTasks.add_graph(ip.gsub(/\./,""))
+          RrdcronTasks.add_graph(dlip.gsub(/\./,""))
         end
       end
     end
