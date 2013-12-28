@@ -81,9 +81,10 @@ private
   def create_graph(lid,hour)
     d = Dialupip.where(id: lid)
     if d.empty?
-      irs = InetResourceSubscriptions.find(lid)
+      #irs = InetResourceSubscriptions.find(lid)
+      irs = InetService.find(id: lid)
       ip = irs.addressFrom.bytes.to_a.join('.')
-      d = irs.inet_service.contract
+      d = irs
     else
       ip = Dialupip.ntoa(d.first.ip).gsub(/\./,"")
     end
