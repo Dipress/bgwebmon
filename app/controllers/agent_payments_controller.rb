@@ -93,17 +93,20 @@ before_filter :sadmin, only: [:update, :processing, :confirmation, :destroy ]
     @agent_payment = AgentPayment.find(params[:id])
     contract = @agent_payment.contract
     last_balance = contract.last_balance
-    last_status = contract.contract_statuses.last
-    if ![0,4].include?(contract.status) && last_status.date1.eql?(DateTime.now.to_date)
-      last_status.delete
-    end
-    if ![0,4].include?(contract.status) && last_status.date2.eql?(nil)
-      last_status.update_attributes(date2: Time.now-1.day)
-    end
     Payment.create! dt: Time.new, cid: @agent_payment.contract.id, pt: 6, uid: @agent_payment.user.id, summa: @agent_payment.value, comment: @agent_payment.text
     Balance.update_all "summa2=#{(@agent_payment.value + last_balance.summa2)} where yy=#{last_balance.yy} and mm=#{last_balance.mm} and cid=#{last_balance.cid} limit 1"
     if ![0,4].include?(contract.status) && contract.balance_summa > contract.closesumma
-      contract.contract_statuses.build(status: 0, comment: 'Разблокировано системой', uid: 0, date1: Time.now).save
+      time = Time.now
+      if contract.contract_statuses.where(date1: time.to_date).count > 0
+        contract.contract_statuses.where(date1: time.to_date).delete_all
+        contract.contract_status_logs.where(date1: time.to_date).delete_all
+      end
+      if contract.contract_statuses.last.date2.nil?
+        contract.contract_statuses.last.update_attributes(date2: time-1.day)
+        contract.contract_status_logs.last.update_attributes(date2: time-1.day)
+      end
+      contract.contract_statuses.create status: 0, comment: 'Разблокировано системой', uid: 0, date1: time
+      contract.contract_status_logs.create date1: time, comment: 'Разблокировано системой', uid: 0, status: 0, date: time
       contract.update_attributes(status: 0)
     end
     
