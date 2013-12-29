@@ -79,23 +79,27 @@ private
 
 # graph
   def create_graph(lid,hour)
-    d = Dialupip.where(id: lid)
-    if d.empty?
-      #irs = InetResourceSubscriptions.find(lid)
-      irs = InetService.find(id: lid)
-      ip = irs.addressFrom.bytes.to_a.join('.')
-      d = irs
-    else
-      ip = Dialupip.ntoa(d.first.ip).gsub(/\./,"")
-    end
     time = Time.now.to_i - (60*60*hour)
     ago = Time.now - hour.hours
-    c = d.contract
-    name = "График абонента #{c.title} - #{c.comment}, c #{ago.strftime('%d.%m.%Y %H:%M:%S')} по #{Time.now.strftime('%d.%m.%Y %H:%M:%S')}"
-    image_name = "#{ip}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
-    cmd = "rrdtool graph /var/www/webmon/current/public/graphs/#{image_name}.png -b 1024 -s #{time} -w 860 -h 200 -a PNG -t '#{name}' -v='скорость бит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/graphs/#{ip}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/graphs/#{ip}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
-    system(cmd)
-    return "/graphs/#{image_name}.png"
+    begin
+      dialup = Dialupip.find(lid)
+      ip = Dialupip.ntoa(dialup.ip).gsub(/\./, "")
+      c = dialup.contract
+      name = "График абонента #{c.title} - #{c.comment}, c #{ago.strftime('%d.%m.%Y %H:%M:%S')} по #{Time.now.strftime('%d.%m.%Y %H:%M:%S')}"
+      image_name = "#{ip}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
+      cmd = "rrdtool graph /var/www/webmon/current/public/graphs/#{image_name}.png -b 1024 -s #{time} -w 860 -h 200 -a PNG -t '#{name}' -v='скорость бит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/graphs/#{ip}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/graphs/#{ip}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
+      system(cmd)
+      return "/graphs/#{image_name}.png"
+    rescue ActiveRecord::RecordNotFound
+      inet = InetService.find(lid)
+      ip = inet.addressFrom.bytes.to_a.join(".").gsub(/\./, "")
+      c = inet.contract
+      name = "График абонента #{c.title} - #{c.comment}, c #{ago.strftime('%d.%m.%Y %H:%M:%S')} по #{Time.now.strftime('%d.%m.%Y %H:%M:%S')}"
+      image_name = "#{ip}_#{Time.now.strftime("%Y%m%d%H%M%S%12N")}"
+      cmd = "rrdtool graph /var/www/webmon/current/public/graphs/#{image_name}.png -b 1024 -s #{time} -w 860 -h 200 -a PNG -t '#{name}' -v='скорость бит в секунду' --slope-mode  --lower-limit=0 DEF:a='/var/www/graphs/#{ip}.rrd':download:AVERAGE AREA:a#00CC00:'Входящий трафик' DEF:b='/var/www/graphs/#{ip}.rrd':upload:AVERAGE LINE1:b#0000FF:'Исходящий трафик'"
+      system(cmd)
+      return "/graphs/#{image_name}.png"
+    end
   end
 
 # список ошибок
