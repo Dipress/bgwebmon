@@ -1,6 +1,7 @@
 - if !@user.nil?
 	- if User.superadmin(@user.id)
 		%li= link_to "Мониторинг", monnodes_path, class: current_page?(monnodes_path) && 'active'
+		%li= link_to "Мониторинг(beta)", new_monitoring_index_path, class: current_page?(new_monitoring_index_path) && 'active'
 		%li= link_to "Доходы БC", statistic_path, class: current_page?(statistic_path) && 'active'
 		%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
 		%li= link_to "Договора", "/doc/04-", class: current_page?("/doc/04-") && 'active'

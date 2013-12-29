@@ -1,0 +1,43 @@
+#popup
+  #popupbackground
+  #popupscreen
+    #popupclose X
+    #popupcontent
+%div{ "ng-controller" => "monitoringCtrl" }
+  %form#filters.form-inline
+    .form-inputs
+      .control-group.string.term
+        %label.string.control-label{for: "term"} Поиск
+        .controls
+          %input{ type: 'text', name: 'term', "ng-model" => 'term', placeholder: 'Введите номер, названи абонента, логин, ip', style: 'width: 400px' }
+      .control-group.string.term
+        %label.string.control-label{for: "bs_id"} Базовая станция
+        .controls
+          %select{ type: 'text', name: 'bs_id', "ng-model" => 'bs_id', style: 'width: 400px' }
+            - ContractParameterType7Value.where(pid: 54).all.each do |cpt|
+              %option{ value: "#{cpt.id}" }= cpt.title
+    .form-actions
+      %input.button{ type: 'submit', value: 'Искать', "ng-click" => "paginateContracts($event, 1)" }
+  %div{ "ng-repeat" => 'contract in contracts' }
+    %b {{ contract.title }} - {{ contract.comment }}, {{ contract.bs }}
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th login
+          %th ip
+          %th
+      %tbody
+        %tr{ "ng-repeat" => 'inet in contract.inet_services' }
+          %td {{ inet.login }}
+          %td {{ inet.inet_resource_subscriptions.human_ip }}
+          %td
+            %button.btn{ 'ng-click' => "getGraph(contract.id, inet.inet_resource_subscriptions.human_ip, 6)" } График
+        %tr{ "ng-repeat" => 'dial_up in contract.dialuplogins' }
+          %td {{ dial_up.dialupalias.login_alias }}
+          %td {{ dial_up.dialupip.human_ip }}
+          %td
+            %button.btn{ 'ng-click' => "getGraph(contract.id, dial_up.dialupip.human_ip, 6)" } График
+  .pagination.pagination-mini
+    %ul
+      %li{ "ng-repeat" => "page in pagination.total_pages", "ng-class" => "{active: page==pagination.page}" , "ng-click" => "paginateContracts($event, page)"}
+        %span{ style: "cursor: pointer;"} {{ page }}

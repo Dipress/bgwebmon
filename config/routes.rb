@@ -7,6 +7,7 @@ Bgwebmon::Application.routes.draw do
     put :processing, on: :member
   end
 
+  resources :new_monitoring, only: [:index, :show]
 
   resources :sessions do
     collection do 

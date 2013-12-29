@@ -1,7 +1,8 @@
-window.app.service 'monitoringModel', ['$http', ($http)->
+window.app.factory 'Contract', ['$resource', ($resource) ->
+  $resource '/new_monitoring/:id', 
+    { id: '@id' },
+    query:
+      { method: 'GET'
+      , isArray: false }
 
-  this.getContacts = ($scope)->
-    $http( method: "GET", url: '/new_mon.json').success (data)->
-      console.log data
-      $scope.contracts = data
 ]

@@ -1,49 +1,82 @@
 # coding: utf-8
 class Contract < ActiveRecord::Base
   include ActiveModel::SerializerSupport
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
   self.table_name =  "contract"
   self.primary_key = "id"
 
   attr_accessible :status
 
   has_many :phones, :class_name => "Phone", :foreign_key => "cid"
-
   has_many :agent_payments
-
   has_many :smses, :class_name => "Sms", :foreign_key => "cid"
-
   has_many :flags, :class_name => "Flag", :foreign_key => "cid"
-
   has_many :dialuperrors, :class_name => 'Dialuperror', :foreign_key => 'cid'
-
   has_many :payments, :class_name => 'Payment', :foreign_key => 'cid'
-
   has_many :balances, :class_name => 'Balance', :foreign_key => 'cid'
-
   has_many :dialuplogins, :class_name => 'Dialuplogin', :foreign_key =>'cid'
   has_many :dialupips, :through => :dialuplogins
   has_many :dialupaliases, :through => :dialuplogins
-  
   has_many :contract_modules, :class_name => 'ContractModule', :foreign_key => 'cid'
   has_many :bgmodules, :through => :contract_modules
-
   has_many :ctariffs, :class_name => 'Ctariff', :foreign_key =>'cid'
   has_many :tariffplans, :through => :ctariffs
   has_many :contracttreelinks, :class_name => 'Contracttreelink', :foreign_key =>'cid'
-
   has_many :contract_parameter_type1, :class_name => 'ContractParameterType1', :foreign_key => 'cid'
-
   has_many :contract_parameter_type2, :class_name => 'ContractParameterType2', :foreign_key => 'cid'
-
   has_many :contract_parameter_type6, :class_name => 'ContractParameterType6', :foreign_key => 'cid'
-
   has_many :contract_parameter_type7, :class_name => 'ContractParameterType7', :foreign_key => 'cid'
   has_many :contract_parameter_type7_values, :through => :contract_parameter_type7
-
   has_many :contract_parameter_type8, :class_name => 'ContractParameterType8', :foreign_key => 'cid'
   has_many :contract_statuses, :class_name => 'ContractStatus', :foreign_key => 'cid'
   has_many :contract_status_logs, :class_name => 'ContractStatusLog', :foreign_key => 'cid'
   has_many :inet_services, class_name: 'InetService', foreign_key: 'contractId'
+
+
+  ### Tire
+  mapping do
+    indexes :title, type: 'string', analyzer: 'snowball'
+    indexes :contract, type: 'string', analyzer: 'snowball'
+    indexes :contract_parameter_type7, type: 'object' do
+      indexes :val, type: 'integer'
+      indexes :pid, type: 'integer'
+    end
+    indexes :dialuplogins, type: 'object' do
+      indexes :dialupalias, type: 'object' do
+        indexes :login_alias, type: 'string', analyzer: 'snowball'
+      end
+      indexes :dialupip, type: 'object' do
+        indexes :human_ip, type: 'string', analyzer: 'snowball'
+      end
+    end
+    indexes :inet_services, type: 'object' do
+      indexes :login, type: 'string', analyzer: 'snowball'
+      indexes :inet_resource_subscriptions, type: 'object' do
+        indexes :human_ip, type: 'string', analyzer: 'snowball'
+      end
+    end
+    indexes :contract_parameter_type8, type: 'object' do
+      indexes :cid, type: 'integer'
+      indexes :val, type: 'integer'
+    end
+  end
+
+  def self.filter params
+    tire.search(load: true, page: (params[:page] || 1).to_i, per_page: (params[:per_page] || 12).to_i) do
+      query { string "*#{params[:term]}*" }                                     unless params[:term].blank?
+      filter :term, 'contract_parameter_type8.val' => params[:cid]              unless params[:cid].blank?
+      filter :term, 'contract_parameter_type7.val' => params[:bs_id]            unless params[:bs_id].blank?
+      filter :term, 'contract_parameter_type7.pid' => 54                        unless params[:bs_id].blank?
+    end
+  end
+
+  def to_indexed_json
+    to_json(include: {dialuplogins: {include: {dialupalias: {}, dialupip: { :methods => ['human_ip'] }}}, inet_services: {include: { inet_resource_subscriptions: { :methods => ['human_ip'] } }}, contract_parameter_type8: {}, contract_parameter_type7: {}})
+    #to_json(include: {building: {include: {address: {include: :components}}}, deal_info: {include: {offers: {:methods => ['exchanged_cost']}}}, floor: {}})
+  end
+  ### Methods
+
 
   def self.tariffs_array(id)
     array = []

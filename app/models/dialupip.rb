@@ -33,6 +33,10 @@ class Dialupip < ActiveRecord::Base
     ip = IPAddr.new(ipaddr, Socket::AF_INET).to_s
   end
 
+  def human_ip
+    IPAddr.new(ip, Socket::AF_INET).to_s
+  end
+
   def self.ipcount
     File.open(Rails.root.join("ips.txt"), 'r+') do |file|
       file.each_line { |line|
