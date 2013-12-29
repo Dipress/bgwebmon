@@ -1,1 +1,1 @@
-window.app = angular.module('bgwebmon', ['ng-rails-csrf']);
+window.app = angular.module('bgwebmon', ['ng-rails-csrf', "ngResource"]);

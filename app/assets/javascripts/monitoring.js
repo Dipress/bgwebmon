@@ -53,6 +53,32 @@ AjaxReq.prototype.GRequest = function(hour){
 	});
 }
 
+AjaxReq.prototype.GRequestNew = function(hour){
+	ea = new AjaxReq(this.ul, this.lid);
+	var time = hour;
+	$(this.ul).html("<ul class=\"gtime\">"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"6\">6 часов</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"24\">1 день</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"72\">3 дня</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"168\">1 неделя</li>"+
+	"<li class=\"hourli\" lid=\""+this.lid+"\" time=\"336\">2 недели</li>"+
+	"</ul>");
+
+	$.each($('li.hourli'), function(i,v){
+		$(v).click(function(){
+			ea = new AjaxReq($('div#popupcontent'), $(this).attr('lid'));
+			ea.GRequest($(this).attr('time'));
+		});
+	});
+
+	$.ajax({
+		url : '/graph/'+this.lid+'/'+time,
+		dataType : "text"
+	}).done(function(data){
+		$(ea.ul).append("<img src=\"" + data + "\"/>");
+	});
+}
+
 AjaxReq.prototype.TRequest = function(cid){
 	ea = new AjaxReq(this.ul, this.lid);
 	$(this.ul).html("");
