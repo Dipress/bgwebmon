@@ -1,6 +1,6 @@
 #popup
   #popupbackground
-  #popupscreen
+  #popupscreen{ style: 'width: 957px; height: 333px; margin-left: 200px;' }
     #popupclose X
     #popupcontent
 %div{ "ng-controller" => "monitoringCtrl" }
@@ -19,7 +19,7 @@
     .form-actions
       %input.button{ type: 'submit', value: 'Искать', "ng-click" => "paginateContracts($event, 1)" }
   %div{ "ng-repeat" => 'contract in contracts' }
-    %b {{ contract.title }} - {{ contract.comment }}, {{ contract.bs }}
+    %b {{ contract.title }} - {{ contract.comment }}
     %table.table.table-bordered
       %thead
         %tr
@@ -27,12 +27,12 @@
           %th ip
           %th
       %tbody
-        %tr{ "ng-repeat" => 'inet in contract.inet_services' }
+        %tr{ "ng-repeat" => 'inet in contract.inet_services', "ng-class" => "inet.inet_resource_subscriptions[0].status_class" }
           %td {{ inet.login }}
-          %td {{ inet.inet_resource_subscriptions.human_ip }}
+          %td {{ inet.inet_resource_subscriptions[0].human_ip }}
           %td
-            %button.btn{ 'ng-click' => "getGraph(contract.id, inet.inet_resource_subscriptions.human_ip, 6)" } График
-        %tr{ "ng-repeat" => 'dial_up in contract.dialuplogins' }
+            %button.btn{ 'ng-click' => "getGraph(contract.id, inet.inet_resource_subscriptions[0].human_ip, 6)" } График
+        %tr{ "ng-repeat" => 'dial_up in contract.dialuplogins', "ng-class" => "dial_up.dialupip.status_class" }
           %td {{ dial_up.dialupalias.login_alias }}
           %td {{ dial_up.dialupip.human_ip }}
           %td

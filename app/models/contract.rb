@@ -63,7 +63,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.filter params
-    tire.search(load: true, page: (params[:page] || 1).to_i, per_page: (params[:per_page] || 12).to_i) do
+    tire.search(load: false, page: (params[:page] || 1).to_i, per_page: (params[:per_page] || 12).to_i) do
       query { string "*#{params[:term]}*" }                                     unless params[:term].blank?
       filter :term, 'contract_parameter_type8.val' => params[:cid]              unless params[:cid].blank?
       filter :term, 'contract_parameter_type7.val' => params[:bs_id]            unless params[:bs_id].blank?
@@ -73,7 +73,6 @@ class Contract < ActiveRecord::Base
 
   def to_indexed_json
     to_json(include: {dialuplogins: {include: {dialupalias: {}, dialupip: { :methods => ['human_ip'] }}}, inet_services: {include: { inet_resource_subscriptions: { :methods => ['human_ip'] } }}, contract_parameter_type8: {}, contract_parameter_type7: {}})
-    #to_json(include: {building: {include: {address: {include: :components}}}, deal_info: {include: {offers: {:methods => ['exchanged_cost']}}}, floor: {}})
   end
   ### Methods
 
