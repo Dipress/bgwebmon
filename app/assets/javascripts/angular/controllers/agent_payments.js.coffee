@@ -21,11 +21,11 @@ window.app.controller 'agentPayments', ['$scope', '$http', 'paymentsModel', ($sc
     paymentsModel.getPayments($scope, page)
 
   $scope.confirmationPayment = (event, index, value)->
-    event.preventDefault()
+    #event.preventDefault()
     paymentsModel.confirmationPayment($scope, index, value)
 
   $scope.processingPayment = (event, index, value)->
-    event.preventDefault()
+    #event.preventDefault()
     paymentsModel.processingPayment($scope, index, value)
 
   $scope.selectedCls = (column)->
