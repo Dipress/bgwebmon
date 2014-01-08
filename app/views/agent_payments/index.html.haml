@@ -41,9 +41,9 @@
         - if User.superadmin(@user.id)
           %td
             %span{ "ng-hide" => "p.status" }
-              = link_to t("agent_payments.button.billing"), "#" , :class => 'btn btn-mini btn-success',  "ng-click" => "processingPayment($event, $index, p.id)"
+              = link_to t("agent_payments.button.billing"), "#" , :class => 'btn btn-mini btn-success', "ng-confirm-click" => "Добавить платеж?",  "ng-click" => "processingPayment($event, $index, p.id)"
             %span{ "ng-hide" => "p.confirmation" }
-              = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-primary',"ng-click" => "confirmationPayment($event, $index, p.id)"
+              = link_to t("agent_payments.button.money"), "#", :class => 'btn btn-mini btn-primary', "ng-confirm-click" => "Платеж получен?", "ng-click" => "confirmationPayment($event, $index, p.id)"
   .pagination
     %ul
       %li{ "ng-repeat" => "page in pagination.total_pages", "ng-class" => "{active: page==pagination.page}" , "ng-click" => "paginatePayments($event, page)"}

@@ -12,7 +12,10 @@
         Договор
   %tbody
     %tr
-      %td= @payment.manager.name
+      - if @payment.confirmation.nil?
+        %td= @payment.manager.name
+      - else
+        %td= @payment.confirmation.name
       %td= @payment.contract.title + " - " + @payment.contract.comment
 %p="Процесс обработки занял #{time_ago_in_words(@payment.created_at)}"
 %br
