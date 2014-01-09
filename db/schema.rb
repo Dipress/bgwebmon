@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131025074956) do
+ActiveRecord::Schema.define(:version => 20140108143858) do
 
   create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
     t.integer "id",                     :default => 0, :null => false
@@ -1862,6 +1862,11 @@ ActiveRecord::Schema.define(:version => 20131025074956) do
     t.integer "groupIntersection", :limit => 1,   :null => false
     t.text    "config",                           :null => false
     t.text    "comment",                          :null => false
+  end
+
+  create_table "inet_resource_subscriptions", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "inet_serv_14", :force => true do |t|
@@ -5856,14 +5861,14 @@ ActiveRecord::Schema.define(:version => 20131025074956) do
   create_table "requestfls", :force => true do |t|
     t.string   "description"
     t.string   "fio",               :limit => 70,                 :null => false
-    t.string   "adress_post",       :limit => 150,                :null => false
-    t.string   "adress_connection", :limit => 150,                :null => false
+    t.string   "adress_post",       :limit => 200,                :null => false
+    t.string   "adress_connection", :limit => 200,                :null => false
     t.string   "latlng_connection", :limit => 100,                :null => false
     t.string   "email",             :limit => 40,                 :null => false
     t.string   "telephone",         :limit => 13,                 :null => false
     t.string   "in",                :limit => 30,                 :null => false
     t.string   "pasport",           :limit => 20,                 :null => false
-    t.string   "pasport_authority", :limit => 60,                 :null => false
+    t.string   "pasport_authority", :limit => 90,                 :null => false
     t.date     "pasport_date"
     t.integer  "payment_form",                                    :null => false
     t.string   "ip",                :limit => 15,                 :null => false
