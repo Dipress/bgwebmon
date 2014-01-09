@@ -6,7 +6,7 @@
 	.editor-field
 		%label * Адресс почтовый:
 		= r.text_field :adress_post
-	.editor_field
+	.editor-field
 		%label * Адресс подключения:
 		= r.text_field :adress_connection
 	.editor-field
@@ -57,12 +57,12 @@
 		= r.collection_select :tariffplan_id, Tariffplan.where(actual: 1).order('title ASC'), :tree_id, :title, {:prompt => 'Выберите тарифный план'}
 	.editor-field
 		%label Дополнительная информация:
-		= r.text_area :description, cols: 100, rows: 6, style: "width: 400px;"
+		= r.text_area :description, cols: 100, rows: 6, style: "width: 500px;"
 	.editor-field
 		= r.hidden_field :user_id, :value => @user.id
 		= r.hidden_field :latlng_connection
 	.editor-field
-		= r.submit "Отправить заявку", :class => "btn"
+		= r.submit "Отправить заявку", :class => "btn", style: "width: 514px;"
 :javascript
 	$(function(){
 	var m = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
