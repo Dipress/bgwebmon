@@ -29,4 +29,8 @@ every "2 * * * *" do
 	runner "ChangesTasks.new.send_changes"
 end
 
+every 1.day, at: '23:00 pm' do
+	runner "InetMembersTasks.datageneration" 
+end
+
 # Learn more: http://github.com/javan/whenever
