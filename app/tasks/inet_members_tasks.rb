@@ -11,11 +11,13 @@ class InetMembersTasks
 
     #Создаем наш массив содержащий нужные нам данные
     add_members = members.map do |m|
-      "#{m.login}\t\t#{m.password}\t\t#{m.addressFrom.bytes.to_a.join('.')} 2048"
+      "#{m.login}#{' '*(30-m.login.length)}*#{' '*15}#{m.password}#{' '*(30-m.password.length)}#{m.addressFrom.bytes.to_a.join('.')}"
     end
 
     #Создаем файл в RAILS_ROOT и добавляем туда данные из массива
-    File.open("members.txt", "w"){|file| file.write add_members.join("\n") }
+    File.open("chap-secrets", "w"){|file| file.write add_members.join("\n") }
+    #Добавим в конец файла пустую строку(так надо)
+    File.open("chap-secrets", "a"){|file| file.write "\n" }
     
 
     #Данные об удаленном сервере, смотри в application.yml
@@ -24,14 +26,11 @@ class InetMembersTasks
     password = ENV["REMOTE_PASSWORD"]
 
     Net::SCP.start(host, username, password: password) do |scp|
-      #Загружаем файл на удалленый сервер
-      #вначале указываем путь куда зарузить
-      #затем пишет откуда взять файл
-      scp.upload("members.txt", "/root/")
+      scp.upload("chap-secrets", "/etc/ppp/")
     end
 
     #Удадяем файл из RAILS_ROOT
-    File.delete("members.txt")
+    File.delete("chap-secrets")
 
     sleep(10)
 
