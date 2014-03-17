@@ -1,47 +1,46 @@
-%table#bal.table.centered
+%table.table.table-bordered
+  %thead
     %tr
-        %th №
-        %th Дoговор
-        %th Абонент
-        %th Входящий остаток
-        %th Приход
-        %th Наработка
-        %th Расход
-        %th Исходящий остаток
-        %th Текущий лимит
-    - ids.each do |id|
-        - if id.status == 3
-            - class_tr = 'error'
-        - elsif id.status == 2
-            - class_tr = 'warning'
-        - elsif id.status == 4
-            - class_tr = 'info'
-        - else 
-            - class_tr = 'success'
+      %th №
+      %th Договор
+      %th Абонент
+      %th Входящий остаток
+      %th Приход 
+      %th Наработка
+      %th Расход
+      %th Исходящий остаток
+      %th Лимит
+  %tbody
+  - ids.each do |id|
+    - if id.status.eql?(3)
+      - class_tr = 'error'
+    - elsif id.status.eql?(2)
+      - class_tr = 'warning'
+    - elsif id.status.eql?(4)
+      - class_tr = 'info'
+    - else 
+      - class_tr = 'success'
+    - if id.balances.where(@wherestring).empty?
+      - summa = id.balances.order("yy DESC").limit(1).each do |summa|
         %tr{ class: "#{class_tr}" }
-            - summa = id.balances.where(@wherestring)[0]
-            - if summa.nil?
-                - summa = id.balances.order("yy DESC")[0]
-                - if summa.nil? || summa.mm.to_i > @wherestring.match(/([0-9]+)\'$/)[0].gsub(/'/,'').to_i
-                    - summa = Balance.new summa1: 0, summa2: 0, summa3: 0, summa4: 0
-                    - result = 0
-                    - ishod = 0
-                - else
-                    - result = summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-                    - ishod = result
-                    - summa.summa2 = 0
-                    - summa.summa3 = 0
-                    - summa.summa4 = 0
-            - else
-                - result = summa.summa1
-                - ishod = summa.summa1 + summa.summa2 - summa.summa3 - summa.summa4
-            %td= index
-            %td= id.title
-            %td= id.comment
-            %td= result
-            %td= summa.summa2
-            %td= summa.summa3
-            %td= summa.summa4
-            %td= ishod
-            %td= id.closesumma
-            - index = index + 1
+          %td= index += 1
+          %td= id.title
+          %td= id.comment
+          %td= summa.summa1+summa.summa2-summa.summa3-summa.summa4
+          %td= 0
+          %td= 0
+          %td= 0
+          %td= summa.summa1+summa.summa2-summa.summa3-summa.summa4
+          %td= id.closesumma
+    - id.balances.where(@wherestring).each do |summa|
+      %tr{ class: "#{class_tr}" }
+        %td= index += 1
+        %td= id.title
+        %td= id.comment
+        %td= summa.summa1 
+        %td= summa.summa2
+        %td= summa.summa3
+        %td= summa.summa4
+        %td= summa.summa1+summa.summa2-summa.summa3-summa.summa4
+        %td= id.closesumma
+      
