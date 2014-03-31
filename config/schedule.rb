@@ -29,7 +29,7 @@ every "2 * * * *" do
 	runner "ChangesTasks.new.send_changes"
 end
 
-every 1.day, at: '23:00 pm' do
+every 3.hours do
 	runner "InetMembersTasks.datageneration" 
 end
 
