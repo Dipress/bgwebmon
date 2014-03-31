@@ -35,121 +35,121 @@ class InetMembersTasks
     #Файл с данными логин, IP-адрес, шейпер
     shaiper_members = members.map do |m|
       if m.deviceOptions.to_i.eql?(2)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}64"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}64"
         end
       elsif m.deviceOptions.to_i.eql?(4)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}128"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}128"
         end
       elsif m.deviceOptions.to_i.eql?(5)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}256"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}256"
         end
       elsif m.deviceOptions.to_i.eql?(6)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}512"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}512"
         end
       elsif m.deviceOptions.to_i.eql?(8)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}1024"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}1024"
         end
       elsif m.deviceOptions.to_i.eql?(11)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}1536"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}1536"
         end
       elsif m.deviceOptions.to_i.eql?(9)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}2048"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}2048"
         end
       elsif m.deviceOptions.to_i.eql?(12)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}2560"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}2560"
         end
       elsif m.deviceOptions.to_i.eql?(10)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}3072"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}3072"
         end
       elsif m.deviceOptions.to_i.eql?(13)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}4096"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}4096"
         end
       elsif m.deviceOptions.to_i.eql?(14)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}5120"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}5120"
         end
       elsif m.deviceOptions.to_i.eql?(15)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}6144"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}6144"
         end
       elsif m.deviceOptions.to_i.eql?(16)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}7162"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}7162"
         end
       elsif m.deviceOptions.to_i.eql?(17)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}8192"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}8192"
         end
       elsif m.deviceOptions.to_i.eql?(18)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}9216"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}9216"
         end
       elsif m.deviceOptions.to_i.eql?(20)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}10240"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}10240"
         end
       elsif m.deviceOptions.to_i.eql?(26)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}12288"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}12288"
         end
       elsif m.deviceOptions.to_i.eql?(28)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}15360"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}15360"
         end
       elsif m.deviceOptions.to_i.eql?(25)
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}20480"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}20480"
         end
       else
-        if m.accessCode.to_i.eql?(0) && m.deviceState.to_i.eql?(1)
+        if m.deviceState.to_i.eql?(1)
           "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}2048"
         else
           "##{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}#{' '*(m.addressFrom.bytes.to_a.join('.').length)}2048"
