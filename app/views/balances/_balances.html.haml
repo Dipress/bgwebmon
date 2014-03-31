@@ -21,7 +21,7 @@
     - else 
       - class_tr = 'success'
     - if id.balances.where(@wherestring).empty?
-      - summa = id.balances.order("yy DESC").limit(1).each do |summa|
+      - summa = id.balances.where("yy <= ?", @month).order("yy DESC").limit(1).each do |summa|
         %tr{ class: "#{class_tr}" }
           %td= index += 1
           %td= id.title
