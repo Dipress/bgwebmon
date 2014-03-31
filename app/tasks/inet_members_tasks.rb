@@ -32,6 +32,59 @@ class InetMembersTasks
     #Удадяем файл из RAILS_ROOT
     File.delete("chap-secrets")
 
+    #Файл с данными логин, IP-адрес, шейпер
+    shaiper_members = members.map do |m|
+      if m.deviceOptions.to_i.eql?(2)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t64"
+      elsif m.deviceOptions.to_i.eql?(4)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t128"
+      elsif m.deviceOptions.to_i.eql?(5)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t256"
+      elsif m.deviceOptions.to_i.eql?(6)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t512"
+      elsif m.deviceOptions.to_i.eql?(8)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t1024"
+      elsif m.deviceOptions.to_i.eql?(11)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t1536"
+      elsif m.deviceOptions.to_i.eql?(9)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t2048"
+      elsif m.deviceOptions.to_i.eql?(12)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t2560"
+      elsif m.deviceOptions.to_i.eql?(10)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t3072"
+      elsif m.deviceOptions.to_i.eql?(13)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t4096"
+      elsif m.deviceOptions.to_i.eql?(14)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t5120"
+      elsif m.deviceOptions.to_i.eql?(15)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t6144"
+      elsif m.deviceOptions.to_i.eql?(16)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t7162"
+      elsif m.deviceOptions.to_i.eql?(17)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t8192"
+      elsif m.deviceOptions.to_i.eql?(18)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t9216"
+      elsif m.deviceOptions.to_i.eql?(20)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t10240"
+      elsif m.deviceOptions.to_i.eql?(26)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t12288"
+      elsif m.deviceOptions.to_i.eql?(28)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t15360"
+      elsif m.deviceOptions.to_i.eql?(25)
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t20480"
+      else
+        "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.bytes.to_a.join('.')}\t2048"
+      end   
+    end
+    File.open("shaper ", "w"){|file| file.write shaiper_members.join("\n") }
+    File.open("shaper", "a"){|file| file.write "\n" }
+
+    Net::SCP.start(host, username, password: password) do |scp|
+      scp.upload("shaper", "/etc/ppp/")
+    end
+
+    File.delete("shaper")
+
     sleep(10)
 
     members = InetService.where(deviceId: 10)
