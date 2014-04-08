@@ -43,6 +43,7 @@ before_filter :sadmin, only: [:update, :processing, :confirmation, :destroy ]
   # GET /agent_payments/new.json
   def new
     @agent_payment = AgentPayment.new
+    @currency = AgentPaymentCurrency.all
     @user = current_user
 
     respond_to do |format|
@@ -59,8 +60,10 @@ before_filter :sadmin, only: [:update, :processing, :confirmation, :destroy ]
   # POST /agent_payments
   # POST /agent_payments.json
   def create
+    @currency = AgentPaymentCurrency.all
     @agent_payment = AgentPayment.new(params[:agent_payment])
     @agent_payment.user_id = current_user.id
+    @agent_payment.value /= @agent_payment.agent_payment_currency.curs
 
     respond_to do |format|
       if @agent_payment.save

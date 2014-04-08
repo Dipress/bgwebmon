@@ -7,7 +7,6 @@ class CreateAgentPayments < ActiveRecord::Migration
       t.decimal :value
       t.string :text
       t.datetime :managed_at
-
       t.timestamps
     end
     add_index :agent_payments, :contract_id

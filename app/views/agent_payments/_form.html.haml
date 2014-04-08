@@ -10,8 +10,8 @@
         = f.error :contract_id, id: 'user_name_error', style: "color: #B94A48;"
         = f.hint 'Выберать еще можно стрелками и клавишей Enter'
     = f.input :contract_id, as: :hidden, input_html: { "ng-model" => "contractModel" }
+    = f.association :agent_payment_currency, as: :radio_buttons
     = f.input :value, input_html: { "ng-model" => "summaModel" }
     = f.input :text, as: :text, input_html: { cols: 30, rows: 4, input_html: { "ng-model" => "commentModel" } }
   .form-actions
-    = f.button :submit, t('agent_payments.view.create.submit'), :confirm => 'Добавить платеж?' 
-
+    = f.button :submit, t('agent_payments.view.create.submit'), :confirm => 'Добавить платеж?'

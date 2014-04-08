@@ -5,6 +5,7 @@ ru:
         contract: 'Абонент'
         value: 'Сумма'
         text: 'Комментарий'
+        agent_payment_currency: "Валюта"
     hints:
       agent_payment:
         text: 'Например: Платеж за май 2013'
