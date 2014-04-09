@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140408085717) do
+ActiveRecord::Schema.define(:version => 20140409065404) do
 
   create_table "address_area", :force => true do |t|
     t.string  "title",  :limit => 150, :default => "0", :null => false
@@ -85,9 +85,10 @@ ActiveRecord::Schema.define(:version => 20140408085717) do
     t.datetime "updated_at",                                               :null => false
     t.integer  "confirmation_id"
     t.datetime "confirmation_at"
-    t.integer  "agent_payment_currency_id",                                :null => false
+    t.integer  "agent_payment_currency_id"
   end
 
+  add_index "agent_payments", ["agent_payment_currency_id"], :name => "index_agent_payments_on_agent_payment_currency_id"
   add_index "agent_payments", ["contract_id"], :name => "index_agent_payments_on_contract_id"
   add_index "agent_payments", ["manager_id"], :name => "index_agent_payments_on_manager_id"
   add_index "agent_payments", ["user_id"], :name => "index_agent_payments_on_user_id"
