@@ -1,0 +1,25 @@
+.page-header
+  %h1 Курс Валют
+= link_to "Добавить", new_agent_payment_currency_path, class: 'btn btn-primary'
+%br
+%br
+%table.table.table-bordered
+  %thead
+    %tr
+      %th №
+      %th Название
+      %th Символьный код
+      %th Наминал
+      %th Курс
+      %th Действия
+  %tbody
+    - @currency.each do |c|
+      %tr
+        %td=c.id
+        %td=c.name
+        %td=c.scode
+        %td=c.nominal
+        %td=c.curs
+        %td
+          %span
+            = link_to "Редактировать", edit_agent_payment_currency_path(c.to_param), class: 'btn btn-primary'
