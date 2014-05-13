@@ -1,0 +1,21 @@
+= simple_form_for @currency do |f|
+  .control-group
+    = f.label "Название валюты"
+    .controls
+      = f.input :name
+  .control-group
+    = f.label "Символьный код"
+    .controls
+      = f.input :scode
+  .control-group
+    = f.label "Наминал"
+    .controls
+      = f.input :nominal
+  .control-group
+    = f.label "Курс"
+    .controls
+      = f.input :curs
+  .control-group
+    .controls
+      .form_actions
+        = f.submit "Создать", class: "btn btn-large btn-primary"
