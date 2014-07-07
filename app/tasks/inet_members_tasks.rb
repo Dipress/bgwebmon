@@ -29,6 +29,14 @@ class InetMembersTasks
       scp.upload("chap-secrets", "/etc/ppp/")
     end
 
+    host2 = ENV["REMOTE_HOST_2"]
+    username2 = ENV["REMOTE_USER_2"]
+    password2 = ENV["REMOTE_PASSWORD_2"]
+
+    Net::SCP.start(host2, username2, password: password2) do |scp|
+      scp.upload("chap-secrets", "/etc/ppp/")
+    end
+
     #Удадяем файл из RAILS_ROOT
     File.delete("chap-secrets")
 
@@ -161,6 +169,10 @@ class InetMembersTasks
     File.open("shaper", "a"){|file| file.write "\n" }
 
     Net::SCP.start(host, username, password: password) do |scp|
+      scp.upload("shaper", "/etc/ppp/")
+    end
+
+    Net::SCP.start(host2, username2, password: password2) do |scp|
       scp.upload("shaper", "/etc/ppp/")
     end
 
