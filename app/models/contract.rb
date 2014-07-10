@@ -6,7 +6,7 @@ class Contract < ActiveRecord::Base
   self.table_name =  "contract"
   self.primary_key = "id"
 
-  attr_accessible :status
+  attr_accessible :status, :status_date
 
   has_many :phones, :class_name => "Phone", :foreign_key => "cid"
   has_many :agent_payments
@@ -160,7 +160,7 @@ class Contract < ActiveRecord::Base
   end
 
   def get_last_balance
-    summa = balances.order("yy DESC").first
+    summa = balances.order("yy DESC, mm DESC").first
     if summa.nil?
       summa = Balance.create! summa1: 0, summa2: 0, summa3: 0, summa4: 0, yy: Time.now.year, mm: Time.now.month, cid: self.id
     elsif summa.mm < Time.now.month || summa.yy < Time.now.year
