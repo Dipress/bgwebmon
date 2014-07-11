@@ -13,10 +13,10 @@ class BalanceNotificationsTasks
   def self.notification_off
     @@current_contract.each do |sms|
       if sms.status.eql?(2) && sms.balance_summa > sms.closesumma
-        Ip2sms.new("#{sms.mobile_phone}", "Услуги Интернет недоступны. Ваш долг на #{@@current_day}: #{sms.current_balance.abs} руб.").send
+        Ip2sms.new("#{sms.mobile_phone}", "Услуги Интернет недоступны. Ваш баланс на #{@@current_day}: #{sms.current_balance} руб.").send
       end
       if sms.status.eql?(2) && sms.balance_summa < 0 && sms.balance_summa > sms.closesumma
-        Ip2sms.new("#{sms.mobile_phone}", "Услуги Интернет недоступны. Ваш долг на #{@@current_day}: #{sms.current_balance.abs} руб.").send
+        Ip2sms.new("#{sms.mobile_phone}", "Услуги Интернет недоступны. Ваш баланс на #{@@current_day}: #{sms.current_balance} руб.").send
       end
     end
   end
@@ -24,14 +24,14 @@ class BalanceNotificationsTasks
   def self.notification_on
     @@current_contract.each do |sms|
       if sms.status.eql?(0) && sms.balance_summa > sms.closesumma
-        Ip2sms.new("#{sms.mobile_phone}", "Услуга Интернет активна. Ваш баланс на #{@@current_day}: #{sms.current_balance} руб.").send
+        Ip2sms.new("#{sms.mobile_phone}", "Услуги Интернет активны. Ваш баланс на #{@@current_day}: #{sms.current_balance} руб.").send
       end
     end
   end
 
   def self.notification_new
     @@current_contract.each do |sms|
-      if sms.status.eql?(0) && sms.status_date.eql?(@@current_day)
+      if sms.status.eql?(0) && sms.date1.eql?(@@current_day)
         Ip2sms.new("#{sms.mobile_phone}", "Ваш номер договора: #{sms.title};
                                            пароль от личного кабинета: #{sms.pswd};
                                            адрес личного кабинета: http://billing.crimeainfo.com/").send
