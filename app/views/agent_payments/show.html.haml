@@ -22,7 +22,7 @@
       %td= @agent_payment.contract.title + "-" + @agent_payment.contract.comment
       %td= @agent_payment.user.name
       %td= @agent_payment.created_at
-      %td= @agent_payment.value.to_s + " грн"
+      %td= @agent_payment.value.to_s + " руб."
       %td= @agent_payment.text
       - if User.superadmin(@user.id)
         %td

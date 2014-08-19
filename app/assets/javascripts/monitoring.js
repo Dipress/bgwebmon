@@ -88,9 +88,9 @@ AjaxReq.prototype.TRequest = function(cid){
 	}).done(function(data){
 		data = data.monitoring
 		$.each(data[0].tplans, function(index, value){
-			$(ea.ul).append("<div>"+value.title+" - "+value.cost+"0грн.</div>");
+			$(ea.ul).append("<div>"+value.title+" - "+value.cost+"0руб.</div>");
 		});
-		$(ea.ul).append("<div>Общая стоимость: "+data[0].allcost+" грн.</div>");
+		$(ea.ul).append("<div>Общая стоимость: "+data[0].allcost+" руб.</div>");
 	});
 }
 
