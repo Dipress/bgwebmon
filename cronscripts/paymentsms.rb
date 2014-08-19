@@ -12,7 +12,7 @@ Payment.where(["dt>=?", (timenow - 1.day).strftime("%Y-%m-%d %H:%M")]).each do |
   Sms.create!(:date => Time.now.strftime("%Y-%m-%d %H:%M"),
               :cid => p.cid,
               :smstype_id => 5)
-  sms = "Крыминфоком, поступил платеж на сумму #{sprintf('%.02f',p.summa)} грн."
+  sms = "Крыминфоком, поступил платеж на сумму #{sprintf('%.02f',p.summa)} руб."
   contract = p.contract
   phone = contract.phones.where(["pid=?", 9])[0]
   if phone.nil?
