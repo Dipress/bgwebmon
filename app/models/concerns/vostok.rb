@@ -29,6 +29,3 @@ module Vostok
     end
   end
 end
-
-Vostok.default_options = { login: ENV['VOSTOK_LOGIN'], password: ENV['VOSTOK_PASSWORD'], service: ENV['VOSTOK_SERVICE'],space_force: ENV['VOSTOK_SPACEFORCE'] }
-#Vostok::Sms.new("INFOCOM", "+79788384510", "+79179066010").send
