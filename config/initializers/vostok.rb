@@ -1,0 +1,1 @@
+Vostok.default_options = { login: ENV['VOSTOK_LOGIN'], password: ENV['VOSTOK_PASSWORD'], service: ENV['VOSTOK_SERVICE'],space_force: ENV['VOSTOK_SPACEFORCE'] }
