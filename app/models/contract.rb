@@ -136,6 +136,12 @@ class Contract < ActiveRecord::Base
     end
   end
 
+  def russian_mobile
+    phone = phones.where(pid: 14).first
+    phone = phone.value if phone.present?
+    (phone =~ /^79\d{9}$/)? "+" + phone : nil
+  end
+
   def current_balance
     Balance.by_cmy self.id, Time.now.month, Time.now.year
   end
