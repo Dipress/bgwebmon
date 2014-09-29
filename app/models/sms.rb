@@ -33,7 +33,8 @@ class Sms
           dd = days_left.ceil
           dd = 1 if dd == 0
           s = Sms.where(smstype_id: 1, :created_at.gte => (time - 1.day), contract_id: contract.id).first
-          phone = contract.mobile_phone
+          #phone = contract.mobile_phone
+          phone = contract.russian_mobile
           if s.nil? && !phone.nil? && (dd==1||dd==5)
             Sms.create! contract_id: contract.id, title: contract.title, comment: contract.comment, text: I18n.t('sms.few_days', days: I18n.t(:days, count: dd)), smstype_id: 1, phone: phone
           end
@@ -42,7 +43,8 @@ class Sms
           limit_days = (one_day == 0) ? 0 : ((contract.closesumma.to_f / one_day)*(-1)).to_i
           if (4..5).include? limit_days
             s = Sms.where(smstype_id: 2, :created_at.gte => (time - 5.day), contract_id: contract.id).first
-            phone = contract.mobile_phone
+            #phone = contract.mobile_phone
+            phone = contract.russian_mobile
             if s.nil? && !phone.nil?
               Sms.create! contract_id: contract.id, title: contract.title, comment: contract.comment, text: I18n.t('sms.exhausted'), smstype_id: 2, phone: phone
             end
