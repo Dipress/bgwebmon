@@ -28,6 +28,9 @@ set :normalize_asset_timestamps, false
 set :whenever_identifier, "reminder"
 set :whenever_command, "bundle exec whenever"
 
+set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
+set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
+
 role :web, domain                         
 role :app, domain                         
 role :db,  domain, primary: true
@@ -36,9 +39,21 @@ ssh_options[:forward_agent] = true
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
 
 namespace :deploy do
+  #task :restart do
+    #run "touch #{current_path}/tmp/restart.txt" 
+  #end
   task :restart do
-    run "touch #{current_path}/tmp/restart.txt" 
+    run "if [ -f #{unicorn_pid} ] && [ -e /proc/$(cat #{unicorn_pid}) ]; then kill -USR2 `cat #{unicorn_pid}`; else cd #{latest_release} && bundle exec unicorn_rails -c #{unicorn_conf} -E #{rails_env} -D; fi"
   end
+
+  task :start do
+    run "cd #{latest_release} && bundle exec unicorn_rails -c #{unicorn_conf} -E #{rails_env} -D"
+  end
+
+  task :stop do
+    run "if [ -f #{unicorn_pid} ] && [ -e /proc/$(cat #{unicorn_pid}) ]; then kill -QUIT `cat #{unicorn_pid}`; fi"
+  end
+  
   task :graphs do
   	run "ln -s /var/www/graphs /var/www/webmon/current/graphs && mkdir #{current_path}/public/graphs && chown nobody #{current_path}/public/graphs" 
   end
