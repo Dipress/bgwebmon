@@ -55,3 +55,7 @@ group :development do
   gem 'thin'
   gem 'quiet_assets'
 end
+
+group :production do
+  gem 'unicorn'
+end
