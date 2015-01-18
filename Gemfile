@@ -13,6 +13,8 @@ gem 'daemons'
 gem 'paperclip'
 gem 'whenever'
 gem 'nokogiri'
+gem 'spreadsheet'
+gem 'acts_as_xlsx'
 
 gem "active_model_serializers"
 
