@@ -11,7 +11,9 @@ class UserDataTasks
 			"№ Договора", 
 			"Ф.И.О.","Логин",
 			"IP-адрес/маска",
-			"Паспорт","Дата выдачи паспорта",
+			"Паспорт",
+			"Дата выдачи паспорта",
+			"Кем выдан паспорт",
 			"Дата рождения",
 			"Адрес (почтовый)",
 			"Адрес (подключения)",
@@ -23,14 +25,14 @@ class UserDataTasks
 		]
 
 		Axlsx::Package.new do |p|
-			p.workbook.add_worksheet(:name => "Физические лица") do |sheet1|
+			p.workbook.add_worksheet(name: "Физические лица") do |sheet1|
 				sheet1.add_row(title)
 
 				contracts.each do |c|
 					if c.russian_mobile.nil? && c.contract_parameter_type1.where(pid:24).empty?
-						sheet1.add_row ["#{c.title}", "#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil,"#{c.date1}","#{c.date2}", nil]
+						sheet1.add_row ["#{c.title}", "#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,"#{c.date1}","#{c.date2}", nil]
 					else
-						sheet1.add_row ["#{c.title}", "#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil,"#{c.date1}","#{c.date2}","#{c.russian_mobile}"]
+						sheet1.add_row ["#{c.title}", "#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,"#{c.date1}","#{c.date2}","#{c.russian_mobile}"]
 					end
 				end
 			end
@@ -57,15 +59,14 @@ class UserDataTasks
 						sheet4.add_row ["#{c.title}","#{c.comment}", nil, nil]
 
 					else
-						#надо продумать момент если логинов будет больше чем 1 на одном договоре 
 						c.contract_parameter_type1.where(pid: 34).each do |ip|
-							sheet4.add_row ["#{c.title}","#{c.comment}", nil, "#{ip.val.first}"]
+							sheet4.add_row ["#{c.title}","#{c.comment}", nil, "#{ip.val}"]
 						end
 					end
 				end
 			end
 
-			p.workbook.add_worksheet(:name => "Паспорт") do |sheet5|
+			p.workbook.add_worksheet(name: "Паспорт") do |sheet5|
 				sheet5.add_row(title)
 
 				contracts.each do |c|
@@ -79,7 +80,7 @@ class UserDataTasks
 				end
 			end
 
-			p.workbook.add_worksheet(:name => "Дата выдачи паспорта") do |sheet6|
+			p.workbook.add_worksheet(name: "Дата выдачи паспорта") do |sheet6|
 				sheet6.add_row(title)
 
 				contracts.each do |c|
@@ -93,78 +94,92 @@ class UserDataTasks
 				end
 			end
 
-			p.workbook.add_worksheet(:name => "Дата рождения") do |sheet7|
+			p.workbook.add_worksheet(name: "Кем выдан паспорт") do |sheet7|
 				sheet7.add_row(title)
 
 				contracts.each do |c|
-					if c.contract_parameter_type6.where(pid:58).empty?
-						sheet7.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, nil]
+					if c.contract_parameter_type1.where(pid:25).empty?
+						sheet7.add_row ["#{c.title}","#{c.comment}",nil,nil,nil, nil,nil]
 					else
-						c.contract_parameter_type6.where(pid:58).map do |borning_date|
-							sheet7.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, "#{borning_date.val}"]
+						c.contract_parameter_type1.where(pid:25).map do |passport_service|
+							sheet7.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, "#{passport_service.val}"]
 						end
 					end
 				end
 			end
 
-			p.workbook.add_worksheet(:name => "Адрес почтовый") do |sheet8|
+			p.workbook.add_worksheet(name: "Дата рождения") do |sheet8|
 				sheet8.add_row(title)
 
 				contracts.each do |c|
-					if c.contract_parameter_type2.where(pid:5).empty?
+					if c.contract_parameter_type6.where(pid:58).empty?
 						sheet8.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, nil, nil]
 					else
-						c.contract_parameter_type2.where(pid:5).map do |post_address|
-							sheet8.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil, "#{post_address.address}"]
+						c.contract_parameter_type6.where(pid:58).map do |borning_date|
+							sheet8.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil, "#{borning_date.val}"]
 						end
 					end
 				end
 			end
 
-			p.workbook.add_worksheet(:name => "Адрес подключения") do |sheet9|
+			p.workbook.add_worksheet(name: "Адрес почтовый") do |sheet9|
 				sheet9.add_row(title)
 
 				contracts.each do |c|
-					if c.contract_parameter_type2.where(pid:42).empty?
-						sheet9.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, nil,nil, nil]
+					if c.contract_parameter_type2.where(pid:5).empty?
+						sheet9.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, nil, nil, nil]
 					else
-						c.contract_parameter_type2.where(pid:42).map do |connect_address|
-							sheet9.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil, "#{connect_address.address}"]
+						c.contract_parameter_type2.where(pid:5).map do |post_address|
+							sheet9.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil, "#{post_address.address}"]
 						end
 					end
 				end
 			end
 
-			p.workbook.add_worksheet(name: "Технология передачи данных") do |sheet10|
+			p.workbook.add_worksheet(name: "Адрес подключения") do |sheet10|
 				sheet10.add_row(title)
+
+				contracts.each do |c|
+					if c.contract_parameter_type2.where(pid:42).empty?
+						sheet10.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil, nil,nil, nil, nil]
+					else
+						c.contract_parameter_type2.where(pid:42).map do |connect_address|
+							sheet10.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil, nil, "#{connect_address.address}"]
+						end
+					end
+				end
+			end
+
+			p.workbook.add_worksheet(name: "Технология передачи данных") do |sheet11|
+				sheet11.add_row(title)
 				contracts.each do |c|
 					if c.contract_parameter_type7.where(pid:53).empty?
-						sheet10.add_row ["#{c.title}","#{c.comment}"]
+						sheet11.add_row ["#{c.title}","#{c.comment}"]
 					else
 						c.contract_parameter_type7.where(pid:53).each do |data_type|
 							if data_type.val.eql?(-1) || data_type.val.eql?(0)
-								sheet10.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil]
+								sheet11.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil, nil]
 							else
 								cpt7v = ContractParameterType7Value.find(data_type.val)
-								sheet10.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,"#{cpt7v.title}"]
+								sheet11.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,"#{cpt7v.title}"]
 							end
 						end
 					end
 				end
 			end
 
-			p.workbook.add_worksheet(name: "Точка подключения") do |sheet11|
-				sheet11.add_row(title)
+			p.workbook.add_worksheet(name: "Точка подключения") do |sheet12|
+				sheet12.add_row(title)
 				contracts.each do |c|
 					if c.contract_parameter_type7.where(pid:54).empty?
-						sheet11.add_row ["#{c.title}","#{c.comment}"]
+						sheet12.add_row ["#{c.title}","#{c.comment}"]
 					else
 						c.contract_parameter_type7.where(pid:54).each do |data_type|
 							if data_type.val.eql?(-1) || data_type.val.eql?(0)
-								sheet11.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil]
+								sheet12.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
 							else
 								cpt7v = ContractParameterType7Value.find(data_type.val)
-								sheet11.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,"#{cpt7v.title}"]
+								sheet12.add_row ["#{c.title}","#{c.comment}",nil,nil,nil,nil,nil,nil,nil,nil,nil,"#{cpt7v.title}"]
 							end
 						end
 					end
