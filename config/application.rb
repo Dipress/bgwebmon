@@ -24,7 +24,7 @@ module Bgwebmon
     config.autoload_paths += %W(#{config.root}/lib)
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
-    config.time_zone = 'Kyiv' 
+    config.time_zone = 'Minsk' 
     config.active_support.escape_html_entities_in_json = true
     config.generators do |g|
       g.template_engine :haml
