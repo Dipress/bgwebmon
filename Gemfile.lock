@@ -133,6 +133,7 @@ GEM
       mongoid (> 3.0)
       stringex (~> 1.4)
     moped (1.5.0)
+    mtik (4.0.3)
     multi_json (1.7.2)
     mysql2 (0.3.11)
     net-scp (1.1.0)
@@ -297,6 +298,7 @@ DEPENDENCIES
   mongoid-rspec
   mongoid_auto_inc
   mongoid_slug
+  mtik
   mysql2
   ng-rails-csrf
   nokogiri

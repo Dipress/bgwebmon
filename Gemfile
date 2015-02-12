@@ -15,6 +15,7 @@ gem 'whenever'
 gem 'nokogiri'
 gem 'spreadsheet'
 gem 'acts_as_xlsx'
+gem 'mtik'
 
 gem "active_model_serializers"
 

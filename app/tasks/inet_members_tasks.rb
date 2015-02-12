@@ -104,6 +104,11 @@ class InetMembersTasks
 
     sleep(10)
 
+    ########################## Mikrotik ##############################################################
+    members = InetService.where(deviceId: 12)
+
+    m = MTik::Connection.new(host: '172.28.200.42', pass: 'temp_mikrotik')
+
     ########################## Bahchisarai ############################################################
 
     members = InetService.where(deviceId: 11)
