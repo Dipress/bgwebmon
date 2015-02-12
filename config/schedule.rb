@@ -33,6 +33,10 @@ every 3.hours do
 	runner "InetMembersTasks.datageneration"
 end
 
+every 1.hours do
+	runner "MikrotikMembersTasks.datagenerate"
+end
+
 every 1.day, at: '10:00 pm' do
 	runner "BalanceNotificationsTasks.notification_on"
 	runner "BalanceNotificationsTasks.notification_stoped"
