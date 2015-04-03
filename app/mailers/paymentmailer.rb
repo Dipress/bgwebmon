@@ -3,11 +3,11 @@ class Paymentmailer < ActionMailer::Base
 
   def payment_added payment, to_email
     @payment = payment
-    mail(from: "ruby.ci.ukrpack.net@crimeainfo.com", to: to_email, subject: "Представитель добавил платеж")
+    mail(from: "ruby@crimeainfo.com", to: to_email, subject: "Представитель добавил платеж")
   end 
 
   def payment_processed payment, to_email
     @payment = payment
-    mail(from: "ruby.ci.ukrpack.net@crimeainfo.com", to: to_email, subject: "Платеж обработан")
+    mail(from: "ruby@crimeainfo.com", to: to_email, subject: "Платеж обработан")
   end
 end

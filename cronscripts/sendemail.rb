@@ -20,7 +20,7 @@ MESSAGE_END
 	
 
 	#Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
-	Net::SMTP.start('mail.crimeainfo.com', 25, 'ruby.ci.ukrpack.net') do |s|
+	Net::SMTP.start('mail.crimeainfo.com', 25, 'ruby.crimeainfo.com') do |s|
   		s.send_message message, from, to
 	end
 	

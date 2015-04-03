@@ -93,7 +93,7 @@ end
 #Отправка письма
 if text != "<h3>Отправлены следующие СМС сообщения:</h3>"
   to="bgbilling@crimeainfo.com"
-  from="ruby.ci.ukrpack.net@crimeainfo.com"
+  from="ruby@crimeainfo.com"
   subject="Отправлены следующие СМС #{timenow.strftime("%d.%m.%Y %H:%M")}"
   sendmail(text, to, from, subject)
 end

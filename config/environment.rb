@@ -7,7 +7,7 @@ Bgwebmon::Application.initialize!
 ActionMailer::Base.smtp_settings = {
    :address => 'mail.crimeainfo.com',
    :port => 25,
-   :domain => 'ruby.ci.ukrpack.net'
+   :domain => 'ruby.crimeainfo.com'
 } 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.raise_delivery_errors = true
