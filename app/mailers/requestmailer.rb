@@ -1,7 +1,7 @@
 # coding: utf-8
 class Requestmailer < ActionMailer::Base
   def requestfl_added(requestfl,to_email)
-    @urlfor = "http://crimeainfo.com/requestfl/#{requestfl.id}"
+    @urlfor = "http://ruby.crimeainfo.com/requestfl/#{requestfl.id}"
     @request = requestfl
     mail(:from => "ruby@crimeainfo.com", :to => to_email, :subject => "Добавлена заявка на заведение абонента в биллинг - #{requestfl.fio}")
   end 
