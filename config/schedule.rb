@@ -47,4 +47,8 @@ every 1.day, at: '7:45 am' do
 	runner "BalanceNotificationsTasks.notification_off"
 end
 
+every 1.day, at: '11:00 pm' do
+	runner "YealinksTasks.mobiledata"
+end
+
 # Learn more: http://github.com/javan/whenever
