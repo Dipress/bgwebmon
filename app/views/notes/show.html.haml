@@ -1,0 +1,32 @@
+.container
+  .row
+    .span3
+    .span6
+      %div
+        %b ФИО: 
+        %p= @note.fio
+      %div
+        %b IP-адрес:
+        %p= @note.ip
+      %div
+        %b Логин:
+        %p= @note.login
+      %div
+        %b Телефон:
+        %p= @note.phone
+      %div
+        %b Точка подключения:
+        %p= "#{ContractParameterType7Value.find(@note.bs).title}"
+      %div
+        %b Тип оборудования:
+        %p= "#{ContractParameterType7Value.find(@note.hardware).title}"
+      %div
+        %b MAC-адрес:
+        %p= @note.mac
+      %div
+        %b Представитель:
+        %p= "#{ContractParameterType7Value.find(@note.agent).title}"
+      %div
+        %b Дополнительная информация:
+        %p= @note.remark
+    .span3
