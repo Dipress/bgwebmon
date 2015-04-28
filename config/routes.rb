@@ -8,6 +8,7 @@ Bgwebmon::Application.routes.draw do
   end
 
   resources :new_monitoring, only: [:index, :show]
+  resources :notes
 
   resources :sessions do
     collection do 

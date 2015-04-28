@@ -29,9 +29,9 @@ module Bgwebmon
     config.generators do |g|
       g.template_engine :haml
     end
-     config.generators do |g|
-      g.orm :active_record
-    end
+     #config.generators do |g|
+      #g.orm :active_record
+    #end
     config.active_record.whitelist_attributes = true
     config.assets.enabled = true
     config.assets.version = '1.0'

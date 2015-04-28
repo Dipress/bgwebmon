@@ -5,6 +5,7 @@
 		%li= link_to "Доходы БC", statistic_path, class: current_page?(statistic_path) && 'active'
 		%li= link_to "Балансы", balances_path, class: current_page?(balances_path) && 'active'
 		%li= link_to "Договора", "/doc/04-", class: current_page?("/doc/04-") && 'active'
+		%li= link_to "Быстрая заявка", notes_path, class: current_page?(notes_path) && 'active'
 		%li= link_to "Заявки на включение", request_path, class: current_page?(request_path) && 'active'
 		%li= link_to "Задачи", tasks_path, class: current_page?(tasks_path) && 'active'
 		%li= link_to "Платежи", agent_payments_path, class: current_page?(agent_payments_path) && 'active'

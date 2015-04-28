@@ -1,0 +1,30 @@
+= form_for @note, url: { action: "create" } do |n|
+  .editor_field
+    %label ФИО
+    = n.text_field :fio, class: "span6"
+  .editor_field
+    %label IP-адрес
+    = n.text_field :ip, class: "span6"
+  .editor_field
+    %label Логин
+    = n.text_field :login, class: "span6"
+  .editor_field
+    %label Телефон
+    = n.text_field :phone, class: "span6"
+  .editor_field
+    %label Базовая станция
+    = n.collection_select :bs, ContractParameterType7Value.where(pid: 54).order('title ASC'), :id, :title, {prompt: 'Выберите точку подключения'}, class: "span6"
+  .editor_field
+    %label Тип оборудования
+    = n.collection_select :hardware, ContractParameterType7Value.where(pid: 68).order('title ASC'), :id, :title, {prompt: 'Выберите тип оборудования'}, class: "span6"
+  .editor_field
+    %label MAC-адрес
+    = n.text_field :mac, class: "span6"
+  .editor_field
+    %label Монтажник
+    = n.collection_select :agent, ContractParameterType7Value.where(pid: 63).order('title ASC'), :id, :title, {prompt: 'Выберите монтажника'}, class: "span6"
+  .editor_field
+    %label Примечание
+    = n.text_area :remark, cols: 100, rows: 6, class: "span6"
+  .editor_field
+    = n.submit "Создать", :class => "btn", class: "span6"
