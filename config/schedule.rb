@@ -38,14 +38,9 @@ every 1.hours do
 end
 
 every 1.day, at: '10:00 pm' do
-	runner "BalanceNotificationsTasks.notification_on"
-	runner "BalanceNotificationsTasks.notification_stoped"
 	runner "BalanceNotificationsTasks.notification_new"
 end
 
-every 1.day, at: '7:45 am' do
-	runner "BalanceNotificationsTasks.notification_off"
-end
 
 every 1.day, at: '11:00 pm' do
 	runner "YealinksTasks.mobiledata"
