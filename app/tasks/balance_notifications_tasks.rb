@@ -31,16 +31,20 @@ class BalanceNotificationsTasks
 
   def self.notification_new
     #Создаем массив данных с заявками которые бы заведены/обновлены в текущий день c 00:00 до 22:00 и имеют статус "готов к подключению"
-    сurrent_requests = Requestfl.where(updated_at: Time.now.at_beginning_of_day..Time.now, requeststatus_id: 2)
+    сurrent_requests = Requestfl.where(updated_at: Time.now.at_beginning_of_day..Time.now, requeststatus_id: 3)
 
-    #Находим нужные договора по ФИО
-    contracts = сurrent_requests.map do |request|
-      Contract.find_by_comment(request.fio)
-    end
-    
-    #Теперь отправляем смс-сообщение
-    contracts.map do |sms|
-      Vostok::Sms.new("INFOCOM", "#{sms.russian_mobile}", "Ваш номер договора: #{sms.title}, пароль от личного кабинета: #{sms.pswd}, адрес личного кабинета: http://billing.crimeainfo.com/").send
+    if сurrent_requests.empty?
+      nil
+    else
+      #Находим нужные договора по ФИО
+      contracts = сurrent_requests.map do |request|
+        Contract.find_by_comment(request.fio)
+      end
+
+      #Теперь отправляем смс-сообщение
+      contracts.map do |sms|
+        Vostok::Sms.new("INFOCOM", "#{sms.russian_mobile}", "Ваш номер договора: #{sms.title}, пароль от личного кабинета: #{sms.pswd}, адрес личного кабинета: http://billing.crimeainfo.com/").send
+      end
     end
   end
 
