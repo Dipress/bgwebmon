@@ -18,7 +18,7 @@ end
 module Bgwebmon
   class Application < Rails::Application
     config.active_record.observers = :agent_payment_observer, :payment_observer, :requestfl_observer, :contract_status_observer
-    config.mongoid.observers = :sms_observer
+    config.mongoid.observers = :sms_observer, :note_observer
     config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
     config.autoload_paths += %W(#{config.root}/app/models/concerns)
     config.autoload_paths += %W(#{config.root}/lib)
