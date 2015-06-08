@@ -1,3 +1,13 @@
+- if @note.errors.any?
+  #error_explanation
+    %h2
+      = #pluralize(@note.errors.count, "ошибки")
+      %p
+        Предварительная заявка не может быть добавлена по причине: 
+    %ul
+      - @note.errors.full_messages.each do |msg|
+        %li= msg   
+
 = form_for @note, url: { action: "create" } do |n|
   .editor_field
     %label ФИО

@@ -331,6 +331,14 @@ ru:
         technology: "Технология"
         node: "Точка подключения"
         tariffplan_id: "Тарифный план"
+      note: "Предварительная заявка на абонента"
+  mongoid:
+    attributes:
+      note:
+        bs: "Базовая станция"
+        hardware: "Тип оборудования"
+        agent: "Монтажник"
+        login: "Логин"
   days: 
     one: "%{count} день"
     few: "%{count} дня"
