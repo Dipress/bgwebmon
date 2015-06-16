@@ -42,6 +42,7 @@ class NotesController < ApplicationController
     if @note.update_attributes(params[:note])
       redirect_to @note
     else
+      @notestatus = NoteStatus.all
       render :edit
     end
   end

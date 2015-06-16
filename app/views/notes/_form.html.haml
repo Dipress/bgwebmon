@@ -34,6 +34,9 @@
     %label Монтажник
     = n.collection_select :agent, ContractParameterType7Value.where(pid: 63).order('title ASC'), :id, :title, {prompt: 'Выберите монтажника'}, class: "span6"
   .editor_field
+    %label Статус заявки
+    = collection_select(:note, :note_status_id, NoteStatus.all, :id, :title, prompt: "Статус быстрой заявки")
+  .editor_field
     %label Примечание
     = n.text_area :remark, cols: 100, rows: 6, class: "span6"
   .editor_field
