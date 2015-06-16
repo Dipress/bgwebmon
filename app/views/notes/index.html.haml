@@ -16,18 +16,60 @@
       %th Тип оборудования
       %th Телефон
       %th Представитель
+      %th Статус
       %th Создана
       %th Действия
   %tbody
   - @note.each do |n|
-    %tr
-      %td= link_to "#{n.fio}", note_path(n.login)
-      %td= n.ip
-      %td= n.login
-      %td= "#{ContractParameterType7Value.find(n.bs).title}"
-      %td= "#{ContractParameterType7Value.find(n.hardware).title}"
-      %td= n.phone
-      %td= "#{ContractParameterType7Value.find(n.agent).title}"
-      %td= I18n.l n.created_at, format: :long
-      %td
-        = link_to t('.edit', :default => t("helpers.links.edit")), edit_note_path(n.login), :class => 'btn btn-primary'
+    - if n.note_status.title.eql?("Добавлена")
+      %tr
+        %td= link_to "#{n.fio}", note_path(n.login)
+        %td= n.ip
+        %td= n.login
+        %td= "#{ContractParameterType7Value.find(n.bs).title}"
+        %td= "#{ContractParameterType7Value.find(n.hardware).title}"
+        %td= n.phone
+        %td= "#{ContractParameterType7Value.find(n.agent).title}"
+        %td= n.note_status.title
+        %td= I18n.l n.created_at, format: :long
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_note_path(n.login), :class => 'btn btn-primary'
+    - if n.note_status.title.eql?("Ушла на оформление")
+      %tr.warning
+        %td= link_to "#{n.fio}", note_path(n.login)
+        %td= n.ip
+        %td= n.login
+        %td= "#{ContractParameterType7Value.find(n.bs).title}"
+        %td= "#{ContractParameterType7Value.find(n.hardware).title}"
+        %td= n.phone
+        %td= "#{ContractParameterType7Value.find(n.agent).title}"
+        %td= n.note_status.title
+        %td= I18n.l n.created_at, format: :long
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_note_path(n.login), :class => 'btn btn-primary'
+    - if n.note_status.title.eql?("Оформлена")
+      %tr.success
+        %td= link_to "#{n.fio}", note_path(n.login)
+        %td= n.ip
+        %td= n.login
+        %td= "#{ContractParameterType7Value.find(n.bs).title}"
+        %td= "#{ContractParameterType7Value.find(n.hardware).title}"
+        %td= n.phone
+        %td= "#{ContractParameterType7Value.find(n.agent).title}"
+        %td= n.note_status.title
+        %td= I18n.l n.created_at, format: :long
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_note_path(n.login), :class => 'btn btn-primary'
+    - if n.note_status.title.eql?("Закрыта")
+      %tr.info
+        %td= link_to "#{n.fio}", note_path(n.login)
+        %td= n.ip
+        %td= n.login
+        %td= "#{ContractParameterType7Value.find(n.bs).title}"
+        %td= "#{ContractParameterType7Value.find(n.hardware).title}"
+        %td= n.phone
+        %td= "#{ContractParameterType7Value.find(n.agent).title}"
+        %td= n.note_status.title
+        %td= I18n.l n.created_at, format: :long
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_note_path(n.login), :class => 'btn btn-primary'
