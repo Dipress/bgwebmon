@@ -22,7 +22,7 @@ class Requestfl < ActiveRecord::Base
   validates :fio, presence: { message: "ФИО - #{OB}"}, length: { within: 1..70, message: I18n.t("activerecord.validations.fio")}
   validates :adress_post, presence: { message: "Почтовый адрес - #{OB}"}, length: { maximum: 200, message: I18n.t("activerecord.validations.adress_post")}
   validates :adress_connection, presence: { message: "Адресс - #{OB}"},length: { maximum: 200, message: I18n.t("activerecord.validations.adress_connection")}
-  #validates :latlng_connection, presence: { message: "Координаты - #{OB}"}, length: { maximum: 100, message: I18n.t("activerecord.validations.latlng_connection")}
+  validates :latlng_connection, presence: { message: "Координаты - #{OB}"}, length: { maximum: 100, message: I18n.t("activerecord.validations.latlng_connection")}
   validates :telephone, presence: { message: "Телефон - #{OB}"}, format: { with: telephone_regex, message: I18n.t("activerecord.validations.telephone")}
   validates :in, presence: { message: "Идентификационный код - #{OB}"}, length: { maximum: 30, message: I18n.t("activerecord.validations.in")}
   validates :pasport, presence: { message: "Паспорт серия/номер - #{OB}"}, length: { maximum: 20, message: I18n.t("activerecord.validations.pasport")}
