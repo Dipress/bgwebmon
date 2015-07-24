@@ -15,6 +15,7 @@ class Note
   field :mac, type: String
   field :agent, type: String
   field :remark, type: String
+  field :latlng_connection, type: String
 
   slug :login
 

@@ -3,8 +3,11 @@
     .span3
     .span6
       %div
-        %b ФИО: 
+        %b ФИО:
         %p= @note.fio
+      %div
+        %b Координаты подключения
+        %p= @note.latlng_connection
       %div
         %b IP-адрес:
         %p= @note.ip

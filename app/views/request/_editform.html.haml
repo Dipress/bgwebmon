@@ -9,13 +9,13 @@
 	.editor_field
 		%label * Адресс подключения:
 		= r.text_field :adress_connection
-	.editor-field
-		%label * Координаты подключения (введите адрес и нажмите "Показать на карте" или кликните по карте):
-		%input#street{:type => "text", :name => "mapsearch", :value => @requestfl[:adress_connection]}
-		%button#searchplace.btn Показать на карте
-		%br
-		%br
-		%div#requestmap
+	-#.editor-field
+		-#%label * Координаты подключения (введите адрес и нажмите "Показать на карте" или кликните по карте):
+		-#%input#street{:type => "text", :name => "mapsearch", :value => @requestfl[:adress_connection]}
+		-#%button#searchplace.btn Показать на карте
+		-#%br
+		-#%br
+		-#%div#requestmap
 	.editor-field
 		%label Email:
 		= r.text_field :email
@@ -26,7 +26,7 @@
 		%label * Дата рождения:
 		= r.text_field :in
 	.editor-field
-		%label * Паспорт серия\номер:	
+		%label * Паспорт серия\номер:
 		= r.text_field :pasport
 	.editor-field
 		%label * Паспорт кем выдан:

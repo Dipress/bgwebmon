@@ -10,7 +10,7 @@
 		= link_to "Редактировать", "/editfl/#{@rfl.id}", class: "btn"
 	- if User.superadmin(@user.id) && @rfl.requeststatus_id < 2
 		%div
-			%label Вы можете 
+			%label Вы можете
 			= link_to "отклонить ", "/discardflform/#{@rfl.id}", class: "btn"
 			%label заявку
 	- if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(1)
@@ -33,9 +33,9 @@
 				%h3 Причина отклонения:
 				%p= @rfl.discard
 	%h3= "Заявка на включение абонента #{@rfl.fio} - Заявку оформил #{@rfl.user.name}"
-	%div 
-		%b= "Точка подключения:"
-	#readmap
+	-#%div
+		-#%b= "Точка подключения:"
+	-##readmap
 	%div
 		%b= "ФИО:"
 		%p= "#{@rfl.fio}"

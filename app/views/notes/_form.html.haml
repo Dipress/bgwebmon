@@ -1,17 +1,24 @@
+%script{:src => "http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"}
 - if @note.errors.any?
   #error_explanation
     %h2
       = #pluralize(@note.errors.count, "ошибки")
       %p
-        Предварительная заявка не может быть добавлена по причине: 
+        Предварительная заявка не может быть добавлена по причине:
     %ul
       - @note.errors.full_messages.each do |msg|
-        %li= msg   
+        %li= msg
 
 = form_for @note, url: { action: "create" } do |n|
   .editor_field
     %label ФИО
     = n.text_field :fio, class: "span6"
+  .editor_field
+    %label_field Координаты подключения (введите адрес и нажмите "Показать на карте" или кликните по карте):
+    = n.text_field :latlng_connection, class: "span6"
+    %br
+    %div#requestmap
+    %br
   .editor_field
     %label IP-адрес
     = n.text_field :ip, class: "span6"
@@ -41,3 +48,21 @@
     = n.text_area :remark, cols: 100, rows: 6, class: "span6"
   .editor_field
     = n.submit "Создать", :class => "btn", class: "span6"
+
+:javascript
+  $(function(){
+    var m = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+      sm = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+      d = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+      sd = ["Вс", "Пд", "Вт", "Ср", "Чт", "Пт", "Сб"];
+        $("input#requestfl_pd").datepicker({
+          dateFormat: "dd.mm.yy",
+          monthNames: m,
+          changeMonth: true,
+          changeYear: true,
+          yearRange: '-50:-0',
+          monthNamesShort: sm,
+          dayNames: d,
+          dayNamesMin: sd});
+          ymaps.ready(create);
+  });
