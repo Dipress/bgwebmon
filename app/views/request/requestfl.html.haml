@@ -1,114 +1,117 @@
 %script{:src => "http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"}
 - flash.each do |key, value|
-	- if key.to_s.eql?("notice")
-		%div#notice="#{value}"
-	- else
-		%div#error="#{value}"
+  - if key.to_s.eql?("notice")
+    %div#notice="#{value}"
+  - else
+    %div#error="#{value}"
 #requestflcontent
-	%h4= "Cтатус заявки: #{@rfl.requeststatus.title}"
-	- if User.superadmin(@user.id) || @rfl.user_id.eql?(@user.id)
-		= link_to "Редактировать", "/editfl/#{@rfl.id}", class: "btn"
-	- if User.superadmin(@user.id) && @rfl.requeststatus_id < 2
-		%div
-			%label Вы можете
-			= link_to "отклонить ", "/discardflform/#{@rfl.id}", class: "btn"
-			%label заявку
-	- if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(1)
-		%div
-			%label После заведения абонента в биллинг нажмите на следующую ссылку
-			= link_to("Готово к подключению", "/readystatusfl/#{@rfl.id}")
-	- if (@rfl.user_id.eql?(@user.id) && @rfl.requeststatus_id.eql?(2)) || (User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(2))
-		%div
-			%label После успешного подключения абонента нажмите на следующую ссылку
-			= link_to("Абонент успешно подключен", "/connectedstatusfl/#{@rfl.id}")
-	- if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(3)
-		%div
-			%label Абонент успешно подключен нажмите на следующую ссылку
-			= link_to("Закрыть заявку", "/finishstatusfl/#{@rfl.id}")
-	- if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(5)
-		%div
-			%label Заявка была отклонена, после исправления ошибок нажмите на следующую ссылку
-			= link_to("Готово к подключению", "/readystatusfl/#{@rfl.id}")
-			.hero-unit
-				%h3 Причина отклонения:
-				%p= @rfl.discard
-	%h3= "Заявка на включение абонента #{@rfl.fio} - Заявку оформил #{@rfl.user.name}"
-	-#%div
-		-#%b= "Точка подключения:"
-	-##readmap
-	%div
-		%b= "ФИО:"
-		%p= "#{@rfl.fio}"
-	%div
-		%b= "Адресс почтовый:"
-		%p= "#{@rfl.adress_post}"
-	%div
-		%b= "Адресс подключения:"
-		%p= "#{@rfl.adress_connection}"
-	%div
-		%b= "Электронная почта:"
-		%p= "#{@rfl.email}"
-	%div
-		%b= "Телефон:"
-		%p= "#{@rfl.telephone}"
-	%div
-		%b= "Дата рождения:"
-		%p= "#{@rfl.in}"
-	%div
-		%b= "Серия/номер паспорта:"
-		%p= "#{@rfl.pasport}"
-	%div
-		%b= "Дата выдачи паспорта:"
-		%p= "#{@rfl.pasport_date.strftime("%d.%m.%Y")}"
-	%div
-		%b= "Кем выдан паспорт:"
-		%p= "#{@rfl.pasport_authority}"
-	%div
-		%b= "Форма оплаты:"
-		%p= "#{ContractParameterType7Value.find(@rfl.payment_form).title}"
-	%div
-		%b= "IP адрес:"
-		%p= "#{@rfl.ip}"
-	%div
-		%b= "Логин:"
-		%p= "#{@rfl.login}"
-	%div
-		%b= "Пароль:"
-		%p= "#{@rfl.password}"
-	%div
-		%b= "Технология подключения:"
-		%p= "#{ContractParameterType7Value.find(@rfl.technology).title}"
-	%div
-		%b= "Точка подключения:"
-		%p= "#{ContractParameterType7Value.find(@rfl.node).title}"
-	%div
-		%b= "Тарифный план:"
-		%p= "#{@rfl.tariffplan.title}"
-	%div
-		%b= "Дополнительная информация:"
-		%div= @rfl.description
+  %h4= "Cтатус заявки: #{@rfl.requeststatus.title}"
+  - if User.superadmin(@user.id) || @rfl.user_id.eql?(@user.id)
+    = link_to "Редактировать", "/editfl/#{@rfl.id}", class: "btn"
+  - if User.superadmin(@user.id) && @rfl.requeststatus_id < 2
+    %div
+      %label Вы можете
+      = link_to "отклонить ", "/discardflform/#{@rfl.id}", class: "btn"
+      %label заявку
+  - if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(1)
+    %div
+      %label После заведения абонента в биллинг нажмите на следующую ссылку
+      = link_to("Готово к подключению", "/readystatusfl/#{@rfl.id}")
+  - if (@rfl.user_id.eql?(@user.id) && @rfl.requeststatus_id.eql?(2)) || (User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(2))
+    %div
+      %label После успешного подключения абонента нажмите на следующую ссылку
+      = link_to("Абонент успешно подключен", "/connectedstatusfl/#{@rfl.id}")
+  - if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(3)
+    %div
+      %label Абонент успешно подключен нажмите на следующую ссылку
+      = link_to("Закрыть заявку", "/finishstatusfl/#{@rfl.id}")
+  - if User.superadmin(@user.id) && @rfl.requeststatus_id.eql?(5)
+    %div
+      %label Заявка была отклонена, после исправления ошибок нажмите на следующую ссылку
+      = link_to("Готово к подключению", "/readystatusfl/#{@rfl.id}")
+      .hero-unit
+        %h3 Причина отклонения:
+        %p= @rfl.discard
+  %h3= "Заявка на включение абонента #{@rfl.fio} - Заявку оформил #{@rfl.user.name}"
+  -#%div
+    -#%b= "Точка подключения:"
+  -##readmap
+  %div
+    %b= "ФИО:"
+    %p= "#{@rfl.fio}"
+  %div
+    %b= "Координаты подключения"
+    %p= "#{@rfl.latlng_connection}"
+  %div
+    %b= "Адресс почтовый:"
+    %p= "#{@rfl.adress_post}"
+  %div
+    %b= "Адресс подключения:"
+    %p= "#{@rfl.adress_connection}"
+  %div
+    %b= "Электронная почта:"
+    %p= "#{@rfl.email}"
+  %div
+    %b= "Телефон:"
+    %p= "#{@rfl.telephone}"
+  %div
+    %b= "Дата рождения:"
+    %p= "#{@rfl.in}"
+  %div
+    %b= "Серия/номер паспорта:"
+    %p= "#{@rfl.pasport}"
+  %div
+    %b= "Дата выдачи паспорта:"
+    %p= "#{@rfl.pasport_date.strftime("%d.%m.%Y")}"
+  %div
+    %b= "Кем выдан паспорт:"
+    %p= "#{@rfl.pasport_authority}"
+  %div
+    %b= "Форма оплаты:"
+    %p= "#{ContractParameterType7Value.find(@rfl.payment_form).title}"
+  %div
+    %b= "IP адрес:"
+    %p= "#{@rfl.ip}"
+  %div
+    %b= "Логин:"
+    %p= "#{@rfl.login}"
+  %div
+    %b= "Пароль:"
+    %p= "#{@rfl.password}"
+  %div
+    %b= "Технология подключения:"
+    %p= "#{ContractParameterType7Value.find(@rfl.technology).title}"
+  %div
+    %b= "Точка подключения:"
+    %p= "#{ContractParameterType7Value.find(@rfl.node).title}"
+  %div
+    %b= "Тарифный план:"
+    %p= "#{@rfl.tariffplan.title}"
+  %div
+    %b= "Дополнительная информация:"
+    %div= @rfl.description
 :javascript
-		$(function(){
-				ymaps.ready(showmap);
-				function showmap () {
-					var myMaper = new ymaps.Map("readmap", {
-						center: [#{@rfl.latlng_connection}],
-						zoom: 14,
-						behaviors: ['default', 'scrollZoom']
-					});
-					var coords = [#{@rfl.latlng_connection}];
-					ymaps.geocode(coords).then(function (res) {
-						var names = [];
-						res.geoObjects.each(function (obj) {
-							names.push(obj.properties.get('name'));
-						});
-							myMaper.balloon.close();
-							myMaper.balloon.open(coords, {
-								contentHeader: names.reverse().join(', '),
-								contentBody: [coords[0].toPrecision(6),
-											coords[1].toPrecision(6)].join(', ')
-							});
-					});
-				}
+    $(function(){
+        ymaps.ready(showmap);
+        function showmap () {
+          var myMaper = new ymaps.Map("readmap", {
+            center: [#{@rfl.latlng_connection}],
+            zoom: 14,
+            behaviors: ['default', 'scrollZoom']
+          });
+          var coords = [#{@rfl.latlng_connection}];
+          ymaps.geocode(coords).then(function (res) {
+            var names = [];
+            res.geoObjects.each(function (obj) {
+              names.push(obj.properties.get('name'));
+            });
+              myMaper.balloon.close();
+              myMaper.balloon.open(coords, {
+                contentHeader: names.reverse().join(', '),
+                contentBody: [coords[0].toPrecision(6),
+                      coords[1].toPrecision(6)].join(', ')
+              });
+          });
+        }
 
-		});
+    });
