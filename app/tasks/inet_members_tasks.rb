@@ -22,16 +22,16 @@ class InetMembersTasks
     File.open("chap-secrets", "w"){|file| file.write add_members.join("\n") }
     #Добавим в конец файла пустую строку(так надо)
     File.open("chap-secrets", "a"){|file| file.write "\n" }
-    
+
 
     #Данные об удаленном сервере, смотри в application.yml
-    host = ENV["REMOTE_HOST"]
-    username = ENV["REMOTE_USER"]
-    password = ENV["REMOTE_PASSWORD"]
+    #host = ENV["REMOTE_HOST"]
+    #username = ENV["REMOTE_USER"]
+    #password = ENV["REMOTE_PASSWORD"]
 
-    Net::SCP.start(host, username, password: password) do |scp|
-      scp.upload("chap-secrets", "/etc/ppp/")
-    end
+    #Net::SCP.start(host, username, password: password) do |scp|
+      #scp.upload("chap-secrets", "/etc/ppp/")
+    #end
 
     host2 = ENV["REMOTE_HOST_2"]
     username2 = ENV["REMOTE_USER_2"]
@@ -86,15 +86,15 @@ class InetMembersTasks
         "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.to_s.bytes.to_a.join('.')}#{' '*(m.addressFrom.to_s.bytes.to_a.join('.').length)}20480"
       else
         "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.to_s.bytes.to_a.join('.')}#{' '*(m.addressFrom.to_s.bytes.to_a.join('.').length)}2048"
-      end   
+      end
     end
     File.open("shaper", "w"){|file| file.write shaiper_members.join("\n")}
     #Добавим в конец файла пустую строку(так надо)
     File.open("shaper", "a"){|file| file.write "\n" }
 
-    Net::SCP.start(host, username, password: password) do |scp|
-      scp.upload("shaper", "/etc/ppp/")
-    end
+    #Net::SCP.start(host, username, password: password) do |scp|
+      #scp.upload("shaper", "/etc/ppp/")
+    #end
 
     Net::SCP.start(host2, username2, password: password2) do |scp|
       scp.upload("shaper", "/etc/ppp/")
@@ -103,12 +103,7 @@ class InetMembersTasks
     File.delete("shaper")
 
     sleep(10)
-
-    ########################## Mikrotik ##############################################################
-    members = InetService.where(deviceId: 12)
-
-    m = MTik::Connection.new(host: '172.28.200.42', pass: 'temp_mikrotik')
-
+    
     ########################## Bahchisarai ############################################################
 
     members = InetService.where(deviceId: 11)
@@ -179,7 +174,7 @@ class InetMembersTasks
         "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.to_s.bytes.to_a.join('.')}#{' '*(m.addressFrom.to_s.bytes.to_a.join('.').length)}20480"
       else
         "#{m.login}#{' '*(30-m.login.length)} #{m.addressFrom.to_s.bytes.to_a.join('.')}#{' '*(m.addressFrom.to_s.bytes.to_a.join('.').length)}2048"
-      end   
+      end
     end
     File.open("shaper", "w"){|file| file.write shaiper_members.join("\n")}
     #Добавим в конец файла пустую строку(так надо)
@@ -211,7 +206,7 @@ class InetMembersTasks
     Net::SCP.start(host, username, password: password) do |scp|
       scp.upload("members.txt", ".")
     end
-    
+
     File.delete("members.txt")
   end
 end

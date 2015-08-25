@@ -85,6 +85,12 @@
     %b= "Точка подключения:"
     %p= "#{ContractParameterType7Value.find(@rfl.node).title}"
   %div
+    %b= "Тип оборудования:"
+    %p= "#{ContractParameterType7Value.find(@rfl.hardware).title}"
+  %div
+    %b= "MAC-адресс"
+    %p= "#{@rfl.mac}"
+  %div
     %b= "Тарифный план:"
     %p= "#{@rfl.tariffplan.title}"
   %div
