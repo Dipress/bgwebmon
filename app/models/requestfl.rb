@@ -10,7 +10,7 @@ class Requestfl < ActiveRecord::Base
   attr_accessible :description, :fio, :adress_post, :adress_connection,
             :adress_connection, :latlng_connection, :email, :telephone, :in,
             :pasport, :pasport_authority, :pasport_date, :payment_form, :ip,
-            :user_id, :technology, :node, :tariffplan_id, :pd, :login, :password
+            :user_id, :technology, :node, :tariffplan_id, :pd, :login, :password, :mac, :hardware
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   #telephone_regex = /\A\+[0-9]{12}\z/i

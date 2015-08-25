@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409065404) do
+ActiveRecord::Schema.define(:version => 20150825094840) do
 
   create_table "address_area", :force => true do |t|
     t.string  "title",  :limit => 150, :default => "0", :null => false
@@ -65,15 +65,6 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.integer "cityid",                 :default => -1,  :null => false
   end
 
-  create_table "agent_payment_currencies", :force => true do |t|
-    t.string   "name"
-    t.string   "scode"
-    t.integer  "nominal"
-    t.decimal  "curs",       :precision => 8, :scale => 2
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-  end
-
   create_table "agent_payments", :force => true do |t|
     t.integer  "contract_id"
     t.integer  "user_id"
@@ -98,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.string  "comment",  :limit => 250, :default => "", :null => false
     t.integer "cgr",      :limit => 8,   :default => 0,  :null => false
     t.string  "pids",     :limit => 120
+    t.string  "opids",                   :default => ""
     t.integer "cgr_mode", :limit => 1,   :default => 1,  :null => false
   end
 
@@ -496,6 +488,7 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.timestamp "date",       :null => false
     t.integer   "user",       :null => false
     t.text      "comment",    :null => false
+    t.integer   "status_id",  :null => false
   end
 
   create_table "contract_document_journal_7", :force => true do |t|
@@ -507,7 +500,7 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.timestamp "date",        :null => false
     t.integer   "status",      :null => false
     t.integer   "user",        :null => false
-    t.text      "comment",     :null => false
+    t.text      "comment"
   end
 
   create_table "contract_document_statuses_7", :force => true do |t|
@@ -865,12 +858,12 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
   add_index "contract_parameter_type_phone_log", ["cid", "pid"], :name => "cid_pid"
 
   create_table "contract_parameters_pref", :force => true do |t|
-    t.integer  "pt",                     :default => 0,  :null => false
-    t.string   "title",   :limit => 100, :default => "", :null => false
-    t.integer  "sort",                   :default => 0,  :null => false
-    t.text     "script",                                 :null => false
-    t.boolean  "history",                                :null => false
-    t.datetime "lm",                                     :null => false
+    t.integer  "pt",                    :default => 0,  :null => false
+    t.string   "title",  :limit => 100, :default => "", :null => false
+    t.integer  "sort",                  :default => 0,  :null => false
+    t.text     "script",                                :null => false
+    t.integer  "flags",  :limit => 1,   :default => 0,  :null => false
+    t.datetime "lm",                                    :null => false
   end
 
   add_index "contract_parameters_pref", ["sort"], :name => "sort"
@@ -977,9 +970,9 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
   add_index "contract_status", ["cid"], :name => "cid"
 
   create_table "contract_status_balance_dump", :id => false, :force => true do |t|
-    t.integer "cid",              :default => 0, :null => false
+    t.integer "cid", :default => 0, :null => false
     t.integer "mm"
-    t.integer "yy",  :limit => 8
+    t.integer "yy"
   end
 
   add_index "contract_status_balance_dump", ["cid"], :name => "cid", :unique => true
@@ -1185,6 +1178,7 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.integer  "deviceId",                                       :null => false
     t.integer  "devicePort",                                     :null => false
     t.integer  "agentDeviceId",                   :default => 0, :null => false
+    t.string   "circuitId",        :limit => 45
     t.string   "acctSessionId",    :limit => 80
     t.string   "username",         :limit => 100
     t.integer  "type",                                           :null => false
@@ -1219,19 +1213,22 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
   add_index "inet_connection_route_14", ["connectionId"], :name => "connectionId"
 
   create_table "inet_device_14", :force => true do |t|
-    t.integer  "entityId",                    :null => false
-    t.integer  "parentId",                    :null => false
-    t.integer  "deviceTypeId",                :null => false
-    t.string   "title",        :limit => 250, :null => false
-    t.string   "identifier",   :limit => 150, :null => false
-    t.text     "uptime",                      :null => false
+    t.integer  "entityId",                                           :null => false
+    t.integer  "parentId",                                           :null => false
+    t.integer  "deviceTypeId",                                       :null => false
+    t.string   "title",                :limit => 250,                :null => false
+    t.string   "identifier",           :limit => 150,                :null => false
+    t.text     "uptime",                                             :null => false
     t.datetime "uptimeTime"
-    t.string   "host",         :limit => 150, :null => false
-    t.string   "username",     :limit => 100, :null => false
-    t.string   "password",     :limit => 100, :null => false
-    t.string   "secret",       :limit => 100, :null => false
-    t.text     "config",                      :null => false
-    t.text     "comment",                     :null => false
+    t.string   "host",                 :limit => 150,                :null => false
+    t.date     "dateFrom"
+    t.date     "dateTo"
+    t.integer  "orderManagerDisabled", :limit => 1,   :default => 0, :null => false
+    t.string   "username",             :limit => 100,                :null => false
+    t.string   "password",             :limit => 100,                :null => false
+    t.string   "secret",               :limit => 100,                :null => false
+    t.text     "config",                                             :null => false
+    t.text     "comment",                                            :null => false
   end
 
   create_table "inet_device_type_14", :force => true do |t|
@@ -1331,6 +1328,7 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.integer "needIdentifier",        :limit => 1,   :default => 0,  :null => false
     t.integer "needMacAddress",        :limit => 1,   :default => 0,  :null => false
     t.integer "needContractObject",    :limit => 1,   :default => 0,  :null => false
+    t.integer "needRestriction",       :limit => 1,   :default => 0,  :null => false
     t.text    "config"
     t.integer "personalVlan",          :limit => 1,   :default => 1,  :null => false
   end
@@ -1581,16 +1579,17 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
   end
 
   create_table "inv_product_period", :id => false, :force => true do |t|
-    t.integer  "id",             :limit => 8,                :null => false
-    t.integer  "contractId",                                 :null => false
-    t.integer  "accountId",                                  :null => false
-    t.integer  "productSpecId",                              :null => false
-    t.integer  "productId",                                  :null => false
-    t.datetime "activationTime",                             :null => false
-    t.datetime "timeFrom",                                   :null => false
+    t.integer  "id",               :limit => 8,                :null => false
+    t.integer  "contractId",                                   :null => false
+    t.integer  "accountId",                                    :null => false
+    t.integer  "productSpecId",                                :null => false
+    t.integer  "productId",                                    :null => false
+    t.datetime "activationTime",                               :null => false
+    t.datetime "timeFrom",                                     :null => false
     t.datetime "timeTo"
-    t.integer  "flags",                       :default => 0, :null => false
-    t.integer  "version",                     :default => 0, :null => false
+    t.datetime "prolongationTime",                             :null => false
+    t.integer  "flags",                         :default => 0, :null => false
+    t.integer  "version",                       :default => 0, :null => false
   end
 
   add_index "inv_product_period", ["accountId"], :name => "account"
@@ -1938,28 +1937,6 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
 
   add_index "mtree_node", ["mtree_id"], :name => "tree_id"
 
-  create_table "nas_6", :force => true do |t|
-    t.string  "identifier",       :limit => 32, :default => "", :null => false
-    t.string  "secret",           :limit => 16, :default => "", :null => false
-    t.integer "ipaddr",                         :default => 0,  :null => false
-    t.integer "type",             :limit => 1,  :default => 0,  :null => false
-    t.date    "date1"
-    t.date    "date2"
-    t.string  "comment",                        :default => "", :null => false
-    t.integer "config_id",                      :default => 0,  :null => false
-    t.integer "vendor",                         :default => 0,  :null => false
-    t.text    "script",                                         :null => false
-    t.string  "common_config_id",                               :null => false
-  end
-
-  create_table "nas_config_6", :force => true do |t|
-    t.integer  "nas_id",                :default => 0,  :null => false
-    t.datetime "dt",                                    :null => false
-    t.string   "title",  :limit => 150, :default => "", :null => false
-    t.integer  "uid",                   :default => 0,  :null => false
-    t.text     "config",                                :null => false
-  end
-
   create_table "news", :force => true do |t|
     t.integer  "gr",    :limit => 8,   :default => 0,  :null => false
     t.datetime "dt",                                   :null => false
@@ -2159,33 +2136,6 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.text "config"
   end
 
-  create_table "radius_pair_6", :id => false, :force => true do |t|
-    t.integer "id",                       :default => 0,  :null => false
-    t.string  "pair_name",  :limit => 50, :default => "", :null => false
-    t.string  "pair_value",               :default => "", :null => false
-    t.string  "pair_realm", :limit => 15, :default => "", :null => false
-  end
-
-  add_index "radius_pair_6", ["id"], :name => "id"
-
-  create_table "radius_pair_ip_6", :id => false, :force => true do |t|
-    t.integer "id",                  :default => 0,  :null => false
-    t.string  "realm", :limit => 15, :default => "", :null => false
-    t.integer "ip",    :limit => 8,  :default => 0,  :null => false
-    t.date    "date1"
-    t.date    "date2"
-  end
-
-  add_index "radius_pair_ip_6", ["id"], :name => "id"
-
-  create_table "radius_pair_set_6", :id => false, :force => true do |t|
-    t.integer "id",                   :default => 0,  :null => false
-    t.integer "set_id",               :default => 0,  :null => false
-    t.string  "realm",  :limit => 15, :default => "", :null => false
-  end
-
-  add_index "radius_pair_set_6", ["id"], :name => "id"
-
   create_table "register_group_task_type", :id => false, :force => true do |t|
     t.integer "gid",     :default => 0, :null => false
     t.integer "type_id", :default => 0, :null => false
@@ -2235,6 +2185,8 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.string   "discard",           :limit => 400
+    t.string   "mac"
+    t.string   "hardware"
   end
 
   create_table "requeststatuses", :force => true do |t|
@@ -2476,16 +2428,18 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
   end
 
   create_table "tariff_option_activate_mode", :force => true do |t|
-    t.integer "option_id",                                                        :null => false
-    t.integer "charge_type_id",                                                   :null => false
-    t.decimal "charge_summa",      :precision => 10, :scale => 2,                 :null => false
-    t.integer "period_mode",                                                      :null => false
-    t.integer "period_col",                                                       :null => false
+    t.integer "option_id",                                                         :null => false
+    t.integer "charge_type_id",                                                    :null => false
+    t.decimal "charge_summa",       :precision => 10, :scale => 2,                 :null => false
+    t.integer "period_mode",                                                       :null => false
+    t.integer "period_col",                                                        :null => false
     t.date    "date1"
     t.date    "date2"
-    t.integer "deactivation_mode",                                                :null => false
-    t.integer "reactivation_mode",                                :default => 0,  :null => false
-    t.string  "title",                                            :default => "", :null => false
+    t.integer "deactivation_mode",                                                 :null => false
+    t.integer "reactivation_mode",                                 :default => 0,  :null => false
+    t.integer "delete_mode",                                       :default => 0,  :null => false
+    t.integer "delete_charge_mode",                                :default => 1
+    t.string  "title",                                             :default => "", :null => false
   end
 
   add_index "tariff_option_activate_mode", ["option_id"], :name => "option_id"
@@ -2585,6 +2539,7 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
     t.integer  "status",       :limit => 1,   :default => 0,  :null => false
     t.integer  "cgr",          :limit => 8,   :default => 0,  :null => false
     t.string   "pids",         :limit => 120
+    t.string   "opids",                       :default => ""
     t.integer  "contract_pid",                :default => 0,  :null => false
     t.integer  "contract_cid",                :default => 0,  :null => false
     t.text     "config",                                      :null => false
@@ -2649,50 +2604,6 @@ ActiveRecord::Schema.define(:version => 20140409065404) do
   end
 
   add_index "user_group_member", ["user_id", "gr_code"], :name => "user_id"
-
-  create_table "user_login_6", :force => true do |t|
-    t.integer "cid",                       :default => 0,  :null => false
-    t.integer "object_id",                 :default => 0,  :null => false
-    t.integer "login",                     :default => 0,  :null => false
-    t.string  "pswd",        :limit => 32, :default => "", :null => false
-    t.date    "date1"
-    t.date    "date2"
-    t.integer "status",      :limit => 1,  :default => 0,  :null => false
-    t.integer "session",     :limit => 2,  :default => 0,  :null => false
-    t.integer "rp_mode",     :limit => 1,  :default => 0,  :null => false
-    t.string  "realm_group", :limit => 20, :default => "", :null => false
-    t.string  "comment",                   :default => "", :null => false
-  end
-
-  add_index "user_login_6", ["cid"], :name => "cid"
-  add_index "user_login_6", ["date1"], :name => "date1"
-  add_index "user_login_6", ["date2"], :name => "date2"
-  add_index "user_login_6", ["login"], :name => "login_not_u"
-  add_index "user_login_6", ["object_id"], :name => "object_id"
-
-  create_table "user_login_condition_6", :id => false, :force => true do |t|
-    t.integer "llid", :default => 0, :null => false
-    t.integer "hh",   :default => 0, :null => false
-    t.integer "dw",   :default => 0, :null => false
-    t.integer "dm",   :default => 0, :null => false
-    t.integer "mm",   :default => 0, :null => false
-  end
-
-  add_index "user_login_condition_6", ["llid"], :name => "llid"
-
-  create_table "user_login_limit_6", :force => true do |t|
-    t.integer "num",                     :default => 0
-    t.integer "lid",                     :default => 0,  :null => false
-    t.integer "sid",                     :default => 0,  :null => false
-    t.string  "param1",   :limit => 250, :default => "", :null => false
-    t.string  "param2",   :limit => 250, :default => "", :null => false
-    t.date    "date1"
-    t.date    "date2"
-    t.string  "comment",                 :default => "", :null => false
-    t.integer "type_con",                :default => 0,  :null => false
-  end
-
-  add_index "user_login_limit_6", ["lid"], :name => "lid"
 
   create_table "user_menu", :id => false, :force => true do |t|
     t.integer "uid",                   :null => false
