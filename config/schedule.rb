@@ -18,32 +18,36 @@
 # end
 
 every 1.day, at: '2:30 pm' do
-	runner "Sms.send_debt_messages"
+  runner "Sms.send_debt_messages"
 end
 
 every 5.minutes do
-	runner "RrdcronTasks.datacreator"
+  runner "RrdcronTasks.datacreator"
 end
 
 every "2 * * * *" do
-	runner "ChangesTasks.new.send_changes"
+  runner "ChangesTasks.new.send_changes"
 end
 
 every 3.hours do
-	runner "InetMembersTasks.datageneration"
+  runner "InetMembersTasks.datageneration"
 end
 
 every 1.hours do
-	runner "MikrotikMembersTasks.datagenerate"
+  runner "MikrotikMembersTasks.datagenerate"
 end
 
 every 1.day, at: '10:00 pm' do
-	runner "BalanceNotificationsTasks.notification_new"
+  runner "BalanceNotificationsTasks.notification_new"
 end
 
 
 every 1.day, at: '11:00 pm' do
-	runner "YealinksTasks.mobiledata"
+  runner "YealinksTasks.mobiledata"
+end
+
+every 1.day, at: '21:00 pm' do
+  runner "UsersFullyDataTasks.data_by_node"
 end
 
 # Learn more: http://github.com/javan/whenever
