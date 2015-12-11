@@ -35,6 +35,7 @@ class Requestfl < ActiveRecord::Base
   validates :technology, presence: { message: "Технология передачи даных - #{OB}"}, numericality: { only_integer: true, message: I18n.t("activerecord.validations.technology")}
   validates :node, presence: { message: "Точка подключения - #{OB}"}, numericality: { only_integer: true, message: I18n.t("activerecord.validations.node")}
   validates :tariffplan_id, presence: { message: "Тарифный план - #{OB}"}, numericality: { only_integer: true,  message: I18n.t("activerecord.validations.tariffplan_id")}
+  validates :hardware, presence: { message: "Тип оборудования - #{OB}"}, numericality: { only_integer: true,  message: I18n.t("activerecord.validations.hardware")}
   before_save :pasportdate
   before_update :pasportdate
 

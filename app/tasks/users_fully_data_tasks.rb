@@ -17,7 +17,7 @@ class UsersFullyDataTasks
     #generate_data(12, 26, '10.22.193', '172.28.193')  #Ленинское
     #generate_data(12, 27, '10.20.230', '172.28.195')  #Вишневое PPoE
     #generate_data(12, 28, '10.22.199', '172.28.199')  #Сененовка
-    #generate_data(12, 29, '10.10.230', '172.28.230')  #Симферополь PPtP
+    generate_data(12, 29, '10.10.230', '172.28.230')  #Симферополь PPtP
     #generate_data(12, 30, '10.10.231', '172.28.204')  #Симферополь PPtP
     #generate_data(12, 34, '10.10.233', '172.28.197')  #Вишневое PPtP
     #generate_data(12, 75, '10.20.231', '172.28.196')  #Вишневое PPoE secondary
@@ -30,6 +30,8 @@ class UsersFullyDataTasks
   end
 
   def self.generate_data device, resourse, current_template, right_template
+    #download file wiki
+    download_file_wiki(right_template)
 
     #copy title in file
     content = copy_file_title(right_template)
@@ -49,7 +51,10 @@ class UsersFullyDataTasks
     total_data = total_data.sort_by! {|ip| ip.split('.').map{ |octet| octet.to_i} }
 
     #Create file and push data to file
-    create_file_and_push_data(ight_template)
+    #create_file_and_push_data(right_template)
+    File.open("#{right_template}.0_robot.txt", "w"){|file| file.write content + "\n" }
+    File.open("#{right_template}.0_robot.txt", "a"){|file| file.write total_data.join("\n") }
+    File.open("#{right_template}.0_robot.txt", "a"){|file| file.write "\n" }
 
     #send file to dokuwiki server
     transfer_file_to_wikki(right_template)
@@ -58,15 +63,25 @@ class UsersFullyDataTasks
     delete_all_files(right_template)
   end
 
-  def self.copy_file_title right_template
-    IO.read("#{right_template}.0.txt")
+  def self.download_file_wiki(right_template)
+    host = ENV["REMOTE_WIKI_HOST"]
+    username = ENV["REMOTE_WIKI_USER"]
+    password = ENV["REMOTE_WIKI_PASSWORD"]
+
+    Net::SSH.start(host, username, password: password) do |ssh|
+      ssh.scp.download! "/var/lib/dokuwiki/data/pages/ip-fake/#{right_template}.0_head.txt", "."
+    end
   end
 
-  def self.create_file_and_push_data right_template
-    File.open("#{right_template}.0_robot.txt", "w"){|file| file.write content + "\n" }
-    File.open("#{right_template}.0_robot.txt", "a"){|file| file.write total_data.join("\n") }
-    File.open("#{right_template}.0_robot.txt", "a"){|file| file.write "\n" }
+  def self.copy_file_title right_template
+    IO.read("#{right_template}.0_head.txt")
   end
+
+  #def self.create_file_and_push_data right_template
+    #File.open("#{right_template}.0_robot.txt", "w"){|file| file.write content + "\n" }
+    #File.open("#{right_template}.0_robot.txt", "a"){|file| file.write total_data.join("\n") }
+    #File.open("#{right_template}.0_robot.txt", "a"){|file| file.write "\n" }
+  #end
 
   def self.transfer_file_to_wikki right_template
     host = ENV["REMOTE_WIKI_HOST"]
@@ -79,7 +94,7 @@ class UsersFullyDataTasks
   end
 
   def self.delete_all_files right_template
-    File.delete("#{right_template}.0.txt")
+    File.delete("#{right_template}.0_head.txt")
     File.delete("#{right_template}.0_robot.txt")
   end
 
