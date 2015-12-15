@@ -42,14 +42,14 @@ class Contract < ActiveRecord::Base
       indexes :val, type: 'integer'
       indexes :pid, type: 'integer'
     end
-    indexes :dialuplogins, type: 'object' do
-      indexes :dialupalias, type: 'object' do
-        indexes :login_alias, type: 'string', analyzer: 'snowball'
-      end
-      indexes :dialupip, type: 'object' do
-        indexes :human_ip, type: 'string', analyzer: 'snowball'
-      end
-    end
+    #indexes :dialuplogins, type: 'object' do
+      #indexes :dialupalias, type: 'object' do
+        #indexes :login_alias, type: 'string', analyzer: 'snowball'
+      #end
+      #indexes :dialupip, type: 'object' do
+        #indexes :human_ip, type: 'string', analyzer: 'snowball'
+      #end
+    #end
     indexes :inet_services, type: 'object' do
       indexes :login, type: 'string', analyzer: 'snowball'
       indexes :inet_resource_subscriptions, type: 'object' do
@@ -72,7 +72,7 @@ class Contract < ActiveRecord::Base
   end
 
   def to_indexed_json
-    to_json(include: {dialuplogins: {include: {dialupalias: {}, dialupip: { :methods => ['human_ip'] }}}, inet_services: {include: { inet_resource_subscriptions: { :methods => ['human_ip'] } }}, contract_parameter_type8: {}, contract_parameter_type7: {}})
+    to_json(include: { inet_services: {include: { inet_resource_subscriptions: { :methods => ['human_ip'] } }}, contract_parameter_type8: {}, contract_parameter_type7: {}})
   end
   ### Methods
 
