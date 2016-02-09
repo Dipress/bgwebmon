@@ -27,6 +27,8 @@ class UsersFullyDataTasks
     #generate_data(12, 80, '10.22.176', '172.28.176')  #Фонтан
     generate_data(12, 81, '10.22.178', '172.28.178')  #Щелкино-Мысовое
     #generate_data(12, 82, '10.22.180', '172.28.180')  #Каменское
+    generate_data(12, 83, '10.22.164', '172.28.164') #Новониколаевка - водохранилище
+    generate_data(12, 88, '10.22.168', '172.28.168') #Песочное
   end
 
   def self.generate_data device, resourse, current_template, right_template
