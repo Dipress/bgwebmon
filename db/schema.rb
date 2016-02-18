@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150825094840) do
+ActiveRecord::Schema.define(:version => 20160218101315) do
 
   create_table "address_area", :force => true do |t|
     t.string  "title",  :limit => 150, :default => "0", :null => false
@@ -2502,11 +2502,11 @@ ActiveRecord::Schema.define(:version => 20150825094840) do
   end
 
   create_table "tcomments", :force => true do |t|
-    t.string   "text",       :limit => 360, :null => false
-    t.integer  "user_id",                   :null => false
-    t.integer  "task_id",                   :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.text     "text",       :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "task_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tfiles", :force => true do |t|
