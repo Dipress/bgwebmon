@@ -14,7 +14,7 @@ class Requestfl < ActiveRecord::Base
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   #telephone_regex = /\A\+[0-9]{12}\z/i
-  telephone_regex = /\A\d{10}\z/i
+  telephone_regex = /\A\d{11}\z/i
   pd_regex = /\A[0-3][0-9]\.[0-1][0-9]\.[0-9]{4}\z/i
 
   OB="обязательное поле"
