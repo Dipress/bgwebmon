@@ -29,6 +29,9 @@ class UsersFullyDataTasks
     #generate_data(12, 82, '10.22.180', '172.28.180')  #Каменское
     generate_data(12, 83, '10.22.164', '172.28.164') #Новониколаевка - водохранилище
     generate_data(12, 88, '10.22.168', '172.28.168') #Песочное
+    generate_data(12, 95, '10.22.110', '172.28.110') #Sev58 Vlan 301
+    generate_data(12, 94, '10.22.111', '172.28.111') #Sam5b Vlan 302
+    generate_data(12, 98, '10.22.112', '172.28.112') #Rlux  Vlan 303
   end
 
   def self.generate_data device, resourse, current_template, right_template
