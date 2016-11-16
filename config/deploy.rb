@@ -21,7 +21,7 @@ set :deploy_via, :remote_cache
 set :keep_releases, 3
 set :deploy_to, "/var/www/#{application}"
 set :rails_env, "production"
-set :domain, "194.54.152.23"
+set :domain, "194.54.152.36"
 set :scm_command, "/usr/bin/git"
 set :scm_verbose, true
 set :normalize_asset_timestamps, false
