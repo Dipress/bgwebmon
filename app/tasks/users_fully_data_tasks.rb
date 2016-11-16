@@ -33,6 +33,7 @@ class UsersFullyDataTasks
     generate_data(12, 86, '10.22.111', '172.28.111') #Sam5b Vlan 302
     generate_data(12, 90, '10.22.112', '172.28.112') #Rlux  Vlan 303
     generate_data(12, 91, '10.22.166', '172.28.166') #Белинское
+    generate_data(12, 93, '10.22.184', '172.28.184') #Ерофеево
   end
 
   def self.generate_data device, resourse, current_template, right_template
