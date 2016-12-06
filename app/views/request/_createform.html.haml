@@ -42,7 +42,7 @@
     %label * Форма оплаты:
     = r.collection_select :payment_form, ContractParameterType7Value.where(:pid => 52), :id, :title, {:prompt => 'Выберите тип оплаты'}
   .editor-field
-    %label IP адрес:
+    %label Технический IP адрес:
     = r.text_field :ip
   .editor-field
     %label Логин:
