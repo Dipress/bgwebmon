@@ -135,7 +135,7 @@ GEM
     moped (1.5.3)
     mtik (4.0.3)
     multi_json (1.11.1)
-    mysql2 (0.4.5)
+    mysql2 (0.3.21)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.1)
@@ -299,7 +299,7 @@ DEPENDENCIES
   mongoid_auto_inc
   mongoid_slug
   mtik
-  mysql2
+  mysql2 (~> 0.3.10)
   ng-rails-csrf
   nokogiri
   normalize-rails
@@ -321,3 +321,6 @@ DEPENDENCIES
   whenever
   will_paginate
   will_paginate-bootstrap
+
+BUNDLED WITH
+   1.13.7

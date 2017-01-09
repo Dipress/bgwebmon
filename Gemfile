@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'mysql2'
+gem 'mysql2', "~> 0.3.10"
 gem 'mongoid'
 gem 'redis-rails'
 
