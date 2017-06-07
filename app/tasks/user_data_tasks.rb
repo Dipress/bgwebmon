@@ -81,11 +81,11 @@ class UserDataTasks
 				sheet5.add_row(title)
 
 				contracts.each do |c|
-					if c.contract_parameter_type1.where(pid: 34).empty?
+					if c.inet_services.empty?
 						sheet5.add_row ["#{c.title}",nil, nil, nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
 					else
-						c.contract_parameter_type1.where(pid: 34).each do |ip|
-							sheet5.add_row ["#{c.title}",nil, nil, "#{ip.val}",nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
+						c.inet_services.each do |ip|
+							sheet5.add_row ["#{c.title}",nil, nil, "#{ip.addressFrom.to_s.bytes.to_a.join('.')}",nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
 						end
 					end
 				end
@@ -175,7 +175,7 @@ class UserDataTasks
 
 	end
 
-	def generation_fizlica
+	def self.generation_fizlica
 		
 
 		#individuals
@@ -229,12 +229,12 @@ class UserDataTasks
 				sheet4.add_row(title)
 
 				contracts.each do |c|
-					if c.contract_parameter_type1.where(pid: 34).empty?
+					if c.inet_services.empty?
 						sheet4.add_row ["#{c.title}","#{c.comment}", nil, nil]
 
 					else
-						c.contract_parameter_type1.where(pid: 34).each do |ip|
-							sheet4.add_row ["#{c.title}","#{c.comment}", nil, "#{ip.val}"]
+						c.inet_services.each do |ip|
+							sheet4.add_row ["#{c.title}","#{c.comment}", nil, "#{ip.addressFrom.to_s.bytes.to_a.join('.')}"]
 						end
 					end
 				end
