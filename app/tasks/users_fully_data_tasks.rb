@@ -21,7 +21,7 @@ class UsersFullyDataTasks
     #generate_data(12, 30, '10.10.231', '172.28.204')  #Симферополь PPtP
     #generate_data(12, 34, '10.10.233', '172.28.197')  #Вишневое PPPtP
     #generate_data(12, 75, '10.20.231', '172.28.196')  #Вишневое PPPoE secondary
-    #generate_data(12, 76, '10.22.183', '172.28.183')  #Семеновка secondary
+    generate_data(12, 76, '10.22.183', '172.28.183')  #Семеновка secondary
     generate_data(12, 78, '10.22.172', '172.28.172')   #Фронтовое
     generate_data(12, 79, '10.22.174', '172.28.174')   #Соленое
     generate_data(12, 80, '10.22.176', '172.28.176')   #Фонтан
@@ -32,6 +32,8 @@ class UsersFullyDataTasks
     generate_data(12, 87, '10.22.110', '172.28.110')   #Sev58 Vlan 301
     generate_data(12, 86, '10.22.111', '172.28.111')   #Sam5b Vlan 302
     generate_data(12, 90, '10.22.112', '172.28.112')   #Rlux  Vlan 303
+    generate_data(12, 92, '10.22.113', '172.28.113')   #Rlux  Vlan 304
+    generate_data(12, 98, '10.22.114', '172.28.114')   #Rlux  Vlan 305
     generate_data(12, 91, '10.22.166', '172.28.166')   #Белинское
     generate_data(12, 93, '10.22.184', '172.28.184')   #Ерофеево
     generate_data(12, 94, '10.22.185', '172.28.185')   #Южное
