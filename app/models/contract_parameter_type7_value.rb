@@ -4,6 +4,8 @@ class ContractParameterType7Value < ActiveRecord::Base
   self.table_name = "contract_parameter_type_7_values"
   self.primary_key = "id"
 
+  attr_accessible :title
+
   include Tire::Model::Search
 
   has_many :contract_parameter_type7, class_name: 'ContractParameterType7', foreign_key: 'val'
@@ -13,11 +15,11 @@ class ContractParameterType7Value < ActiveRecord::Base
   mapping do
     indexes :id, type: :integer
     indexes :pid, type: :integer
-    indexes :title, analyzer: 'keyword', boost: 100
+    indexes :title, analyzer: 'keyword', boost: 200
   end
 
   def self.search(params)
-    tire.search(load: true, page: params[:page],  per_page: 100) do
+    tire.search(load: true, page: params[:page],  per_page: 200) do
       query { string params[:query], default_operator: "AND"} if params[:query].present?
       filter :term, pid: 54
       sort do 
