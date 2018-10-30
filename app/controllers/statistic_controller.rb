@@ -5,11 +5,11 @@ before_filter :ip_check
 
   def index
     @title = "Список точек подключения"
-    #if params[:query].present?
+    if params[:query].present?
     @nodes = ContractParameterType7Value.search(params)
-    #else
-      #@nodes = ContractParameterType7Value.where(pid:54).order("title ASC")
-    #end  
+    else
+      @nodes = ContractParameterType7Value.where(pid:54).order("title ASC")
+    end  
     #@regions = regions_array @nodes
     #@nodes = []
     #@regions.each{|r| @nodes << nodes_from_region( r )}
@@ -19,18 +19,20 @@ before_filter :ip_check
 
   def show
     @title = "Доходы базовой станции"
-  	nodeid = params[:id]
-   	cpt7v = ContractParameterType7Value.find nodeid
+    nodeid = params[:id]
+    cpt7v = ContractParameterType7Value.find nodeid
   	@nodename = cpt7v.title
   	like = search_title
   	@contracts = []
-  	@allcost = 0
+    @allcost = 0
+    @alloperation = 0
   	cpt7v.contracts.each{|c|
   		if c.status.eql?(0)
   			if member(c.id)
   				tfc = tarrifs_from_cid(c.id)
   				@contracts << tfc
-  				@allcost += (tfc[:tariffs][0]["allcost"])
+          @allcost += (tfc[:tariffs][0]["allcost"])
+          @alloperation += tfc[:balance].to_f
   			end
   		end
   	}
@@ -43,7 +45,8 @@ private
 		contract = Contract.find(cid)
 		return array = {:title => contract.title, 
                     :comment => contract.comment, 
-                    :tariffs => Contract.tariffs_array(cid)}
+                    :tariffs => Contract.tariffs_array(cid),
+                    :balance => Balance.operating(cid, Time.now.mon, Time.now.year)}
 	end
 
   def regions_array(nodes)

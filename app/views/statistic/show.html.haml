@@ -5,6 +5,7 @@
 			%th Договор
 			%th Тариф
 			%th Абонплата
+			%th Наработка
 	%tbody
 	- @contracts.each do |c|
 		- c[:tariffs][0]["tplans"].each do |t|
@@ -12,5 +13,6 @@
 				%td= "#{c[:title]} - #{c[:comment]}"
 				%td= "#{t[:title]}"
 				%td= "#{t[:cost]} руб."
+				%td= "#{c[:balance]}"
 %h4= "Всего абонентов: #{@count}"
-%h4= "Общий доход: #{@allcost} руб."
+%h4= "Планируемый доход: #{@allcost} руб., Текущий доход: #{@alloperation} руб."
