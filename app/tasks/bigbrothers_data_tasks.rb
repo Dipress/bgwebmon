@@ -71,97 +71,97 @@ end
 
 
 
-SELECT 
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 29 AND contract_parameter_type_1.cid = contract.id ) as ABONENT,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 74 AND contract_parameter_type_1.cid = contract.id ) as PHONE,
-( SELECT val FROM contract_parameter_type_6 WHERE pid = 58 AND contract_parameter_type_6.cid = contract.id ) as BIRTH_DAY,
-( SELECT title FROM contract_parameter_type_7_values 
-  LEFT JOIN contract_parameter_type_7 ON contract_parameter_type_7_values.id = contract_parameter_type_7.val 
-  WHERE contract_parameter_type_7.pid = 80 AND contract_parameter_type_7.cid = contract.id ) as DOCUMENT_TYPE,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 76 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_SERIES,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 77 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_NUMBER,
-( SELECT val FROM contract_parameter_type_6 WHERE pid = 27 AND contract_parameter_type_6.cid = contract.id ) as DOCUMENT_DATE,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 25 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 78 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT_ID,
-( SELECT house FROM address_house
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
-) as ADDR_HOUSE,
-( SELECT address_street.title FROM address_street
-  LEFT JOIN address_house ON address_street.id = address_house.streetid
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
-) as ADDR_STREET,
-( SELECT address_city.title FROM address_city
-  LEFT JOIN address_street ON address_city.id = address_street.cityid
-  LEFT JOIN address_house ON address_street.id = address_house.streetid
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
-) as ADDR_CITY,
-( SELECT address_country.title FROM address_country
-  LEFT JOIN address_city ON address_city.country_id = address_country.id
-  LEFT JOIN address_street ON address_city.id = address_street.cityid
-  LEFT JOIN address_house ON address_street.id = address_house.streetid
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
-) as ADDR_COUNTRY,
-contract.date1 as CONTR_DATE,
-contract.title as CONTR_NUM,
-contract.date2 as CONTR_END,
-contract.status as STATUS,
-contract.date1 as ACT_DATE
-FROM
-contract
-WHERE contract.fc = 0 AND contract.pgid = 1 AND contract.status IN (0, 2, 4)
-ORDER BY contract.title LIMIT 50;
+# SELECT 
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 29 AND contract_parameter_type_1.cid = contract.id ) as ABONENT,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 74 AND contract_parameter_type_1.cid = contract.id ) as PHONE,
+# ( SELECT val FROM contract_parameter_type_6 WHERE pid = 58 AND contract_parameter_type_6.cid = contract.id ) as BIRTH_DAY,
+# ( SELECT title FROM contract_parameter_type_7_values 
+#   LEFT JOIN contract_parameter_type_7 ON contract_parameter_type_7_values.id = contract_parameter_type_7.val 
+#   WHERE contract_parameter_type_7.pid = 80 AND contract_parameter_type_7.cid = contract.id ) as DOCUMENT_TYPE,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 76 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_SERIES,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 77 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_NUMBER,
+# ( SELECT val FROM contract_parameter_type_6 WHERE pid = 27 AND contract_parameter_type_6.cid = contract.id ) as DOCUMENT_DATE,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 25 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 78 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT_ID,
+# ( SELECT house FROM address_house
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
+# ) as ADDR_HOUSE,
+# ( SELECT address_street.title FROM address_street
+#   LEFT JOIN address_house ON address_street.id = address_house.streetid
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
+# ) as ADDR_STREET,
+# ( SELECT address_city.title FROM address_city
+#   LEFT JOIN address_street ON address_city.id = address_street.cityid
+#   LEFT JOIN address_house ON address_street.id = address_house.streetid
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
+# ) as ADDR_CITY,
+# ( SELECT address_country.title FROM address_country
+#   LEFT JOIN address_city ON address_city.country_id = address_country.id
+#   LEFT JOIN address_street ON address_city.id = address_street.cityid
+#   LEFT JOIN address_house ON address_street.id = address_house.streetid
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
+# ) as ADDR_COUNTRY,
+# contract.date1 as CONTR_DATE,
+# contract.title as CONTR_NUM,
+# contract.date2 as CONTR_END,
+# contract.status as STATUS,
+# contract.date1 as ACT_DATE
+# FROM
+# contract
+# WHERE contract.fc = 0 AND contract.pgid = 1 AND contract.status IN (0, 2, 4)
+# ORDER BY contract.title LIMIT 50;
 
 
 
 
 
-SELECT
-( CASE 
-  WHEN ( SELECT val FROM contract_parameter_type_1 WHERE pid = 29 AND contract_parameter_type_1.cid = contract.id ) IS NULL
-  THEN ( SELECT val FROM contract_parameter_type_1 WHERE pid = 2 AND contract_parameter_type_1.cid = contract.id )
-  ELSE ( SELECT val FROM contract_parameter_type_1 WHERE pid = 29 AND contract_parameter_type_1.cid = contract.id )
-  END ) as ABONENT,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 74 AND contract_parameter_type_1.cid = contract.id ) as PHONE,
-( SELECT val FROM contract_parameter_type_6 WHERE pid = 58 AND contract_parameter_type_6.cid = contract.id ) as BIRTH_DAY,
-( SELECT title FROM contract_parameter_type_7_values 
-  LEFT JOIN contract_parameter_type_7 ON contract_parameter_type_7_values.id = contract_parameter_type_7.val 
-  WHERE contract_parameter_type_7.pid = 80 AND contract_parameter_type_7.cid = contract.id ) as DOCUMENT_TYPE,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 76 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_SERIES,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 77 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_NUMBER,
-( SELECT val FROM contract_parameter_type_6 WHERE pid = 27 AND contract_parameter_type_6.cid = contract.id ) as DOCUMENT_DATE,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 25 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT,
-( SELECT val FROM contract_parameter_type_1 WHERE pid = 78 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT_ID,
-( SELECT house FROM address_house
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
-) as ADDR_HOUSE,
-( SELECT address_street.title FROM address_street
-  LEFT JOIN address_house ON address_street.id = address_house.streetid
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
-) as ADDR_STREET,
-( SELECT address_city.title FROM address_city
-  LEFT JOIN address_street ON address_city.id = address_street.cityid
-  LEFT JOIN address_house ON address_street.id = address_house.streetid
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
-) as ADDR_CITY,
-( SELECT address_country.title FROM address_country
-  LEFT JOIN address_city ON address_city.country_id = address_country.id
-  LEFT JOIN address_street ON address_city.id = address_street.cityid
-  LEFT JOIN address_house ON address_street.id = address_house.streetid
-  LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
-  WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
-) as ADDR_COUNTRY,
-contract.date1 as CONTR_DATE,
-contract.title as CONTR_NUM,
-contract.date2 as CONTR_END,
-contract.status as STATUS,
-contract.date1 as ACT_DATE
-FROM
-contract
-ORDER BY contract.title;
+# SELECT
+# ( CASE 
+#   WHEN ( SELECT val FROM contract_parameter_type_1 WHERE pid = 29 AND contract_parameter_type_1.cid = contract.id ) IS NULL
+#   THEN ( SELECT val FROM contract_parameter_type_1 WHERE pid = 2 AND contract_parameter_type_1.cid = contract.id )
+#   ELSE ( SELECT val FROM contract_parameter_type_1 WHERE pid = 29 AND contract_parameter_type_1.cid = contract.id )
+#   END ) as ABONENT,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 74 AND contract_parameter_type_1.cid = contract.id ) as PHONE,
+# ( SELECT val FROM contract_parameter_type_6 WHERE pid = 58 AND contract_parameter_type_6.cid = contract.id ) as BIRTH_DAY,
+# ( SELECT title FROM contract_parameter_type_7_values 
+#   LEFT JOIN contract_parameter_type_7 ON contract_parameter_type_7_values.id = contract_parameter_type_7.val 
+#   WHERE contract_parameter_type_7.pid = 80 AND contract_parameter_type_7.cid = contract.id ) as DOCUMENT_TYPE,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 76 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_SERIES,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 77 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_NUMBER,
+# ( SELECT val FROM contract_parameter_type_6 WHERE pid = 27 AND contract_parameter_type_6.cid = contract.id ) as DOCUMENT_DATE,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 25 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT,
+# ( SELECT val FROM contract_parameter_type_1 WHERE pid = 78 AND contract_parameter_type_1.cid = contract.id ) as DOCUMENT_UNIT_ID,
+# ( SELECT house FROM address_house
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
+# ) as ADDR_HOUSE,
+# ( SELECT address_street.title FROM address_street
+#   LEFT JOIN address_house ON address_street.id = address_house.streetid
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id
+# ) as ADDR_STREET,
+# ( SELECT address_city.title FROM address_city
+#   LEFT JOIN address_street ON address_city.id = address_street.cityid
+#   LEFT JOIN address_house ON address_street.id = address_house.streetid
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
+# ) as ADDR_CITY,
+# ( SELECT address_country.title FROM address_country
+#   LEFT JOIN address_city ON address_city.country_id = address_country.id
+#   LEFT JOIN address_street ON address_city.id = address_street.cityid
+#   LEFT JOIN address_house ON address_street.id = address_house.streetid
+#   LEFT JOIN contract_parameter_type_2 ON address_house.id = contract_parameter_type_2.hid
+#   WHERE contract_parameter_type_2.pid = 42 AND contract_parameter_type_2.cid = contract.id 
+# ) as ADDR_COUNTRY,
+# contract.date1 as CONTR_DATE,
+# contract.title as CONTR_NUM,
+# contract.date2 as CONTR_END,
+# contract.status as STATUS,
+# contract.date1 as ACT_DATE
+# FROM
+# contract
+# ORDER BY contract.title;
