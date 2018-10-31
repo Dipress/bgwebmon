@@ -13,9 +13,9 @@ class Balance < ActiveRecord::Base
   def self.operating(cid, mm, yy)
     balance = Balance.where("cid='#{cid}' and mm='#{mm - 1}' and yy='#{yy}'").limit(1)[0]
     if balance.nil?
-      return "отсутствует"
+      return 0
     else
-      return sprintf('%.02f руб.',(balance.summa3) )
+      return sprintf('%.02f',(balance.summa3)).gsub(".", ",")
     end
   end
 

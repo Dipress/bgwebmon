@@ -88,7 +88,7 @@ class Contract < ActiveRecord::Base
       tp.tariffplan.moduletarifftrees.each do |md|
         mtreen = md.mtreenodes.where("type LIKE '%_cost'").find(:all, :select => "type as etype, data").last
         if mtreen != nil
-          fincost = mtreen.data.gsub("cost&", "").gsub("%type&1", "").gsub("type&1%", "").gsub("%type&0", "")
+          fincost = mtreen.data.gsub("cost&", "").gsub("%type&1", "").gsub("type&1%", "").gsub("%type&0", "").gsub("type&0%", "").gsub(".", ",")
           allsums += fincost.to_i
         end
       end
@@ -100,7 +100,7 @@ class Contract < ActiveRecord::Base
       ptp.moduletarifftrees.each do |pmd|
         pmtreen = pmd.mtreenodes.where("type LIKE '%_cost'").find(:all, :select => "type as etype, data").last
         if pmtreen != nil
-          pfincost = pmtreen.data.gsub("cost&", "").gsub("%type&1", "").gsub("type&1%", "").gsub("%type&0", "").gsub("type&0%", "")
+          pfincost = pmtreen.data.gsub("cost&", "").gsub("%type&1", "").gsub("type&1%", "").gsub("%type&0", "").gsub("type&0%", "")..gsub(".", ",")
           allsums += pfincost.to_i
         end
       end
