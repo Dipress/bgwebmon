@@ -29,6 +29,10 @@ every 1.hours do
   runner "MikrotikMembersTasks.datagenerate"
 end
 
+every 1.day at: "09:00 pm" do
+  runner "ScrapNodesTask.putdata"
+end
+
 every 1.day, at: '10:00 pm' do
   runner "BalanceNotificationsTasks.notification_new"
 end

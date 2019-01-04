@@ -1,0 +1,26 @@
+.container
+  .row
+    .span3
+    .span6
+      = form_for @report do |r|
+        .editor_field
+          %label BS
+          = r.text_field :title, class: "span6"
+        .editor_field
+          %label Billing ID
+          = r.text_field :billing_node_id, class: "span6"
+        .editor_field
+          %label Rent
+          = r.text_field :rent, class: "span6"
+        .editor_field
+          %label Channel
+          = r.text_field :channel, class: "span6"
+        .editor_field
+          %label Electro
+          = r.text_field :electro, class: "span6"
+        .editor_field
+          %label Other
+          = r.text_field :other, class: "span6"
+        .editor_field
+          = r.submit "Создать", :class => "btn", class: "span6"
+    .span3

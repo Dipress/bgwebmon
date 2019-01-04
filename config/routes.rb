@@ -9,6 +9,7 @@ Bgwebmon::Application.routes.draw do
 
   resources :new_monitoring, only: [:index, :show]
   resources :notes
+  resources :reports
 
   resources :sessions do
     collection do 
