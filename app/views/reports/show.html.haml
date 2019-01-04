@@ -1,0 +1,32 @@
+.container
+  .row
+    .span3
+    .span6
+      %div
+        %b Базовая станция:
+        %p= @report.title
+      %div
+        %b Всего договор:
+        %p= @report.contracts_all
+      %div
+        %b Активных договоров:
+        %p= @report.contracts_active
+      %div
+        %b Аренда:
+        %p= @report.rent
+      %div
+        %b Канал:
+        %p= @report.channel
+      %div
+        %b Электричество:
+        %p= @report.electro
+      %div
+        %b Прочее:
+        %p= @report.other
+      %div
+        %b Всего доходов:
+        %p= @report.income
+      %div
+        %b Всего расходов:
+        %p= @report.outcome
+    .span3
