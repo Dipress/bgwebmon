@@ -11,13 +11,12 @@ class Balance < ActiveRecord::Base
   end
 
   def self.operating(cid, mm, yy)
-    if mm.eql?(1)
-	 balance = Balance.where("cid='#{cid}' and mm='#{mm + 11}' and yy='#{yy - 1}'")[0]
-      	 return sprintf('%.02f',(balance.summa3)).gsub(".", ",")
-    else if balance.nil?
+    balance = Balance.where("cid='#{cid}' and mm='#{mm - 1}' and yy='#{yy}'").limit(1)[0]
+    if balance.nil?
       return 0
+    elsif mm.eql(1)
+	    balance = Balance.where("cid='#{cid}' and mm='#{mm + 11}' and yy='#{yy - 1}'").limit(1)[0]
     else
-      balance = Balance.where("cid='#{cid}' and mm='#{mm - 1}' and yy='#{yy}'").limit(1)[0]
       return sprintf('%.02f',(balance.summa3)).gsub(".", ",")
     end
   end
