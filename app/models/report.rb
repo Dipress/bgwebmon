@@ -13,6 +13,7 @@ class Report
   field :rent, type: String, default: "0.00"
   field :channel, type: String, default: "0.00"
   field :electro, type: String, default: "0.00"
+  field :frequency, type: String, default: "0.00"
   field :other, type: String, default: "0.00"
   field :outcome, type: String, default: "0.00"
 end

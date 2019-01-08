@@ -21,7 +21,7 @@ class ScrapNodesTask
 		    b = Balance.operating(c, mm, year).to_d
 		    balance += b
       end
-      outcome = r.rent.to_d + r.channel.to_d + r.electro.to_d + r.other.to_d
+	    outcome = r.rent.to_d + r.channel.to_d + r.electro.to_d + r.frequency.to_d + r.other.to_d
 
 	r.update_attributes(
 		    contracts_all: contracts_all.count,

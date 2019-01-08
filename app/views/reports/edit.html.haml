@@ -19,8 +19,11 @@
           %label Electro
           = r.text_field :electro, class: "span6"
         .editor_field
+          %label Frequency
+          = r.text_field :frequency, class: "span6"
+        .editor_field
           %label Other
           = r.text_field :other, class: "span6"
         .editor_field
-          = r.submit "Создать", :class => "btn", class: "span6"
+          = r.submit "Редактировать", :class => "btn", class: "span6"
     .span3
