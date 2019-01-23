@@ -5,3 +5,4 @@
 //= require ng-rails-csrf
 //= require_tree .
 //= require twitter/bootstrap
+//= require cocoon

@@ -22,6 +22,7 @@ gem "active_model_serializers"
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'simple_form'
+gem "cocoon"
 
 #gem 'delayed_job_active_record'
 gem 'delayed_job_mongoid'

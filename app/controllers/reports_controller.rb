@@ -11,13 +11,14 @@ class ReportsController < ApplicationController
   def new
     @user = current_user()
     @report = Report.new
+    @report.nodes.build
   end
 
   def create
     @user = current_user()
     @report = Report.new(params[:report])
     if @report.save
-      redirect_to @report
+      redirect_to reports_path
     else
       render :new
     end
@@ -37,7 +38,7 @@ class ReportsController < ApplicationController
     @user = current_user()
     @report = Report.find(params[:id])
     if @report.update_attributes(params[:report])
-      redirect_to @report
+      redirect_to reports_path
     else
       render :edit
     end

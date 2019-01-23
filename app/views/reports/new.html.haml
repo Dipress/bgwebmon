@@ -2,5 +2,27 @@
   .row
     .span3
     .span6
-      = render 'form'
+      = form_for @report, url: { action: "create" } do |form|
+        = form.fields_for :nodes do |node|
+          = render 'node_fields', form: node
+        .links
+          = link_to_add_association 'Добавить БС', form, :nodes, form_name: 'form', class: "btn btn-primary"
+        .editor_field
+          %label Аренда
+          = form.text_field :rent, class: "span6"
+        .editor_field
+          %label Канал
+          = form.text_field :channel, class: "span6"
+        .editor_field
+          %label Электропитание
+          = form.text_field :electro, class: "span6"
+        .editor_field
+          %label Другое
+          = form.text_field :other, class: "span6"
+        .editor_field
+          = form.hidden_field :outcome, class: "span6"
+        .editor_field
+          = form.hidden_field :income, class: "span6"
+        .editor_field
+          = form.submit "Создать", class: "btn btn-success"
     .span3

@@ -9,7 +9,7 @@
 %table.table.table-bordered
   %thead
     %tr
-      %th{:colspan => 3} Базовая станция
+      %th{:colspan => 4} Базовая станция
       %th{:colspan => 6} Расходы
       %th Доходы
       %th Действия
@@ -17,10 +17,11 @@
       %th Название 
       %th Всего договоров
       %th Активных договоров
-      %th Аренда
+      %th Доходы одного РЭС
+      %th РЧР
       %th Канал
       %th Электро
-      %th РЧР
+      %th Аренда
       %th Прочие
       %th Итого: 
       %th Итого: 
@@ -28,15 +29,36 @@
   %tbody
     - @reports.each do |r|
       %tr
-        %td= link_to "#{r.title}", report_path(r.id)
-        %td= r.contracts_all
-        %td= r.contracts_active
-        %td= r.rent
-        %td= r.channel
-        %td= r.electro
-        %td= r.frequency
-        %td= r.other
-        %td= r.outcome
-        %td= r.income
+        %td.clear
+          %table
+            - r.nodes.each do |n|
+              %tr{:rowspan => r.nodes.count}
+                %td.left=n.name
+        %td.clear
+          %table
+            - r.nodes.each do |n|
+              %tr{:rowspan => r.nodes.count}
+                %td=n.contracts_all
+        %td.clear
+          %table
+            - r.nodes.each do |n|
+              %tr{:rowspan => r.nodes.count}
+                %td=n.contracts_active
+        %td.clear
+          %table
+            - r.nodes.each do |n|
+              %tr{:rowspan => r.nodes.count}
+                %td.right=format("%.2f", n.income)
+        %td.clear
+          %table
+            - r.nodes.each do |n|
+              %tr{:rowspan => r.nodes.count}
+                %td.right= format("%.2f",n.frequency)
+        %td.right= format("%.2f", r.channel)
+        %td.right= format("%.2f", r.electro)
+        %td.right= format("%.2f", r.rent)
+        %td.right= format("%.2f", r.other)
+        %td.right= format("%.2f", r.outcome)
+        %td.right= format("%.2f", r.income)
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_report_path(r.id), :class => 'btn btn-primary'

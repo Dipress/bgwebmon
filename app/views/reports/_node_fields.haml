@@ -1,0 +1,24 @@
+.nested-fields
+  .panel.panel-default
+    .panel-heading
+      %h4
+        Базовая станция
+    .panel-body
+      .field
+        %label Название
+        = form.text_field :name
+      .field
+        %label ID в BGBilling
+        = form.text_field :billing_node_id
+      .field
+        = form.hidden_field :contracts_all
+      .field
+        = form.hidden_field :contracts_active
+      .field
+        = form.hidden_field :income
+      .field
+        %label РЧР
+        = form.text_field :frequency
+      .field
+        = form.check_box :_destroy
+        = link_to_remove_association "Удалить БС", form, class: "btn btn-danger"
