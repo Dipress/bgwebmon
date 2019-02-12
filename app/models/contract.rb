@@ -100,7 +100,7 @@ class Contract < ActiveRecord::Base
       ptp.moduletarifftrees.each do |pmd|
         pmtreen = pmd.mtreenodes.where("type LIKE '%_cost'").find(:all, :select => "type as etype, data").last
         if pmtreen != nil
-          pfincost = pmtreen.data.gsub("cost&", "").gsub("%type&1", "").gsub("type&1%", "").gsub("%type&0", "").gsub("type&0%", "")..gsub(".", ",")
+          pfincost = pmtreen.data.gsub("cost&", "").gsub("%type&1", "").gsub("type&1%", "").gsub("%type&0", "").gsub("type&0%", "").gsub(".", ",")
           allsums += pfincost.to_i
         end
       end

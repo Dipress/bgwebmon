@@ -8,8 +8,9 @@ class Report
   has_many :nodes, class_name: "Node", inverse_of: :report
   accepts_nested_attributes_for :nodes, :reject_if => :all_blank, :allow_destroy => true
 
-  attr_accessible :nodes_attributes, :rent, :channel, :electro, :other, :income, :outcome
+  attr_accessible :nodes_attributes, :title, :rent, :channel, :electro, :other, :income, :outcome
 
+  field :title, type: String
   field :rent, type: String, default: "0.00"
   field :channel, type: String, default: "0.00"
   field :electro, type: String, default: "0.00"

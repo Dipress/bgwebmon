@@ -3,6 +3,9 @@
     .span3
     .span6
       = form_for @report, url: { action: "create" } do |form|
+        .editor_field
+          %label Объект
+          = form.text_field :title, class: "span6"
         = form.fields_for :nodes do |node|
           = render 'node_fields', form: node
         .links

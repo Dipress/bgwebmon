@@ -8,7 +8,7 @@ class Node
 	belongs_to :report, class_name: 'Report'
 	belongs_to :contract_parameter_type7_value
 
-	attr_accessible :name, :billing_node_id, :contracts_all, :contracts_active, :income, :frequency
+	attr_accessible :name, :billing_node_id, :contracts_all, :contracts_active, :income, :frequency, :rich
 
 	validates :billing_node_id, presence: true
 	validates :contracts_all, presence: true
@@ -19,6 +19,7 @@ class Node
 	field :contracts_active, type: Integer, default: 0
 	field :income, type: String, default: "0.00"
 	field :frequency, type: String, default: "0.00"
+	field :rich, type: String
 
 	private
 

@@ -9,12 +9,13 @@
 %table.table.table-bordered
   %thead
     %tr
-      %th{:colspan => 4} Базовая станция
+      %th{:colspan => 5} Базовая станция
       %th{:colspan => 6} Расходы
       %th Доходы
       %th Действия
     %tr
-      %th Название 
+      %th Название
+      %th РИЧ 
       %th Всего договоров
       %th Активных договоров
       %th Доходы одного РЭС
@@ -34,6 +35,11 @@
             - r.nodes.each do |n|
               %tr{:rowspan => r.nodes.count}
                 %td.left=n.name
+        %td.clear
+          %table
+            - r.nodes.each do |n|
+              %tr{:rowspan => r.nodes.count}
+                %td=n.rich
         %td.clear
           %table
             - r.nodes.each do |n|

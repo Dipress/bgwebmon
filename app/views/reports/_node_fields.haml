@@ -20,5 +20,8 @@
         %label РЧР
         = form.text_field :frequency
       .field
+        %label РИЧ
+        = form.text_field :rich
+      .field
         = form.check_box :_destroy
         = link_to_remove_association "Удалить БС", form, class: "btn btn-danger"

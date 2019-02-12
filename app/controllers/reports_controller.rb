@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
 
   def index
     @user = current_user()
-    @reports = Report.all
+    @reports = Report.order_by(title: 'asc')
   end
 
   def new
