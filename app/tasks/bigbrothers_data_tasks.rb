@@ -37,7 +37,8 @@ class BigbrothersDataTasks
       ]
       contract.each do |c|
         begin
-          csv << [ "#{ c.contract_parameter_type1.where(pid: 74).map { |cp1| cp1.val }.first }", # PHONE
+          csv << [ "#{c.phones.map {|cf| cf.value }.first}", # PHONE 
+                  # "#{ c.contract_parameter_type1.where(pid: 74).map { |cp1| cp1.val }.first }", # IP
                    "#{ c.contract_parameter_type1.where(pid: 29).map { |cp1| cp1.val }.first }", # ABONENT
                    "#{ c.contract_parameter_type1.where(pid: 29).map { |cp1| cp1.val }.first.to_s.split(" ")[1] }", # ABONENT_I
                    "#{ c.contract_parameter_type1.where(pid: 29).map { |cp1| cp1.val }.first.to_s.split(" ")[2] }", # ABONENT_O
@@ -51,7 +52,7 @@ class BigbrothersDataTasks
                    "#{ c.contract_parameter_type1.where(pid: 78).map { |cp1| cp1.val }.first }", # DOCUMENT UNIT_ID
                    "", # ADDR_INDEX
                    "", # ADDR_COUNTRY
-                   "", # ADD_CITY
+                   "#{c.contract_parameter_type2.where(pid:42).map {|cp2| cp2.address}.first}", # ADD_CITY
                    "", # ADDR_STREET
                    "#{ c.contract_parameter_type2.where(pid: 42).first.address_house.house }", # ADDR_HOUSE
                    "", # ADDR_ROOM

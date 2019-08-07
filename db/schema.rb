@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160218101315) do
+ActiveRecord::Schema.define(:version => 20190806131529) do
+
+  create_table "_contract_status_bak_bir", :id => false, :force => true do |t|
+    t.integer "id",                     :default => 0, :null => false
+    t.integer "cid",                                   :null => false
+    t.integer "status",  :limit => 1,                  :null => false
+    t.integer "uid",                                   :null => false
+    t.date    "date1",                                 :null => false
+    t.date    "date2"
+    t.string  "comment", :limit => 250,                :null => false
+  end
 
   create_table "address_area", :force => true do |t|
     t.string  "title",  :limit => 150, :default => "0", :null => false
@@ -65,6 +75,15 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "cityid",                 :default => -1,  :null => false
   end
 
+  create_table "agent_payment_currencies", :force => true do |t|
+    t.string   "name",       :limit => 256,                               :null => false
+    t.string   "scode",      :limit => 60,                                :null => false
+    t.integer  "nominal",                                                 :null => false
+    t.decimal  "curs",                      :precision => 8, :scale => 2, :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+  end
+
   create_table "agent_payments", :force => true do |t|
     t.integer  "contract_id"
     t.integer  "user_id"
@@ -83,6 +102,12 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "agent_payments", ["contract_id"], :name => "index_agent_payments_on_contract_id"
   add_index "agent_payments", ["manager_id"], :name => "index_agent_payments_on_manager_id"
   add_index "agent_payments", ["user_id"], :name => "index_agent_payments_on_user_id"
+
+  create_table "ar_internal_metadata", :primary_key => "key", :force => true do |t|
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "bgs_group", :force => true do |t|
     t.string  "title",    :limit => 250, :default => "", :null => false
@@ -110,6 +135,1446 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   create_table "bgs_module_action", :primary_key => "module", :force => true do |t|
     t.text "data", :null => false
   end
+
+  create_table "bgs_query_log_201301", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201301", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201301", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201301", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201301", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201302", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201302", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201302", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201302", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201302", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201303", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201303", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201303", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201303", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201303", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201304", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201304", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201304", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201304", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201304", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201305", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201305", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201305", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201305", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201305", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201306", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201306", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201306", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201306", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201306", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201307", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201307", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201307", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201307", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201307", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201308", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201308", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201308", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201308", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201308", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201309", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201309", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201309", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201309", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201309", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201310", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201310", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201310", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201310", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201310", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201311", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201311", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201311", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201311", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201311", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201312", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201312", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201312", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201312", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201312", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201401", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201401", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201401", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201401", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201401", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201402", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201402", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201402", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201402", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201402", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201403", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201403", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201403", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201403", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201403", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201404", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201404", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201404", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201404", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201404", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201405", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201405", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201405", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201405", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201405", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201406", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201406", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201406", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201406", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201406", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201407", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201407", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201407", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201407", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201407", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201408", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201408", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201408", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201408", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201408", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201409", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201409", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201409", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201409", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201409", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201410", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201410", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201410", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201410", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201410", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201411", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201411", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201411", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201411", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201411", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201412", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201412", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201412", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201412", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201412", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201501", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201501", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201501", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201501", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201501", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201502", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201502", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201502", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201502", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201502", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201503", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201503", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201503", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201503", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201503", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201504", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201504", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201504", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201504", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201504", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201505", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201505", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201505", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201505", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201505", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201506", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201506", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201506", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201506", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201506", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201507", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201507", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201507", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201507", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201507", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201508", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201508", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201508", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201508", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201508", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201509", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201509", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201509", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201509", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201509", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201510", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201510", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201510", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201510", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201510", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201511", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201511", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201511", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201511", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201511", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201512", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201512", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201512", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201512", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201512", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201601", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201601", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201601", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201601", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201601", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201602", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201602", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201602", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201602", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201602", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201603", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201603", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201603", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201603", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201603", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201604", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201604", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201604", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201604", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201604", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201605", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201605", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201605", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201605", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201605", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201606", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201606", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201606", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201606", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201606", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201607", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201607", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201607", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201607", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201607", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201608", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201608", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201608", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201608", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201608", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201609", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201609", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201609", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201609", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201609", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201610", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201610", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201610", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201610", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201610", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201611", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201611", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201611", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201611", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201611", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201612", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201612", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201612", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201612", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201612", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201701", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201701", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201701", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201701", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201701", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201702", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201702", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201702", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201702", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201702", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201703", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201703", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201703", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201703", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201703", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201704", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201704", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201704", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201704", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201704", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201705", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201705", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201705", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201705", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201705", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201706", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201706", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201706", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201706", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201706", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201707", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201707", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201707", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201707", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201707", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201708", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201708", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201708", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201708", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201708", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201709", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201709", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201709", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201709", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201709", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201710", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201710", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201710", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201710", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201710", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201711", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201711", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201711", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201711", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201711", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201712", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201712", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201712", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201712", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201712", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201801", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201801", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201801", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201801", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201801", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201802", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201802", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201802", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201802", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201802", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201803", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201803", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201803", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201803", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201803", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201804", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201804", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201804", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201804", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201804", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201805", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201805", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201805", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201805", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201805", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201806", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201806", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201806", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201806", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201806", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201807", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201807", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201807", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201807", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201807", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201808", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201808", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201808", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201808", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201808", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201809", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201809", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201809", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201809", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201809", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201810", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201810", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201810", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201810", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201810", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201811", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201811", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201811", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201811", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201811", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201812", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201812", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201812", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201812", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201812", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201901", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201901", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201901", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201901", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201901", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201902", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201902", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201902", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201902", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201902", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201903", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201903", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201903", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201903", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201903", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201904", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201904", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201904", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201904", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201904", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201905", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201905", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201905", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201905", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201905", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201906", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201906", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201906", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201906", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201906", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201907", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201907", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201907", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201907", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201907", ["uid"], :name => "uid"
+
+  create_table "bgs_query_log_201908", :id => false, :force => true do |t|
+    t.datetime "dtime",                  :null => false
+    t.integer  "uid",                    :null => false
+    t.string   "ip",      :limit => 20,  :null => false
+    t.integer  "cid",                    :null => false
+    t.string   "mid_aid", :limit => 100, :null => false
+    t.text     "action",                 :null => false
+    t.text     "query",                  :null => false
+    t.string   "c_title", :limit => 150, :null => false
+    t.string   "u_name",  :limit => 50,  :null => false
+    t.string   "m_title", :limit => 150, :null => false
+  end
+
+  add_index "bgs_query_log_201908", ["cid"], :name => "cid"
+  add_index "bgs_query_log_201908", ["dtime"], :name => "dtime"
+  add_index "bgs_query_log_201908", ["mid_aid"], :name => "mid_aid"
+  add_index "bgs_query_log_201908", ["uid"], :name => "uid"
 
   create_table "bgs_user_action", :id => false, :force => true do |t|
     t.integer "uid",               :default => 0, :null => false
@@ -342,6 +1807,8 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "error",                                              :null => false
     t.string  "ip",                 :limit => 15,                   :null => false
     t.integer "params",                            :default => 0
+    t.integer "findmodes",          :limit => 8,   :default => 0,   :null => false
+    t.integer "allowcontracts",     :limit => 8,   :default => 0,   :null => false
     t.integer "cansel_time"
     t.integer "st_request",                        :default => 0,   :null => false
     t.integer "st_finded",                         :default => 0,   :null => false
@@ -354,6 +1821,38 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "pay_comission_type", :limit => 1,                    :null => false
     t.integer "contract_id",                                        :null => false
   end
+
+  create_table "card_dealer_pay_13_201408", :id => false, :force => true do |t|
+    t.integer  "id",                   :null => false
+    t.integer  "did"
+    t.string   "trans"
+    t.integer  "cid"
+    t.integer  "pid"
+    t.datetime "dt"
+    t.float    "summ",   :limit => 15
+    t.integer  "status"
+  end
+
+  add_index "card_dealer_pay_13_201408", ["did"], :name => "did"
+  add_index "card_dealer_pay_13_201408", ["id"], :name => "id", :unique => true
+  add_index "card_dealer_pay_13_201408", ["pid"], :name => "pid"
+  add_index "card_dealer_pay_13_201408", ["trans"], :name => "trans"
+
+  create_table "card_dealer_pay_13_201409", :id => false, :force => true do |t|
+    t.integer  "id",                   :null => false
+    t.integer  "did"
+    t.string   "trans"
+    t.integer  "cid"
+    t.integer  "pid"
+    t.datetime "dt"
+    t.float    "summ",   :limit => 15
+    t.integer  "status"
+  end
+
+  add_index "card_dealer_pay_13_201409", ["did"], :name => "did"
+  add_index "card_dealer_pay_13_201409", ["id"], :name => "id", :unique => true
+  add_index "card_dealer_pay_13_201409", ["pid"], :name => "pid"
+  add_index "card_dealer_pay_13_201409", ["trans"], :name => "trans"
 
   create_table "card_series_11", :force => true do |t|
     t.string  "title"
@@ -370,27 +1869,647 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "free",  :null => false
   end
 
+  create_table "connection_log_entry_14_201701", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201701", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201701", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201702", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201702", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201702", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201703", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201703", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201703", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201704", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201704", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201704", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201705", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201705", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201705", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201706", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201706", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201706", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201707", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201707", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201707", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201708", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201708", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201708", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201709", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201709", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201709", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201710", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201710", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201710", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201711", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201711", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201711", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201712", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201712", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201712", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201801", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201801", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201801", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201802", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201802", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201802", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201803", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201803", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201803", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201804", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201804", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201804", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201805", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201805", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201805", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201806", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201806", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201806", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201807", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201807", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201807", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201808", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201808", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201808", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201809", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201809", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201809", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201810", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201810", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201810", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201811", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201811", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201811", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201812", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201812", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201812", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201901", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201901", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201901", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201902", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201902", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201902", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201903", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201903", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201903", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201904", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201904", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201904", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201905", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201905", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201905", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201906", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201906", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201906", ["id"], :name => "id"
+
+  create_table "connection_log_entry_14_201907", :id => false, :force => true do |t|
+    t.integer  "id",                              :null => false
+    t.integer  "applicationId",                   :null => false
+    t.integer  "deviceId",                        :null => false
+    t.integer  "devicePort",                      :null => false
+    t.integer  "connectionId",      :limit => 8,  :null => false
+    t.datetime "time",                            :null => false
+    t.string   "acctSessId",        :limit => 50, :null => false
+    t.integer  "type",                            :null => false
+    t.integer  "requestDataLogId",                :null => false
+    t.integer  "requestChunkId",                  :null => false
+    t.integer  "requestPosition",                 :null => false
+    t.integer  "responseDataLogId",               :null => false
+    t.integer  "responseChunkId",                 :null => false
+    t.integer  "responsePosition",                :null => false
+  end
+
+  add_index "connection_log_entry_14_201907", ["applicationId", "deviceId", "time", "devicePort", "acctSessId"], :name => "app-dev-con"
+  add_index "connection_log_entry_14_201907", ["id"], :name => "id"
+
   create_table "contract", :force => true do |t|
-    t.integer  "gr",                 :limit => 8,                                  :default => 0,     :null => false
-    t.string   "title",              :limit => 150,                                :default => "",    :null => false
-    t.integer  "title_pattern_id",                                                                    :null => false
-    t.string   "pswd",               :limit => 32,                                 :default => "",    :null => false
+    t.integer  "gr",                 :limit => 8,                                       :default => 0,     :null => false
+    t.string   "title",              :limit => 150,                                     :default => "",    :null => false
+    t.integer  "title_pattern_id",                                                                         :null => false
+    t.string   "pswd",               :limit => 32,                                      :default => "",    :null => false
     t.date     "date1"
     t.date     "date2"
-    t.integer  "mode",               :limit => 1,                                  :default => 0,     :null => false
-    t.decimal  "closesumma",                        :precision => 10, :scale => 2,                    :null => false
-    t.integer  "pgid",                                                             :default => 0,     :null => false
-    t.integer  "pfid",                                                             :default => 0,     :null => false
-    t.boolean  "fc",                                                               :default => false, :null => false
-    t.string   "comment",            :limit => 100,                                :default => "",    :null => false
-    t.boolean  "del",                                                              :default => false, :null => false
-    t.integer  "scid",                                                             :default => 0,     :null => false
-    t.text     "sub_list",                                                                            :null => false
-    t.integer  "sub_mode",           :limit => 1,                                                     :null => false
-    t.integer  "status",             :limit => 1,                                  :default => 0,     :null => false
+    t.integer  "mode",               :limit => 1,                                       :default => 0,     :null => false
+    t.decimal  "closesumma",                             :precision => 10, :scale => 2,                    :null => false
+    t.integer  "pgid",                                                                  :default => 0,     :null => false
+    t.integer  "pfid",                                                                  :default => 0,     :null => false
+    t.boolean  "fc",                                                                    :default => false, :null => false
+    t.string   "comment",            :limit => 100,                                     :default => "",    :null => false
+    t.boolean  "del",                                                                   :default => false, :null => false
+    t.integer  "scid",                                                                  :default => 0,     :null => false
+    t.text     "sub_list",           :limit => 16777215,                                                   :null => false
+    t.integer  "sub_mode",           :limit => 1,                                                          :null => false
+    t.integer  "status",             :limit => 1,                                       :default => 0,     :null => false
     t.date     "status_date"
     t.datetime "last_tariff_change"
-    t.integer  "crm_customer_id",                                                  :default => 0,     :null => false
+    t.integer  "crm_customer_id",                                                       :default => 0,     :null => false
   end
 
   add_index "contract", ["crm_customer_id"], :name => "crm_customer_id"
@@ -410,6 +2529,17 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "contract_account", ["cid"], :name => "cid"
 
+  create_table "contract_autopayment", :force => true do |t|
+    t.integer  "contract_id", :default => 0,  :null => false
+    t.integer  "module_id",   :default => 0,  :null => false
+    t.datetime "date_from"
+    t.datetime "date_to"
+    t.integer  "user_from",   :default => -2, :null => false
+    t.integer  "user_to",     :default => -2, :null => false
+  end
+
+  add_index "contract_autopayment", ["contract_id", "module_id"], :name => "cid_mid"
+
   create_table "contract_balance", :id => false, :force => true do |t|
     t.integer "yy",     :limit => 2,                                :default => 0, :null => false
     t.integer "mm",     :limit => 1,                                :default => 0, :null => false
@@ -423,13 +2553,14 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "contract_balance", ["cid"], :name => "cid"
 
   create_table "contract_charge", :force => true do |t|
-    t.date      "dt",                                                                    :null => false
-    t.integer   "cid",                                                   :default => 0,  :null => false
-    t.integer   "pt",                                                    :default => 0,  :null => false
-    t.integer   "uid",                                                   :default => 0,  :null => false
-    t.decimal   "summa",                  :precision => 10, :scale => 2,                 :null => false
-    t.string    "comment", :limit => 200,                                :default => "", :null => false
-    t.timestamp "lm",                                                                    :null => false
+    t.date      "dt",                                                                       :null => false
+    t.integer   "cid",                                                   :default => 0,     :null => false
+    t.integer   "pt",                                                    :default => 0,     :null => false
+    t.integer   "uid",                                                   :default => 0,     :null => false
+    t.decimal   "summa",                  :precision => 10, :scale => 2,                    :null => false
+    t.string    "comment", :limit => 200,                                :default => "",    :null => false
+    t.timestamp "lm",                                                                       :null => false
+    t.boolean   "payback",                                               :default => false, :null => false
   end
 
   add_index "contract_charge", ["cid", "dt"], :name => "cid_dt"
@@ -439,10 +2570,11 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "contract_charge", ["uid"], :name => "uid"
 
   create_table "contract_charge_types", :force => true do |t|
-    t.string  "title", :limit => 50, :default => "", :null => false
-    t.integer "flag",  :limit => 1,  :default => 0,  :null => false
-    t.integer "type",  :limit => 1,  :default => 0,  :null => false
-    t.integer "up",                  :default => 0,  :null => false
+    t.string  "title",   :limit => 50, :default => "",    :null => false
+    t.integer "flag",    :limit => 1,  :default => 0,     :null => false
+    t.integer "type",    :limit => 1,  :default => 0,     :null => false
+    t.integer "up",                    :default => 0,     :null => false
+    t.boolean "payback",               :default => false, :null => false
   end
 
   create_table "contract_comment", :force => true do |t|
@@ -525,6 +2657,7 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string  "title",    :limit => 100, :default => "", :null => false
     t.integer "enable",   :limit => 1,   :default => 0,  :null => false
     t.integer "editable", :limit => 1,   :default => 1,  :null => false
+    t.string  "comment",                 :default => "", :null => false
   end
 
   add_index "contract_group", ["enable"], :name => "enable"
@@ -592,6 +2725,15 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "cid", :null => false
     t.integer "mid", :null => false
   end
+
+  create_table "contract_module_config", :id => false, :force => true do |t|
+    t.integer "contract_id",               :default => 0,  :null => false
+    t.integer "module_id",                 :default => 0,  :null => false
+    t.string  "key",         :limit => 50, :default => "", :null => false
+    t.text    "value",                                     :null => false
+  end
+
+  add_index "contract_module_config", ["module_id", "key"], :name => "module_id_key"
 
   create_table "contract_notification", :force => true do |t|
     t.integer  "cid",     :null => false
@@ -829,6 +2971,34 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "contract_parameter_type_9_log", ["cid", "pid"], :name => "cip_pid"
 
+  create_table "contract_parameter_type_multilist", :id => false, :force => true do |t|
+    t.integer "cid",                 :null => false
+    t.integer "pid",                 :null => false
+    t.string  "val", :default => "", :null => false
+  end
+
+  create_table "contract_parameter_type_multilist_item", :id => false, :force => true do |t|
+    t.integer "cid",                                         :null => false
+    t.integer "pid",                                         :null => false
+    t.integer "val",                                         :null => false
+    t.string  "custom_value", :limit => 100, :default => "", :null => false
+  end
+
+  create_table "contract_parameter_type_multilist_log", :id => false, :force => true do |t|
+    t.integer  "cid",       :null => false
+    t.integer  "pid",       :null => false
+    t.string   "val"
+    t.datetime "dt_change", :null => false
+    t.integer  "user_id",   :null => false
+  end
+
+  add_index "contract_parameter_type_multilist_log", ["cid", "pid"], :name => "cid_pid"
+
+  create_table "contract_parameter_type_multilist_values", :force => true do |t|
+    t.integer "pid",                  :null => false
+    t.string  "title", :limit => 100, :null => false
+  end
+
   create_table "contract_parameter_type_phone", :id => false, :force => true do |t|
     t.integer "pid",   :null => false
     t.integer "cid",   :null => false
@@ -899,6 +3069,15 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "mid", :null => false
   end
 
+  create_table "contract_pattern_named_numbers", :force => true do |t|
+    t.string  "title",        :limit => 45,                 :null => false
+    t.integer "ln",                                         :null => false
+    t.integer "count_number",               :default => -1
+    t.string  "comment",      :limit => 90
+  end
+
+  add_index "contract_pattern_named_numbers", ["title"], :name => "title_UNIQUE", :unique => true
+
   create_table "contract_pattern_services", :id => false, :force => true do |t|
     t.integer "pid", :default => 0, :null => false
     t.integer "sid", :default => 0, :null => false
@@ -921,6 +3100,21 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "contract_payment", ["pt", "dt"], :name => "pt_dt"
   add_index "contract_payment", ["uid"], :name => "uid"
 
+  create_table "contract_payment_deleted", :force => true do |t|
+    t.date      "dt",                                                                    :null => false
+    t.integer   "cid",                                                   :default => 0,  :null => false
+    t.integer   "pt",                                                    :default => 0,  :null => false
+    t.integer   "uid",                                                   :default => 0,  :null => false
+    t.decimal   "summa",                  :precision => 10, :scale => 2,                 :null => false
+    t.string    "comment", :limit => 200,                                :default => "", :null => false
+    t.timestamp "lm",                                                                    :null => false
+  end
+
+  add_index "contract_payment_deleted", ["cid", "dt"], :name => "cid_dt"
+  add_index "contract_payment_deleted", ["dt", "cid"], :name => "dt_cid"
+  add_index "contract_payment_deleted", ["pt", "dt"], :name => "pt_dt"
+  add_index "contract_payment_deleted", ["uid"], :name => "uid"
+
   create_table "contract_payment_types", :force => true do |t|
     t.string  "title", :limit => 50, :default => "", :null => false
     t.integer "up",                  :default => 0,  :null => false
@@ -931,6 +3125,34 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "contract_payment_types", ["flag"], :name => "flag"
   add_index "contract_payment_types", ["type"], :name => "type"
   add_index "contract_payment_types", ["up"], :name => "up"
+
+  create_table "contract_plugin_config", :id => false, :force => true do |t|
+    t.integer "contract_id",               :default => 0,  :null => false
+    t.integer "plugin_id",                 :default => 0,  :null => false
+    t.string  "key",         :limit => 50, :default => "", :null => false
+    t.text    "value",                                     :null => false
+  end
+
+  add_index "contract_plugin_config", ["plugin_id", "key"], :name => "plugin_id_key"
+
+  create_table "contract_reserve", :force => true do |t|
+    t.integer  "cid",                                       :null => false
+    t.integer  "typeId",                                    :null => false
+    t.decimal  "sum",        :precision => 10, :scale => 2, :null => false
+    t.datetime "dateCreate",                                :null => false
+    t.datetime "dateTo"
+    t.datetime "dateClose"
+    t.string   "comment"
+  end
+
+  create_table "contract_reserve_total", :primary_key => "cid", :force => true do |t|
+    t.decimal "sum", :precision => 10, :scale => 2
+  end
+
+  create_table "contract_reserve_types", :force => true do |t|
+    t.string  "title", :limit => 45, :null => false
+    t.boolean "used"
+  end
 
   create_table "contract_script", :force => true do |t|
     t.integer "cid",                      :default => 0,  :null => false
@@ -1040,6 +3262,23 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "contract_tree_link", ["cid"], :name => "cid"
 
+  create_table "contract_web_menu", :id => false, :force => true do |t|
+    t.integer "contract_id", :default => 0, :null => false
+    t.integer "web_menu_id", :default => 0, :null => false
+  end
+
+  add_index "contract_web_menu", ["contract_id"], :name => "contract_id"
+  add_index "contract_web_menu", ["web_menu_id"], :name => "web_menu_id"
+
+  create_table "dealer_pay_log", :force => true do |t|
+    t.integer  "dealer_cid"
+    t.datetime "dt"
+    t.integer  "card_id"
+    t.decimal  "summa",      :precision => 10, :scale => 2
+    t.integer  "cid"
+    t.integer  "payment_id"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -1055,6 +3294,127 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "dispatch_contact", :force => true do |t|
+    t.integer "contract_id",                :null => false
+    t.integer "type_id",                    :null => false
+    t.string  "val",         :limit => 100, :null => false
+  end
+
+  add_index "dispatch_contact", ["contract_id"], :name => "contract_id"
+
+  create_table "dispatch_contact_type", :force => true do |t|
+    t.string  "title",       :limit => 100,                 :null => false
+    t.string  "pattern",     :limit => 100,                 :null => false
+    t.text    "description",                                :null => false
+    t.integer "pid",                        :default => -1, :null => false
+  end
+
+  create_table "dispatch_dispatch", :force => true do |t|
+    t.string  "title",              :limit => 100,                    :null => false
+    t.integer "sender_type_id",                                       :null => false
+    t.boolean "active",                            :default => true,  :null => false
+    t.boolean "personal",                          :default => false, :null => false
+    t.boolean "do_not_mark_sended",                :default => false, :null => false
+    t.boolean "only_one_contact",                  :default => false, :null => false
+    t.string  "repeat_time",        :limit => 150,                    :null => false
+    t.integer "contact_type_id",                                      :null => false
+    t.binary  "conditions",                                           :null => false
+  end
+
+  create_table "dispatch_message", :force => true do |t|
+    t.integer  "dispatch_id", :null => false
+    t.datetime "create_date", :null => false
+    t.datetime "send_date",   :null => false
+    t.integer  "is_sent",     :null => false
+    t.text     "msg_body",    :null => false
+    t.string   "msg_title",   :null => false
+  end
+
+  create_table "dispatch_sender_type", :force => true do |t|
+    t.string "title",      :null => false
+    t.string "class_name", :null => false
+  end
+
+  create_table "dispatch_subscription", :force => true do |t|
+    t.integer "dispatch_id",                                  :null => false
+    t.integer "contract_id",                                  :null => false
+    t.date    "date_from"
+    t.date    "date_to"
+    t.text    "comment",                                      :null => false
+    t.binary  "data",                                         :null => false
+    t.string  "repeat_time", :limit => 150,                   :null => false
+    t.boolean "active",                     :default => true, :null => false
+  end
+
+  add_index "dispatch_subscription", ["contract_id"], :name => "contract_id"
+
+  create_table "dispatch_subscription_contact", :id => false, :force => true do |t|
+    t.integer "subscription_id", :null => false
+    t.integer "contact_id",      :null => false
+  end
+
+  create_table "documents", :force => true do |t|
+    t.integer   "cid",                                  :null => false
+    t.integer   "journal_id",                           :null => false
+    t.integer   "type",                                 :null => false
+    t.string    "title",                                :null => false
+    t.timestamp "create_date"
+    t.integer   "user",                                 :null => false
+    t.text      "comment",          :limit => 16777215
+    t.integer   "status_id",                            :null => false
+    t.timestamp "last_modify_date"
+  end
+
+  create_table "documents_journal", :force => true do |t|
+    t.string "title", :null => false
+  end
+
+  create_table "documents_pattern", :force => true do |t|
+    t.string  "title",               :limit => 100,                :null => false
+    t.string  "comment",             :limit => 250
+    t.string  "generated_file_name", :limit => 100
+    t.string  "output_name",         :limit => 100
+    t.integer "use_in_plugin",       :limit => 1,   :default => 1, :null => false
+    t.text    "extractor_class"
+  end
+
+  create_table "documents_pattern_tables", :id => false, :force => true do |t|
+    t.integer "pattern_id",                                   :null => false
+    t.string  "title",          :limit => 100,                :null => false
+    t.integer "position"
+    t.integer "extract_method", :limit => 1,   :default => 1
+    t.text    "value"
+    t.string  "identifier",     :limit => 32
+  end
+
+  add_index "documents_pattern_tables", ["pattern_id"], :name => "fk_doc_pattern_tables"
+
+  create_table "documents_pattern_variables", :id => false, :force => true do |t|
+    t.integer "pattern_id",                                    :null => false
+    t.string  "title",            :limit => 45,                :null => false
+    t.integer "type",             :limit => 1,  :default => 1
+    t.string  "additional_param", :limit => 50
+    t.text    "value"
+  end
+
+  add_index "documents_pattern_variables", ["pattern_id"], :name => "fk_docs_pattern_vars"
+
+  create_table "documents_status", :force => true do |t|
+    t.string "title", :limit => 128, :null => false
+  end
+
+  create_table "documents_status_log", :force => true do |t|
+    t.integer   "id_document", :null => false
+    t.timestamp "date",        :null => false
+    t.integer   "status",      :null => false
+    t.integer   "user",        :null => false
+    t.text      "comment"
+  end
+
+  create_table "documents_type", :force => true do |t|
+    t.string "title", :limit => 128, :null => false
+  end
 
   create_table "entity", :force => true do |t|
     t.integer "entitySpecId", :null => false
@@ -1156,6 +3516,24 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.text      "comment",  :null => false
   end
 
+  create_table "filestorage_files_list_dispatch_message", :force => true do |t|
+    t.integer   "id_owner", :null => false
+    t.string    "title",    :null => false
+    t.integer   "size",     :null => false
+    t.timestamp "date",     :null => false
+    t.integer   "user",     :null => false
+    t.text      "comment"
+  end
+
+  create_table "filestorage_files_list_documents_pattern", :force => true do |t|
+    t.integer   "id_owner", :null => false
+    t.string    "title",    :null => false
+    t.integer   "size",     :null => false
+    t.timestamp "date",     :null => false
+    t.integer   "user",     :null => false
+    t.text      "comment"
+  end
+
   create_table "firm", :force => true do |t|
     t.string "title", :limit => 150, :default => "0", :null => false
   end
@@ -1171,6 +3549,1463 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string "title",      :null => false
     t.string "class_name", :null => false
   end
+
+  create_table "helpdesk_category_10", :force => true do |t|
+    t.string "title", :limit => 200, :null => false
+  end
+
+  create_table "helpdesk_directory_link_10", :force => true do |t|
+    t.integer "group",       :null => false
+    t.integer "category",    :null => false
+    t.integer "subcategory", :null => false
+  end
+
+  create_table "helpdesk_group_10", :force => true do |t|
+    t.string "title", :limit => 200, :null => false
+  end
+
+  create_table "helpdesk_message_10", :force => true do |t|
+    t.integer  "topic_id",                 :null => false
+    t.text     "body",                     :null => false
+    t.datetime "date_from",                :null => false
+    t.integer  "user_from",                :null => false
+    t.datetime "date_to"
+    t.integer  "user_to",                  :null => false
+    t.string   "comment",   :limit => 250, :null => false
+  end
+
+  add_index "helpdesk_message_10", ["topic_id"], :name => "topic_id"
+  add_index "helpdesk_message_10", ["user_from", "user_to"], :name => "from_to"
+
+  create_table "helpdesk_package_10", :force => true do |t|
+    t.timestamp "lu",                                                        :null => false
+    t.string    "title",                                                     :null => false
+    t.decimal   "summa",     :precision => 12, :scale => 2, :default => 1.0, :null => false
+    t.integer   "count",                                    :default => 1,   :null => false
+    t.integer   "period",                                   :default => 1,   :null => false
+    t.integer   "status",                                   :default => 0,   :null => false
+    t.integer   "charge_id",                                :default => 0,   :null => false
+  end
+
+  create_table "helpdesk_package_contract_10", :force => true do |t|
+    t.timestamp "lu",                                        :null => false
+    t.integer   "package_id",                                :null => false
+    t.integer   "cid",                                       :null => false
+    t.date      "date_from",                                 :null => false
+    t.date      "date_to",                                   :null => false
+    t.decimal   "summa",      :precision => 15, :scale => 2, :null => false
+    t.integer   "count",                                     :null => false
+    t.integer   "count_use",                                 :null => false
+    t.integer   "user_id",                                   :null => false
+  end
+
+  create_table "helpdesk_param_10", :id => false, :force => true do |t|
+    t.integer "cid",                 :null => false
+    t.string  "name",  :limit => 50, :null => false
+    t.string  "value",               :null => false
+  end
+
+  add_index "helpdesk_param_10", ["cid"], :name => "cid"
+
+  create_table "helpdesk_subcategory_10", :force => true do |t|
+    t.string "title", :limit => 200, :null => false
+  end
+
+  create_table "helpdesk_topic_10", :force => true do |t|
+    t.string   "title",                                                                             :null => false
+    t.integer  "cid",                                                                               :null => false
+    t.integer  "charge_id",                                                                         :null => false
+    t.decimal  "cost",                             :precision => 7, :scale => 2,                    :null => false
+    t.boolean  "closed",                                                         :default => false, :null => false
+    t.datetime "date",                                                                              :null => false
+    t.datetime "date_close"
+    t.integer  "comm",                :limit => 1,                               :default => 0,     :null => false
+    t.string   "comm_value",                                                     :default => "",    :null => false
+    t.integer  "user_id",                                                        :default => -1,    :null => false
+    t.integer  "status",              :limit => 2,                               :default => 0,     :null => false
+    t.integer  "contract_package_id",                                            :default => -1,    :null => false
+    t.boolean  "autoclose",                                                      :default => true,  :null => false
+    t.integer  "category_id",                                                                       :null => false
+    t.integer  "subcategory_id",                                                                    :null => false
+  end
+
+  create_table "helpdesk_topic_manager_change_10", :id => false, :force => true do |t|
+    t.integer  "topic_id", :null => false
+    t.integer  "user_id",  :null => false
+    t.datetime "date",     :null => false
+    t.text     "comment"
+  end
+
+  create_table "helpdesk_topic_reserve", :primary_key => "topicId", :force => true do |t|
+    t.boolean "status"
+    t.integer "reserveId"
+  end
+
+  add_index "helpdesk_topic_reserve", ["reserveId"], :name => "reserveId"
+
+  create_table "helpdesk_topic_statuses_10", :force => true do |t|
+    t.string "title", :limit => 128, :null => false
+  end
+
+  create_table "inet_accounting_period_14", :force => true do |t|
+    t.integer  "contractId",                :null => false
+    t.datetime "timeFrom",                  :null => false
+    t.datetime "timeTo",                    :null => false
+    t.date     "dateFrom"
+    t.date     "dateTo"
+    t.integer  "userId",     :default => 0, :null => false
+  end
+
+  add_index "inet_accounting_period_14", ["contractId"], :name => "contract"
+
+  create_table "inet_accounting_period_14_bak_sec", :force => true do |t|
+    t.integer "contractId",                :null => false
+    t.date    "dateFrom",                  :null => false
+    t.date    "dateTo",                    :null => false
+    t.integer "userId",     :default => 0, :null => false
+  end
+
+  add_index "inet_accounting_period_14_bak_sec", ["contractId"], :name => "contract"
+
+  create_table "inet_auth_error_14_201401", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201401", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201401", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201401", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201401", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201402", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201402", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201402", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201402", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201402", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201403", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201403", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201403", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201403", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201403", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201404", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201404", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201404", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201404", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201404", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201405", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201405", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201405", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201405", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201405", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201406", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201406", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201406", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201406", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201406", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201407", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201407", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201407", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201407", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201407", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201408", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201408", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201408", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201408", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201408", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201409", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201409", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201409", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201409", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201409", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201410", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201410", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201410", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201410", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201410", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201411", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201411", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201411", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201411", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201411", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201412", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201412", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201412", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201412", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201412", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201501", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201501", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201501", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201501", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201501", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201502", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201502", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201502", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201502", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201502", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201503", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201503", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201503", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201503", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201503", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201504", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201504", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201504", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201504", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201504", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201505", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201505", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201505", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201505", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201505", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201506", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201506", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201506", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201506", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201506", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201507", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201507", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201507", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201507", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201507", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201508", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201508", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201508", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201508", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201508", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201509", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201509", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201509", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201509", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201509", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201510", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201510", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201510", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201510", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201510", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201511", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201511", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201511", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201511", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201511", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201512", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201512", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201512", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201512", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201512", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201601", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201601", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201601", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201601", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201601", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201602", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201602", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201602", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201602", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201602", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201603", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 100,                :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 100,                :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201603", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201603", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201603", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201603", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201604", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201604", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201604", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201604", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201604", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201605", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201605", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201605", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201605", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201605", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201606", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201606", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201606", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201606", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201606", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201607", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201607", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201607", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201607", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201607", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201608", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201608", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201608", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201608", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201608", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201609", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201609", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201609", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201609", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201609", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201610", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201610", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201610", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201610", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201610", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201611", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201611", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201611", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201611", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201611", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201612", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201612", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201612", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201612", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201612", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201701", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201701", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201701", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201701", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201701", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201702", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201702", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201702", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201702", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201702", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201703", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201703", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201703", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201703", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201703", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201704", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201704", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201704", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201704", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201704", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201705", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201705", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201705", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201705", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201705", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201706", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201706", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201706", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201706", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201706", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201707", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201707", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201707", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201707", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201707", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201708", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201708", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201708", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201708", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201708", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201709", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201709", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201709", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201709", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201709", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201710", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201710", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201710", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201710", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201710", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201711", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201711", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201711", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201711", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201711", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201712", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201712", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201712", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201712", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201712", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201801", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201801", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201801", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201801", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201801", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201802", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201802", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201802", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201802", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201802", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201803", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201803", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201803", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201803", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201803", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201804", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201804", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201804", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201804", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201804", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201805", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201805", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201805", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201805", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201805", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201806", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201806", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201806", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201806", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201806", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201807", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201807", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201807", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201807", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201807", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201808", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201808", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201808", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201808", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201808", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201809", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201809", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201809", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201809", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201809", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201810", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201810", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201810", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201810", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201810", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201811", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201811", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201811", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201811", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201811", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201812", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201812", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201812", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201812", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201812", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201901", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201901", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201901", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201901", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201901", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201902", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201902", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201902", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201902", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201902", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201903", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201903", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201903", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201903", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201903", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201904", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201904", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201904", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201904", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201904", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201905", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201905", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201905", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201905", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201905", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201906", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201906", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201906", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201906", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201906", ["lastTime"], :name => "lastTime"
+
+  create_table "inet_auth_error_14_201907", :id => false, :force => true do |t|
+    t.integer  "id",                                                  :null => false
+    t.integer  "deviceId",                                            :null => false
+    t.string   "deviceTitle",           :limit => 15,                 :null => false
+    t.integer  "contractId",                                          :null => false
+    t.string   "contractTitle",         :limit => 15,                 :null => false
+    t.integer  "servId",                                              :null => false
+    t.integer  "hash",                                 :default => 0, :null => false
+    t.string   "servTitle",             :limit => 100,                :null => false
+    t.integer  "code",                                                :null => false
+    t.integer  "count",                                :default => 1, :null => false
+    t.datetime "lastTime",                                            :null => false
+    t.integer  "logCoordinateRecordId",                               :null => false
+  end
+
+  add_index "inet_auth_error_14_201907", ["deviceId"], :name => "deviceId"
+  add_index "inet_auth_error_14_201907", ["id"], :name => "id"
+  add_index "inet_auth_error_14_201907", ["lastTime", "deviceId", "contractId", "servId", "code", "hash"], :name => "time_dcsc"
+  add_index "inet_auth_error_14_201907", ["lastTime"], :name => "lastTime"
 
   create_table "inet_connection_14", :id => false, :force => true do |t|
     t.integer  "id",               :limit => 8,                  :null => false
@@ -1229,6 +5064,23 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string   "secret",               :limit => 100,                :null => false
     t.text     "config",                                             :null => false
     t.text     "comment",                                            :null => false
+  end
+
+  create_table "inet_device_group_link_14", :id => false, :force => true do |t|
+    t.integer "deviceId",      :null => false
+    t.integer "deviceGroupId", :null => false
+  end
+
+  add_index "inet_device_group_link_14", ["deviceId", "deviceGroupId"], :name => "device_id"
+
+  create_table "inet_device_tree_14", :force => true do |t|
+    t.string  "invDeviceId",  :limit => 45,                  :null => false
+    t.integer "parentId",                                    :null => false
+    t.string  "title",        :limit => 200,                 :null => false
+    t.integer "deviceTypeId",                :default => -1, :null => false
+    t.string  "identifier",   :limit => 150
+    t.string  "host",         :limit => 100
+    t.text    "config",                                      :null => false
   end
 
   create_table "inet_device_type_14", :force => true do |t|
@@ -1311,6 +5163,18 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "inet_serv_option_14", ["servId", "optionId"], :name => "servOptIdx"
 
+  create_table "inet_serv_restriction_14", :force => true do |t|
+    t.integer "servId",                                                     :null => false
+    t.date    "dateFrom"
+    t.date    "dateTo"
+    t.integer "type",                                                       :null => false
+    t.string  "serviceIds",                                :default => "",  :null => false
+    t.decimal "amount",     :precision => 10, :scale => 5, :default => 0.0, :null => false
+    t.string  "comment",                                   :default => "",  :null => false
+  end
+
+  add_index "inet_serv_restriction_14", ["servId"], :name => "servId"
+
   create_table "inet_serv_type_14", :force => true do |t|
     t.string  "title",                 :limit => 150,                 :null => false
     t.string  "parentTypeIds",         :limit => 45,  :default => "", :null => false
@@ -1331,6 +5195,7 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "needRestriction",       :limit => 1,   :default => 0,  :null => false
     t.text    "config"
     t.integer "personalVlan",          :limit => 1,   :default => 1,  :null => false
+    t.integer "ipFromParentRange",     :limit => 1,   :default => 0
   end
 
   create_table "inet_serv_type_device_group_link_14", :id => false, :force => true do |t|
@@ -1391,6 +5256,4701 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "inet_session_detail_14", ["sessionId"], :name => "sessionId"
 
+  create_table "inet_session_log_14_201401", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 40
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201401", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201401", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201401", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201401", ["id"], :name => "id"
+  add_index "inet_session_log_14_201401", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201401", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201401", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201401", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201402", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 40
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201402", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201402", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201402", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201402", ["id"], :name => "id"
+  add_index "inet_session_log_14_201402", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201402", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201402", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201402", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201403", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201403", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201403", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201403", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201403", ["id"], :name => "id"
+  add_index "inet_session_log_14_201403", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201403", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201403", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201403", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201404", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201404", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201404", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201404", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201404", ["id"], :name => "id"
+  add_index "inet_session_log_14_201404", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201404", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201404", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201404", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201405", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201405", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201405", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201405", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201405", ["id"], :name => "id"
+  add_index "inet_session_log_14_201405", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201405", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201405", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201405", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201406", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201406", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201406", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201406", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201406", ["id"], :name => "id"
+  add_index "inet_session_log_14_201406", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201406", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201406", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201406", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201407", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201407", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201407", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201407", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201407", ["id"], :name => "id"
+  add_index "inet_session_log_14_201407", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201407", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201407", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201407", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201408", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201408", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201408", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201408", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201408", ["id"], :name => "id"
+  add_index "inet_session_log_14_201408", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201408", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201408", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201408", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201409", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201409", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201409", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201409", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201409", ["id"], :name => "id"
+  add_index "inet_session_log_14_201409", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201409", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201409", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201409", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201410", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201410", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201410", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201410", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201410", ["id"], :name => "id"
+  add_index "inet_session_log_14_201410", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201410", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201410", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201410", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201411", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201411", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201411", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201411", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201411", ["id"], :name => "id"
+  add_index "inet_session_log_14_201411", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201411", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201411", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201411", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201412", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201412", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201412", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201412", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201412", ["id"], :name => "id"
+  add_index "inet_session_log_14_201412", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201412", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201412", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201412", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201501", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201501", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201501", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201501", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201501", ["id"], :name => "id"
+  add_index "inet_session_log_14_201501", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201501", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201501", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201501", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201502", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201502", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201502", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201502", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201502", ["id"], :name => "id"
+  add_index "inet_session_log_14_201502", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201502", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201502", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201502", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201503", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201503", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201503", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201503", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201503", ["id"], :name => "id"
+  add_index "inet_session_log_14_201503", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201503", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201503", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201503", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201504", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201504", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201504", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201504", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201504", ["id"], :name => "id"
+  add_index "inet_session_log_14_201504", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201504", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201504", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201504", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201505", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201505", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201505", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201505", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201505", ["id"], :name => "id"
+  add_index "inet_session_log_14_201505", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201505", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201505", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201505", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201506", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201506", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201506", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201506", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201506", ["id"], :name => "id"
+  add_index "inet_session_log_14_201506", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201506", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201506", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201506", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201507", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201507", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201507", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201507", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201507", ["id"], :name => "id"
+  add_index "inet_session_log_14_201507", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201507", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201507", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201507", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201508", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201508", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201508", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201508", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201508", ["id"], :name => "id"
+  add_index "inet_session_log_14_201508", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201508", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201508", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201508", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201509", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201509", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201509", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201509", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201509", ["id"], :name => "id"
+  add_index "inet_session_log_14_201509", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201509", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201509", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201509", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201510", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201510", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201510", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201510", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201510", ["id"], :name => "id"
+  add_index "inet_session_log_14_201510", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201510", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201510", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201510", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201511", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201511", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201511", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201511", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201511", ["id"], :name => "id"
+  add_index "inet_session_log_14_201511", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201511", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201511", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201511", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201512", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201512", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201512", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201512", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201512", ["id"], :name => "id"
+  add_index "inet_session_log_14_201512", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201512", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201512", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201512", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201601", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201601", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201601", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201601", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201601", ["id"], :name => "id"
+  add_index "inet_session_log_14_201601", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201601", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201601", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201601", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201602", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201602", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201602", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201602", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201602", ["id"], :name => "id"
+  add_index "inet_session_log_14_201602", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201602", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201602", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201602", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201603", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201603", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201603", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201603", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201603", ["id"], :name => "id"
+  add_index "inet_session_log_14_201603", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201603", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201603", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201603", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201604", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201604", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201604", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201604", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201604", ["id"], :name => "id"
+  add_index "inet_session_log_14_201604", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201604", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201604", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201604", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201605", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201605", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201605", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201605", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201605", ["id"], :name => "id"
+  add_index "inet_session_log_14_201605", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201605", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201605", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201605", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201606", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201606", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201606", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201606", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201606", ["id"], :name => "id"
+  add_index "inet_session_log_14_201606", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201606", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201606", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201606", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201607", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201607", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201607", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201607", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201607", ["id"], :name => "id"
+  add_index "inet_session_log_14_201607", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201607", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201607", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201607", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201608", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201608", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201608", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201608", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201608", ["id"], :name => "id"
+  add_index "inet_session_log_14_201608", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201608", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201608", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201608", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201609", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201609", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201609", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201609", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201609", ["id"], :name => "id"
+  add_index "inet_session_log_14_201609", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201609", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201609", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201609", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201610", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201610", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201610", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201610", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201610", ["id"], :name => "id"
+  add_index "inet_session_log_14_201610", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201610", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201610", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201610", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201611", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201611", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201611", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201611", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201611", ["id"], :name => "id"
+  add_index "inet_session_log_14_201611", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201611", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201611", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201611", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201612", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201612", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201612", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201612", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201612", ["id"], :name => "id"
+  add_index "inet_session_log_14_201612", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201612", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201612", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201612", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201701", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201701", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201701", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201701", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201701", ["id"], :name => "id"
+  add_index "inet_session_log_14_201701", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201701", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201701", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201701", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201702", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201702", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201702", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201702", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201702", ["id"], :name => "id"
+  add_index "inet_session_log_14_201702", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201702", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201702", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201702", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201703", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201703", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201703", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201703", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201703", ["id"], :name => "id"
+  add_index "inet_session_log_14_201703", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201703", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201703", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201703", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201704", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201704", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201704", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201704", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201704", ["id"], :name => "id"
+  add_index "inet_session_log_14_201704", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201704", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201704", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201704", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201705", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201705", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201705", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201705", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201705", ["id"], :name => "id"
+  add_index "inet_session_log_14_201705", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201705", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201705", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201705", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201706", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201706", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201706", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201706", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201706", ["id"], :name => "id"
+  add_index "inet_session_log_14_201706", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201706", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201706", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201706", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201707", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201707", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201707", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201707", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201707", ["id"], :name => "id"
+  add_index "inet_session_log_14_201707", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201707", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201707", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201707", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201708", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201708", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201708", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201708", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201708", ["id"], :name => "id"
+  add_index "inet_session_log_14_201708", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201708", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201708", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201708", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201709", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201709", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201709", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201709", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201709", ["id"], :name => "id"
+  add_index "inet_session_log_14_201709", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201709", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201709", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201709", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201710", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201710", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201710", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201710", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201710", ["id"], :name => "id"
+  add_index "inet_session_log_14_201710", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201710", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201710", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201710", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201711", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201711", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201711", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201711", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201711", ["id"], :name => "id"
+  add_index "inet_session_log_14_201711", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201711", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201711", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201711", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201712", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201712", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201712", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201712", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201712", ["id"], :name => "id"
+  add_index "inet_session_log_14_201712", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201712", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201712", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201712", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201801", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201801", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201801", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201801", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201801", ["id"], :name => "id"
+  add_index "inet_session_log_14_201801", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201801", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201801", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201801", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201802", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201802", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201802", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201802", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201802", ["id"], :name => "id"
+  add_index "inet_session_log_14_201802", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201802", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201802", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201802", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201803", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201803", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201803", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201803", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201803", ["id"], :name => "id"
+  add_index "inet_session_log_14_201803", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201803", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201803", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201803", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201804", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201804", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201804", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201804", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201804", ["id"], :name => "id"
+  add_index "inet_session_log_14_201804", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201804", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201804", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201804", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201805", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201805", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201805", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201805", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201805", ["id"], :name => "id"
+  add_index "inet_session_log_14_201805", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201805", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201805", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201805", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201806", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201806", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201806", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201806", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201806", ["id"], :name => "id"
+  add_index "inet_session_log_14_201806", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201806", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201806", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201806", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201807", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201807", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201807", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201807", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201807", ["id"], :name => "id"
+  add_index "inet_session_log_14_201807", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201807", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201807", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201807", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201808", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201808", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201808", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201808", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201808", ["id"], :name => "id"
+  add_index "inet_session_log_14_201808", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201808", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201808", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201808", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201809", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201809", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201809", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201809", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201809", ["id"], :name => "id"
+  add_index "inet_session_log_14_201809", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201809", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201809", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201809", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201810", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201810", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201810", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201810", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201810", ["id"], :name => "id"
+  add_index "inet_session_log_14_201810", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201810", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201810", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201810", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201811", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201811", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201811", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201811", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201811", ["id"], :name => "id"
+  add_index "inet_session_log_14_201811", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201811", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201811", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201811", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201812", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201812", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201812", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201812", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201812", ["id"], :name => "id"
+  add_index "inet_session_log_14_201812", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201812", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201812", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201812", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201901", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201901", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201901", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201901", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201901", ["id"], :name => "id"
+  add_index "inet_session_log_14_201901", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201901", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201901", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201901", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201902", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201902", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201902", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201902", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201902", ["id"], :name => "id"
+  add_index "inet_session_log_14_201902", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201902", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201902", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201902", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201903", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201903", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201903", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201903", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201903", ["id"], :name => "id"
+  add_index "inet_session_log_14_201903", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201903", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201903", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201903", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201904", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201904", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201904", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201904", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201904", ["id"], :name => "id"
+  add_index "inet_session_log_14_201904", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201904", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201904", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201904", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201905", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201905", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201905", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201905", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201905", ["id"], :name => "id"
+  add_index "inet_session_log_14_201905", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201905", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201905", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201905", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201906", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201906", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201906", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201906", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201906", ["id"], :name => "id"
+  add_index "inet_session_log_14_201906", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201906", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201906", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201906", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_14_201907", :id => false, :force => true do |t|
+    t.integer  "id",                 :limit => 8,                                  :null => false
+    t.integer  "parentId",           :limit => 8,                                  :null => false
+    t.integer  "splittedId",         :limit => 8,                                  :null => false
+    t.integer  "connectionId",       :limit => 8,                                  :null => false
+    t.integer  "parentConnectionId", :limit => 8,                                  :null => false
+    t.integer  "deviceId",                                                         :null => false
+    t.integer  "devicePort",                                                       :null => false
+    t.integer  "agentDeviceId",                                                    :null => false
+    t.string   "acctSessionId",      :limit => 80
+    t.string   "username",           :limit => 100
+    t.string   "realm",              :limit => 20
+    t.integer  "type",                                                             :null => false
+    t.integer  "accessCode",         :limit => 2,                                  :null => false
+    t.integer  "servId",                                                           :null => false
+    t.string   "calledStationId",    :limit => 60
+    t.string   "callingStationId",   :limit => 60
+    t.integer  "ipResourceId",                                                     :null => false
+    t.binary   "ipAddress",          :limit => 24
+    t.datetime "connectionStart",                                                  :null => false
+    t.datetime "sessionStart",                                                     :null => false
+    t.datetime "sessionStop"
+    t.datetime "lastActive",                                                       :null => false
+    t.integer  "deviceState",        :limit => 2,                                  :null => false
+    t.string   "deviceOptions",      :limit => 120,                                :null => false
+    t.integer  "sessionTime",                                                      :null => false
+    t.decimal  "sessionCost",                       :precision => 10, :scale => 5, :null => false
+    t.integer  "status",             :limit => 2,                                  :null => false
+  end
+
+  add_index "inet_session_log_14_201907", ["agentDeviceId"], :name => "agentDeviceId"
+  add_index "inet_session_log_14_201907", ["connectionId"], :name => "connection"
+  add_index "inet_session_log_14_201907", ["deviceId", "devicePort"], :name => "nas"
+  add_index "inet_session_log_14_201907", ["id"], :name => "id"
+  add_index "inet_session_log_14_201907", ["ipAddress"], :name => "ipAddress"
+  add_index "inet_session_log_14_201907", ["parentId"], :name => "parentId"
+  add_index "inet_session_log_14_201907", ["servId"], :name => "serv"
+  add_index "inet_session_log_14_201907", ["sessionStart"], :name => "sessionStart"
+
+  create_table "inet_session_log_account_14_201401", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201401", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201401", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201402", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201402", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201402", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201403", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201403", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201403", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201404", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201404", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201404", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201405", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201405", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201405", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201406", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201406", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201406", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201407", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201407", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201407", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201408", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201408", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201408", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201409", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201409", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201409", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201410", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201410", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201410", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201411", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201411", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201411", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201412", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201412", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201412", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201501", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201501", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201501", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201502", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201502", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201502", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201503", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201503", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201503", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201504", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201504", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201504", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201505", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201505", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201505", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201506", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201506", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201506", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201507", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201507", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201507", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201508", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201508", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201508", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201509", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201509", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201509", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201510", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201510", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201510", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201511", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201511", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201511", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201512", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201512", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201512", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201601", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201601", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201601", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201602", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201602", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201602", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201603", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201603", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201603", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201604", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201604", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201604", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201605", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201605", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201605", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201606", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201606", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201606", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201607", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201607", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201607", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201608", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201608", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201608", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201609", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201609", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201609", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201610", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201610", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201610", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201611", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201611", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201611", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201612", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201612", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201612", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201701", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201701", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201701", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201702", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201702", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201702", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201703", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201703", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201703", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201704", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201704", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201704", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201705", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201705", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201705", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201706", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201706", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201706", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201707", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201707", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201707", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201708", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201708", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201708", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201709", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201709", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201709", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201710", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201710", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201710", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201711", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201711", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201711", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201712", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201712", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201712", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201801", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201801", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201801", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201802", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201802", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201802", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201803", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201803", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201803", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201804", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201804", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201804", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201805", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201805", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201805", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201806", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201806", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201806", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201807", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201807", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201807", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201808", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201808", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201808", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201809", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201809", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201809", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201810", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201810", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201810", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201811", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201811", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201811", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201812", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201812", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201812", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201901", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201901", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201901", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201902", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201902", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201902", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201903", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201903", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201903", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201904", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201904", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201904", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201905", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201905", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201905", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201906", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201906", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201906", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_account_14_201907", :id => false, :force => true do |t|
+    t.integer "contractId",                                             :null => false
+    t.integer "sessionId",  :limit => 8,                                :null => false
+    t.integer "serviceId",                                              :null => false
+    t.integer "amount",     :limit => 8,                                :null => false
+    t.decimal "account",                 :precision => 10, :scale => 5, :null => false
+  end
+
+  add_index "inet_session_log_account_14_201907", ["serviceId"], :name => "serviceId"
+  add_index "inet_session_log_account_14_201907", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201401", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201401", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201402", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201402", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201403", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201403", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201404", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201404", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201405", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201405", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201406", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201406", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201407", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201407", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201408", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201408", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201409", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201409", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201410", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201410", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201411", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201411", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201412", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201412", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201501", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201501", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201502", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201502", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201503", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201503", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201504", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201504", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201505", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201505", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201506", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201506", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201507", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201507", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201508", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201508", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201509", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201509", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201510", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201510", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201511", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201511", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201512", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201512", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201601", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201601", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201602", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201602", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201603", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201603", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201604", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201604", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201605", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201605", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201606", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201606", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201607", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201607", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201608", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201608", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201609", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201609", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201610", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201610", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201611", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201611", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201612", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201612", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201701", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201701", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201702", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201702", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201703", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201703", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201704", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201704", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201705", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201705", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201706", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201706", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201707", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201707", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201708", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201708", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201709", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201709", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201710", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201710", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201711", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201711", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201712", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201712", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201801", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201801", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201802", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201802", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201803", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201803", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201804", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201804", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201805", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201805", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201806", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201806", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201807", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201807", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201808", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201808", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201809", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201809", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201810", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201810", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201811", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201811", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201812", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201812", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201901", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201901", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201902", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201902", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201903", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201903", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201904", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201904", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201905", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201905", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201906", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201906", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_detail_14_201907", :id => false, :force => true do |t|
+    t.integer "sessionId",     :limit => 8, :null => false
+    t.integer "day",           :limit => 1, :null => false
+    t.integer "hour",          :limit => 1, :null => false
+    t.integer "trafficTypeId",              :null => false
+    t.integer "deviceId",                   :null => false
+    t.integer "amount",        :limit => 8, :null => false
+  end
+
+  add_index "inet_session_log_detail_14_201907", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201304", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201304", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201305", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201305", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201306", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201306", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201307", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201307", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201308", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201308", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201309", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201309", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201310", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201310", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201311", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201311", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201312", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201312", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201401", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201401", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201402", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201402", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201403", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201403", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201404", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201404", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201405", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201405", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201406", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201406", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201407", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201407", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201408", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201408", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201409", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201409", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201410", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201410", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201411", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201411", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201412", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201412", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201501", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201501", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201502", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201502", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201503", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201503", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201504", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201504", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201505", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201505", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201506", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201506", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201507", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201507", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201508", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201508", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201509", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201509", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201510", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201510", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201511", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201511", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201512", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201512", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201601", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201601", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201602", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201602", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201603", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201603", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201604", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201604", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201605", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201605", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201606", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201606", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201607", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201607", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201608", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201608", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201609", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201609", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201610", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201610", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201611", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201611", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201612", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201612", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201701", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201701", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201702", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201702", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201703", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201703", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201704", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201704", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201705", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201705", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201706", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201706", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201707", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201707", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201708", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201708", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201709", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201709", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201710", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201710", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201711", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201711", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201712", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201712", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201801", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201801", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201802", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201802", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201803", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201803", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201804", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201804", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201805", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201805", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201806", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201806", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201807", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201807", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201808", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201808", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201809", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201809", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201810", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201810", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201811", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201811", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201812", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201812", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201901", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201901", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201902", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201902", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201903", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201903", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201904", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201904", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201905", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201905", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201906", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201906", ["sessionId"], :name => "sessionId"
+
+  create_table "inet_session_log_route_14_201907", :force => true do |t|
+    t.integer "sessionId", :limit => 8,  :null => false
+    t.binary  "subnet",    :limit => 24, :null => false
+    t.integer "mask",                    :null => false
+  end
+
+  add_index "inet_session_log_route_14_201907", ["sessionId"], :name => "sessionId"
+
   create_table "inet_session_sequence_14", :id => false, :force => true do |t|
     t.integer "id", :limit => 8, :null => false
   end
@@ -1407,6 +9967,676 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "amount2",    :limit => 8, :null => false
   end
 
+  create_table "inet_tariff_traffic_max_detail_14_201401", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201402", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201403", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201404", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201405", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201406", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201407", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201408", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201409", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201410", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201411", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201412", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201501", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201502", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201503", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201504", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201505", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201506", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201507", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201508", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201509", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201510", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201511", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201512", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201601", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201602", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201603", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201604", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201605", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201606", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201607", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201608", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201609", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201610", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201611", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201612", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201701", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201702", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201703", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201704", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201705", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201706", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201707", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201708", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201709", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201710", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201711", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201712", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201801", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201802", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201803", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201804", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201805", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201806", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201807", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201808", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201809", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201810", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201811", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201812", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201901", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201902", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201903", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201904", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201905", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201906", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_max_detail_14_201907", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "maxKey",     :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amountMax",  :limit => 8, :null => false
+    t.integer "amount1",    :limit => 8, :null => false
+    t.integer "amount2",    :limit => 8, :null => false
+  end
+
   create_table "inet_tariff_traffic_range_14", :id => false, :force => true do |t|
     t.integer "contractId",                              :null => false
     t.integer "treeNodeId", :limit => 8,                 :null => false
@@ -1418,11 +10648,548 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "mm",                                      :null => false
   end
 
+  create_table "inet_tariff_traffic_range_detail_14_201401", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201402", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201403", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201404", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201405", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201406", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201407", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201408", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201409", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201410", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201411", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201412", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201501", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201502", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201503", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201504", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201505", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201506", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201507", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201508", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201509", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201510", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201511", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201512", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201601", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201602", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201603", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201604", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201605", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201606", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201607", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201608", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201609", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201610", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201611", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201612", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201701", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201702", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201703", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201704", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201705", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201706", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201707", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201708", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201709", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201710", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201711", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201712", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201801", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201802", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201803", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201804", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201805", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201806", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201807", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201808", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201809", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201810", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201811", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201812", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201901", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201902", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201903", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201904", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201905", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201906", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
+  create_table "inet_tariff_traffic_range_detail_14_201907", :id => false, :force => true do |t|
+    t.integer "contractId",              :null => false
+    t.integer "treeNodeId", :limit => 8, :null => false
+    t.integer "rangeKey",   :limit => 8, :null => false
+    t.integer "day",                     :null => false
+    t.integer "amount",     :limit => 8, :null => false
+  end
+
   create_table "inet_task_process_14", :force => true do |t|
-    t.integer  "deviceId",   :null => false
-    t.datetime "day",        :null => false
+    t.integer  "deviceId",                               :null => false
+    t.datetime "day",                                    :null => false
     t.datetime "startTime"
-    t.integer  "curentHour", :null => false
+    t.integer  "curentHour",                             :null => false
+    t.integer  "type",       :limit => 1, :default => 0
   end
 
   create_table "inet_traffic_type_14", :force => true do |t|
@@ -1459,6 +11226,40 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   create_table "inet_zone_14", :force => true do |t|
     t.string "title", :limit => 150, :null => false
+  end
+
+  create_table "installed_modules", :force => true do |t|
+    t.string  "name",        :limit => 100,        :default => "0"
+    t.string  "title",       :limit => 200,        :default => "0"
+    t.string  "version",     :limit => 20,         :default => "0"
+    t.string  "pack_server", :limit => 200,        :default => "0"
+    t.string  "pack_client", :limit => 200,        :default => "0"
+    t.string  "type",        :limit => 20,         :default => "0",   :null => false
+    t.binary  "client_zip",  :limit => 2147483647,                    :null => false
+    t.text    "init",        :limit => 2147483647,                    :null => false
+    t.boolean "enabled",                           :default => false, :null => false
+    t.text    "uninstall",   :limit => 2147483647
+  end
+
+  add_index "installed_modules", ["name"], :name => "name"
+
+  create_table "inv_device_14", :force => true do |t|
+    t.integer  "entityId",                                           :null => false
+    t.integer  "parentId",                                           :null => false
+    t.integer  "deviceTypeId",                                       :null => false
+    t.string   "title",                :limit => 250,                :null => false
+    t.string   "identifier",           :limit => 150,                :null => false
+    t.text     "uptime",                                             :null => false
+    t.datetime "uptimeTime"
+    t.string   "host",                 :limit => 150,                :null => false
+    t.date     "dateFrom"
+    t.date     "dateTo"
+    t.integer  "orderManagerDisabled", :limit => 1,   :default => 0, :null => false
+    t.string   "username",             :limit => 100,                :null => false
+    t.string   "password",             :limit => 100,                :null => false
+    t.string   "secret",               :limit => 100,                :null => false
+    t.text     "config",                                             :null => false
+    t.text     "comment",                                            :null => false
   end
 
   create_table "inv_device_group_14", :force => true do |t|
@@ -1552,6 +11353,932 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string  "subscriberTitle",               :null => false
   end
 
+  create_table "inv_ip_resource_subscription_dyn_14", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.integer  "connectionId",    :limit => 8,   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14", ["connectionId"], :name => "connectionId"
+  add_index "inv_ip_resource_subscription_dyn_14", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201305", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201305", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201305", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201305", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201306", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201306", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201306", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201306", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201307", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201307", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201307", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201307", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201402", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201402", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201402", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201402", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201407", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201407", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201407", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201407", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201408", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201408", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201408", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201408", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201409", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201409", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201409", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201409", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201410", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201410", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201410", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201410", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201411", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201411", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201411", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201411", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201412", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201412", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201412", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201412", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201501", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201501", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201501", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201501", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201502", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201502", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201502", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201502", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201503", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201503", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201503", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201503", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201504", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201504", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201504", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201504", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201505", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201505", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201505", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201505", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201506", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201506", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201506", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201506", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201507", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201507", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201507", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201507", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201508", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201508", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201508", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201508", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201509", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201509", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201509", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201509", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201510", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201510", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201510", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201510", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201511", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201511", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201511", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201511", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201512", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201512", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201512", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201512", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201601", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201601", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201601", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201601", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201602", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201602", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201602", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201602", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201603", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201603", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201603", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201603", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201604", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201604", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201604", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201604", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201605", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201605", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201605", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201605", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201606", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201606", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201606", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201606", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201607", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201607", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201607", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201607", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201608", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201608", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201608", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201608", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201609", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201609", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201609", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201609", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201610", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201610", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201610", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201610", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201611", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201611", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201611", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201611", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201612", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201612", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201612", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201612", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201701", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201701", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201701", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201701", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201702", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201702", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201702", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201702", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201703", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201703", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201703", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201703", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201704", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201704", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201704", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201704", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201705", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201705", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201705", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201705", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201706", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201706", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201706", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201706", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201707", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201707", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201707", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201707", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201708", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201708", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201708", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201708", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201709", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201709", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201709", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201709", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201710", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201710", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201710", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201710", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201711", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201711", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201711", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201711", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201712", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201712", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201712", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201712", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201801", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201801", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201801", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201801", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201802", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201802", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201802", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201802", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201803", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201803", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201803", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201803", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201804", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201804", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201804", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201804", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201805", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201805", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201805", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201805", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201806", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201806", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201806", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201806", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201807", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201807", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201807", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201807", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201808", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201808", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201808", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201808", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201809", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201809", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201809", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201809", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201810", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201810", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201810", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201810", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201811", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201811", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201811", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201811", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201812", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201812", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201812", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201812", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201901", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201901", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201901", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201901", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201902", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201902", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201902", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201902", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201903", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201903", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201903", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201903", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201904", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201904", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201904", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201904", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201905", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201905", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201905", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201905", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201906", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201906", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201906", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201906", ["timeFrom", "timeTo"], :name => "period"
+
+  create_table "inv_ip_resource_subscription_dyn_14_201907", :force => true do |t|
+    t.integer  "ipResourceId",                   :null => false
+    t.binary   "address",         :limit => 24,  :null => false
+    t.datetime "timeFrom",                       :null => false
+    t.datetime "timeTo"
+    t.integer  "subscriberId",                   :null => false
+    t.integer  "subscriberType",                 :null => false
+    t.string   "subscriberTitle", :limit => 150, :null => false
+  end
+
+  add_index "inv_ip_resource_subscription_dyn_14_201907", ["ipResourceId", "address"], :name => "ip"
+  add_index "inv_ip_resource_subscription_dyn_14_201907", ["subscriberId"], :name => "subscriber"
+  add_index "inv_ip_resource_subscription_dyn_14_201907", ["timeFrom", "timeTo"], :name => "period"
+
   create_table "inv_ip_resource_subscription_real_14", :force => true do |t|
     t.integer "subscriberId",                  :null => false
     t.string  "subscriberTitle"
@@ -1603,6 +12330,8 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer "moduleId",                                               :null => false
     t.integer "parentId",                                               :null => false
     t.integer "periodic",                  :limit => 1, :default => 1,  :null => false
+    t.integer "notRealtime",               :limit => 1, :default => 0,  :null => false
+    t.integer "priority",                               :default => 0,  :null => false
     t.string  "title",                                                  :null => false
     t.string  "identifier",                             :default => "", :null => false
     t.string  "tariffIds"
@@ -1798,6 +12527,690 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "log_contract_pswd", ["cid"], :name => "cid"
 
+  create_table "log_error_6_201407", :id => false, :force => true do |t|
+    t.datetime "dt"
+    t.integer  "cid"
+    t.integer  "lid"
+    t.string   "login",      :limit => 50
+    t.integer  "nas_id"
+    t.string   "nas_port",   :limit => 30
+    t.integer  "error_code",               :null => false
+    t.integer  "log_rec_id",               :null => false
+  end
+
+  create_table "log_error_6_201408", :id => false, :force => true do |t|
+    t.datetime "dt"
+    t.integer  "cid"
+    t.integer  "lid"
+    t.string   "login",      :limit => 50
+    t.integer  "nas_id"
+    t.string   "nas_port",   :limit => 30
+    t.integer  "error_code",               :null => false
+    t.integer  "log_rec_id",               :null => false
+  end
+
+  create_table "log_error_6_201409", :id => false, :force => true do |t|
+    t.datetime "dt"
+    t.integer  "cid"
+    t.integer  "lid"
+    t.string   "login",      :limit => 50
+    t.integer  "nas_id"
+    t.string   "nas_port",   :limit => 30
+    t.integer  "error_code",               :null => false
+    t.integer  "log_rec_id",               :null => false
+  end
+
+  create_table "log_function_process_201401", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201401", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201402", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201402", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201403", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201403", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201404", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201404", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201405", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201405", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201406", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201406", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201407", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201407", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201408", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201408", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201409", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201409", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201410", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201410", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201411", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201411", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201412", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201412", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201501", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201501", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201502", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201502", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201503", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201503", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201504", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201504", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201505", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201505", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201506", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201506", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201507", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201507", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201508", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201508", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201509", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201509", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201510", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201510", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201511", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201511", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201512", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201512", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201601", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201601", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201602", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201602", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201603", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201603", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201604", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201604", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201605", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201605", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201606", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201606", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201607", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201607", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201608", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201608", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201609", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201609", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201610", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201610", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201611", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201611", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201612", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201612", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201701", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201701", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201702", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201702", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201703", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201703", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201704", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201704", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201705", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201705", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201706", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201706", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201707", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201707", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201708", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201708", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201709", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201709", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201710", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201710", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201711", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201711", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201712", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201712", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201801", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201801", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201802", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201802", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201803", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201803", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201804", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201804", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201805", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201805", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201806", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201806", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201807", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201807", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201808", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201808", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201809", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201809", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201810", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201810", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201811", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201811", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201812", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201812", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201901", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201901", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201902", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201902", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201903", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201903", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201904", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201904", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201905", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201905", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201906", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201906", ["cid"], :name => "cid"
+
+  create_table "log_function_process_201907", :id => false, :force => true do |t|
+    t.integer  "cid",                  :null => false
+    t.datetime "time",                 :null => false
+    t.string   "title", :limit => 250, :null => false
+    t.text     "data",                 :null => false
+  end
+
+  add_index "log_function_process_201907", ["cid"], :name => "cid"
+
+  create_table "log_gscript_process_201305", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201310", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201311", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201312", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201401", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201403", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201404", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
+  create_table "log_gscript_process_201405", :id => false, :force => true do |t|
+    t.datetime "time",                        :null => false
+    t.string   "title", :limit => 250,        :null => false
+    t.text     "data",  :limit => 2147483647, :null => false
+  end
+
   create_table "log_login_pswd", :id => false, :force => true do |t|
     t.datetime "dt",                 :null => false
     t.integer  "uid", :default => 0, :null => false
@@ -1806,6 +13219,373 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   end
 
   add_index "log_login_pswd", ["lid", "mid"], :name => "lid_mid"
+
+  create_table "log_session_6_201407", :force => true do |t|
+    t.integer  "lid",                                         :null => false
+    t.integer  "nas_id",                                      :null => false
+    t.string   "nas_port",      :limit => 16,                 :null => false
+    t.string   "session_id",    :limit => 80,                 :null => false
+    t.datetime "session_start",                               :null => false
+    t.datetime "session_stop",                                :null => false
+    t.integer  "session_time",                                :null => false
+    t.float    "session_cost",  :limit => 15,                 :null => false
+    t.string   "from_number",   :limit => 30,                 :null => false
+    t.string   "to_number",     :limit => 30,                 :null => false
+    t.integer  "input_octets",  :limit => 8,   :default => 0, :null => false
+    t.integer  "output_octets", :limit => 8,   :default => 0, :null => false
+    t.integer  "status",                       :default => 0, :null => false
+    t.integer  "lr",                                          :null => false
+    t.integer  "ipaddr",        :limit => 8,                  :null => false
+    t.string   "login_name",    :limit => 100,                :null => false
+    t.integer  "sid_time",                                    :null => false
+    t.integer  "fake",          :limit => 1,                  :null => false
+  end
+
+  add_index "log_session_6_201407", ["from_number"], :name => "from_number"
+  add_index "log_session_6_201407", ["ipaddr"], :name => "ipaddr"
+  add_index "log_session_6_201407", ["lid"], :name => "lid"
+  add_index "log_session_6_201407", ["nas_id"], :name => "nas"
+  add_index "log_session_6_201407", ["session_start", "lid", "id"], :name => "start_lid_id"
+  add_index "log_session_6_201407", ["session_start"], :name => "session_start"
+  add_index "log_session_6_201407", ["status"], :name => "status"
+
+  create_table "log_session_6_201408", :force => true do |t|
+    t.integer  "lid",                                         :null => false
+    t.integer  "nas_id",                                      :null => false
+    t.string   "nas_port",      :limit => 16,                 :null => false
+    t.string   "session_id",    :limit => 80,                 :null => false
+    t.datetime "session_start",                               :null => false
+    t.datetime "session_stop",                                :null => false
+    t.integer  "session_time",                                :null => false
+    t.float    "session_cost",  :limit => 15,                 :null => false
+    t.string   "from_number",   :limit => 30,                 :null => false
+    t.string   "to_number",     :limit => 30,                 :null => false
+    t.integer  "input_octets",  :limit => 8,   :default => 0, :null => false
+    t.integer  "output_octets", :limit => 8,   :default => 0, :null => false
+    t.integer  "status",                       :default => 0, :null => false
+    t.integer  "lr",                                          :null => false
+    t.integer  "ipaddr",        :limit => 8,                  :null => false
+    t.string   "login_name",    :limit => 100,                :null => false
+    t.integer  "sid_time",                                    :null => false
+    t.integer  "fake",          :limit => 1,                  :null => false
+  end
+
+  add_index "log_session_6_201408", ["from_number"], :name => "from_number"
+  add_index "log_session_6_201408", ["ipaddr"], :name => "ipaddr"
+  add_index "log_session_6_201408", ["lid"], :name => "lid"
+  add_index "log_session_6_201408", ["nas_id"], :name => "nas"
+  add_index "log_session_6_201408", ["session_start", "lid", "id"], :name => "start_lid_id"
+  add_index "log_session_6_201408", ["session_start"], :name => "session_start"
+  add_index "log_session_6_201408", ["status"], :name => "status"
+
+  create_table "log_session_6_201409", :force => true do |t|
+    t.integer  "lid",                                         :null => false
+    t.integer  "nas_id",                                      :null => false
+    t.string   "nas_port",      :limit => 16,                 :null => false
+    t.string   "session_id",    :limit => 80,                 :null => false
+    t.datetime "session_start",                               :null => false
+    t.datetime "session_stop",                                :null => false
+    t.integer  "session_time",                                :null => false
+    t.float    "session_cost",  :limit => 15,                 :null => false
+    t.string   "from_number",   :limit => 30,                 :null => false
+    t.string   "to_number",     :limit => 30,                 :null => false
+    t.integer  "input_octets",  :limit => 8,   :default => 0, :null => false
+    t.integer  "output_octets", :limit => 8,   :default => 0, :null => false
+    t.integer  "status",                       :default => 0, :null => false
+    t.integer  "lr",                                          :null => false
+    t.integer  "ipaddr",        :limit => 8,                  :null => false
+    t.string   "login_name",    :limit => 100,                :null => false
+    t.integer  "sid_time",                                    :null => false
+    t.integer  "fake",          :limit => 1,                  :null => false
+  end
+
+  add_index "log_session_6_201409", ["from_number"], :name => "from_number"
+  add_index "log_session_6_201409", ["ipaddr"], :name => "ipaddr"
+  add_index "log_session_6_201409", ["lid"], :name => "lid"
+  add_index "log_session_6_201409", ["nas_id"], :name => "nas"
+  add_index "log_session_6_201409", ["session_start", "lid", "id"], :name => "start_lid_id"
+  add_index "log_session_6_201409", ["session_start"], :name => "session_start"
+  add_index "log_session_6_201409", ["status"], :name => "status"
+
+  create_table "log_session_net_6_201401", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201401", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201402", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201402", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201403", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201403", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201404", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201404", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201405", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201405", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201406", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201406", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201407", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201407", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201408", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201408", ["session_id"], :name => "session_id"
+
+  create_table "log_session_net_6_201409", :id => false, :force => true do |t|
+    t.integer "session_id",              :null => false
+    t.integer "net",        :limit => 8, :null => false
+    t.integer "mask",       :limit => 8, :null => false
+  end
+
+  add_index "log_session_net_6_201409", ["session_id"], :name => "session_id"
+
+  create_table "login_account_6_201306", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201306", ["dm"], :name => "dd"
+  add_index "login_account_6_201306", ["hh"], :name => "hh"
+  add_index "login_account_6_201306", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201307", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201307", ["dm"], :name => "dd"
+  add_index "login_account_6_201307", ["hh"], :name => "hh"
+  add_index "login_account_6_201307", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201308", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201308", ["dm"], :name => "dd"
+  add_index "login_account_6_201308", ["hh"], :name => "hh"
+  add_index "login_account_6_201308", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201309", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201309", ["dm"], :name => "dd"
+  add_index "login_account_6_201309", ["hh"], :name => "hh"
+  add_index "login_account_6_201309", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201310", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201310", ["dm"], :name => "dd"
+  add_index "login_account_6_201310", ["hh"], :name => "hh"
+  add_index "login_account_6_201310", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201311", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201311", ["dm"], :name => "dd"
+  add_index "login_account_6_201311", ["hh"], :name => "hh"
+  add_index "login_account_6_201311", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201312", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201312", ["dm"], :name => "dd"
+  add_index "login_account_6_201312", ["hh"], :name => "hh"
+  add_index "login_account_6_201312", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201401", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201401", ["dm"], :name => "dd"
+  add_index "login_account_6_201401", ["hh"], :name => "hh"
+  add_index "login_account_6_201401", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201402", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201402", ["dm"], :name => "dd"
+  add_index "login_account_6_201402", ["hh"], :name => "hh"
+  add_index "login_account_6_201402", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201403", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201403", ["dm"], :name => "dd"
+  add_index "login_account_6_201403", ["hh"], :name => "hh"
+  add_index "login_account_6_201403", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201404", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201404", ["dm"], :name => "dd"
+  add_index "login_account_6_201404", ["hh"], :name => "hh"
+  add_index "login_account_6_201404", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201405", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201405", ["dm"], :name => "dd"
+  add_index "login_account_6_201405", ["hh"], :name => "hh"
+  add_index "login_account_6_201405", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201406", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201406", ["dm"], :name => "dd"
+  add_index "login_account_6_201406", ["hh"], :name => "hh"
+  add_index "login_account_6_201406", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201407", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201407", ["dm"], :name => "dd"
+  add_index "login_account_6_201407", ["hh"], :name => "hh"
+  add_index "login_account_6_201407", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201408", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201408", ["dm"], :name => "dd"
+  add_index "login_account_6_201408", ["hh"], :name => "hh"
+  add_index "login_account_6_201408", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
+
+  create_table "login_account_6_201409", :id => false, :force => true do |t|
+    t.integer "dm",                  :null => false
+    t.integer "hh",                  :null => false
+    t.integer "lid",                 :null => false
+    t.integer "sid",                 :null => false
+    t.integer "amount", :limit => 8, :null => false
+    t.float   "sum",                 :null => false
+  end
+
+  add_index "login_account_6_201409", ["dm"], :name => "dd"
+  add_index "login_account_6_201409", ["hh"], :name => "hh"
+  add_index "login_account_6_201409", ["lid", "sid", "dm", "hh"], :name => "lid_sid_dm_hh"
 
   create_table "login_parameter_1", :id => false, :force => true do |t|
     t.string  "value", :null => false
@@ -1927,6 +13707,985 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "module_tariff_tree", ["mid", "tree_id"], :name => "mid_tree"
   add_index "module_tariff_tree", ["tree_id"], :name => "tree_id"
 
+  create_table "mps_login_16", :primary_key => "cid", :force => true do |t|
+    t.integer "id", :default => 0, :null => false
+  end
+
+  add_index "mps_login_16", ["id"], :name => "cid_2", :unique => true
+
+  create_table "mps_payment_16_201411", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201411", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201411", ["time"], :name => "time"
+  add_index "mps_payment_16_201411", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201412", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201412", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201412", ["time"], :name => "time"
+  add_index "mps_payment_16_201412", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201501", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201501", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201501", ["time"], :name => "time"
+  add_index "mps_payment_16_201501", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201502", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201502", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201502", ["time"], :name => "time"
+  add_index "mps_payment_16_201502", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201503", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201503", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201503", ["time"], :name => "time"
+  add_index "mps_payment_16_201503", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201504", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201504", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201504", ["time"], :name => "time"
+  add_index "mps_payment_16_201504", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201505", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201505", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201505", ["time"], :name => "time"
+  add_index "mps_payment_16_201505", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201506", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201506", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201506", ["time"], :name => "time"
+  add_index "mps_payment_16_201506", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201507", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201507", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201507", ["time"], :name => "time"
+  add_index "mps_payment_16_201507", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201508", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201508", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201508", ["time"], :name => "time"
+  add_index "mps_payment_16_201508", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201509", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201509", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201509", ["time"], :name => "time"
+  add_index "mps_payment_16_201509", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201510", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201510", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201510", ["time"], :name => "time"
+  add_index "mps_payment_16_201510", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201511", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201511", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201511", ["time"], :name => "time"
+  add_index "mps_payment_16_201511", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201512", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201512", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201512", ["time"], :name => "time"
+  add_index "mps_payment_16_201512", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201601", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201601", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201601", ["time"], :name => "time"
+  add_index "mps_payment_16_201601", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201602", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201602", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201602", ["time"], :name => "time"
+  add_index "mps_payment_16_201602", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201603", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201603", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201603", ["time"], :name => "time"
+  add_index "mps_payment_16_201603", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201604", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201604", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201604", ["time"], :name => "time"
+  add_index "mps_payment_16_201604", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201605", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201605", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201605", ["time"], :name => "time"
+  add_index "mps_payment_16_201605", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201606", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201606", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201606", ["time"], :name => "time"
+  add_index "mps_payment_16_201606", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201607", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201607", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201607", ["time"], :name => "time"
+  add_index "mps_payment_16_201607", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201608", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201608", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201608", ["time"], :name => "time"
+  add_index "mps_payment_16_201608", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201609", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201609", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201609", ["time"], :name => "time"
+  add_index "mps_payment_16_201609", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201610", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201610", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201610", ["time"], :name => "time"
+  add_index "mps_payment_16_201610", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201611", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201611", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201611", ["time"], :name => "time"
+  add_index "mps_payment_16_201611", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201612", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201612", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201612", ["time"], :name => "time"
+  add_index "mps_payment_16_201612", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201701", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201701", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201701", ["time"], :name => "time"
+  add_index "mps_payment_16_201701", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201702", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201702", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201702", ["time"], :name => "time"
+  add_index "mps_payment_16_201702", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201703", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201703", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201703", ["time"], :name => "time"
+  add_index "mps_payment_16_201703", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201704", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201704", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201704", ["time"], :name => "time"
+  add_index "mps_payment_16_201704", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201705", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201705", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201705", ["time"], :name => "time"
+  add_index "mps_payment_16_201705", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201706", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201706", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201706", ["time"], :name => "time"
+  add_index "mps_payment_16_201706", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201707", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201707", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201707", ["time"], :name => "time"
+  add_index "mps_payment_16_201707", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201708", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201708", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201708", ["time"], :name => "time"
+  add_index "mps_payment_16_201708", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201709", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201709", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201709", ["time"], :name => "time"
+  add_index "mps_payment_16_201709", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201710", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201710", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201710", ["time"], :name => "time"
+  add_index "mps_payment_16_201710", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201711", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201711", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201711", ["time"], :name => "time"
+  add_index "mps_payment_16_201711", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201712", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201712", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201712", ["time"], :name => "time"
+  add_index "mps_payment_16_201712", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201801", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201801", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201801", ["time"], :name => "time"
+  add_index "mps_payment_16_201801", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201802", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201802", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201802", ["time"], :name => "time"
+  add_index "mps_payment_16_201802", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201803", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201803", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201803", ["time"], :name => "time"
+  add_index "mps_payment_16_201803", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201804", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201804", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201804", ["time"], :name => "time"
+  add_index "mps_payment_16_201804", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201805", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201805", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201805", ["time"], :name => "time"
+  add_index "mps_payment_16_201805", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201806", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201806", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201806", ["time"], :name => "time"
+  add_index "mps_payment_16_201806", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201807", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201807", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201807", ["time"], :name => "time"
+  add_index "mps_payment_16_201807", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201808", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201808", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201808", ["time"], :name => "time"
+  add_index "mps_payment_16_201808", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201809", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201809", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201809", ["time"], :name => "time"
+  add_index "mps_payment_16_201809", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201810", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201810", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201810", ["time"], :name => "time"
+  add_index "mps_payment_16_201810", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201811", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201811", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201811", ["time"], :name => "time"
+  add_index "mps_payment_16_201811", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201812", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201812", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201812", ["time"], :name => "time"
+  add_index "mps_payment_16_201812", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201901", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201901", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201901", ["time"], :name => "time"
+  add_index "mps_payment_16_201901", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201902", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201902", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201902", ["time"], :name => "time"
+  add_index "mps_payment_16_201902", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201903", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201903", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201903", ["time"], :name => "time"
+  add_index "mps_payment_16_201903", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201904", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201904", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201904", ["time"], :name => "time"
+  add_index "mps_payment_16_201904", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201905", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201905", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201905", ["time"], :name => "time"
+  add_index "mps_payment_16_201905", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201906", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201906", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201906", ["time"], :name => "time"
+  add_index "mps_payment_16_201906", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_16_201907", :force => true do |t|
+    t.integer   "mps_id",                                                                   :null => false
+    t.integer   "cid",                                                     :default => 0,   :null => false
+    t.decimal   "summ",                     :precision => 12, :scale => 2, :default => 0.0, :null => false
+    t.timestamp "time",                                                                     :null => false
+    t.timestamp "local_time",                                                               :null => false
+    t.integer   "status",                                                  :default => 0,   :null => false
+    t.string    "trans_id",   :limit => 64,                                :default => "0", :null => false
+    t.integer   "pid"
+    t.integer   "type",                                                    :default => 0,   :null => false
+    t.string    "rawNumber",  :limit => 20,                                :default => "",  :null => false
+  end
+
+  add_index "mps_payment_16_201907", ["cid"], :name => "cid"
+  add_index "mps_payment_16_201907", ["time"], :name => "time"
+  add_index "mps_payment_16_201907", ["trans_id"], :name => "trans_id"
+
+  create_table "mps_payment_seq_16", :id => false, :force => true do |t|
+    t.integer "id", :null => false
+  end
+
   create_table "mtree_node", :force => true do |t|
     t.integer "parent_node",               :default => 0,  :null => false
     t.integer "mtree_id",                  :default => 0,  :null => false
@@ -1943,6 +14702,3316 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string   "title", :limit => 150, :default => "", :null => false
     t.text     "txt",                                  :null => false
   end
+
+  create_table "npay_add_cost_detail_3_200801", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200801", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200802", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200802", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200803", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200803", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200804", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200804", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200805", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200805", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200806", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200806", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200807", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200807", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200808", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200808", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200809", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200809", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200810", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200810", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200811", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200811", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200812", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200812", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200901", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200901", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200902", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200902", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200903", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200903", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200904", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200904", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200905", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200905", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200906", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200906", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200907", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200907", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200908", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200908", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200909", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200909", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200910", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200910", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200911", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200911", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_200912", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_200912", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201001", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201001", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201002", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201002", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201003", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201003", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201004", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201004", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201005", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201005", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201006", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201006", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201007", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201007", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201008", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201008", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201009", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201009", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201010", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201010", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201011", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201011", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201012", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201012", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201101", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201101", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201102", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201102", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201103", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201103", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201104", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201104", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201105", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201105", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201106", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201106", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201107", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201107", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201108", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201108", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201109", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201109", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201110", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201110", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201111", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201111", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201112", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201112", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201201", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201201", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201202", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201202", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201203", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201203", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201204", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201204", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201205", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201205", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201206", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201206", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201207", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201207", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201208", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201208", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201209", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201209", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201210", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201210", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201211", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201211", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201212", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201212", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201301", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201301", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201302", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201302", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201303", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201303", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201304", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201304", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201305", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201305", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201306", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201306", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201307", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201307", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201308", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201308", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201309", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201309", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201310", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201310", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201311", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201311", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201312", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201312", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201401", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201401", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201402", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201402", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201403", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201403", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201404", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201404", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201405", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201405", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201406", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201406", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201407", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201407", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201408", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201408", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201409", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201409", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201410", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201410", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201411", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201411", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201412", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201412", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201501", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201501", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201502", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201502", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201503", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201503", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201504", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201504", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201505", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201505", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201506", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201506", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201507", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201507", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201508", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201508", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201509", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201509", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201510", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201510", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201511", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201511", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201512", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201512", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201601", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201601", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201602", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201602", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201603", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201603", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201604", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201604", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201605", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201605", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201606", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201606", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201607", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201607", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201608", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201608", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201609", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201609", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201610", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201610", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201611", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201611", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201612", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201612", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201701", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201701", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201702", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201702", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201703", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201703", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201704", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201704", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201705", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201705", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201706", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201706", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201707", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201707", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201708", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201708", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201709", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201709", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201710", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201710", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201711", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201711", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201712", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201712", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201801", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201801", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201802", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201802", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201803", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201803", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201804", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201804", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201805", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201805", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201806", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201806", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201807", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201807", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201808", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201808", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201809", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201809", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201810", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201810", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201811", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201811", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201812", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201812", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201901", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201901", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201902", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201902", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201903", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201903", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201904", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201904", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201905", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201905", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201906", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201906", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201907", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201907", ["cid"], :name => "cid"
+
+  create_table "npay_add_cost_detail_3_201908", :id => false, :force => true do |t|
+    t.integer "cid",                                  :null => false
+    t.integer "sid",                                  :null => false
+    t.decimal "summa", :precision => 15, :scale => 2, :null => false
+  end
+
+  add_index "npay_add_cost_detail_3_201908", ["cid"], :name => "cid"
+
+  create_table "npay_detail_3_200706", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200706", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200706", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200706", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200706", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200707", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200707", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200707", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200707", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200707", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200708", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200708", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200708", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200708", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200708", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200709", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200709", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200709", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200709", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200709", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200710", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200710", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200710", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200710", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200710", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200711", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200711", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200711", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200711", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200711", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200712", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200712", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200712", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200712", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200712", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200801", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200801", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200801", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200801", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200801", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200802", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200802", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200802", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200802", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200802", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200803", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200803", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200803", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200803", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200803", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200804", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200804", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200804", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200804", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200804", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200805", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200805", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200805", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200805", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200805", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200806", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200806", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200806", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200806", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200806", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200807", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200807", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200807", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200807", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200807", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200808", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200808", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200808", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200808", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200808", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200809", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200809", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200809", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200809", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200809", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200810", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200810", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200810", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200810", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200810", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200811", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200811", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200811", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200811", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200811", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200812", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200812", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200812", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200812", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200812", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200901", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200901", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200901", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200901", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200901", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200902", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200902", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200902", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200902", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200902", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200903", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200903", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200903", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200903", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200903", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200904", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200904", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200904", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200904", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200904", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200905", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200905", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200905", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200905", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200905", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200906", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200906", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200906", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200906", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200906", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200907", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200907", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200907", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200907", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200907", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200908", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200908", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200908", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200908", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200908", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200909", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200909", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200909", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200909", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200909", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200910", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200910", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200910", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200910", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200910", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200911", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200911", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200911", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200911", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200911", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_200912", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_200912", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_200912", ["mid"], :name => "mid"
+  add_index "npay_detail_3_200912", ["sid"], :name => "sid"
+  add_index "npay_detail_3_200912", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201001", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201001", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201001", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201001", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201002", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201002", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201002", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201002", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201003", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201003", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201003", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201003", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201004", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201004", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201004", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201004", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201005", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201005", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201005", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201005", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201006", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201006", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201006", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201006", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201007", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201007", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201007", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201007", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201008", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201008", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201008", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201008", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201009", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201009", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201009", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201009", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201010", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201010", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201010", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201010", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201011", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201011", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201011", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201011", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201012", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201012", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201012", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201012", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201101", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201101", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201101", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201101", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201102", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201102", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201102", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201102", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201103", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+    t.integer "col",                  :null => false
+    t.integer "treeId",               :null => false
+  end
+
+  add_index "npay_detail_3_201103", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201103", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201103", ["sid"], :name => "sid"
+
+  create_table "npay_detail_3_201104", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201104", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201104", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201104", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201104", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201105", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201105", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201105", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201105", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201105", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201106", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201106", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201106", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201106", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201106", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201107", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201107", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201107", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201107", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201107", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201108", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201108", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201108", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201108", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201108", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201109", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201109", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201109", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201109", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201109", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201110", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201110", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201110", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201110", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201110", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201111", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201111", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201111", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201111", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201111", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201112", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201112", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201112", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201112", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201112", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201201", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201201", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201201", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201201", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201201", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201202", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201202", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201202", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201202", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201202", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201203", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201203", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201203", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201203", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201203", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201204", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201204", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201204", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201204", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201204", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201205", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201205", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201205", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201205", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201205", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201206", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201206", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201206", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201206", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201206", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201207", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201207", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201207", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201207", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201207", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201208", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201208", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201208", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201208", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201208", ["sid"], :name => "treeId"
+
+  create_table "npay_detail_3_201209", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201209", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201209", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201209", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201209", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201210", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201210", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201210", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201210", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201210", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201211", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201211", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201211", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201211", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201211", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201212", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201212", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201212", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201212", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201212", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201301", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201301", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201301", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201301", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201301", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201302", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201302", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201302", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201302", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201302", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201303", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201303", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201303", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201303", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201303", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201304", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201304", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201304", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201304", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201304", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201305", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201305", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201305", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201305", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201305", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201306", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201306", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201306", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201306", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201306", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201307", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201307", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201307", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201307", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201307", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201308", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201308", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201308", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201308", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201308", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201309", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201309", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201309", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201309", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201309", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201310", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201310", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201310", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201310", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201310", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201311", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201311", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201311", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201311", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201311", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201312", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201312", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201312", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201312", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201312", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201401", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201401", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201401", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201401", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201401", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201402", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201402", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201402", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201402", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201402", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201403", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201403", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201403", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201403", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201403", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201404", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201404", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201404", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201404", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201404", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201405", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201405", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201405", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201405", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201405", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201406", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201406", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201406", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201406", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201406", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201407", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201407", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201407", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201407", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201407", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201408", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201408", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201408", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201408", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201408", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201409", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201409", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201409", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201409", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201409", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201410", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201410", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201410", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201410", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201410", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201411", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201411", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201411", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201411", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201411", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201412", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201412", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201412", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201412", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201412", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201501", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201501", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201501", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201501", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201501", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201502", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201502", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201502", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201502", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201502", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201503", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201503", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201503", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201503", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201503", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201504", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201504", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201504", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201504", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201504", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201505", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201505", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201505", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201505", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201505", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201506", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201506", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201506", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201506", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201506", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201507", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201507", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201507", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201507", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201507", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201508", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201508", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201508", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201508", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201508", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201509", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201509", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201509", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201509", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201509", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201510", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201510", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201510", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201510", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201510", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201511", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201511", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201511", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201511", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201511", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201512", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201512", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201512", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201512", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201512", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201601", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201601", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201601", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201601", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201601", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201602", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201602", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201602", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201602", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201602", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201603", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201603", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201603", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201603", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201603", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201604", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201604", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201604", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201604", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201604", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201605", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201605", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201605", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201605", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201605", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201606", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201606", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201606", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201606", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201606", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201607", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201607", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201607", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201607", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201607", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201608", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201608", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201608", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201608", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201608", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201609", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201609", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201609", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201609", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201609", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201610", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201610", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201610", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201610", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201610", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201611", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201611", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201611", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201611", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201611", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201612", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201612", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201612", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201612", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201612", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201701", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201701", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201701", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201701", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201701", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201702", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201702", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201702", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201702", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201702", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201703", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201703", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201703", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201703", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201703", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201704", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201704", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201704", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201704", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201704", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201705", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201705", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201705", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201705", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201705", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201706", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201706", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201706", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201706", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201706", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201707", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201707", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201707", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201707", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201707", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201708", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201708", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201708", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201708", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201708", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201709", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201709", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201709", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201709", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201709", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201710", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201710", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201710", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201710", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201710", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201711", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201711", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201711", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201711", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201711", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201712", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201712", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201712", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201712", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201712", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201801", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201801", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201801", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201801", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201801", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201802", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201802", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201802", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201802", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201802", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201803", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201803", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201803", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201803", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201803", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201804", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201804", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201804", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201804", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201804", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201805", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201805", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201805", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201805", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201805", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201806", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201806", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201806", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201806", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201806", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201807", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201807", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201807", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201807", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201807", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201808", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201808", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201808", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201808", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201808", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201809", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201809", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201809", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201809", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201809", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201810", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201810", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201810", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201810", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201810", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201811", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201811", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201811", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201811", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201811", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201812", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201812", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201812", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201812", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201812", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201901", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201901", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201901", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201901", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201901", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201902", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201902", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201902", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201902", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201902", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201903", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201903", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201903", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201903", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201903", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201904", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201904", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201904", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201904", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201904", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201905", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201905", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201905", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201905", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201905", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201906", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201906", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201906", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201906", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201906", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201907", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201907", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201907", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201907", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201907", ["treeId"], :name => "treeId"
+
+  create_table "npay_detail_3_201908", :id => false, :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "mid",                  :null => false
+    t.integer "eid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.integer "treeId",               :null => false
+    t.integer "col",                  :null => false
+    t.float   "summa",  :limit => 15, :null => false
+  end
+
+  add_index "npay_detail_3_201908", ["cid", "mid", "eid"], :name => "cid_mid_eid"
+  add_index "npay_detail_3_201908", ["mid"], :name => "mid"
+  add_index "npay_detail_3_201908", ["sid"], :name => "sid"
+  add_index "npay_detail_3_201908", ["treeId"], :name => "treeId"
 
   create_table "npay_service_object_3", :force => true do |t|
     t.integer "cid",                    :null => false
@@ -1984,7 +18053,7 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string  "title",   :limit => 250, :default => "",    :null => false
     t.boolean "type",                   :default => false, :null => false
     t.string  "comment",                                   :null => false
-    t.integer "history", :limit => 1,                      :null => false
+    t.integer "flags",   :limit => 1,   :default => 0
   end
 
   create_table "object_param_value_address", :id => false, :force => true do |t|
@@ -2124,6 +18193,20 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "payment_register_item", ["rid"], :name => "rid"
 
+  create_table "payment_register_item_201105", :force => true do |t|
+    t.string  "unique_id", :limit => 20,                                                  :null => false
+    t.integer "rid",                                                     :default => 0
+    t.integer "cid",                                                     :default => 0
+    t.date    "dt"
+    t.decimal "summa",                    :precision => 10, :scale => 2, :default => 0.0
+    t.integer "pid",                                                     :default => 0
+    t.integer "ptid",                                                    :default => 0
+    t.string  "comment",   :limit => 200,                                :default => ""
+  end
+
+  add_index "payment_register_item_201105", ["rid"], :name => "rid"
+  add_index "payment_register_item_201105", ["unique_id"], :name => "unique_id"
+
   create_table "periodic_errors", :force => true do |t|
     t.string "marker",    :limit => 250, :null => false
     t.date   "calc_date"
@@ -2134,6 +18217,15 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   create_table "plugin_config", :primary_key => "pid", :force => true do |t|
     t.text "config"
+  end
+
+  create_table "qiwi_transaction_15", :force => true do |t|
+    t.integer  "cid"
+    t.datetime "create_date"
+    t.datetime "end_date"
+    t.decimal  "summ",        :precision => 10, :scale => 2
+    t.integer  "status"
+    t.string   "add_key"
   end
 
   create_table "register_group_task_type", :id => false, :force => true do |t|
@@ -2187,6 +18279,7 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.string   "discard",           :limit => 400
     t.string   "mac"
     t.string   "hardware"
+    t.string   "birthplace"
   end
 
   create_table "requeststatuses", :force => true do |t|
@@ -2194,6 +18287,36 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end
+
+  create_table "rscm_service_account_5_201007", :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.date    "date"
+    t.integer "amount",  :limit => 8
+    t.text    "comment",              :null => false
+  end
+
+  add_index "rscm_service_account_5_201007", ["cid"], :name => "cid"
+
+  create_table "rscm_service_account_5_201010", :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.date    "date"
+    t.integer "amount",  :limit => 8
+    t.text    "comment",              :null => false
+  end
+
+  add_index "rscm_service_account_5_201010", ["cid"], :name => "cid"
+
+  create_table "rscm_service_account_5_201011", :force => true do |t|
+    t.integer "cid",                  :null => false
+    t.integer "sid",                  :null => false
+    t.date    "date"
+    t.integer "amount",  :limit => 8
+    t.text    "comment",              :null => false
+  end
+
+  add_index "rscm_service_account_5_201011", ["cid"], :name => "cid"
 
   create_table "scheduled_class", :force => true do |t|
     t.string "title", :limit => 200
@@ -2213,18 +18336,20 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   end
 
   create_table "scheduled_tasks", :force => true do |t|
-    t.integer "mm",       :limit => 8, :default => 0,  :null => false
-    t.integer "dm",                    :default => 0,  :null => false
-    t.integer "dw",       :limit => 1, :default => 0,  :null => false
-    t.integer "hh",                    :default => 0,  :null => false
-    t.integer "min",      :limit => 8, :default => 0,  :null => false
-    t.integer "prior",                 :default => 0,  :null => false
+    t.integer "mm",        :limit => 8, :default => 0,   :null => false
+    t.integer "dm",                     :default => 0,   :null => false
+    t.integer "dw",        :limit => 1, :default => 0,   :null => false
+    t.integer "hh",                     :default => 0,   :null => false
+    t.integer "min",       :limit => 8, :default => 0,   :null => false
+    t.integer "prior",                  :default => 0,   :null => false
     t.date    "date1"
     t.date    "date2"
-    t.integer "status",   :limit => 1, :default => 0,  :null => false
-    t.integer "class_id",              :default => 0,  :null => false
-    t.string  "comment",               :default => "", :null => false
-    t.text    "params",                                :null => false
+    t.integer "status",    :limit => 1, :default => 0,   :null => false
+    t.integer "class_id",               :default => 0,   :null => false
+    t.string  "class",                                   :null => false
+    t.string  "module_id", :limit => 5, :default => "0", :null => false
+    t.string  "comment",                :default => "",  :null => false
+    t.text    "params",                                  :null => false
   end
 
   create_table "script", :force => true do |t|
@@ -2308,6 +18433,63 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
 
   add_index "service", ["mid"], :name => "mid"
 
+  create_table "session_account_6_201407", :id => false, :force => true do |t|
+    t.integer "cid",                      :null => false
+    t.integer "session_id",               :null => false
+    t.integer "sid",                      :null => false
+    t.float   "summa",      :limit => 10, :null => false
+  end
+
+  add_index "session_account_6_201407", ["cid"], :name => "cid"
+
+  create_table "session_account_6_201408", :id => false, :force => true do |t|
+    t.integer "cid",                      :null => false
+    t.integer "session_id",               :null => false
+    t.integer "sid",                      :null => false
+    t.float   "summa",      :limit => 10, :null => false
+  end
+
+  add_index "session_account_6_201408", ["cid"], :name => "cid"
+
+  create_table "session_account_6_201409", :id => false, :force => true do |t|
+    t.integer "cid",                      :null => false
+    t.integer "session_id",               :null => false
+    t.integer "sid",                      :null => false
+    t.float   "summa",      :limit => 10, :null => false
+  end
+
+  add_index "session_account_6_201409", ["cid"], :name => "cid"
+
+  create_table "session_detail_6_201407", :id => false, :force => true do |t|
+    t.integer  "session_id",              :null => false
+    t.integer  "sid",                     :null => false
+    t.integer  "cid",                     :null => false
+    t.datetime "dtime",                   :null => false
+    t.integer  "amount",     :limit => 8, :null => false
+  end
+
+  add_index "session_detail_6_201407", ["cid"], :name => "cid"
+
+  create_table "session_detail_6_201408", :id => false, :force => true do |t|
+    t.integer  "session_id",              :null => false
+    t.integer  "sid",                     :null => false
+    t.integer  "cid",                     :null => false
+    t.datetime "dtime",                   :null => false
+    t.integer  "amount",     :limit => 8, :null => false
+  end
+
+  add_index "session_detail_6_201408", ["cid"], :name => "cid"
+
+  create_table "session_detail_6_201409", :id => false, :force => true do |t|
+    t.integer  "session_id",              :null => false
+    t.integer  "sid",                     :null => false
+    t.integer  "cid",                     :null => false
+    t.datetime "dtime",                   :null => false
+    t.integer  "amount",     :limit => 8, :null => false
+  end
+
+  add_index "session_detail_6_201409", ["cid"], :name => "cid"
+
   create_table "setup", :force => true do |t|
     t.string "value", :default => "", :null => false
   end
@@ -2383,6 +18565,35 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "tariff_change_task", ["cid"], :name => "cid"
   add_index "tariff_change_task", ["ex_time"], :name => "ex_time"
 
+  create_table "tariff_detail_6_201009", :id => false, :force => true do |t|
+    t.integer "cid",                       :null => false
+    t.integer "cost_type_id",              :null => false
+    t.integer "amount",       :limit => 8, :null => false
+    t.float   "cost",                      :null => false
+  end
+
+  add_index "tariff_detail_6_201009", ["cid"], :name => "cid"
+
+  create_table "tariff_detail_6_201206", :id => false, :force => true do |t|
+    t.integer "cid",                                                      :null => false
+    t.integer "sid",                                                      :null => false
+    t.integer "cost_type_id",                                             :null => false
+    t.integer "amount",       :limit => 8,                                :null => false
+    t.decimal "cost",                      :precision => 12, :scale => 5, :null => false
+  end
+
+  add_index "tariff_detail_6_201206", ["cid"], :name => "cid"
+
+  create_table "tariff_detail_6_201312", :id => false, :force => true do |t|
+    t.integer "cid",                                                      :null => false
+    t.integer "sid",                                                      :null => false
+    t.integer "cost_type_id",                                             :null => false
+    t.integer "amount",       :limit => 8,                                :null => false
+    t.decimal "cost",                      :precision => 12, :scale => 5, :null => false
+  end
+
+  add_index "tariff_detail_6_201312", ["cid"], :name => "cid"
+
   create_table "tariff_group", :force => true do |t|
     t.string  "title", :limit => 200, :default => "", :null => false
     t.integer "tm",    :limit => 1,   :default => 0,  :null => false
@@ -2445,13 +18656,14 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   add_index "tariff_option_activate_mode", ["option_id"], :name => "option_id"
 
   create_table "tariff_plan", :force => true do |t|
-    t.string   "title",   :limit => 200, :default => "", :null => false
-    t.datetime "lm",                                     :null => false
-    t.integer  "actual",                 :default => 0,  :null => false
-    t.integer  "gr",      :limit => 8,                   :null => false
+    t.string   "title",     :limit => 200, :default => "", :null => false
+    t.string   "title_web"
+    t.datetime "lm",                                       :null => false
+    t.integer  "actual",                   :default => 0,  :null => false
+    t.integer  "gr",        :limit => 8,                   :null => false
     t.string   "pattern"
-    t.integer  "face",    :limit => 1
-    t.integer  "tree_id",                                :null => false
+    t.integer  "face",      :limit => 1
+    t.integer  "tree_id",                                  :null => false
   end
 
   create_table "tariff_tree", :force => true do |t|
@@ -2546,6 +18758,7 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
     t.integer  "crm_user_id",                                 :null => false
     t.integer  "cgr_mode",     :limit => 1,   :default => 1,  :null => false
     t.string   "email",        :limit => 50,                  :null => false
+    t.integer  "ch_pswd",      :limit => 1,   :default => 0,  :null => false
   end
 
   add_index "user", ["login"], :name => "login"
@@ -2638,6 +18851,12 @@ ActiveRecord::Schema.define(:version => 20160218101315) do
   end
 
   add_index "user_user_access", ["user_id", "ma_id"], :name => "user_id_2"
+
+  create_table "web_menu", :force => true do |t|
+    t.boolean "default", :default => false, :null => false
+    t.string  "title",   :default => "",    :null => false
+    t.text    "data",                       :null => false
+  end
 
   create_table "web_request_count", :id => false, :force => true do |t|
     t.integer "cid",   :default => 0, :null => false

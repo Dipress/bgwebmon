@@ -17,29 +17,30 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-every 1.day, at: '2:30 pm' do
-  runner "Sms.send_debt_messages"
-end
+############## 07.08.2019 ########################
+# every 1.day, at: '2:30 pm' do
+#   runner "Sms.send_debt_messages"
+# end
 
-every "2 * * * *" do
-  runner "ChangesTasks.new.send_changes"
-end
+# every "2 * * * *" do
+#   runner "ChangesTasks.new.send_changes"
+# end
 
-every 1.hours do
-  runner "MikrotikMembersTasks.datagenerate"
-end
+# every 1.hours do
+#   runner "MikrotikMembersTasks.datagenerate"
+# end
 
-every 1.day, at: '10:00 pm' do
-  runner "BalanceNotificationsTasks.notification_new"
-end
+# every 1.day, at: '10:00 pm' do
+#   runner "BalanceNotificationsTasks.notification_new"
+# end
 
 
-every 1.day, at: '11:00 pm' do
-  runner "YealinksTasks.mobiledata"
-end
+# every 1.day, at: '11:00 pm' do
+#   runner "YealinksTasks.mobiledata"
+# end
 
-every 1.day, at: '21:00 pm' do
-  runner "UsersFullyDataTasks.data_by_node"
-end
-
+# every 1.day, at: '21:00 pm' do
+#   runner "UsersFullyDataTasks.data_by_node"
+# end
+###############################################
 # Learn more: http://github.com/javan/whenever
